@@ -164,7 +164,7 @@
 
             <!-- Retrieve Account Data -->
             <?php
-				$retrieve = ("SELECT productList_id, productList_barcode, productList_name, productList_price, productList_status FROM product_list");
+				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN category_list AS C ON P.category_id = C.category_id");
 				$results = mysqli_query($db, $retrieve);
 			?>
 
@@ -197,7 +197,7 @@
                                     <?php echo $data["productList_name"]; ?>
                                 </td>
                                 <td data-title="Category">
-                                    
+                                    <?php echo $data["category_name"]; ?>
                                 </td>
                                 <td data-title="price">
                                     <?php echo $data["productList_price"]; ?>
