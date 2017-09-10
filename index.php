@@ -113,7 +113,7 @@ header('Location: login.php');
 
                 <!-- Activity Logs menu -->
                 <li>
-                    <a class="" href="log_Activity.php">
+                    <a href="log_Activity.php">
                         <i class="fa fa-book"></i> Activity Logs
                     </a>
                 </li>

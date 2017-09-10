@@ -72,10 +72,10 @@
                 </ul>
 
                 <!-- Settings Submenu -->
-                <li data-toggle="collapse atarget" data-target="#service" class="collapsed">
+                <li data-toggle="collapse" data-target="#service" class="collapsed">
                     <i class="fa fa-user"></i> Me <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse" id="service">
+                <ul class="sub-menu collapse atarget" id="service">
                     <li><a href="accounts_Info.php"><i class="fa fa-user-circle" aria-hidden="true"></i> Account Info</a></li>
                     <li><a href="Settings.php"><i class="fa fa-cog"></i> Settings</a></li>
                 </ul>
@@ -100,7 +100,7 @@
 
                 <!-- Activity Logs menu -->
                 <li>
-                    <a class="" href="log_Activity.php">
+                    <a href="log_Activity.php">
                         <i class="fa fa-book"></i> Activity Logs
                     </a>
                 </li>
@@ -121,17 +121,17 @@
                     </span>
                 </div>
                 <li class="sub-menu_nc">
-                    <a class="" href="issuance.php">
+                    <a href="issuance.php">
                         <i class="fa fa-external-link" aria-hidden="true"></i> Issuance List
                     </a>
                 </li>
                 <li class="sub-menu_nc">
-                    <a class="" href="issuance_BadOrder.php">
+                    <a href="issuance_BadOrder.php">
                         <i class="fa fa-window-close" aria-hidden="true"></i> Bad Order List
                     </a>
                 </li>
                 <li class="sub-menu_nc">
-                    <a class="" href="issuance_Returns.php">
+                    <a href="issuance_Returns.php">
                         <i class="fa fa-external-link fa-rotate-180" aria-hidden="true"></i> Returns/Pull Out List
                     </a>
                 </li>
@@ -147,7 +147,7 @@
                     </a>
                 </li>
                 <li class="sub-menu_nc">
-                    <a class="" href="inventory.php">
+                    <a href="inventory.php">
                         <i class="fa fa-book"> </i> Inventory List
                     </a>
                 </li>
