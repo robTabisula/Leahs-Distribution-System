@@ -1,0 +1,102 @@
+/****** Searchable container */
+
+.title {
+    margin-left: 20px
+}
+
+.fa-user {}
+
+.searchable-container {
+    margin-top: 40px;
+}
+
+.glyphicon-lg {
+    font-size: 4em
+}
+
+.info-block {
+    border-right: 5px solid #E6E6E6;
+    margin-bottom: 25px
+}
+
+.info-block .square-box {
+    width: 120px;
+    min-height: 120px;
+    margin-right: 22px;
+    text-align: center!important;
+    background-color: #676767;
+    padding: 20px 0
+}
+
+.info-block:hover .info-block.block-info {
+    border-color: #20819e
+}
+
+.info-block.block-info .square-box {
+    background-color: #5bc0de;
+    color: #FFF
+}
+
+
+/*   */
+
+.col-sm-9 {
+    padding-right: 10%;
+    margin-top: 20px;
+    min-width: 20%;
+    float: right;
+    position: relative;
+}
+
+.btn-compose-email {
+    padding: 10px 0px;
+    margin-bottom: 20px;
+}
+
+.btn-danger {
+    background-color: #E9573F;
+    border-color: #E9573F;
+    color: white;
+}
+
+.panel-teal .panel-heading {
+    background-color: #37BC9B;
+    border: 1px solid #36b898;
+    color: white;
+}
+
+.panel .panel-heading {
+    padding: 5px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border-bottom: 1px solid #DDD;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.panel .panel-heading .panel-title {
+    padding: 10px;
+    font-size: 17px;
+}
+
+form .form-group {
+    position: relative;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.inner-all {
+    padding: 10px;
+}
+
+.pie{
+    width: 70%;
+    text-align: center;
+}
+
+
+/*font Awesome http://fontawesome.io*/
+
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
