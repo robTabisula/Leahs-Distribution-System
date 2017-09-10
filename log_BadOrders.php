@@ -101,7 +101,7 @@
 
                 <!-- Activity Logs menu -->
                 <li>
-                    <a class="" href="log_Activity.php">
+                    <a href="log_Activity.php">
                         <i class="fa fa-book"></i> Activity Logs
                     </a>
                 </li>
@@ -122,17 +122,17 @@
                     </span>
                 </div>
                 <li class="sub-menu_nc">
-                    <a class="" href="issuance.php">
+                    <a href="issuance.php">
                         <i class="fa fa-external-link" aria-hidden="true"></i> Issuance List
                     </a>
                 </li>
                 <li class="sub-menu_nc">
-                    <a class="" href="issuance_BadOrder.php">
+                    <a href="issuance_BadOrder.php">
                         <i class="fa fa-window-close" aria-hidden="true"></i> Bad Order List
                     </a>
                 </li>
                 <li class="sub-menu_nc">
-                    <a class="" href="issuance_Returns.php">
+                    <a href="issuance_Returns.php">
                         <i class="fa fa-external-link fa-rotate-180" aria-hidden="true"></i> Returns/Pull Out List
                     </a>
                 </li>

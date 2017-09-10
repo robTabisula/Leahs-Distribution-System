@@ -223,7 +223,11 @@ body {
 
 .atarget li a{
     display: inline-block;
-    width: 93%;
     margin-right: 0px;
     vertical-align: middle;
+    width: 93%;
+}
+.menu-content > li a{
+    display: inline-block;
+    width: 100%;
 }
