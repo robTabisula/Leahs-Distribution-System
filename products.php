@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Accounts</title>
+    <title>Product List</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -159,64 +159,56 @@
     <div id="page-content-wrapper">
         <div class="container">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Accounts</h1>
+                <h1 align="center">Product List</h1>
             </table>
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT acc_id, username, first_name, last_name, email, contact_no, status FROM accounts ");
-							$results = mysqli_query($db, $retrieve);
-						?>
+				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN category_list AS C ON P.category_id = C.category_id");
+				$results = mysqli_query($db, $retrieve);
+			?>
 
                 <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
                 </table>
 
                 <!-- Table Display for Accounts -->
                 <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th>Account ID</th>
-                            <th>Username</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
+                            <th>Barcode</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
                             <th>Status</th>
                         </tr>
                     </thead>
 
-                    <tbod y>
+                    <tbody>
                         <?php
 							foreach ($results as $data):
-								$toData = $data["acc_id"];
+								$toData = $data["productList_id"];
 						?>
                             <tr>
-                                <td data-title="accountID">
-                                    <?php echo $data["acc_id"]; ?>
+                                <td data-title="barcode">
+                                    <?php echo $data["productList_barcode"]; ?>
                                 </td>
-                                <td data-title="user_name">
-                                    <?php echo $data["username"]; ?>
+                                <td data-title="productname">
+                                    <?php echo $data["productList_name"]; ?>
                                 </td>
-                                <td data-title="fname">
-                                    <?php echo $data["first_name"]; ?>
+                                <td data-title="Category">
+                                    <?php echo $data["category_name"]; ?>
                                 </td>
-                                <td data-title="lname">
-                                    <?php echo $data["last_name"]; ?>
-                                </td>
-                                <td data-title="mail">
-                                    <?php echo $data["email"]; ?>
-                                </td>
-                                <td data-title="cno">
-                                    <?php echo $data["contact_no"]; ?>
+                                <td data-title="price">
+                                    <?php echo $data["productList_price"]; ?>
                                 </td>
                                 <td data-title="status">
-                                    <?php echo $data["status"]; ?>
+                                    <?php echo $data["productList_status"]; ?>
                                 </td>
                             </tr>
                             <?php
-							endforeach;
-						?>
+								endforeach;
+							?>
                             </tbody>
                 </table>
 
@@ -227,30 +219,42 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Account</h4>
+                                <h4 class="modal-title">Add Product</h4>
                             </div>
                             <div class="modal-body">
                                 <form action="addAccounts.php" method="POST" onsubmit="return validateForm()">
-                                    <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="username" required>
+                                    <h3>Barcode</h3>
+                                    <input type="text" class="form-control" maxlength="25" name="barcode" required>
 
-                                    <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="firstname" required>
+                                    <h3>Product Name</h3>
+                                    <input type="text" class="form-control" maxlength="25" name="pname" required>
 
-                                    <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="lastname" required>
+                                    <h3>Product Category</h3>
+                                    <?php
+										$retrieveCat = ("SELECT category_id, category_name, 
+										 category_status FROM category_list");
+										$categoryResult = mysqli_query($db, $retrieveCat);
+									?>
 
-                                    <h3>Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password" required>
+                                    <select name="Product Category">
+				                        <?php
+											foreach ($categoryResult as $data):
+												$toData = $data["category_id"];
+										?>
+                                    	<option value=""> <?php echo $data["category_name"]; ?></option>
+                                	   <?php
+											endforeach;
+										?>
+                                	</select>
+    	                         
 
-                                    <h3>Confirm Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password_2" required>
 
-                                    <h3>Email</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="email" required>
+                                    <h3>Price</h3>
+                                    <input type="password" class="form-control" maxlength="25" name="price" required>
 
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="contact_no" required>
+                                    <h3>Status</h3>
+                                    <input type="password" class="form-control" maxlength="25" name="status" required>
+                               
 
                                     <div class="modal-footer">
                                         <input name="reg_user" type="submit" class="btn btn-default" value=" Submit " />
