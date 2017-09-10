@@ -222,7 +222,7 @@
                                 <h4 class="modal-title">Add Product</h4>
                             </div>
                             <div class="modal-body">
-                                <form action="addAccounts.php" method="POST" onsubmit="return validateForm()">
+                                <form action="fragments/addProduct.php" method="POST" onsubmit="return validateForm()">
                                     <h3>Barcode</h3>
                                     <input type="text" class="form-control" maxlength="25" name="barcode" required>
 
@@ -236,12 +236,14 @@
 										$categoryResult = mysqli_query($db, $retrieveCat);
 									?>
 
-                                    <select name="Product Category">
+                                    <select name="ProductCategory" >
 				                        <?php
 											foreach ($categoryResult as $data):
 												$toData = $data["category_id"];
 										?>
-                                    	<option value=""> <?php echo $data["category_name"]; ?></option>
+
+                                    	<option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
+                                	  
                                 	   <?php
 											endforeach;
 										?>
@@ -250,14 +252,17 @@
 
 
                                     <h3>Price</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="price" required>
+                                    <input type="text" class="form-control" maxlength="25" name="price" required>
 
                                     <h3>Status</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="status" required>
+                                     <select name="status">
+                                     	<option value="Enabled">Enabled</option>
+                                     	<option value="Disabled">Disabled</option>
+                                     </select>
                                
 
                                     <div class="modal-footer">
-                                        <input name="reg_user" type="submit" class="btn btn-default" value=" Submit " />
+                                        <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
