@@ -66,7 +66,7 @@
                 <li data-toggle="collapse" data-target="#products" class="collapsed">
                     <i class="fa fa-exclamation"></i> Requests <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse" id="products">
+                <ul class="sub-menu collapse atarget" id="products">
                     <li><a id="pending" href="request_Pending.php"><i class="fa fa-clock-o"></i> Pending Requests</a></li>
                     <li><a id="approved" href="request_Approved.php"><i class="fa fa-check"></i> Approved Request</a></li>
                     <li><a id="denied" href="request_Denied.php"><i class="fa fa-ban"></i> Denied Request</a></li>
@@ -76,7 +76,7 @@
                 <li data-toggle="collapse" data-target="#service" class="collapsed">
                     <i class="fa fa-user"></i> Me <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse" id="service">
+                <ul class="sub-menu collapse atarget" id="service">
                     <li><a href="accounts_Info.php"><i class="fa fa-user-circle" aria-hidden="true"></i> Account Info</a></li>
                     <li><a href="Settings.php"><i class="fa fa-cog"></i> Settings</a></li>
                 </ul>
@@ -85,7 +85,7 @@
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse" id="accounts">
+                <ul class="sub-menu collapse atarget" id="accounts">
                     <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
                 </ul>
@@ -94,7 +94,7 @@
                 <li data-toggle="collapse" data-target="#reports" class="collapsed">
                     <i class="fa fa-line-chart" aria-hidden="true"></i> Reports <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse" id="reports">
+                <ul class="sub-menu collapse atarget" id="reports">
                     <li>
                         <a href="reports_Client.php"><i class="fa fa-table" aria-hidden="true"></i> Client Reports </a>
                     </li>
@@ -114,7 +114,7 @@
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
                     <i class="fa fa-list" aria-hidden="true"></i> Issuance Logs <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse" id="issue">
+                <ul class="sub-menu collapse atarget" id="issue">
                     <li><a class="sub-a" href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
                     <li><a class="sub-a" href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li><a class="sub-a" href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Reports </a></li>

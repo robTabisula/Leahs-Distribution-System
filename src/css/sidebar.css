@@ -221,7 +221,7 @@ body {
     display: block;
 }
 
-ul li a{
+.atarget li a{
     display: inline-block;
     width: 93%;
     margin-right: 0px;
