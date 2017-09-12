@@ -1,3 +1,62 @@
-.page-content-wrapper{
-    width: 60%;
+.containers {
+    padding: 0px;
+    margin: 0px;
+    float: right;
+    width: 79%;
+    padding-right: 5%;
+}
+
+@media (max-width: 1600px) {
+    .containers {
+        width: 75%;
+        padding-right: 4%;
+    }
+    ;
+}
+
+@media (max-width: 1400px) {
+    .containers {
+        width: 73%;
+        padding-right 3%;: 
+    }
+    ;
+}
+
+@media (max-width: 1260px) {
+    .containers {
+        width: 70%;
+        padding-right: 2%; 
+    }
+    ;
+}
+
+@media (max-width: 1150px) {
+    .containers {
+        width: 67%;
+    }
+    ;
+}
+
+@media (max-width: 1000px) {
+    .containers {
+        width: 63%;
+        padding-right: 2%;
+    }
+    ;
+}
+
+@media (max-width: 900px) {
+    .containers {
+        width: 60%;
+        padding-right: 3%;
+    }
+    ;
+}
+
+@media (max-width: 800px) {
+    .containers {
+        width: 90%;
+        padding-right: 10%;
+    }
+    ;
 }
