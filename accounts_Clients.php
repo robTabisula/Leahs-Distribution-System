@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -33,6 +34,7 @@
                 responsive: true
             });
         });
+
     </script>
 </head>
 
@@ -93,7 +95,7 @@
                 <li data-toggle="collapse" data-target="#reports" class="collapsed">
                     <i class="fa fa-line-chart" aria-hidden="true"></i> Reports <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse atarget"  id="reports">
+                <ul class="sub-menu collapse atarget" id="reports">
                     <li> <a href="reports_Client.php"><i class="fa fa-table" aria-hidden="true"></i> Client Reports </a></li>
                     <li> <a href="reports_Product.php"><i class="fa fa-table" aria-hidden="true"></i> Product Reports </a></li>
                 </ul>
@@ -109,7 +111,7 @@
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
                     <i class="fa fa-list" aria-hidden="true"></i> Issuance Logs <span class="arrow"></span>
                 </li>
-                <ul class="sub-menu collapse atarget"  id="issue">
+                <ul class="sub-menu collapse atarget" id="issue">
                     <li> <a href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Reports </a></li>
@@ -158,7 +160,7 @@
 
     <!-- Main Container -->
     <div id="page-content-wrapper">
-        <div class="container">
+        <div class="containers">
             <table class="table table-striped table-bordered">
                 <h1 align="center">Clients</h1>
             </table>
@@ -272,4 +274,5 @@
         }
         return true;
     }
+
 </script>
