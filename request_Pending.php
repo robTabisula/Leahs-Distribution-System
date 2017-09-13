@@ -1,3 +1,11 @@
+<?php  
+session_start();  
+  
+if(!$_SESSION['username'])  {  
+  
+    header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +54,10 @@
         </div>
 
         <div class="user_info">
-            <span>Welcome, _____. </span>
+            <span>Welcome, <?php
+                echo $_SESSION['username'];
+                ?> 
+            </span>
             <a href="fragments/logout.php">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
             </a>
@@ -161,108 +172,9 @@
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Accounts</h1>
+                <h1 align="center">Pending Request</h1>
             </table>
 
-            <!-- Retrieve Account Data -->
-            <?php
-							$retrieve = ("SELECT acc_id, username, first_name, last_name, email, contact_no, status FROM accounts ");
-							$results = mysqli_query($db, $retrieve);
-						?>
-
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
-                </table>
-
-                <!-- Table Display for Accounts -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Username</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbod y>
-                        <?php
-							foreach ($results as $data):
-								$toData = $data["acc_id"];
-						?>
-                            <tr>
-                                <td data-title="accountID">
-                                    <?php echo $data["acc_id"]; ?>
-                                </td>
-                                <td data-title="user_name">
-                                    <?php echo $data["username"]; ?>
-                                </td>
-                                <td data-title="fname">
-                                    <?php echo $data["first_name"]; ?>
-                                </td>
-                                <td data-title="lname">
-                                    <?php echo $data["last_name"]; ?>
-                                </td>
-                                <td data-title="mail">
-                                    <?php echo $data["email"]; ?>
-                                </td>
-                                <td data-title="cno">
-                                    <?php echo $data["contact_no"]; ?>
-                                </td>
-                                <td data-title="status">
-                                    <?php echo $data["status"]; ?>
-                                </td>
-                            </tr>
-                            <?php
-							endforeach;
-						?>
-                            </tbody>
-                </table>
-
-                <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Account</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form action="addAccounts.php" method="POST" onsubmit="return validateForm()">
-                                    <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="username" required>
-
-                                    <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="firstname" required>
-
-                                    <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="lastname" required>
-
-                                    <h3>Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password" required>
-
-                                    <h3>Confirm Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password_2" required>
-
-                                    <h3>Email</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="email" required>
-
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="contact_no" required>
-
-                                    <div class="modal-footer">
-                                        <input name="reg_user" type="submit" class="btn btn-default" value=" Submit " />
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
         </div>
     </div>
 

@@ -1,3 +1,11 @@
+<?php  
+session_start();  
+  
+if(!$_SESSION['username'])  {  
+  
+    header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +54,10 @@
         </div>
 
         <div class="user_info">
-            <span>Welcome, _____. </span>
+            <span>Welcome, <?php
+                echo $_SESSION['username'];
+                ?> 
+            </span>
             <a href="fragments/logout.php">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
             </a>

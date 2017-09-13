@@ -1,3 +1,11 @@
+<?php  
+session_start();  
+  
+if(!$_SESSION['username'])  {  
+  
+    header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +53,9 @@
         </div>
 
         <div class="user_info">
-            <span>Welcome, _____. </span>
+            <span>Welcome, <?php
+                echo $_SESSION['username'];
+                ?> </span>
             <a href="fragments/logout.php">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
             </a>
@@ -157,16 +167,16 @@
     <!-- /#sidebar-wrapper -->
     <!-- Main Container -->
     <div id="page-content-wrapper">
-        <div class="container">
+        <div class="containers">
             <table class="table table-striped table-bordered">
                 <h1 align="center">Product List</h1>
             </table>
 
             <!-- Retrieve Account Data -->
             <?php
-				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN category_list AS C ON P.category_id = C.category_id");
-				$results = mysqli_query($db, $retrieve);
-			?>
+				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN product_loc L ON P.productList_id = L.product_id INNER JOIN category_list AS C ON P.category_id = C.category_id");
+				$results = mysqli_query($db, $retrieve); 
+			?>  
 
                 <table class="table table-striped table-bordered">
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
@@ -176,11 +186,15 @@
                 <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                     <thead>
                         <tr>
+                            <th>Product ID</th>
                             <th>Barcode</th>
                             <th>Product Name</th>
                             <th>Category</th>
-                            <th>Price</th>
+                            <th>Original Price</th>
+                            <th>Alt Price Price</th>
                             <th>Status</th>
+                            <th>Location</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
 
@@ -190,20 +204,38 @@
 								$toData = $data["productList_id"];
 						?>
                             <tr>
-                                <td data-title="barcode">
-                                    <?php echo $data["productList_barcode"]; ?>
+                                <td data-title="Product_ID" value = "<?= $data["productList_id"] ?>" >
+                                    <?php echo $data["productList_id"]; ?>
+                                </td>   
+                                <td data-title="barcode" value = "<?= $data["barcode"] ?>" >
+                                    <?php echo $data["barcode"]; ?>
                                 </td>
-                                <td data-title="productname">
+                                <td data-title="productname" value = "<?= $data["productList_name"] ?>" >
                                     <?php echo $data["productList_name"]; ?>
                                 </td>
-                                <td data-title="Category">
+                                <td data-title="Category" value = "<?= $data["category_name"] ?>">
                                     <?php echo $data["category_name"]; ?>
                                 </td>
-                                <td data-title="price">
-                                    <?php echo $data["productList_price"]; ?>
+                                <td data-title="price" value = "<?= $data["productList_origprice"] ?>" >
+                                    <?php echo $data["productList_origprice"]; ?>
                                 </td>
-                                <td data-title="status">
-                                    <?php echo $data["productList_status"]; ?>
+                                <td data-title="location price" value = "<?= $data["altprice"] ?>">
+                                    <?php if ($data["altprice"] == '' ){
+                                        echo "N/A";
+                                    }else {
+                                        echo $data["altprice"];}
+                                    ?>
+                                </td>
+                                <td data-title="status" value = "<?= $data["status"] ?>">
+                                    <?php echo $data["status"]; ?>
+                                </td>
+                                <td data-title="location" value = "<?= $data["location"] ?>">
+                                    <?php echo $data["location"]; ?>
+                                </td>
+                                 <td data-title="edit">
+                                    <button type="button">
+                                        Edit
+                                    </button>
                                 </td>
                             </tr>
                             <?php
@@ -256,8 +288,8 @@
 
                                     <h3>Status</h3>
                                      <select name="status">
+                                        <option value="Disabled">Disabled</option>
                                      	<option value="Enabled">Enabled</option>
-                                     	<option value="Disabled">Disabled</option>
                                      </select>
                                
 
