@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Accounts</title>
+    <title>Edit Product</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -42,12 +42,11 @@ if(!$_SESSION['username'])  {
                 responsive: true
             });
         });
-
     </script>
 </head>
 
 <body>
-    <!-- Sidebar -->
+     <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -57,7 +56,8 @@ if(!$_SESSION['username'])  {
         <div class="user_info">
             <span>Welcome, <?php
                 echo $_SESSION['username'];
-            ?> </span>
+                ?> 
+            </span>
             <a href="fragments/logout.php">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
             </a>
@@ -170,134 +170,66 @@ if(!$_SESSION['username'])  {
 
     <!-- Main Container -->
     <div id="page-content-wrapper">
-        <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Accounts</h1>
-            </table>
+        <div class="containers">          
+                <h1 align="center">Edit Products</h1>
+                <?php
+                    $prodID = $_GET['prodID'];
+                    $query ="SELECT * FROM product_list WHERE productList_id = '$prodID'";
+                    $results = mysqli_query($db, $query);
+                ?>
 
-            <!-- Retrieve Account Data -->
-            <?php
-							$retrieve = ("SELECT acc_id, username, first_name, last_name, email, contact_no, status FROM accounts ");
-							$results = mysqli_query($db, $retrieve);
-						?>
+                <?php
+                    foreach ($results as $data):
+                        $toData = $data["productList_id"];
+                ?>
+                <form action="fragments/addProduct.php" method="POST" onsubmit="return validateForm()">
 
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
-                </table>
 
-                <!-- Table Display for Accounts -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Username</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-           
+                    <h3>Product Name</h3>
+                    <input type="text" class="form-control" maxlength="25" name="pname" value = "<?= $data["productList_name"] ?>" required>
 
-                    <tbody>
-                        <?php
-							foreach ($results as $data):
-								$toData = $data["acc_id"];
-						?>
-                            <tr>
-                                <td data-title="accountID">
-                                    <?php echo $data["acc_id"]; ?>
-                                </td>
-                                <td data-title="user_name">
-                                    <?php echo $data["username"]; ?>
-                                </td>
-                                <td data-title="fname">
-                                    <?php echo $data["first_name"]; ?>
-                                </td>
-                                <td data-title="lname">
-                                    <?php echo $data["last_name"]; ?>
-                                </td>
-                                <td data-title="mail">
-                                    <?php echo $data["email"]; ?>
-                                </td>
-                                <td data-title="cno">
-                                    <?php echo $data["contact_no"]; ?>
-                                </td>
-                                <td data-title="status">
-                                    <?php echo $data["status"]; ?>
-                                </td>
-                            </tr>
-                            <?php
-							endforeach;
-						?>
-                    </tbody>
-                </table>
+                    <h3>Product Category</h3>
+                    <?php
+                        $retrieveCat = ("SELECT category_id, category_name, 
+                         category_status FROM category_list");
+                        $categoryResult = mysqli_query($db, $retrieveCat);
+                    ?>
 
-                <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+                    <select name="ProductCategory" >
 
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Account</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form action="fragments/addUser.php" method="POST" onsubmit="return validateForm()">
-                                    <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="username" autofocus required>
 
-                                    <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="first_name" onkeypress="return isAlfa(event)" required>
+                        
+                      
+      
+                    </select>
 
-                                    <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="last_name" onkeypress="return isAlfa(event)" required>
 
-                                    <h3>Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password" required>
+                    <h3>Price</h3>
+                    <input type="text" class="form-control" maxlength="25" name="price" value = "<?= $data["productList_origprice"] ?>" required>
 
-                                    <h3>Confirm Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password_2" required>
+                    <h3>Status</h3>
+                     <select name="status">
+                        <option value="Disabled">Disabled</option>
+                        <option value="Enabled">Enabled</option>
+                     </select>
+               
 
-                                    <h3>Email</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="email" required>
-
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="contact_no" onkeypress="return isNumber(event)" required>
-
-                                    <div class="modal-footer">
-                                        <input name="add_user" type="submit" class="btn btn-default" value=" Submit " />
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
+                        <a href="Products.php">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </a>
                     </div>
-                </div>
+                </form>
+                <?php
+                    endforeach;
+                ?>
+
+                
+
         </div>
     </div>
+
 </body>
 
 </html>
-<script>
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-    }
-
-
-    function isAlfa(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
-            return false;
-        }
-        return true;
-    }
-
-</script>

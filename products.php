@@ -217,6 +217,7 @@ if(!$_SESSION['username'])  {
                    <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                         <thead>
                             <tr>
+<<<<<<< HEAD
                                 <th>Product ID</th>
                                 <th>Barcode</th>
                                 <th>Product Name</th>
@@ -226,6 +227,43 @@ if(!$_SESSION['username'])  {
                                 <th>Status</th>
                                 <th>Location</th>
                                 <th>Edit</th>
+=======
+                                <td data-title="Product_ID" value = "<?= $data["productList_id"] ?>" >
+                                    <?php echo $data["productList_id"]; ?>                                   
+                                </td>   
+                                <td data-title="barcode" value = "<?= $data["barcode"] ?>" >
+                                    <?php echo $data["barcode"]; ?>
+                                </td>
+                                <td data-title="productname" value = "<?= $data["productList_name"] ?>" >
+                                    <?php echo $data["productList_name"]; ?>
+                                </td>
+                                <td data-title="Category" value = "<?= $data["category_name"] ?>">
+                                    <?php echo $data["category_name"]; ?>
+                                </td>
+                                <td data-title="price" value = "<?= $data["productList_origprice"] ?>" >
+                                    <?php echo $data["productList_origprice"]; ?>
+                                </td>
+                                <td data-title="location price" value = "<?= $data["altprice"] ?>">
+                                    <?php if ($data["altprice"] == '' ){
+                                        echo "N/A";
+                                    }else {
+                                        echo $data["altprice"];}
+                                    ?>
+                                </td>
+                                <td data-title="status" value = "<?= $data["status"] ?>">
+                                    <?php echo $data["status"]; ?>
+                                </td>
+                                <td data-title="location" value = "<?= $data["location"] ?>">
+                                    <?php echo $data["location"]; ?>
+                                </td>
+                                 <td data-title="edit">
+										<a href="editProduct.php?prodID=<?php echo $data["productList_id"] ?> "> 
+											<button type="button" class="btn btn-default" id="edBtn" >
+												<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+											</button>
+										</a>
+                                </td>
+>>>>>>> 3afb2b22a4bb90a1c0630faec3679a29e454ff55
                             </tr>
                         </thead>
                         <tfoot>
