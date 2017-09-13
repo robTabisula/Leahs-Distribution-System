@@ -212,22 +212,27 @@ if(!$_SESSION['username'])  {
                 </table>
 
                 <!-- Table Display for Accounts -->
-               
-               <div id="mainContainer">  
-                   <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                        <thead>
+                           <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Barcode</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Original Price</th>
+                            <th>Alt Price Price</th>
+                            <th>Status</th>
+                            <th>Location</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+							foreach ($results as $data):
+								$toData = $data["productList_id"];
+						?>
                             <tr>
-<<<<<<< HEAD
-                                <th>Product ID</th>
-                                <th>Barcode</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Original Price</th>
-                                <th>Alt Price Price</th>
-                                <th>Status</th>
-                                <th>Location</th>
-                                <th>Edit</th>
-=======
                                 <td data-title="Product_ID" value = "<?= $data["productList_id"] ?>" >
                                     <?php echo $data["productList_id"]; ?>                                   
                                 </td>   
@@ -259,72 +264,23 @@ if(!$_SESSION['username'])  {
                                  <td data-title="edit">
 										<a href="editProduct.php?prodID=<?php echo $data["productList_id"] ?> "> 
 											<button type="button" class="btn btn-default" id="edBtn" >
-												<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+												<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
 											</button>
 										</a>
                                 </td>
->>>>>>> 3afb2b22a4bb90a1c0630faec3679a29e454ff55
                             </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Product ID</th>
-                                <th>Barcode</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Original Price</th>
-                                <th>Alt Price Price</th>
-                                <th>Status</th>
-                                <th>Location</th>
-                                <th>Edit</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
                             <?php
-                                foreach ($results as $data):
-                                    $toData = $data["productList_id"];
-                            ?>
-                                <tr>
-                                    <td data-title="Product_ID">
-                                        <?php echo $data["productList_id"]; ?>
-                                    </td>
-                                    <td data-title="barcode">
-                                        <?php echo $data["barcode"]; ?>
-                                    </td>
-                                    <td data-title="productname">
-                                        <?php echo $data["productList_name"]; ?>
-                                    </td>
-                                    <td data-title="Category">
-                                        <?php echo $data["category_name"]; ?>
-                                    </td>
-                                    <td data-title="price">
-                                        <?php echo $data["productList_origprice"]; ?>
-                                    </td>
-                                    <td data-title="location price">
-                                        <?php if ($data["altprice"] == '' ){
-                                            echo "N/A";
-                                        }else {
-                                            echo $data["altprice"];}
-                                        ?>
-                                    </td>
-                                    <td data-title="status">
-                                        <?php echo $data["status"]; ?>
-                                    </td>
-                                    <td data-title="location">
-                                        <?php echo $data["location"]; ?>
-                                    </td>
-                                    <td data-title="edit">
-                                        <button type="button">
-                                            Edit
-                                        </button>
-                                    </td>
-                                </tr>
-                                <?php
-                                    endforeach;
-                                ?>
-                        </tbody>
-                    </table>
-            </div>
+								endforeach;
+							?>
+                            </tbody>
+                </table>
+                            
+                        
+
+                        
+                                
+                    
+            
 
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
