@@ -231,3 +231,7 @@ body {
     display: inline-block;
     width: 100%;
 }
+
+.menu-content li :not(){
+    padding-left: 3%;
+}
