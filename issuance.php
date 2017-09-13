@@ -1,3 +1,11 @@
+<?php  
+session_start();  
+  
+if(!$_SESSION['username'])  {  
+  
+    header("location: login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,7 +54,10 @@
         </div>
 
         <div class="user_info">
-            <span>Welcome, _____. </span>
+            <span>Welcome, <?php
+                echo $_SESSION['username'];
+                ?> 
+            </span>
             <a href="fragments/logout.php">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
             </a>
@@ -166,7 +177,7 @@
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT acc_id, username, first_name, last_name, email, contact_no, status FROM accounts ");
+							$retrieve = ("SELECT * FROM leahs.issuance_list AS S INNER JOIN leahs.issuance AS P ON S.issue_id = P.issue_id");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
