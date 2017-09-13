@@ -36,16 +36,45 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-        $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
-            });
+      $(document).ready(function () {
+        table = $('#datatables').dataTable({
+            "dom": "l<'#myFilter'>frtip"
         });
+        var myFilter = '<select id="mySelect">'
+          + '<option value="*">All</option>'  
+          + '<option value="Baguio">Baguio</option>'
+          + '<option value="Pangasinan">Pangasinan</option>'
+          + '</select>';
+        $("#myFilter").html(myFilter);
+        table.fnDraw(); 
+
+    $.fn.dataTable.ext.search.push(
+        function (settings, data) { 
+            var statusData = data[7] || "";
+            var filterVal = $("#mySelect").val();
+            if(filterVal != "*")
+            {
+                if(statusData == filterVal)
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return true;
+        });
+
+    $("#mainContainer").on("change", "#mySelect", function () {
+        table.fnDraw();
+    });
+                 
+    });
+
+
     </script>
 </head>
 
 <body>
-     <!-- Sidebar -->
+    <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -176,73 +205,88 @@ if(!$_SESSION['username'])  {
             <?php
 				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN product_loc L ON P.productList_id = L.product_id INNER JOIN category_list AS C ON P.category_id = C.category_id");
 				$results = mysqli_query($db, $retrieve); 
-			?>  
+			?>
 
                 <table class="table table-striped table-bordered">
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
                 </table>
 
                 <!-- Table Display for Accounts -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Product ID</th>
-                            <th>Barcode</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Original Price</th>
-                            <th>Alt Price Price</th>
-                            <th>Status</th>
-                            <th>Location</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php
-							foreach ($results as $data):
-								$toData = $data["productList_id"];
-						?>
+               
+               <div id="mainContainer">  
+                   <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                        <thead>
                             <tr>
-                                <td data-title="Product_ID" value = "<?= $data["productList_id"] ?>" >
-                                    <?php echo $data["productList_id"]; ?>
-                                </td>   
-                                <td data-title="barcode" value = "<?= $data["barcode"] ?>" >
-                                    <?php echo $data["barcode"]; ?>
-                                </td>
-                                <td data-title="productname" value = "<?= $data["productList_name"] ?>" >
-                                    <?php echo $data["productList_name"]; ?>
-                                </td>
-                                <td data-title="Category" value = "<?= $data["category_name"] ?>">
-                                    <?php echo $data["category_name"]; ?>
-                                </td>
-                                <td data-title="price" value = "<?= $data["productList_origprice"] ?>" >
-                                    <?php echo $data["productList_origprice"]; ?>
-                                </td>
-                                <td data-title="location price" value = "<?= $data["altprice"] ?>">
-                                    <?php if ($data["altprice"] == '' ){
-                                        echo "N/A";
-                                    }else {
-                                        echo $data["altprice"];}
-                                    ?>
-                                </td>
-                                <td data-title="status" value = "<?= $data["status"] ?>">
-                                    <?php echo $data["status"]; ?>
-                                </td>
-                                <td data-title="location" value = "<?= $data["location"] ?>">
-                                    <?php echo $data["location"]; ?>
-                                </td>
-                                 <td data-title="edit">
-                                    <button type="button">
-                                        Edit
-                                    </button>
-                                </td>
+                                <th>Product ID</th>
+                                <th>Barcode</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Original Price</th>
+                                <th>Alt Price Price</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                                <th>Edit</th>
                             </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Barcode</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Original Price</th>
+                                <th>Alt Price Price</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                                <th>Edit</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
                             <?php
-								endforeach;
-							?>
-                            </tbody>
-                </table>
+                                foreach ($results as $data):
+                                    $toData = $data["productList_id"];
+                            ?>
+                                <tr>
+                                    <td data-title="Product_ID">
+                                        <?php echo $data["productList_id"]; ?>
+                                    </td>
+                                    <td data-title="barcode">
+                                        <?php echo $data["barcode"]; ?>
+                                    </td>
+                                    <td data-title="productname">
+                                        <?php echo $data["productList_name"]; ?>
+                                    </td>
+                                    <td data-title="Category">
+                                        <?php echo $data["category_name"]; ?>
+                                    </td>
+                                    <td data-title="price">
+                                        <?php echo $data["productList_origprice"]; ?>
+                                    </td>
+                                    <td data-title="location price">
+                                        <?php if ($data["altprice"] == '' ){
+                                            echo "N/A";
+                                        }else {
+                                            echo $data["altprice"];}
+                                        ?>
+                                    </td>
+                                    <td data-title="status">
+                                        <?php echo $data["status"]; ?>
+                                    </td>
+                                    <td data-title="location">
+                                        <?php echo $data["location"]; ?>
+                                    </td>
+                                    <td data-title="edit">
+                                        <button type="button">
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                                <?php
+                                    endforeach;
+                                ?>
+                        </tbody>
+                    </table>
+            </div>
 
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
@@ -268,7 +312,7 @@ if(!$_SESSION['username'])  {
 										$categoryResult = mysqli_query($db, $retrieveCat);
 									?>
 
-                                    <select name="ProductCategory" >
+                                        <select name="ProductCategory">
 				                        <?php
 											foreach ($categoryResult as $data):
 												$toData = $data["category_id"];
@@ -280,23 +324,23 @@ if(!$_SESSION['username'])  {
 											endforeach;
 										?>
                                 	</select>
-    	                         
 
 
-                                    <h3>Price</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="price" required>
 
-                                    <h3>Status</h3>
-                                     <select name="status">
+                                        <h3>Price</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="price" required>
+
+                                        <h3>Status</h3>
+                                        <select name="status">
                                         <option value="Disabled">Disabled</option>
                                      	<option value="Enabled">Enabled</option>
                                      </select>
-                               
 
-                                    <div class="modal-footer">
-                                        <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
+
+                                        <div class="modal-footer">
+                                            <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
                                 </form>
                             </div>
                         </div>
