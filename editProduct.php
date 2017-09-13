@@ -182,11 +182,11 @@ if(!$_SESSION['username'])  {
                     foreach ($results as $data):
                         $toData = $data["productList_id"];
                 ?>
-                <form action="fragments/addProduct.php" method="POST" onsubmit="return validateForm()">
+                <form action="fragments/________.php" method="POST" onsubmit="return validateForm()">
 
 
                     <h3>Product Name</h3>
-                    <input type="text" class="form-control" maxlength="25" name="pname" value = "<?= $data["productList_name"] ?>" required>
+                    <input type="text" class="form-control" maxlength="25" name="pname" value = "<?= $data["productList_name"] ?>" >
 
                     <h3>Product Category</h3>
                     <?php
@@ -197,7 +197,7 @@ if(!$_SESSION['username'])  {
 
                     <select name="ProductCategory" >
 
-
+                        <option ></option>
                         
                       
       
@@ -205,7 +205,7 @@ if(!$_SESSION['username'])  {
 
 
                     <h3>Price</h3>
-                    <input type="text" class="form-control" maxlength="25" name="price" value = "<?= $data["productList_origprice"] ?>" required>
+                    <input type="text" class="form-control" maxlength="25" name="price" value = "<?= $data["productList_origprice"] ?>" >
 
                     <h3>Status</h3>
                      <select name="status">

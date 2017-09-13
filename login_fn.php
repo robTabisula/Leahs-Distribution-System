@@ -3,7 +3,6 @@
 			session_start();
 			if (isset($_POST['login'])){
 				$username = $_POST['username'];
-				//$password = $_POST['password'];
 				$password = hash("sha512",$_POST['password']);
 
 				$query ="select * FROM accounts WHERE username = '$username' AND password='$password' AND status = 'enabled'";
