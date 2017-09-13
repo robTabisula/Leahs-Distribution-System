@@ -38,7 +38,7 @@ if(!$_SESSION['username'])  {
     <!-- Datatables-->
     <script>
          var table;
-
+        responsive: true;
         $(document).ready(function() {
             table = $('#datatables').dataTable({
                 "dom": "l<'#myFilter'>frtip"
