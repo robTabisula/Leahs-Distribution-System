@@ -235,7 +235,7 @@ if(!$_SESSION['username'])  {
                                  <td data-title="edit">
 										<a href="editProduct.php?prodID=<?php echo $data["productList_id"] ?> "> 
 											<button type="button" class="btn btn-default" id="edBtn" >
-												<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+												<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 											</button>
 										</a>
                                 </td>
