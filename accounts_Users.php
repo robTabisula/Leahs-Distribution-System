@@ -224,7 +224,6 @@ if(!$_SESSION['username'])  {
                                 <td data-title="cno">
                                     <?php echo $data["contact_no"]; ?>
                                 </td>
-                                
                                 <td data-title="status">
                                     <?php echo $data["status"]; ?>
                                 </td>

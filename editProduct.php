@@ -174,7 +174,7 @@ if(!$_SESSION['username'])  {
                 <h1 align="center">Edit Products</h1>
                 <?php
                     $prodID = $_GET['prodID'];
-                    $query ="SELECT * FROM leahs.product_list WHERE productList_id = '$prodID'";
+                    $query ="SELECT * FROM product_list WHERE productList_id = '$prodID'";
                     $results = mysqli_query($db, $query);
                 ?>
 
@@ -183,6 +183,7 @@ if(!$_SESSION['username'])  {
                         $toData = $data["productList_id"];
                 ?>
                 <form action="fragments/addProduct.php" method="POST" onsubmit="return validateForm()">
+
 
                     <h3>Product Name</h3>
                     <input type="text" class="form-control" maxlength="25" name="pname" value = "<?= $data["productList_name"] ?>" required>
@@ -195,20 +196,12 @@ if(!$_SESSION['username'])  {
                     ?>
 
                     <select name="ProductCategory" >
-                        <?php
-                            foreach ($categoryResult as $data):
-                                $toData = $data["category_id"];
-                        ?>
 
-                        <option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
+
+                        
                       
-                       <?php
-                            endforeach;
-                        ?>
+      
                     </select>
-                    <?php
-                        endforeach;
-                    ?>
 
 
                     <h3>Price</h3>
@@ -223,9 +216,14 @@ if(!$_SESSION['username'])  {
 
                     <div class="modal-footer">
                         <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <a href="Products.php">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </a>
                     </div>
                 </form>
+                <?php
+                    endforeach;
+                ?>
 
                 
 
