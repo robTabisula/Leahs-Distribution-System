@@ -37,9 +37,35 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
+        var table;
+
         $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
+            table = $('#datatables').dataTable({
+                "dom": "l<'#myFilter'>frtip"
+            });
+            var myFilter = '<select id="mySelect">' +
+                '<option value="*">All</option>' +
+                '<option value="Baguio">Baguio</option>' +
+                '<option value="Pangasinan">Pangasinan</option>' +
+                '</select>';
+            $("#myFilter").html(myFilter);
+            table.fnDraw();
+
+            $.fn.dataTable.ext.search.push(
+                function(settings, data) {
+                    var statusData = data[5] || "";
+                    var filterVal = $("#mySelect").val();
+                    if (filterVal != "*") {
+                        if (statusData == filterVal)
+                            return true;
+                        else
+                            return false;
+                    } else
+                        return true;
+                });
+
+            $("#mainContainer").on("change", "#mySelect", function() {
+                table.fnDraw();
             });
         });
 
@@ -172,12 +198,12 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Clients</h1>
+                <h1 align="center">Clients Accounts</h1>
             </table>
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT c_id, c_name, c_address, c_contact_no, c_contact_person FROM clients");
+							$retrieve = ("SELECT * FROM clients");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -186,75 +212,81 @@ if(!$_SESSION['username'])  {
                 </table>
 
                 <!-- Table Display for Accounts -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Clients ID</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Contact Number</th>
-                            <th>Contact Person</th>
+                <div id="mainContainer">
+                    <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Clients ID</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Contact Number</th>
+                                <th>Contact Person</th>
+                                <th>Location</th>
 
-                        </tr>
-                    </thead>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <?php
+                        <tbody>
+                            <?php
 							foreach ($results as $data):
 								$toData = $data["c_id"];
 						?>
-                            <tr>
-                                <td data-title="clientID">
-                                    <?php echo $data["c_id"]; ?>
-                                </td>
-                                <td data-title="c_name">
-                                    <?php echo $data["c_name"]; ?>
-                                </td>
-                                <td data-title="c_address">
-                                    <?php echo $data["c_address"]; ?>
-                                </td>
-                                <td data-title="c_contact_no">
-                                    <?php echo $data["c_contact_no"]; ?>
-                                </td>
-                                <td data-title="c_contact_person">
-                                    <?php echo $data["c_contact_person"]; ?>
-                                </td>
+                                <tr>
+                                    <td data-title="clientID">
+                                        <?php echo $data["c_id"]; ?>
+                                    </td>
+                                    <td data-title="c_name">
+                                        <?php echo $data["c_name"]; ?>
+                                    </td>
+                                    <td data-title="c_address">
+                                        <?php echo $data["c_address"]; ?>
+                                    </td>
+                                    <td data-title="c_contact_no">
+                                        <?php echo $data["c_contact_no"]; ?>
+                                    </td>
+                                    <td data-title="c_contact_person">
+                                        <?php echo $data["c_contact_person"]; ?>
+                                    </td>
+                                    <td data-title="c_location">
+                                        <?php echo $data["c_location"]; ?>
+                                    </td>
 
-                            </tr>
-                            <?php
+                                </tr>
+                                <?php
 							endforeach;
 						?>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
 
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Client</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form action="fragments/addClient.php" method="POST" onsubmit="return validateForm()">
-                                    <h3>Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="c_name" onkeypress="return isAlfa(event)" autofocus required>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Client</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="fragments/addClient.php" method="POST" onsubmit="return validateForm()">
+                                        <h3>Name</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="c_name" onkeypress="return isAlfa(event)" autofocus required>
 
-                                    <h3>Address</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="c_address" required>
+                                        <h3>Address</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="c_address" required>
 
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="c_contact_no" onkeypress="return isNumber(event)" required>
+                                        <h3>Contact Number</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="c_contact_no" onkeypress="return isNumber(event)" required>
 
-                                    <h3>Contact Person</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="c_contact_person" onkeypress="return isAlfa(event)" required>
+                                        <h3>Contact Person</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="c_contact_person" onkeypress="return isAlfa(event)" required>
 
-                                    <div class="modal-footer">
-                                        <input name="add_client" type="submit" class="btn btn-default" value=" Submit " />
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
+                                        <div class="modal-footer">
+                                            <input name="add_client" type="submit" class="btn btn-default" value=" Submit " />
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

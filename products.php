@@ -250,7 +250,11 @@ if(!$_SESSION['username'])  {
                                         <?php echo $data["productList_id"]; ?>
                                     </td>
                                     <td data-title="barcode">
-                                        <?php echo $data["barcode"]; ?>
+                                        <?php if ($data["barcode"] == '' ){
+                                        echo "N/A";
+                                    }else {
+                                        echo $data["barcode"];}
+                                    ?>
                                     </td>
                                     <td data-title="productname">
                                         <?php echo $data["productList_name"]; ?>

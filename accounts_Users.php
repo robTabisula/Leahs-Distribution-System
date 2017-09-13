@@ -37,12 +37,37 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
+         var table;
+
         $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
+            table = $('#datatables').dataTable({
+                "dom": "l<'#myFilter'>frtip"
+            });
+            var myFilter = '<select id="mySelect">' +
+                '<option value="*">All</option>' +
+                '<option value="Baguio">Baguio</option>' +
+                '<option value="Pangasinan">Pangasinan</option>' +
+                '</select>';
+            $("#myFilter").html(myFilter);
+            table.fnDraw();
+
+            $.fn.dataTable.ext.search.push(
+                function(settings, data) {
+                    var statusData = data[5] || "";
+                    var filterVal = $("#mySelect").val();
+                    if (filterVal != "*") {
+                        if (statusData == filterVal)
+                            return true;
+                        else
+                            return false;
+                    } else
+                        return true;
+                });
+
+            $("#mainContainer").on("change", "#mySelect", function() {
+                table.fnDraw();
             });
         });
-
     </script>
 </head>
 
@@ -172,7 +197,7 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Accounts</h1>
+                <h1 align="center">User Accounts</h1>
             </table>
 
             <!-- Retrieve Account Data -->
@@ -186,6 +211,7 @@ if(!$_SESSION['username'])  {
                 </table>
 
                 <!-- Table Display for Accounts -->
+                <div id="mainContainer">
                 <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                     <thead>
                         <tr>
@@ -296,6 +322,7 @@ if(!$_SESSION['username'])  {
                     </div>
                 </div>
         </div>
+    </div>
     </div>
 </body>
 
