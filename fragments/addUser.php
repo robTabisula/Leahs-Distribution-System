@@ -20,17 +20,27 @@
           	$password_2 = $_POST['password_2']; 
           	$email = $_POST['email'];
           	$contact_no = $_POST['contact_no'];
+			$branch = $_POST['branch'];
+			$acctype = $_POST['acctype'];
 			
 			if ($_POST['password']!= $_POST['password_2'])
 			 {
 				 echo"<script>alert('Oops! Password did not match! Try again.')</script>";
 				 exit(); 
 			 }
+			  
+			$check_username="select * from accounts WHERE username='$username'";  
+			$run_query=mysqli_query($db,$check_username);
+			if(mysqli_num_rows($run_query)>0)  
+			{  
+			echo "<script>alert('The username $username already exists, Please try another one!')</script>";  
+			echo "<script>window.open('../accounts_users.php','_self')</script>"; 
+			}
 			 
 			 $password = hash("sha512",$_POST['password']);
 
-            	$query = "INSERT INTO accounts (username, first_name, last_name, password, email, contact_no) 
-                  	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no')";
+            	$query = "INSERT INTO accounts (username, first_name, last_name, password, email, contact_no,branch,acctype) 
+                  	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no','$branch','$acctype')";
 					
 					if(mysqli_query($db, $query)){
 					echo"<script>alert('Successfuly Added Accounts')</script>";

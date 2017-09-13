@@ -177,7 +177,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT acc_id, username, first_name, last_name, email, contact_no, status FROM accounts ");
+							$retrieve = ("SELECT * FROM accounts ");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -191,11 +191,13 @@ if(!$_SESSION['username'])  {
                         <tr>
                             <th>Account ID</th>
                             <th>Username</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Contact Number</th>
+							<th>Branch</th>
                             <th>Status</th>
+							<th>Account type</th>
+							
                         </tr>
                     </thead>
            
@@ -212,20 +214,24 @@ if(!$_SESSION['username'])  {
                                 <td data-title="user_name">
                                     <?php echo $data["username"]; ?>
                                 </td>
-                                <td data-title="fname">
-                                    <?php echo $data["first_name"]; ?>
+                                <td data-title="name">
+                                    <?php echo $data["first_name"]." ".$data["last_name"]; ?>
                                 </td>
-                                <td data-title="lname">
-                                    <?php echo $data["last_name"]; ?>
-                                </td>
+
                                 <td data-title="mail">
                                     <?php echo $data["email"]; ?>
                                 </td>
                                 <td data-title="cno">
                                     <?php echo $data["contact_no"]; ?>
                                 </td>
+								 <td data-title="branch">
+                                    <?php echo $data["branch"]; ?>
+                                </td>
                                 <td data-title="status">
                                     <?php echo $data["status"]; ?>
+                                </td>
+								 <td data-title="acctype">
+                                    <?php echo $data["acctype"]; ?>
                                 </td>
                             </tr>
                             <?php
@@ -261,10 +267,24 @@ if(!$_SESSION['username'])  {
                                     <input type="password" class="form-control" maxlength="25" name="password_2" required>
 
                                     <h3>Email</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="email" required>
+                                    <input type="email" class="form-control" maxlength="25" name="email" required>
 
                                     <h3>Contact Number</h3>
                                     <input type="text" class="form-control" maxlength="25" name="contact_no" onkeypress="return isNumber(event)" required>
+									
+									<h3>Branch</h3>
+                                    <select name="branch" required>
+										  <option value="">Select...</option>
+										  <option value="Baguio">Baguio</option>
+										  <option value="Pangasinan">Pangasinan</option>
+									</select>
+									
+									<h3>Account Type</h3>
+                                    <select name="acctype" required>
+										  <option value="">Select...</option>
+										  <option value="Admin">Admin</option>
+										  <option value="User">User</option>
+									</select>
 
                                     <div class="modal-footer">
                                         <input name="add_user" type="submit" class="btn btn-default" value=" Submit " />
