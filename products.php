@@ -205,7 +205,7 @@ if(!$_SESSION['username'])  {
 						?>
                             <tr>
                                 <td data-title="Product_ID" value = "<?= $data["productList_id"] ?>" >
-                                    <?php echo $data["productList_id"]; ?>
+                                    <?php echo $data["productList_id"]; ?>                                   
                                 </td>   
                                 <td data-title="barcode" value = "<?= $data["barcode"] ?>" >
                                     <?php echo $data["barcode"]; ?>
@@ -233,9 +233,11 @@ if(!$_SESSION['username'])  {
                                     <?php echo $data["location"]; ?>
                                 </td>
                                  <td data-title="edit">
-                                    <button type="button">
-                                        Edit
-                                    </button>
+										<a href="editProduct.php?prodID=<?php echo $data["productList_id"] ?> "> 
+											<button type="button" class="btn btn-default" id="edBtn" >
+												<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+											</button>
+										</a>
                                 </td>
                             </tr>
                             <?php
