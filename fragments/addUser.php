@@ -27,7 +27,7 @@
 				 exit(); 
 			 }
 			 
-			 $password = hash("sha256",$_POST['password']);
+			 $password = hash("sha512",$_POST['password']);
 
             	$query = "INSERT INTO accounts (username, first_name, last_name, password, email, contact_no) 
                   	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no')";
