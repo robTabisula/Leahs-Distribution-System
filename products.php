@@ -201,7 +201,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN product_loc L ON P.productList_id = L.product_id INNER JOIN category_list AS C ON P.category_id = C.category_id");
+				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN category_list AS C ON P.category_id = C.category_id");
 				$results = mysqli_query($db, $retrieve); 
 			?>
 
@@ -215,30 +215,16 @@ if(!$_SESSION['username'])  {
                         <thead>
                             <tr>
                                 <th>Product ID</th>
-                                <th>Barcode</th>
+                                <!--<th>Barcode</th>-->
                                 <th>Product Name</th>
                                 <th>Category</th>
                                 <th>Original Price</th>
-                                <th>Alt Price Price</th>
+                                <!--<th>Alt Price Price</th>
                                 <th>Status</th>
                                 <th>Location</th>
-                                <th>Edit</th>
+                                <th>Edit</th> -->
                             </tr>
                         </thead>
-
-                        <tfoot>
-                            <tr>
-                                <th>Product ID</th>
-                                <th>Barcode</th>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Original Price</th>
-                                <th>Alt Price Price</th>
-                                <th>Status</th>
-                                <th>Location</th>
-                                <th>Edit</th>
-                            </tr>
-                        </tfoot>
 
                         <tbody>
                             <?php
@@ -249,12 +235,12 @@ if(!$_SESSION['username'])  {
                                     <td data-title="Product_ID">
                                         <?php echo $data["productList_id"]; ?>
                                     </td>
-                                    <td data-title="barcode">
-                                        <?php if ($data["barcode"] == '' ){
-                                        echo "N/A";
-                                    }else {
-                                        echo $data["barcode"];}
-                                    ?>
+                                    <!--<td data-title="barcode">
+                                        <?php //if ($data["barcode"] == '' ){
+                                        //echo "N/A";
+                                    //}else {
+                                        //echo $data["barcode"];}
+                                    ?>-->
                                     </td>
                                     <td data-title="productname">
                                         <?php echo $data["productList_name"]; ?>
@@ -265,19 +251,19 @@ if(!$_SESSION['username'])  {
                                     <td data-title="price">
                                         <?php echo $data["productList_origprice"]; ?>
                                     </td>
-                                    <td data-title="location price">
-                                        <?php if ($data["altprice"] == '' ){
-                                        echo "N/A";
-                                    }else {
-                                        echo $data["altprice"];}
+                                    <!--<td data-title="location price">
+                                        <?php //if ($data["altprice"] == '' ){
+                                        //echo "N/A";
+                                    //}else {
+                                        //echo $data["altprice"];}
                                     ?>
                                     </td>
                                     <td data-title="status">
-                                        <?php echo $data["status"]; ?>
+                                        <?php //echo $data["status"]; ?>
                                     </td>
                                     <td data-title="location">
-                                        <?php echo $data["location"]; ?>
-                                    </td>
+                                        <?php //echo $data["location"]; ?>
+                                    </td> -->
                                     <td data-title="edit">
 										<table class="table table-striped table-bordered">
 											<button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#editModal"></button>
