@@ -463,9 +463,7 @@ if(!$_SESSION['username'])  {
 						</div>
                     </div>
 					
-                </div>
         </div>
-    </div>
 
 </body>
 

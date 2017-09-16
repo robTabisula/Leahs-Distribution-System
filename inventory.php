@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Accounts</title>
+    <title>Inventory List</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -37,9 +37,35 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
+       var table;
+        responsive: true;
         $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
+            table = $('#datatables').dataTable({
+                "dom": "l<'#myFilter'>frtip"
+            });
+            var myFilter = '<select id="mySelect">' +
+                '<option value="*">All</option>' +
+                '<option value="Baguio">Baguio</option>' +
+                '<option value="Pangasinan">Pangasinan</option>' +
+                '</select>';
+            $("#myFilter").html(myFilter);
+            table.fnDraw();
+
+            $.fn.dataTable.ext.search.push(
+                function(settings, data) {
+                    var statusData = data[5] || "";
+                    var filterVal = $("#mySelect").val();
+                    if (filterVal != "*") {
+                        if (statusData == filterVal)
+                            return true;
+                        else
+                            return false;
+                    } else
+                        return true;
+                });
+
+            $("#mainContainer").on("change", "#mySelect", function() {
+                table.fnDraw();
             });
         });
     </script>
@@ -168,14 +194,245 @@ if(!$_SESSION['username'])  {
     </div>
     <!-- /#sidebar-wrapper -->
     <!-- Main Container -->
-    <div id="page-content-wrapper">
+       <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Inventory</h1>
+                <h1 align="center">Inventory List</h1>
             </table>
 
+            <!-- Retrieve Account Data -->
+            <?php
+				$retrieve = ("SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id;");
+				$results = mysqli_query($db, $retrieve); 
+			?>
+
+                <table class="table table-striped table-bordered">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
+                </table>
+
+                <div id="mainContainer">
+                    <!-- Table Display for Accounts -->
+                    <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Inventory ID</th>
+                                <th>Product Name</th>
+                                <th>Product Quantity</th>
+                                <th>Restock Level</th>
+                                <th>Catgory Name</th>
+                                <th>Location</th>
+                                <th>Edit/View</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+							foreach ($results as $data):
+								$toData = $data["iS_inventoryid"];
+						?>
+                                <tr>
+                                    <td data-title="inventory id">
+                                        <?php echo $data["iS_inventoryid"]; ?>
+                                    </td>
+                                    <td data-title="productList name">
+                                        <?php echo $data["productList_name"]; ?>
+                                    </td>
+                                    <td data-title="product quantity">
+                                        <?php echo $data["iS_quantity"]; ?>
+                                    </td>
+                                    <td data-title="Restock Quantity">
+                                        <?php echo $data["iS_re-stock_lvl"]; ?>
+                                    </td>
+                                    <td data-title="category">
+                                        <?php echo $data["category_name"]; ?>
+                                    </td><td data-title="location">
+                                        <?php echo $data["iS_location"]; ?>
+                                    </td>
+                                    <td data-title="edit">
+										<table class="table table-striped table-bordered">
+											<button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#editModal"></button>
+										</table>
+                                    </td>
+                                </tr>
+                                <?php
+								endforeach;
+							?>
+                        </tbody>
+                    </table>
+
+
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Product</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="fragments/addProduct.php" method="POST" onsubmit="return validateForm()">
+                                        <h3>Barcode</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="barcode" required>
+
+                                        <h3>Product Name</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="productList_name" required>
+
+                                        <h3>Product Category</h3>
+                                        <?php
+										$retrieveCat = ("SELECT category_id, category_name, 
+										 category_status FROM category_list");
+										$categoryResult = mysqli_query($db, $retrieveCat);
+									?>
+
+                                            <select name="ProductCategory">
+				                        <?php
+											foreach ($categoryResult as $data):
+												$toData = $data["category_id"];
+										?>
+
+                                    	<option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
+                                	  
+                                	   <?php
+											endforeach;
+										?>
+                                	</select>
+
+
+
+                                            <h3>Price</h3>
+                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="productList_price" required>
+                                            
+											<h3>Alternate Price</h3>
+                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="altprice" required>
+
+											<h3>Location</h3>
+                                            <select name="location">
+                                        <option value="Baguio">Baguio</option>
+                                     	<option value="Pangasinan">Pangasinan</option>
+                                     </select>
+									 
+                                            <h3>Status</h3>
+                                            <select name="status">
+                                        <option value="Disabled">Disabled</option>
+                                     	<option value="Enabled">Enabled</option>
+                                     </select>
+
+
+                                            <div class="modal-footer">
+                                                <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					
+					
+					                    <!-- Modal Edit Products -->
+                    <div id="editModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Edit Product</h4>
+                                </div>
+                                <div class="modal-body">
+									 
+									<?php
+										$query = "select * from product_list inner join product_loc on product_list.productList_id = product_loc.product_id";
+										$run = mysqli_query($db, $query);
+										$row = mysqli_fetch_array($run);
+									?>
+								 <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
+										<div class="row">
+											<div class="col-xs-4"><label>Barcode</label></div>
+											<div class="col-xs-4"><label>Product</label></div>
+										</div>
+										<div class="row">
+											<div class="col-xs-4">
+												<input name="barcode" value="<?php echo $row['barcode']; ?>" type="text" class="form-control" >
+											</div>
+											<div class="col-xs-4">
+												<input name="productList_name" value="<?php echo $row['productList_name']; ?>" type="text" class="form-control" >
+											</div>
+										</div>
+										<div class="client">
+                                        <h5><b>Product Category</b></h5>
+                                        <?php
+										$retrieveCat = ("SELECT category_id, category_name, 
+										 category_status FROM category_list");
+										$categoryResult = mysqli_query($db, $retrieveCat);
+									?>
+
+                                        <select name="ProductCategory">
+				                        <?php
+											foreach ($categoryResult as $data):
+												$toData = $data["category_id"];
+										?>
+
+                                    	<option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
+                                	  
+                                	   <?php
+											endforeach;
+										?>
+                                	</select>
+										</div>
+										<div class="row">
+											<div class="col-xs-6"><label>Original Price</label></div>
+											<div class="col-xs-6"><label>Alternate Price</label></div>
+										</div>
+										<div class="row">
+											<div class="col-xs-4">
+												<input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control" >
+											</div>
+											<div class="col-xs-4">
+												<input name="altprice" value="<?php echo $row['altprice']; ?>" type="text" class="form-control" >
+											</div>
+										</div>
+										
+										
+									<div class="row">
+									<div class="col-xs-6"><label>Status</label>
+										<select name="status" class="form-control">
+											<option>Enabled</option>
+											<option>Disabled</option>
+										</select>
+									
+									</div>
+
+									<div class="col-xs-6"><label>Location</label>
+										<div class="row">
+											<div class="col-xs-4">
+												<input name="location" value="<?php echo $row['location']; ?>" type="text" class="form-control" >
+											</div>
+										</div>
+									</div>
+									</div>
+										
+									<div class="row">
+									<div class="col-xs-12">
+									<br>
+										<button  name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button><br>
+									</div>				 
+									</div>
+											
+							</form>
+	
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+						</div>
+						</div>
+									
+								</div>
+							</div>
+						</div>
+                    </div>
+					
         </div>
-    </div>
 
 </body>
 

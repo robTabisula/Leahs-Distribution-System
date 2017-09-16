@@ -177,7 +177,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT I.issue_id AS 'Issuance_id', issue_date_time AS 'Date/Time', prod_qty AS 'Quantity Purchased', prod_price AS 'Given Price',productList_price AS 'Original Price', c_name AS 'Client Name', productList_name AS 'Product Name' FROM issuance as I INNER JOIN issuance_list as IL ON I.issue_id = IL.issue_id INNER JOIN clients ON I.client_id and clients.c_id INNER JOIN product_list ON IL.prod_id = product_list.productList_id");
+                            $retrieve = ("SELECT I.issue_id AS 'Issuance_id', issue_date_time AS 'Date/Time', prod_qty AS 'Quantity Purchased', prod_price AS 'Given Price',productList_origprice AS 'Original Price', c_name AS 'Client Name', productList_name AS 'Product Name' FROM issuance as I INNER JOIN issuance_list as IL ON I.issue_id = IL.issue_id INNER JOIN clients ON I.client_id and clients.c_id INNER JOIN product_list ON IL.prod_id = product_list.productList_id");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
