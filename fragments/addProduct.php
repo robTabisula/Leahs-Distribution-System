@@ -16,10 +16,10 @@
           	$productList_name = $_POST['productList_name'];
           	$ProductCategory = $_POST['ProductCategory'];
           	$productList_price = $_POST['productList_price'];
-			$barcode =$_POST['barcode'];
+			      $barcode =$_POST['barcode'];
           	$status = $_POST['status'];
-			$location = $_POST['location'];
-			$altprice = $_POST['altprice'];
+			      $altprice = $_POST['altprice'];
+            $restock =  $_POST['restock'];
 
             $categoryQuery = "SELECT category_id FROM category_list WHERE category_name = '$ProductCategory'";
             $category = mysqli_query($db, $categoryQuery);
@@ -31,24 +31,31 @@
                 	   VALUE ('$productList_name','$categoryResult','$productList_price')";
             
             if(mysqli_query($db, $query)){
-				$get_id="select productList_id from product_list WHERE productList_name='$productList_name'";
-				$run=mysqli_query($db,$get_id);
-	 
-				$row = mysqli_fetch_array($run);
-					$id=$row[0];
-					$query2 = "INSERT INTO product_loc (product_id, location, status, altprice, barcode) 
-                	   VALUE ('$id','$location','$status','$altprice','$barcode')";
-				
-					if(mysqli_query($db, $query2)){
-						echo"<script>alert('Successfuly Added Products')</script>";
-						echo "<script>window.open('../products.php','_self')</script>";  
-						} else{
-							echo ("ERROR: Could not able to execute" . mysqli_error($db));
-						}
-				
-				
-			}
+      				$get_id="select productList_id from product_list WHERE productList_name='$productList_name'";
+      				$run=mysqli_query($db,$get_id);
+  	 
+  				    $row = mysqli_fetch_array($run);
+    					$id=$row[0];
 
+              $query2 = "INSERT INTO inventory (iS_product_id,iS_restock_lvl,iS_location) 
+                       VALUE ('$id','$restock','Baguio'),('$id','$restock','Pangasinan')";
+              mysqli_query($db,$query2);
+
+
+    					$query3 = "INSERT INTO product_loc (product_id, location, status, altprice, barcode) 
+                    	   VALUE ('$id','Baguio','$status','$altprice','$barcode'),('$id','Pangasinan','$status','$altprice','$barcode')";
+
+
+  				
+    					if(mysqli_query($db, $query3)){
+    						echo"<script>alert('Successfuly Added Products')</script>";
+    						echo "<script>window.open('../products.php','_self')</script>";  
+    						} else{
+    							echo ("ERROR: Could not able to execute" . mysqli_error($db));
+    						}
+				
+				
+            }
 
           }
         	 

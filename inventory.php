@@ -244,7 +244,7 @@ if(!$_SESSION['username'])  {
                                         <?php echo $data["iS_quantity"]; ?>
                                     </td>
                                     <td data-title="Restock Quantity">
-                                        <?php echo $data["iS_re-stock_lvl"]; ?>
+                                        <?php echo $data["iS_restock_lvl"]; ?>
                                     </td>
                                     <td data-title="category">
                                         <?php echo $data["category_name"]; ?>
@@ -275,27 +275,35 @@ if(!$_SESSION['username'])  {
                                 </div>
                                 <div class="modal-body">
                                     <form action="fragments/addStocks.php" method="POST">
-                                    <label>Product</label>
-                                        <?php
-                                        $Products = ("SELECT * FROM product_list");
-                                        $categoryResult = mysqli_query($db, $Products);
-                                        ?>
+                                        <label>Location</label>
+                                            
+                                            <select name="Loc">
+                                                <option value="Baguio">Baguio</option>
+                                                <option value="Pangasinan">Pangasinan</option>
+                                            </select>
 
-                                        <select name="Products">
-                                        <?php
-                                            foreach ($categoryResult as $data):
-                                                $toData = $data["category_id"];
-                                        ?>
 
-                                            <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]; ?></option>
-                                          
-                                       <?php
-                                            endforeach;
-                                        ?>
-                                       </select>
+                                        <label>Product</label>
+                                            <?php
+                                            $Products = ("SELECT * FROM product_list");
+                                            $categoryResult = mysqli_query($db, $Products);
+                                            ?>
 
-                                        <label>Quantity</label>
-                                        <input type="number" name="Quantity" />
+                                            <select name="Products">
+                                            <?php
+                                                foreach ($categoryResult as $data):
+                                                    $toData = $data["category_id"];
+                                            ?>
+
+                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]; ?></option>
+                                              
+                                           <?php
+                                                endforeach;
+                                            ?>
+                                           </select>
+
+                                            <label>Quantity</label>
+                                            <input type="number" name="Quantity" />
 
                                         <!--
                                             <table id="tbl">
@@ -316,7 +324,7 @@ if(!$_SESSION['username'])  {
 
 
                                             <div class="modal-footer">
-                                                <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
+                                                <input name="add_stocks" type="submit" class="btn btn-default" value=" Submit " />
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
                                     </form>

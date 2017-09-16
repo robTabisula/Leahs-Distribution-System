@@ -287,9 +287,9 @@ if(!$_SESSION['username'])  {
                                     <h4 class="modal-title">Add Product</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="fragments/addProduct.php" method="POST" onsubmit="return validateForm()">
+                                    <form action="fragments/addProduct.php" method="POST" >
                                         <h3>Barcode</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="barcode" required>
+                                        <input type="text" class="form-control" maxlength="25" name="barcode">
 
                                         <h3>Product Name</h3>
                                         <input type="text" class="form-control" maxlength="25" name="productList_name" required>
@@ -302,17 +302,17 @@ if(!$_SESSION['username'])  {
 									?>
 
                                             <select name="ProductCategory">
-				                        <?php
-											foreach ($categoryResult as $data):
-												$toData = $data["category_id"];
-										?>
+        				                        <?php
+        											foreach ($categoryResult as $data):
+        												$toData = $data["category_id"];
+        										?>
 
-                                    	<option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
-                                	  
-                                	   <?php
-											endforeach;
-										?>
-                                	</select>
+                                            	<option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
+                                        	  
+                                        	   <?php
+        											endforeach;
+        										?>
+                                        	</select>
 
 
 
@@ -322,11 +322,10 @@ if(!$_SESSION['username'])  {
 											<h3>Alternate Price</h3>
                                             <input type="number" step="0.01" class="form-control" maxlength="25" name="altprice" required>
 
-											<h3>Location</h3>
-                                            <select name="location">
-                                        <option value="Baguio">Baguio</option>
-                                     	<option value="Pangasinan">Pangasinan</option>
-                                     </select>
+                                            <h3>Restock Level</h3>
+                                            <p>*Default values for all branches!!</p>
+                                            <input type="number"  class="form-control" maxlength="25" name="restock" required>
+
 									 
                                             <h3>Status</h3>
                                             <select name="status">
