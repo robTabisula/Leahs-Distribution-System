@@ -13,11 +13,13 @@
       	include('config.php');   
         	if (isset($_POST["add_prod"])) {
 
-          	$barcode = $_POST['barcode'];
-          	$pname = $_POST['pname'];
+          	$productList_name = $_POST['productList_name'];
           	$ProductCategory = $_POST['ProductCategory'];
-          	$price = $_POST['price'];
-          	$Status = $_POST['status']; 
+          	$productList_price = $_POST['productList_price'];
+			$barcode =$_POST['barcode'];
+          	$status = $_POST['status'];
+			$location = $_POST['location'];
+			$altprice = $_POST['altprice'];
 
             $categoryQuery = "SELECT category_id FROM category_list WHERE category_name = '$ProductCategory'";
             $category = mysqli_query($db, $categoryQuery);
@@ -25,19 +27,31 @@
             $categoryResult = $row['category_id'];
           
 			 
-          	$query = "INSERT INTO product_list (productList_barcode, productList_name, category_id, productList_price, productList_status) 
-                	   VALUE ('$barcode','$pname','$categoryResult','$price','$Status')";
+          	$query = "INSERT INTO product_list (productList_name, category_id, productList_origprice) 
+                	   VALUE ('$productList_name','$categoryResult','$productList_price')";
             
             if(mysqli_query($db, $query)){
-              echo"<script>alert('Successfuly Added New Product')</script>";
-              echo "<script>window.open('../products.php','_self')</script>";  
-            } else{
-              echo ("ERROR: Could not able to execute" . mysqli_error($db));
-            }
+				$get_id="select productList_id from product_list WHERE productList_name='$productList_name'";
+				$run=mysqli_query($db,$get_id);
+	 
+				$row = mysqli_fetch_array($run);
+					$id=$row[0];
+					$query2 = "INSERT INTO product_loc (product_id, location, status, altprice, barcode) 
+                	   VALUE ('$id','$location','$status','$altprice','$barcode')";
+				
+					if(mysqli_query($db, $query2)){
+						echo"<script>alert('Successfuly Added Products')</script>";
+						echo "<script>window.open('../products.php','_self')</script>";  
+						} else{
+							echo ("ERROR: Could not able to execute" . mysqli_error($db));
+						}
+				
+				
+			}
+
 
           }
         	 
         ?>
-        <h1> <?php echo $categoryResult ?></h1>
   </body>
 </html>

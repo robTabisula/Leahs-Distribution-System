@@ -308,7 +308,7 @@ if(!$_SESSION['username'])  {
                                         <input type="text" class="form-control" maxlength="25" name="barcode" required>
 
                                         <h3>Product Name</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="pname" required>
+                                        <input type="text" class="form-control" maxlength="25" name="productList_name" required>
 
                                         <h3>Product Category</h3>
                                         <?php
@@ -333,8 +333,17 @@ if(!$_SESSION['username'])  {
 
 
                                             <h3>Price</h3>
-                                            <input type="text" class="form-control" maxlength="25" name="price" required>
+                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="productList_price" required>
+                                            
+											<h3>Alternate Price</h3>
+                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="altprice" required>
 
+											<h3>Location</h3>
+                                            <select name="location">
+                                        <option value="Baguio">Baguio</option>
+                                     	<option value="Pangasinan">Pangasinan</option>
+                                     </select>
+									 
                                             <h3>Status</h3>
                                             <select name="status">
                                         <option value="Disabled">Disabled</option>

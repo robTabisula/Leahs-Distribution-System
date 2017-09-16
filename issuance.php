@@ -190,34 +190,72 @@ if(!$_SESSION['username'])  {
 				</select><center>
 				
                 <div class="panel-body">  
-                    <form role="form" method="post" action="issuance_fn.php">  
+                    <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
+							
+							<h4>Issuance ID</h4>
+							<h4><code id="output" name="issue_id"></code></h4>
+							<p><button id="generate">Generate</button></p>
+							
+							<div class="client">
+							<h4>Clients</h4>
+                                        <?php
+										$retrieveCat = ("SELECT c_id, c_name  FROM clients");
+										$clientRetrieve = mysqli_query($db, $retrieveCat);
+									?>
 
-							<div class="form-group">  
-                                <input class="form-control" placeholder="Issuance ID" name="issue_id" type="text" required>  
-                            </div>
+                                    <select name="clientlist">
+				                        <?php
+											foreach ($clientRetrieve as $data):
+												$toData = $data["c_id"];
+										?>
+
+                                    	<option value = "<?= $data['c_name'] ?>"> <?php echo $data["c_name"]; ?></option>
+                                	  
+                                	   <?php
+											endforeach;
+										?>
+                                	</select>
+							</div>
+							<div class="remarks">
+                             <h4>Remarks</h4>
+                            <textarea rows="3" cols="30" name="remarks" ></textarea>
+							</div>
 							
-                            <div class="form-group">  
-                                <input class="form-control" placeholder="Remarks" name="remarks" type="text" required>  
-                            </div>
-							
-							<div class="form-group"> 
+							<div class="dateTime">
+							<h4>Date and Time</h4> 
                             <?php echo $date = date("Y-m-d H:i:s");  ?>
 							</div>
 							
-                            <div class="form-group">  
-                                <input class="form-control" placeholder="Product Name" name="product_name" type="text" >  
-                            </div>													
-		
-							<div class="form-group">
-							  <input class="form-control" name="quantity" type="text" placeholder="Quanity" required>
-							</div>
-							
-							<div class="form-group">  
-                                <input class="form-control" placeholder="Adjusted Price" name="email" type="email" autofocus>  
-                            </div>
+                            <div class="form-group">							
+                                    <?php
+										$retrieveProd = ("SELECT productList_id, productList_name,productList_origprice FROM product_list");
+										$prodRetrieve = mysqli_query($db, $retrieveProd);
+									?>
 
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="save" name="save" > 
+                                    <select name="productList">
+				                        <?php
+											foreach ($prodRetrieve as $data):
+												$toData = $data["productList_id"];
+										?>
+
+                                    	<option value = "<?= $data['productList_name'] ?>"> <?php echo $data["productList_name"]; ?></option>
+                                	  
+                                	   <?php
+											endforeach;
+										?>
+                                	</select>
+							
+								<?php echo $data ["productList_origprice"]; ?>
+								
+								<input placeholder="Adjusted Price" name="adjPrice" type="number">  
+								
+								<input placeholder="Quanity" name="quantity" type="number"  required>
+							  
+
+                            </div>
+							
+							<input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance" > 
   
                         </fieldset>  
                     </form>  
@@ -231,3 +269,47 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
+
+<script>
+(function() {
+	 function IDGenerator() {
+	 
+		 this.length = 8;
+		 this.timestamp = +new Date;
+		 
+		 var _getRandomInt = function( min, max ) {
+			return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+		 }
+		 
+		 this.generate = function() {
+			 var ts = this.timestamp.toString();
+			 var parts = ts.split( "" ).reverse();
+			 var id = "RI-";
+			 
+			 for( var i = 0; i < this.length; ++i ) {
+				var index = _getRandomInt( 0, parts.length - 1 );
+				id += parts[index];	 
+			 }
+			 
+			 return id;
+		 }
+
+		 
+	 }
+	 
+	 
+	 document.addEventListener( "DOMContentLoaded", function() {
+		var btn = document.querySelector( "#generate" ),
+			output = document.querySelector( "#output" );
+			
+		btn.addEventListener( "click", function() {
+			var generator = new IDGenerator();
+			output.innerHTML = generator.generate();
+			
+		}, false); 
+		 
+	 });
+	 
+	 
+ })();
+</script>
