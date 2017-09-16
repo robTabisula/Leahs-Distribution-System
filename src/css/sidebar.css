@@ -232,6 +232,6 @@ body {
     width: 100%;
 }
 
-.menu-content li :not(){
+#menu-content li a{
     padding-left: 3%;
 }
