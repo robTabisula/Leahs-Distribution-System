@@ -35,6 +35,10 @@ if(!$_SESSION['username'])  {
     <link href="src/css/sidebar.css" rel="stylesheet">
     <link href="src/css/custom.css" rel="stylesheet">
 
+    <!--<script src="src/js/addStocks.js"></script>-->
+
+    
+
     <!-- Datatables-->
     <script>
        var table;
@@ -207,7 +211,7 @@ if(!$_SESSION['username'])  {
 			?>
 
                 <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>
                 </table>
 
                 <div id="mainContainer">
@@ -260,62 +264,55 @@ if(!$_SESSION['username'])  {
                     </table>
 
 
-                    <!-- Modal -->
+                    <!-- Modal Add Stocks-->
                     <div id="myModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
 
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Product</h4>
+                                    <h4 class="modal-title">Add Stock</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="fragments/addProduct.php" method="POST" onsubmit="return validateForm()">
-                                        <h3>Barcode</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="barcode" required>
-
-                                        <h3>Product Name</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="productList_name" required>
-
-                                        <h3>Product Category</h3>
+                                    <form action="fragments/addStocks.php" method="POST">
+                                    <label>Product</label>
                                         <?php
-										$retrieveCat = ("SELECT category_id, category_name, 
-										 category_status FROM category_list");
-										$categoryResult = mysqli_query($db, $retrieveCat);
-									?>
+                                        $Products = ("SELECT * FROM product_list");
+                                        $categoryResult = mysqli_query($db, $Products);
+                                        ?>
 
-                                            <select name="ProductCategory">
-				                        <?php
-											foreach ($categoryResult as $data):
-												$toData = $data["category_id"];
-										?>
+                                        <select name="Products">
+                                        <?php
+                                            foreach ($categoryResult as $data):
+                                                $toData = $data["category_id"];
+                                        ?>
 
-                                    	<option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
-                                	  
-                                	   <?php
-											endforeach;
-										?>
-                                	</select>
+                                            <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]; ?></option>
+                                          
+                                       <?php
+                                            endforeach;
+                                        ?>
+                                       </select>
 
+                                        <label>Quantity</label>
+                                        <input type="number" name="Quantity" />
 
+                                        <!--
+                                            <table id="tbl">
+                                            <thead>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                            </thead>
+                                                <tbody>
+                                                    <tr>
+                                                      <td><input type="text" name="Product" /></td>     
+                                                      <td><input type="number" name="Quantity" /></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button type="button" class="button" onclick="addStock('tbl');">Add Product</button>
+                                        -->
 
-                                            <h3>Price</h3>
-                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="productList_price" required>
-                                            
-											<h3>Alternate Price</h3>
-                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="altprice" required>
-
-											<h3>Location</h3>
-                                            <select name="location">
-                                        <option value="Baguio">Baguio</option>
-                                     	<option value="Pangasinan">Pangasinan</option>
-                                     </select>
-									 
-                                            <h3>Status</h3>
-                                            <select name="status">
-                                        <option value="Disabled">Disabled</option>
-                                     	<option value="Enabled">Enabled</option>
-                                     </select>
 
 
                                             <div class="modal-footer">
@@ -363,9 +360,9 @@ if(!$_SESSION['username'])  {
                                         <h5><b>Product Category</b></h5>
                                         <?php
 										$retrieveCat = ("SELECT category_id, category_name, 
-										 category_status FROM category_list");
+										category_status FROM category_list");
 										$categoryResult = mysqli_query($db, $retrieveCat);
-									?>
+									    ?>
 
                                         <select name="ProductCategory">
 				                        <?php
@@ -378,7 +375,7 @@ if(!$_SESSION['username'])  {
                                 	   <?php
 											endforeach;
 										?>
-                                	</select>
+                                	   </select>
 										</div>
 										<div class="row">
 											<div class="col-xs-6"><label>Original Price</label></div>
