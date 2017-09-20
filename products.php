@@ -67,6 +67,16 @@ if(!$_SESSION['username'])  {
                 table.fnDraw();
             });
         });
+/*script for ajax*/
+
+function swapAlternate(id,ch){
+    $(".alternateprice_div").html('alt="loading">').show();
+    var url="fragments/alternate_prices_ajax.php";
+    $.post(url,{id:id,choice:ch},function(data){
+        $(".alternateprice_div").html(data).show();
+    });
+}
+
 
     </script>
 </head>
@@ -201,9 +211,9 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-				$retrieve = ("SELECT * FROM product_list AS P INNER JOIN category_list AS C ON P.category_id = C.category_id");
-				$results = mysqli_query($db, $retrieve); 
-			?>
+                $retrieve = ("SELECT * FROM product_list AS P INNER JOIN category_list AS C ON P.category_id = C.category_id");
+                $results = mysqli_query($db, $retrieve); 
+            ?>
 
                 <table class="table table-striped table-bordered">
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
@@ -228,11 +238,11 @@ if(!$_SESSION['username'])  {
 
                         <tbody>
                             <?php
-	
+    
                            foreach ($results as $data):
                             
-								$toData = $data["productList_id"];
-						?>
+                                $toData = $data["productList_id"];
+                        ?>
                                 <tr>
                                     <td data-title="Product_ID">
                                         <?php 
@@ -273,14 +283,13 @@ if(!$_SESSION['username'])  {
                                         <?php //echo $data["location"]; ?>
                                     </td> -->
                                     <td data-title="edit">
-										<table class="table table-striped table-bordered">
-											<!--<button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo''.$individual_product_id.'';?>"></button>-->
-                                            <a button type="button" href="#<?php echo''.$individual_product_id.'';?>" class="glyphicon glyphicon-cog" data-toggle="modal"></a>
-										</table>
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>                                 
+                                        </table>
                                     </td>
                                 </tr>
                                 <!--Edit modal-->
-                                 <div id="<?php echo''.$individual_product_id.'';?>"  class="modal fade" role="dialog">
+                                 <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -316,12 +325,14 @@ if(!$_SESSION['username'])  {
 
                                      <select name="ProductCategory">
                                         <?php
-                                          foreach ($categoryResult as $datas):
+                                         // foreach ($categoryResult as $datas):
+                                         while($datas=mysqli_fetch_array($categoryResult)){
                                               $toData = $datas["category_id"];
                                         ?>
                                         <option value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>                              
                                        <?php
-                                          endforeach;
+                                   }
+                                          //endforeach;
                                         ?>
                                     </select>
                                         <div class="row">
@@ -333,10 +344,14 @@ if(!$_SESSION['username'])  {
                                                 <input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control" >
                                             </div>
                                             <div class="col-xs-6">
+                                             <!--temporary fix for the no altprice error-->
+                                               <input name="altprice" value="<?php echo $row['altprice']; ?>" type="hidden" class="form-control">
+
+                                           <div class="alternateprice_div" id="alternateprice_div">
                                                 <input name="altprice" value="<?php echo $row['altprice']; ?>" type="text" class="form-control" >
                                             </div>
-                                        </div>
-                                                
+                                            </div>
+                                        </div>                                            
                                     <div class="row">
                                     <div class="col-xs-4"><label>Status</label>
                                         <select name="status" class="form-control">
@@ -345,17 +360,19 @@ if(!$_SESSION['username'])  {
                                         </select>      
                                     </div>
                                  
-                                        <div class="col-xs-6"><label>Location</label>
-                                        <div class="row">
-                                            <div class="col-xs-8">                                       
-                                                <select name="location" class="form-control">
-                                                    <option value="<?php echo $row['location']; ?>" selected disabled hidden><?php echo $row['location']; ?></option>
-                                                    <option value="Baguio">Baguio</option>
-                                                    <option value="Pangasinan">Pangasinan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="col-xs-6"><label>Location</label>
+                                    <div class="row">
+                                 <div class="col-xs-8">      
+                                    <!---->
+                                    <select name="location" class="form-control" onchange="javascript:swapAlternate('<?php echo''.$individual_product_id.'';?>',this.value);">
+                                        <option value="<?php echo $row['location']; ?>" selected hidden><?php echo $row['location']; ?></option>
+                                        <option value="Baguio">Baguio</option>
+                                        <option value="Pangasinan">Pangasinan</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
                                        </div>
                                         <div class="row">
                                         <div class="col-xs-12">
@@ -377,11 +394,11 @@ if(!$_SESSION['username'])  {
                         </div>
                     </div>
                                 <?php     
-							endforeach;
-							?>
+                            endforeach;
+                            ?>
                         </tbody>
-                    </table>	
-					                   
+                    </table>    
+                                       
 
                     <!-- Modal -->
                     <div id="myModal" class="modal fade" role="dialog">
@@ -449,8 +466,6 @@ if(!$_SESSION['username'])  {
                             </div>
                         </div>
                     </div>
-                    
-                    
+                   
 </body>
-
 </html>

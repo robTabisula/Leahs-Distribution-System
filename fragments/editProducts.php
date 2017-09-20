@@ -20,9 +20,9 @@
                   $altprice = $_POST['altprice'];
                   $indiv_prod_id = $_POST['indiv_prod_id'];
 
-            $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$ProductCategory' , productList_origprice = '$productList_price' where product_list.productList_id='$indiv_prod_id'";
+           $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$ProductCategory' , productList_origprice = '$productList_price' where product_list.productList_id='$indiv_prod_id'";
 
-            if(mysqli_query($db, $query)){
+          if(mysqli_query($db, $query)){
               $query2 = "UPDATE product_loc SET location = '$location' , status = '$status', altprice = '$altprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='$location'";
         
           if(mysqli_query($db, $query2)){
@@ -31,11 +31,10 @@
             } else{
               echo ("ERROR: Could not able to execute" . mysqli_error($db));
             }
-         
+        
       }
 
 //enabled disabled not updating* (still needs to be fixed)
-//location problems
               }   
         ?>
   </body>
