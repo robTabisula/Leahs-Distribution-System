@@ -15,17 +15,21 @@
                   $ProductCategory = $_POST['ProductCategory'];
                   $productList_price = $_POST['productList_price'];
                   $barcode =$_POST['barcode'];
+                  $pprice=$_POST['pangasinanprice'];
+                  $bprice=$_POST['baguioprice'];
                   $status = $_POST['status'];
-                  $location = $_POST['location'];
-                  $altprice = $_POST['altprice'];
                   $indiv_prod_id = $_POST['indiv_prod_id'];
 
            $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$ProductCategory' , productList_origprice = '$productList_price' where product_list.productList_id='$indiv_prod_id'";
 
           if(mysqli_query($db, $query)){
-              $query2 = "UPDATE product_loc SET location = '$location' , status = '$status', altprice = '$altprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='$location'";
+            //baguio
+            $query2 = "UPDATE product_loc SET status = '$status', altprice = '$bprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Baguio'";
+
+             //pangasinan
+            $query3 = "UPDATE product_loc SET status = '$status', altprice = '$pprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Pangasinan'";
         
-          if(mysqli_query($db, $query2)){
+          if(mysqli_query($db, $query2) and mysqli_query($db, $query3)){
             echo"<script>alert('Successfuly edit products')</script>";
             echo "<script>window.open('../products.php','_self')</script>";  
             } else{
@@ -33,9 +37,7 @@
             }
         
       }
-
-//enabled disabled not updating* (still needs to be fixed)
-              }   
+              }
         ?>
   </body>
 </html>

@@ -67,21 +67,6 @@ if(!$_SESSION['username'])  {
                 table.fnDraw();
             });
         });
-/*script for ajax*/
-
-function swapAlternate(id,ch){
-    $('.altmain').hide();
-    $(".alternateprice_div").html('alt="loading">').show();
-    var url="fragments/alternate_prices_ajax.php";
-    $.post(url,{id:id,choice:ch},function(data){
-        $(".alternateprice_div").html(data).show();
-    });
-}
-
-function refresh(){
-    $('.altmain').show();
-    $('.alternateprice_div').empty();
-}
     </script>
 </head>
 
@@ -302,9 +287,13 @@ function refresh(){
                                             </div>
                                             <div class="modal-body">
                                             <?php
-                                            $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id'";
+                                            $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id' and c.location='Baguio'";
                                             $run = mysqli_query($db, $query);
-                                            $row = mysqli_fetch_array($run);
+                                            $row = mysqli_fetch_array($run);//baguio
+
+                                            $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id' and c.location='Pangasinan'";
+                                            $runp = mysqli_query($db, $query);
+                                            $rowp = mysqli_fetch_array($runp);//pangasinan
                                             ?>
                                              <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
                                                 <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id"/>
@@ -339,41 +328,30 @@ function refresh(){
                                     </select>
                                         <div class="row">
                                             <div class="col-xs-6"><label>Original Price</label></div>
-                                            <div class="col-xs-6"><label>Alternate Price</label></div>
+                                            <div class="col-xs-6"><label>Status</label></div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6">
                                                 <input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control" >
-                                            </div>
-                                            <div class="col-xs-6">
-                                             <!--this will be the default popup of alternate price (baguio)-->
-                                                <div class="altmain">
-                                                    <input name="altprice" value="<?php echo $row['altprice']; ?>" class="form-control">
                                                 </div>
-                                            <!--this will show once dropdown location is selected-->
-                                                    <div class="alternateprice_div" id="alternateprice_div">
-                                                </div>
-                                          
+                                                <div class="col-xs-4">                                           
+       
+                                                <select name="status" class="form-control">
+                                                    <option>Enabled</option>
+                                                    <option>Disabled</option>
+                                                </select>    
+
                                             </div>
                                         </div>                                            
                                     <div class="row">
-                                    <div class="col-xs-4"><label>Status</label>
-                                        <select name="status" class="form-control">
-                                            <option>Enabled</option>
-                                            <option>Disabled</option>
-                                        </select>      
+                                    <div class="col-xs-6"><label>Baguio Alternate Price</label> 
+                                    <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
                                     </div>
                                  
-                                    <div class="col-xs-6"><label>Location</label>
+                                    <div class="col-xs-6"><label>Pangasinan Alternate Price</label>
                                     <div class="row">
-                                 <div class="col-xs-8">      
-                                    <!---->
-                                    <select name="location" class="form-control" onchange="javascript:swapAlternate('<?php echo''.$individual_product_id.'';?>',this.value);">
-                                        <option value="<?php echo $row['location']; ?>" selected hidden><?php echo $row['location']; ?></option>
-                                        <option value="Baguio">Baguio</option>
-                                        <option value="Pangasinan">Pangasinan</option>
-                                    </select>
-
+                                 <div class="col-xs-10">      
+                                      <input name="pangasinanprice" value="<?php echo $rowp['altprice']; ?>" class="form-control">
                                 </div>
                             </div>
                         </div>
