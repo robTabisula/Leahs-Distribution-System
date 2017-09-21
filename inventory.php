@@ -204,14 +204,18 @@ if(!$_SESSION['username'])  {
                 <h1 align="center">Inventory List</h1>
             </table>
 
-            <!-- Retrieve Account Data -->
+            <!-- Retrieve Inventory Data -->
             <?php
 				$retrieve = ("SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id;");
 				$results = mysqli_query($db, $retrieve); 
 			?>
 
                 <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>
+                   
+                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button> 
+
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
+                   
                 </table>
 
                 <div id="mainContainer">
@@ -335,14 +339,14 @@ if(!$_SESSION['username'])  {
 					
 					
 					
-					                    <!-- Modal Edit Products -->
+                    <!-- Modal Edit Stocks -->
                     <div id="editModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
 
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Edit Product</h4>
+                                    <h4 class="modal-title">Edit Stocks</h4>
                                 </div>
                                 <div class="modal-body">
 									 
@@ -435,6 +439,70 @@ if(!$_SESSION['username'])  {
 								</div>
 							</div>
 						</div>
+                    </div>
+
+                    <!-- Modal low Stocks-->
+                    <div id="lowStocks" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Low Stock</h4>
+                                </div>
+                                <div class="modal-body">
+                              		<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+				                        <thead>
+				                            <tr>
+				                                <th>Inventory ID</th>
+				                                <th>Product Name</th>
+				                                <th>Product Quantity</th>
+				                                <th>Restock Level</th>
+				                                <th>Catgory Name</th>
+				                                <th>Location</th>
+				                                <th>Add Stock</th>
+				                            </tr>
+				                        </thead>
+				                        <tbody>
+				                        <?php 
+					                        $LowStocks = ("SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_quantity <= iS_restock_lvl");
+												   $resultsLowStocks = mysqli_query($db, $LowStocks); 
+										?>
+				                        <?php
+											foreach ($resultsLowStocks as $lowStock):
+												$toData = $lowStock["iS_inventoryid"];
+										?>
+				                                <tr>
+				                                    <td data-title="inventory id">
+				                                        <?php echo $lowStock["iS_inventoryid"]; ?>
+				                                    </td>
+				                                    <td data-title="productList name">
+				                                        <?php echo $lowStock["productList_name"]; ?>
+				                                    </td>
+				                                    <td data-title="product quantity">
+				                                        <?php echo $lowStock["iS_quantity"]; ?>
+				                                    </td>
+				                                    <td data-title="Restock Quantity">
+				                                        <?php echo $lowStock["iS_restock_lvl"]; ?>
+				                                    </td>
+				                                    <td data-title="category">
+				                                        <?php echo $lowStock["category_name"]; ?>
+				                                    </td><td data-title="location">
+				                                        <?php echo $lowStock["iS_location"]; ?>
+				                                    </td>
+				                                    <td data-title="edit">
+														<table class="table table-striped table-bordered">
+															<button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" data-target="#myModal"></button>
+														</table>
+				                                    </td>
+				                                </tr>
+				                                <?php
+												endforeach;
+											?>
+				                        </tbody>
+				                    </table>      
+                                </div>
+                            </div>
+                        </div>
                     </div>
 					
         </div>
