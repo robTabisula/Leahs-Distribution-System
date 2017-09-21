@@ -25,7 +25,7 @@
             $Quantity = $addQuantity + $currentQuantity;
           
 			 
-          	$query = "UPDATE Inventory SET iS_quantity = '$Quantity' WHERE iS_inventoryid = '$productList' AND iS_location = '$Loc'";
+          	$query = "UPDATE inventory SET iS_quantity = '$Quantity' WHERE iS_product_id = '$productList' AND iS_location = '$Loc'";
             
             if(mysqli_query($db, $query)){ 					
 						echo"<script>alert('Successfuly Added Stock')</script>";
@@ -40,5 +40,9 @@
           }
         	 
         ?>
+        <h1><?php echo $productList ?></h1>
+        <h1><?php echo $addQuantity ?></h1>
+        <h1><?php echo $currentQuantity ?></h1>
+        <h1><?php echo $Quantity ?></h1>
   </body>
 </html>
