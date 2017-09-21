@@ -159,6 +159,11 @@ if(!$_SESSION['username'])  {
                     </span>
                 </div>
                 <li class="sub-menu_nc">
+                    <a class="sub-menu_nc" href="categories.php">
+                        <i class="fa fa-archive"> </i> Category List
+                    </a>
+                </li>   
+                <li class="sub-menu_nc">
                     <a class="sub-menu_nc" href="products.php">
                         <i class="fa fa-shopping-basket"> </i> Product List
                     </a>
