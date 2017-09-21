@@ -70,6 +70,7 @@ if(!$_SESSION['username'])  {
 /*script for ajax*/
 
 function swapAlternate(id,ch){
+    $('.altmain').hide();
     $(".alternateprice_div").html('alt="loading">').show();
     var url="fragments/alternate_prices_ajax.php";
     $.post(url,{id:id,choice:ch},function(data){
@@ -77,7 +78,10 @@ function swapAlternate(id,ch){
     });
 }
 
-
+function refresh(){
+    $('.altmain').show();
+    $('.alternateprice_div').empty();
+}
     </script>
 </head>
 
@@ -284,7 +288,7 @@ function swapAlternate(id,ch){
                                     </td> -->
                                     <td data-title="edit">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>                                 
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>                                 
                                         </table>
                                     </td>
                                 </tr>
@@ -324,15 +328,13 @@ function swapAlternate(id,ch){
                                     ?>
 
                                      <select name="ProductCategory">
-                                        <?php
-                                         // foreach ($categoryResult as $datas):
+                                        <?php                                
                                          while($datas=mysqli_fetch_array($categoryResult)){
                                               $toData = $datas["category_id"];
                                         ?>
                                         <option value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>                              
                                        <?php
-                                   }
-                                          //endforeach;
+                                   }                                     
                                         ?>
                                     </select>
                                         <div class="row">
@@ -344,12 +346,14 @@ function swapAlternate(id,ch){
                                                 <input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control" >
                                             </div>
                                             <div class="col-xs-6">
-                                             <!--temporary fix for the no altprice error-->
-                                               <input name="altprice" value="<?php echo $row['altprice']; ?>" type="hidden" class="form-control">
-
-                                           <div class="alternateprice_div" id="alternateprice_div">
-                                                <input name="altprice" value="<?php echo $row['altprice']; ?>" type="text" class="form-control" >
-                                            </div>
+                                             <!--this will be the default popup of alternate price (baguio)-->
+                                                <div class="altmain">
+                                                    <input name="altprice" value="<?php echo $row['altprice']; ?>" class="form-control">
+                                                </div>
+                                            <!--this will show once dropdown location is selected-->
+                                                    <div class="alternateprice_div" id="alternateprice_div">
+                                                </div>
+                                          
                                             </div>
                                         </div>                                            
                                     <div class="row">
@@ -388,10 +392,7 @@ function swapAlternate(id,ch){
                             </div>
 
                           </div>
-                          
-                          
-                       
-                        </div>
+                  </div>
                     </div>
                                 <?php     
                             endforeach;
