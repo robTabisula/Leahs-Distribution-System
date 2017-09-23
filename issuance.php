@@ -42,6 +42,14 @@ if(!$_SESSION['username'])  {
                 responsive: true
             });
         });
+
+        function viewIssuance(choice){
+            $("#issuanceDiv").html('Loading').show();
+            var url="fragments/view_issuance.php";
+            $.post(url,{choice:choice},function(data){
+            $("#issuanceDiv").html(data).show();
+    });
+}
     </script>
 </head>
 
@@ -179,21 +187,21 @@ if(!$_SESSION['username'])  {
             <table class="table table-striped table-bordered">
                 <h1 align="center">Issuance</h1>
             </table>
-			
-			<!-- Retrieve Data -->
-            <?php
-				$retrieve = ("SELECT * FROM issuance_list inner join issuance on issuance_list.issue_id = issuance.issue_id inner join product_list on issuance_list.issue_id = product_list.productList_id");
-				$results = mysqli_query($db, $retrieve);
-			?>
-			
-			
-                <center><select name="acctype" required>
-					<option value="">Select...</option>
-					<option value="Admin">Regular</option>
-					<option value="User">Penthouse</option>
-					<option value="User">Others</option>
+
+                <center><select name="acctype" onchange="javascript:viewIssuance(this.value);" required>
+					<option value="none">Select...</option>
+					<option value="Regular">Regular</option>
+					<option value="Penthouse">Penthouse</option>
+					<option value="Others">Others</option>
 				</select><center>
 				
+                <!--This is the div to show issuance-->
+                <div id="issuanceDiv">
+                </div>
+                <!---->
+                    
+                <!--Modal for the add button(not done)-->
+
                 <div class="panel-body">  
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
@@ -230,6 +238,7 @@ if(!$_SESSION['username'])  {
 							<div class="dateTime">
 							<h4>Date and Time</h4> 
                             <?php echo $date = date("Y-m-d H:i:s");  ?>
+                            <input type="hidden" name="date" value="<?php echo $date;?>"/>
 							</div>
 							
                             <div class="form-group">							
