@@ -33,15 +33,15 @@
 </head>
 
 <body>
-				
+	<?php
+		//variable for issuance categories
+		//1 for regular, 2 for penthouse, 3 for others
+			$choice=$_POST['choice'];
+
+	?>	
                 <div class="panel-body">  
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
-                        <fieldset>  
-							
-							<h4>Issuance ID</h4>
-							<h4><code id="output" name="issue_id"></code></h4>
-							<p><button id="generate">Generate</button></p>
-							
+                        <fieldset>  	
 							<div class="client">
 							<h4>Clients</h4>
                                         <?php
@@ -115,46 +115,3 @@
 
 </html>
 
-<script>
-(function() {
-	 function IDGenerator() {
-	 
-		 this.length = 8;
-		 this.timestamp = +new Date;
-		 
-		 var _getRandomInt = function( min, max ) {
-			return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-		 }
-		 
-		 this.generate = function() {
-			 var ts = this.timestamp.toString();
-			 var parts = ts.split( "" ).reverse();
-			 var id = "RI-";
-			 
-			 for( var i = 0; i < this.length; ++i ) {
-				var index = _getRandomInt( 0, parts.length - 1 );
-				id += parts[index];	 
-			 }
-			 
-			 return id;
-		 }
-
-		 
-	 }
-	 
-	 
-	 document.addEventListener( "DOMContentLoaded", function() {
-		var btn = document.querySelector( "#generate" ),
-			output = document.querySelector( "#output" );
-			
-		btn.addEventListener( "click", function() {
-			var generator = new IDGenerator();
-			output.innerHTML = generator.generate();
-			
-		}, false); 
-		 
-	 });
-	 
-	 
- })();
-</script>
