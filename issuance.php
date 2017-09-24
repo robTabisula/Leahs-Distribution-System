@@ -180,31 +180,26 @@ if(!$_SESSION['username'])  {
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
-
     <!-- Main Container -->
-    <div id="page-content-wrapper">
-        <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Issuance</h1>
-            </table>
+            <div id="page-content-wrapper">
+                <div class="containers">
+                    <table class="table table-striped table-bordered">
+                        <h1 align="center">Issuance</h1>
+                    </table>
 
-                <center><select name="acctype" onchange="javascript:viewIssuance(this.value);" required>
-					<option value="1">Select...</option>
-					<option value="1">Regular</option>
-					<option value="2">Penthouse</option>
-					<option value="3">Others</option>
-				</select><center>
-				
-                <!--This is the div to show issuance-->
-                <div id="issuanceDiv">
-                </div>
-                <!---->
-                    
-                
-               
-    </div>  
-</div>  
-
+                        <center><select name="acctype" onchange="javascript:viewIssuance(this.value);" required>
+        					<option value="1">Select...</option>
+        					<option value="1">Regular</option>
+        					<option value="2">Penthouse</option>
+        					<option value="3">Others</option>
+        				</select><center>
+        				
+                        <!--This is the div to show issuance-->
+                        <div id="issuanceDiv">
+                        </div>
+                        <!---->         
+                </div>  
+            </div>  
         </div>
     </div>
 
@@ -212,46 +207,3 @@ if(!$_SESSION['username'])  {
 
 </html>
 
-<script>
-(function() {
-	 function IDGenerator() {
-	 
-		 this.length = 8;
-		 this.timestamp = +new Date;
-		 
-		 var _getRandomInt = function( min, max ) {
-			return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-		 }
-		 
-		 this.generate = function() {
-			 var ts = this.timestamp.toString();
-			 var parts = ts.split( "" ).reverse();
-			 var id = "RI-";
-			 
-			 for( var i = 0; i < this.length; ++i ) {
-				var index = _getRandomInt( 0, parts.length - 1 );
-				id += parts[index];	 
-			 }
-			 
-			 return id;
-		 }
-
-		 
-	 }
-	 
-	 
-	 document.addEventListener( "DOMContentLoaded", function() {
-		var btn = document.querySelector( "#generate" ),
-			output = document.querySelector( "#output" );
-			
-		btn.addEventListener( "click", function() {
-			var generator = new IDGenerator();
-			output.innerHTML = generator.generate();
-			
-		}, false); 
-		 
-	 });
-	 
-	 
- })();
-</script>

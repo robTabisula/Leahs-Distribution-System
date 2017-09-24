@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-	<?php include('config.php') ?>
+
+<head>
+    <script src="https://use.fontawesome.com/5787c90a1c.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Issuance</title>
+
+    <!-- Database Connection -->
+    <?php include('config.php') ?>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <link href="src/css/datatables.css" rel="stylesheet">
+
+    <!-- Datatables-->
+    <script>
+        $(document).ready(function() {
+            $('#datatables').DataTable({
+                responsive: true
+            });
+        });
+    </script>
 </head>
 
 <body>
-	<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-	<?php $choice=$_POST['choice'];?>
-		   <thead>
-	             <tr>
-	                <th>Product Name</th>
-	                <th>Quantity</th>
-	                <th>Factory Unit Price</th>
-	                <th>Adjusted Price</th>
-	                <th>Total Unit Price</th>
-	             </tr>
-	       </thead>
-	       <tbody>
-
-				<tr>
-					<td data-title="productName">
-						<select name="productlist">
-					
-						</select>
-					</td>
-					<td data-title="quantity">
-						<input type="text" name="quantity"/>
-					</td>
-					<td data-title="price">
-						<?php echo "under construction"?>
-					</td>
-					<td data-title="price">
-						<input type="text" name="adjusted_price"/>
-					</td>
-					<td data-title="price">
-						<?php echo "under construction"?>
-					</td>
-				</tr>
-			</tbody>
-			</table>
-
-			 <div class="panel-body">  
+				
+                <div class="panel-body">  
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
 							
 							<h4>Issuance ID</h4>
-							<h4><Input type="label" id="output" name="issue_id"></input></h4>
+							<h4><code id="output" name="issue_id"></code></h4>
 							<p><button id="generate">Generate</button></p>
 							
 							<div class="client">
@@ -75,7 +70,6 @@
 							<div class="dateTime">
 							<h4>Date and Time</h4> 
                             <?php echo $date = date("Y-m-d H:i:s");  ?>
-                            <input type="hidden" name="date" value="<?php echo $date;?>"/>
 							</div>
 							
                             <div class="form-group">							
@@ -111,4 +105,56 @@
                         </fieldset>  
                     </form>  
                 </div>   
-<body>
+    </div>  
+</div>  
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+(function() {
+	 function IDGenerator() {
+	 
+		 this.length = 8;
+		 this.timestamp = +new Date;
+		 
+		 var _getRandomInt = function( min, max ) {
+			return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+		 }
+		 
+		 this.generate = function() {
+			 var ts = this.timestamp.toString();
+			 var parts = ts.split( "" ).reverse();
+			 var id = "RI-";
+			 
+			 for( var i = 0; i < this.length; ++i ) {
+				var index = _getRandomInt( 0, parts.length - 1 );
+				id += parts[index];	 
+			 }
+			 
+			 return id;
+		 }
+
+		 
+	 }
+	 
+	 
+	 document.addEventListener( "DOMContentLoaded", function() {
+		var btn = document.querySelector( "#generate" ),
+			output = document.querySelector( "#output" );
+			
+		btn.addEventListener( "click", function() {
+			var generator = new IDGenerator();
+			output.innerHTML = generator.generate();
+			
+		}, false); 
+		 
+	 });
+	 
+	 
+ })();
+</script>
