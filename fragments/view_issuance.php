@@ -36,12 +36,26 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
+    /*code for ajax*/
          function viewCategory(prod_id){
             $("#AdjustedPriceDiv").html('Loading').show();
             var url="fragments/issuance_fn.php";
             $.post(url,{prod_id:prod_id},function(data){
             $("#AdjustedPriceDiv").html(data).show();
     	;});
+    	}
+
+    /*            */
+    	function clone(){
+    		var myDiv = document.getElementById("toClone");
+    		var nextDiv = document.getElementById("next");
+    		var divClone = myDiv.cloneNode(true);
+    		nextDiv.appendChild(divClone);
+    	}
+
+    	function deleteclone(){
+    		var nextDiv = document.getElementById("next");
+    		nextDiv.removeChild(nextDiv.lastChild);
     	}
     </script>
 </head>
@@ -114,7 +128,7 @@ if(!$_SESSION['username'])  {
 										$retrieveProd = ("SELECT * FROM product_list");
 										$prodRetrieve = mysqli_query($db, $retrieveProd);
 									?>
-
+								<div id="toClone">
                                   <select name="productList" onchange ="javascript:viewCategory(this.value);" required>
 				                		<option value = "" selected="true" disabled="disabled">Choose Product..</option>
 				                     		<?php
@@ -129,14 +143,20 @@ if(!$_SESSION['username'])  {
 												endforeach;
 									  		?>
                                   </select>	
+                                
                             <input placeholder="Adjusted Price" type="number" name="adjusted_price" required/> 
-                            <input placeholder="Quantity" name="quantity" type="number"  required>	  
+                            <input placeholder="Quantity" name="quantity[]" type="number"  required>	 
+                            	</div> 
+                            <div id = "next">
+                            </div>
 							<!--Div to view adjusted price-->
 							<div id="AdjustedPriceDiv">
 							</div>				
 					
-                            </div>						
-							<input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance" >   
+                            </div>	
+                            <input class="btn btn-lg btn-primary btn-block" type="button" onclick="clone();" value="Add Product"/>   
+                            <input class="btn btn-lg btn-danger btn-block" type="button" onclick="deleteclone();" value="Remove Product"/>  					
+							<input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
 	                       	</fieldset>  
                     	</form>  
                 	</div>   

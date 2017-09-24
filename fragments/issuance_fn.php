@@ -18,11 +18,16 @@
         	if (isset($_POST["add_issuance"])) {
   
 			$issue_id = $_POST['issue_id'];	
-          	$clientlist = $_POST['clientlist'];
-			$remarks = $_POST['remarks'];
-			$date = $_POST['date'];
+      $clientlist = $_POST['clientlist'];
+			//$remarks = $_POST['remarks'];
+			//$date = $_POST['date'];
 			$productList = $_POST['productList'];
+      $adjustedprice = $_POST['adjusted_price'];
 			$quantity = $_POST['quantity'];
+
+      foreach ($quantity as $q){
+        echo $q;
+      }
 /*
             $clientQuery = "SELECT c_id FROM clients WHERE c_name = '$clientlist'";
             $client = mysqli_query($db, $clientQuery);
@@ -51,12 +56,8 @@
 						echo "<script>window.open('../products.php','_self')</script>";  
 						} else{
 							echo ("ERROR: Could not able to execute" . mysqli_error($db));
-						}
-				
-				
-			}
-		
-        	 */
+						}	
+			}*/
         }else{
         	//this is to view the adjusted price
         		$selectedproductID = $_POST['prod_id'];
@@ -76,13 +77,14 @@
 
       				$Pangasinanquery = mysqli_query($db, $pquery);
       				$PangasinanPrice = mysqli_fetch_array($Pangasinanquery);
+                echo "<h4>Product: ".$BaguioPrice['productList_name']."</h4>";
+      				  echo "<h4>Baguio Price: ".$BaguioPrice['altprice']."</h4>";
+      				  echo "<h4>Pangasinan Price: ".$PangasinanPrice['altprice']."</h4>";
 
-      				echo "<h4>Baguio Price: ".$BaguioPrice['altprice']."</h4>";
-      				echo "<h4>Pangasinan Price: ".$PangasinanPrice['altprice']."</h4>";
       				if(mysqli_num_rows($pqueryactivate)>=1){	
-      				echo "<h4>Category: ".$selectedProduct['category_name'].'</h4>';
+      				  echo "<h4>Category: ".$selectedProduct['category_name'].'</h4>';
       				}else{
-      				echo "Category: Information in the Database is incomplete.";
+      				  echo "Information in the Database is incomplete.";
       				}
         	}
        			?>

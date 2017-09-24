@@ -48,7 +48,7 @@ if(!$_SESSION['username'])  {
             var url="fragments/view_issuance.php";
             $.post(url,{choice:choice},function(data){
             $("#issuanceDiv").html(data).show();
-    });
+        });
 }
     </script>
 </head>
