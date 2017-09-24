@@ -60,16 +60,31 @@
         }else{
         	//this is to view the adjusted price
         		$selectedproductID = $_POST['prod_id'];
-      			$pquery = ("Select * From product_list p inner join category_list c on p.category_id = 												c.category_id where productList_id = '$selectedproductID'");
+      $pquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID'");
       			$pqueryactivate = mysqli_query($db, $pquery);
       			$selectedProduct = mysqli_fetch_array($pqueryactivate);
-      		?>
-      <h4>Original Price</h4>
-      	<input placeholder="<?php echo $selectedProduct['productList_origprice'];?>" name="OrigPrice" type="number" readonly>
-      <h4>Category</h4>
-      	<input placeholder="<?php echo $selectedProduct['category_name'];?>" name="OrigPrice" type="number" readonly>
-      		<?php
-        }
-        ?>
+      		?>    
+      			<?php 
+      				//to view price per location
+      				//baguio
+      $bquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Baguio'");
+
+      $pquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Pangasinan'");
+
+      				$Baguioquery = mysqli_query($db, $bquery);
+      				$BaguioPrice = mysqli_fetch_array($Baguioquery);
+
+      				$Pangasinanquery = mysqli_query($db, $pquery);
+      				$PangasinanPrice = mysqli_fetch_array($Pangasinanquery);
+
+      				echo "<h4>Baguio Price: ".$BaguioPrice['altprice']."</h4>";
+      				echo "<h4>Pangasinan Price: ".$PangasinanPrice['altprice']."</h4>";
+      				if(mysqli_num_rows($pqueryactivate)>=1){	
+      				echo "<h4>Category: ".$selectedProduct['category_name'].'</h4>';
+      				}else{
+      				echo "Category: Information in the Database is incomplete.";
+      				}
+        	}
+       			?>
   </body>
 </html>

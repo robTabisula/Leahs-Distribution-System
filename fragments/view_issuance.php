@@ -36,7 +36,7 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-         function viewPrice(prod_id){
+         function viewCategory(prod_id){
             $("#AdjustedPriceDiv").html('Loading').show();
             var url="fragments/issuance_fn.php";
             $.post(url,{prod_id:prod_id},function(data){
@@ -51,6 +51,8 @@ if(!$_SESSION['username'])  {
 		//variable for issuance categories
 		//1 for regular, 2 for penthouse, 3 for others
 			$choice=$_POST['choice'];
+		//regular issuance
+			if ($choice=='1'){
 	?>	
 					
                 <div class="panel-body">        				
@@ -99,13 +101,21 @@ if(!$_SESSION['username'])  {
                             <input type="label" name="date" value="<?php echo $date;?>" readonly/>
 							</div>
 							<br>
+
+								<select name="area" onchange="javascript:viewPrice(this.value);" required>
+									<option value="" selected="true" disabled="disabled">Select an Area</option>
+									<option value="Baguio">Baguio</option>
+									<option value="Pangasinan">Pangasinan</option>
+								</select>
+							<br>
+							<br>
                             <div class="form-group">							
                                     <?php
 										$retrieveProd = ("SELECT * FROM product_list");
 										$prodRetrieve = mysqli_query($db, $retrieveProd);
 									?>
 
-                                  <select name="productList" onchange ="javascript:viewPrice(this.value);" required>
+                                  <select name="productList" onchange ="javascript:viewCategory(this.value);" required>
 				                		<option value = "" selected="true" disabled="disabled">Choose Product..</option>
 				                     		<?php
 												foreach ($prodRetrieve as $datas):
@@ -134,5 +144,15 @@ if(!$_SESSION['username'])  {
 			</div>  
        </div>
     </div>
+<?php 
+//end of regular issuance
+}else if ($choice=='2'){
+//penthouse issuance
+	echo "not yet done";	
+}else if ($choice=='3'){
+//other issuance
+	echo "still under construction";
+} 
+?>
 </body>
 </html>
