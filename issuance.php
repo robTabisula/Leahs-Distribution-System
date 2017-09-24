@@ -189,7 +189,7 @@ if(!$_SESSION['username'])  {
                     </table>
 
                         <center><select name="acctype" onchange="javascript:viewIssuance(this.value);" required>
-        					<option value="1">Select...</option>
+        					<option value="1" selected="true" disabled="disabled">Please Select Issuance Category...</option>
         					<option value="1">Regular</option>
         					<option value="2">Penthouse</option>
         					<option value="3">Others</option>

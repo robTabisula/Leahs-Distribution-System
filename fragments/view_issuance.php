@@ -36,7 +36,13 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-      
+         function viewPrice(prod_id){
+            $("#AdjustedPriceDiv").html('Loading').show();
+            var url="fragments/issuance_fn.php";
+            $.post(url,{prod_id:prod_id},function(data){
+            $("#AdjustedPriceDiv").html(data).show();
+    	;});
+    	}
     </script>
 </head>
 
@@ -50,18 +56,26 @@ if(!$_SESSION['username'])  {
                 <div class="panel-body">        				
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
-                        	<h4>Issuance ID</h4>
-                    		<h4><code id="outputs" name="issue_id"></code></h4>
-                    		<p><button id="generates">Generate</button></p>
-					                      
+                        				                      
 							<div class="client">
+							
+							<h4>Issuance ID</h4>
+									<?php
+										$retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
+										$idRetrieve = mysqli_query($db, $retrieveId);
+										$idRow = mysqli_fetch_array($idRetrieve);
+
+										$latestid = $idRow['issue_id'];
+										$newID = $latestid + 1; //will increment 1 from the latest issuance ID
+									?>
+							<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
 							<h4>Clients</h4>
-                                        <?php
+                                    <?php
 										$retrieveCat = ("SELECT c_id, c_name  FROM clients");
 										$clientRetrieve = mysqli_query($db, $retrieveCat);
-									?>
-
-                                    <select name="clientlist">
+									?>						
+                                    <select name="clientlist" required>
+                                    <option value = "" selected="true" disabled="disabled">Select Client..</option>
 				                        <?php
 											foreach ($clientRetrieve as $data):
 												$toData = $data["c_id"];
@@ -81,89 +95,44 @@ if(!$_SESSION['username'])  {
 							
 							<div class="dateTime">
 							<h4>Date and Time</h4> 
-                            <?php echo $date = date("Y-m-d H:i:s");  ?>
+                            	<?php $date = date("Y-m-d H:i:s");  ?>
+                            <input type="label" name="date" value="<?php echo $date;?>" readonly/>
 							</div>
-							
+							<br>
                             <div class="form-group">							
                                     <?php
-										$retrieveProd = ("SELECT productList_id, productList_name,productList_origprice FROM product_list");
+										$retrieveProd = ("SELECT * FROM product_list");
 										$prodRetrieve = mysqli_query($db, $retrieveProd);
 									?>
 
-                                    <select name="productList">
-				                        <?php
-											foreach ($prodRetrieve as $data):
-												$toData = $data["productList_id"];
-										?>
-
-                                    	<option value = "<?= $data['productList_name'] ?>"> <?php echo $data["productList_name"]; ?></option>
+                                  <select name="productList" onchange ="javascript:viewPrice(this.value);" required>
+				                		<option value = "" selected="true" disabled="disabled">Choose Product..</option>
+				                     		<?php
+												foreach ($prodRetrieve as $datas):
+												$sproduct_id = $datas["productList_id"];
+									 		?>	
+                             			<option value = "<?php echo $sproduct_id;?>">
+                             				<?php echo $datas["productList_name"]; ?>
+                             			</option>
                                 	  
-                                	   <?php
-											endforeach;
-										?>
-                                	</select>
-							
-								<?php echo $data ["productList_origprice"]; ?>
-								
-								<input placeholder="Adjusted Price" name="adjPrice" type="number">  
-								
-								<input placeholder="Quanity" name="quantity" type="number"  required>
-							  
-
-                            </div>
-							
-							<input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance" > 
-  
-                        </fieldset>  
-                    </form>  
-                </div>   
-    </div>  
-</div>  
-
-        </div>
+                                	  		<?php
+												endforeach;
+									  		?>
+                                  </select>	
+                            <input placeholder="Adjusted Price" type="number" name="adjusted_price" required/> 
+                            <input placeholder="Quantity" name="quantity" type="number"  required>	  
+							<!--Div to view adjusted price-->
+							<div id="AdjustedPriceDiv">
+							</div>				
+					
+                            </div>						
+							<input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance" >   
+	                       	</fieldset>  
+                    	</form>  
+                	</div>   
+    			</div>  
+			</div>  
+       </div>
     </div>
-
 </body>
-
 </html>
-<script type="text/javascript">
-
-     function IDGenerator() {
-     
-         this.length = 8;
-         this.timestamp = +new Date;
-         
-         var _getRandomInt = function( min, max ) {
-            return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-         }
-         
-         this.generate = function() {
-             var ts = this.timestamp.toString();
-             var parts = ts.split( "" ).reverse();
-             var id = "RI-";
-             
-             for( var i = 0; i < this.length; ++i ) {
-                var index = _getRandomInt( 0, parts.length - 1 );
-                id += parts[index];  
-             }
-             
-             return id;
-         }
-
-         
-     }   
-       
-     $( "#generates" ).on( "click", function() {
-     var btn = document.querySelector( "#generates" ),
-            output = document.querySelector( "#outputs" );
-            
-        btn.addEventListener( "click", function() {
-            var generator = new IDGenerator();
-            output.innerHTML = generator.generate();
-            
-        }, false); 
-         
-});
-      
-
-</script>

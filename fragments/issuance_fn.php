@@ -10,17 +10,20 @@
   <body>
         <?php
       	
-      	include('config.php');   
+      	include('config.php'); 
+      		
+      	?>
+      		
+      	<?php
         	if (isset($_POST["add_issuance"])) {
-
-			$issue_id = $_POST['issue_id'];
+  
+			$issue_id = $_POST['issue_id'];	
           	$clientlist = $_POST['clientlist'];
 			$remarks = $_POST['remarks'];
 			$date = $_POST['date'];
 			$productList = $_POST['productList'];
 			$quantity = $_POST['quantity'];
-			$adjPrice = $_POST['adjPrice'];
-
+/*
             $clientQuery = "SELECT c_id FROM clients WHERE c_name = '$clientlist'";
             $client = mysqli_query($db, $clientQuery);
             $row = mysqli_fetch_array($client);
@@ -52,8 +55,21 @@
 				
 				
 			}
-		}
-        	 
+		
+        	 */
+        }else{
+        	//this is to view the adjusted price
+        		$selectedproductID = $_POST['prod_id'];
+      			$pquery = ("Select * From product_list p inner join category_list c on p.category_id = 												c.category_id where productList_id = '$selectedproductID'");
+      			$pqueryactivate = mysqli_query($db, $pquery);
+      			$selectedProduct = mysqli_fetch_array($pqueryactivate);
+      		?>
+      <h4>Original Price</h4>
+      	<input placeholder="<?php echo $selectedProduct['productList_origprice'];?>" name="OrigPrice" type="number" readonly>
+      <h4>Category</h4>
+      	<input placeholder="<?php echo $selectedProduct['category_name'];?>" name="OrigPrice" type="number" readonly>
+      		<?php
+        }
         ?>
   </body>
 </html>
