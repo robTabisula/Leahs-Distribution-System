@@ -1,6 +1,13 @@
+<?php  
+session_start();  
+  
+if(!$_SESSION['username'])  {  
+  
+    header("location: ../login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <script src="https://use.fontawesome.com/5787c90a1c.js"></script>
     <meta charset="utf-8">
@@ -22,13 +29,14 @@
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <link href="src/css/datatables.css" rel="stylesheet">
 
+    <!-- sidebar links-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="src/css/sidebar.css" rel="stylesheet">
+    <link href="src/css/custom.css" rel="stylesheet">
+
     <!-- Datatables-->
     <script>
-        $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
-            });
-        });
+      
     </script>
 </head>
 
@@ -37,11 +45,15 @@
 		//variable for issuance categories
 		//1 for regular, 2 for penthouse, 3 for others
 			$choice=$_POST['choice'];
-
 	?>	
-                <div class="panel-body">  
+					
+                <div class="panel-body">        				
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
-                        <fieldset>  	
+                        <fieldset>  
+                        	<h4>Issuance ID</h4>
+                    		<h4><code id="outputs" name="issue_id"></code></h4>
+                    		<p><button id="generates">Generate</button></p>
+					                      
 							<div class="client">
 							<h4>Clients</h4>
                                         <?php
@@ -114,4 +126,44 @@
 </body>
 
 </html>
+<script type="text/javascript">
 
+     function IDGenerator() {
+     
+         this.length = 8;
+         this.timestamp = +new Date;
+         
+         var _getRandomInt = function( min, max ) {
+            return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+         }
+         
+         this.generate = function() {
+             var ts = this.timestamp.toString();
+             var parts = ts.split( "" ).reverse();
+             var id = "RI-";
+             
+             for( var i = 0; i < this.length; ++i ) {
+                var index = _getRandomInt( 0, parts.length - 1 );
+                id += parts[index];  
+             }
+             
+             return id;
+         }
+
+         
+     }   
+       
+     $( "#generates" ).on( "click", function() {
+     var btn = document.querySelector( "#generates" ),
+            output = document.querySelector( "#outputs" );
+            
+        btn.addEventListener( "click", function() {
+            var generator = new IDGenerator();
+            output.innerHTML = generator.generate();
+            
+        }, false); 
+         
+});
+      
+
+</script>
