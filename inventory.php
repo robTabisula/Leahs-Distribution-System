@@ -314,23 +314,6 @@ if(!$_SESSION['username'])  {
                                             <label>Quantity</label>
                                             <input type="number" name="Quantity" />
 
-                                        <!--
-                                            <table id="tbl">
-                                            <thead>
-                                                <th>Product</th>
-                                                <th>Quantity</th>
-                                            </thead>
-                                                <tbody>
-                                                    <tr>
-                                                      <td><input type="text" name="Product" /></td>     
-                                                      <td><input type="number" name="Quantity" /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <button type="button" class="button" onclick="addStock('tbl');">Add Product</button>
-                                        -->
-
-
 
                                             <div class="modal-footer">
                                                 <input name="add_stocks" type="submit" class="btn btn-default" value=" Submit " />
@@ -420,7 +403,7 @@ if(!$_SESSION['username'])  {
 				                                    </td>
 				                                    <td data-title="edit">
 														<table class="table table-striped table-bordered">
-															<button type="button" data-dismiss="modal" class="glyphicon glyphicon-plus" data-toggle="modal" aria-hidden="true" data-target="#LowStocksAdd"></button>
+															<button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $passID; ?>"></button>
 														</table>
 				                                    </td>
 				                                </tr>
@@ -431,28 +414,29 @@ if(!$_SESSION['username'])  {
 
                                     ?> 
                                     <!-- Modal Add from low Stocks-->
-                                    <div id ="LowStocksAdd" class="modal fade" role="dialog">
+                                    <div id ="<?php echo $passID; ?>" class="modal fade" role="dialog">
                         
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title"><?php echo $Lrow["productList_name"]; ?></h4>
+                                                    <h4 class="modal-title">Product: <?php echo $Lrow["productList_name"]; ?> Location: <?php echo $Lrow["iS_location"]; ?></h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="fragments/addStocks.php" method="POST">
+                                                    <form action="fragments/addLowStocks.php" method="POST">
+                                                        
+                                                        <label>Product ID</label>
+                                                                <input type="text" name="PId" value="<?php echo $Lrow["iS_product_id"]; ?>" readonly><br>
+
                                                         <label>Location</label>
-
-
-                                                                <input type="text" name="Loc" value=" <?php echo $Lrow["iS_location"]; ?>" readonly>
+                                                            <input type="text" name="LLoc" value="<?php echo $Lrow["iS_location"]; ?>" readonly><br>
 
 
                                                         <label>Product</label>
-                        
-                                                            <input type="text" name="Products" value=" <?php echo $Lrow["productList_name"]; ?>" readonly>
+                                                            <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]; ?>" readonly><br>
 
-                                                            <label>Quantity</label>
-                                                            <input type="number" name="Quantity" />
+                                                        <label>Quantity</label>
+                                                            <input type="number" name="LQuantity" />
 
 
                                                             <div class="modal-footer">
@@ -460,21 +444,20 @@ if(!$_SESSION['username'])  {
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                             </div>
                                                     </form>
-                                                    <?php
-                                                        endforeach;
-                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
-                                            </div>
-                                                    </tbody>
-                                                    </table> 
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </div>               
+                                        <?php
+                                            endforeach;
+                                        ?>
+                                    </tbody>
+                            </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 

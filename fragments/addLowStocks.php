@@ -12,20 +12,21 @@
       	
       	include('config.php');   
         	if (isset($_POST["add_stocks"])) {
-            $Loc = $_POST['Loc'];
-          	$productList = $_POST['Products'];
-          	$addQuantity = $_POST['Quantity'];
+            $PId = $_POST['PId'];
+            $Loc = $_POST['LLoc'];
+          	$productList = $_POST['LProducts'];
+          	$addQuantity = $_POST['LQuantity'];
 
-            $quantityQuery = "SELECT iS_quantity FROM inventory WHERE iS_product_id = '$productList' AND iS_location = '$Loc'";
-            $row = mysqli_query($db, $quantityQuery);
+            $quantityQuery = "SELECT iS_quantity FROM inventory WHERE iS_product_id = '$PId' AND iS_location = '$Loc'";
+            $Lrow = mysqli_query($db, $quantityQuery);
 
 
-            $rowQuantity = mysqli_fetch_array($row);
+            $rowQuantity = mysqli_fetch_array($Lrow);
             $currentQuantity = $rowQuantity[0];
             $Quantity = $addQuantity + $currentQuantity;
           
 			 
-          	$query = "UPDATE inventory SET iS_quantity = '$Quantity' WHERE iS_product_id = '$productList' AND iS_location = '$Loc'";
+          	$query = "UPDATE inventory SET iS_quantity = '$Quantity' WHERE iS_product_id = '$PId' AND iS_location = '$Loc'";
             
             if(mysqli_query($db, $query)){ 					
 						echo"<script>alert('Successfuly Added Stock')</script>";
@@ -34,11 +35,10 @@
 							echo ("ERROR: Could not able to execute" . mysqli_error($db));
 						}
 				
-				
-
 
           }
         	 
         ?>
+
   </body>
 </html>
