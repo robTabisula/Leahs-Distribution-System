@@ -36,35 +36,9 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-        var table;
-        responsive: true;
-        $(document).ready(function() {
-            table = $('#datatables').dataTable({
-                "dom": "l<'#myFilter'>frtip"
-            });
-            var myFilter = '<select id="mySelect">' +
-                '<option value="*">All</option>' +
-                '<option value="Baguio">Baguio</option>' +
-                '<option value="Pangasinan">Pangasinan</option>' +
-                '</select>';
-            $("#myFilter").html(myFilter);
-            table.fnDraw();
-
-            $.fn.dataTable.ext.search.push(
-                function(settings, data) {
-                    var statusData = data[7] || "";
-                    var filterVal = $("#mySelect").val();
-                    if (filterVal != "*") {
-                        if (statusData == filterVal)
-                            return true;
-                        else
-                            return false;
-                    } else
-                        return true;
-                });
-
-            $("#mainContainer").on("change", "#mySelect", function() {
-                table.fnDraw();
+    $(document).ready(function() {
+            $('#datatables').DataTable({
+                responsive: true
             });
         });
     </script>
@@ -181,7 +155,7 @@ if(!$_SESSION['username'])  {
                     <a class="sub-menu_nc" href="categories.php">
                         <i class="fa fa-archive"> </i> Category List
                     </a>
-                </li>   
+                </li>
                 <li class="sub-menu_nc">
                     <a class="sub-menu_nc" href="products.php">
                         <i class="fa fa-shopping-basket"> </i> Product List
@@ -225,8 +199,8 @@ if(!$_SESSION['username'])  {
                                 <th>Original Price</th>
                                 <!--<th>Alt Price Price</th>
                                 <th>Status</th>
-                                <th>Location</th>
-                                <th>Edit</th> -->
+                                <th>Location</th>-->
+                                <th>Edit</th>
                             </tr>
                         </thead>
 
@@ -250,8 +224,8 @@ if(!$_SESSION['username'])  {
                                         //echo "N/A";
                                     //}else {
                                         //echo $data["barcode"];}
-                                    ?>-->
-                                    </td>
+                                    ?>
+                                    </td>-->
                                     <td data-title="productname">
                                         <?php 
                                             echo $data["productList_name"]; 
@@ -278,20 +252,20 @@ if(!$_SESSION['username'])  {
                                     </td> -->
                                     <td data-title="edit">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>                                 
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>
                                         </table>
                                     </td>
                                 </tr>
                                 <!--Edit modal-->
-                                 <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
+                                <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                 <h4 class="modal-title">Edit Product</h4>
                                             </div>
                                             <div class="modal-body">
-                                            <?php
+                                                <?php
                                             $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id' and c.location='Baguio'";
                                             $run = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($run);//baguio
@@ -300,28 +274,28 @@ if(!$_SESSION['username'])  {
                                             $runp = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($runp);//pangasinan
                                             ?>
-                                             <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
-                                                <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id"/>
-                                                <div class="row">
-                                                    <div class="col-xs-4"><label>Barcode</label></div>        
-                                                    <div class="col-xs-4"><label>Product</label></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-4">                                              
-                                                        <input name="barcode" value="<?php echo $row['barcode']; ?>" type="text" class="form-control" >
+                                                    <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
+                                                        <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id" />
+                                                        <div class="row">
+                                                            <div class="col-xs-4"><label>Barcode</label></div>
+                                                            <div class="col-xs-4"><label>Product</label></div>
                                                         </div>
-                                                        <div class="col-xs-4">
-                                                            <input name="productList_name" value="<?php echo $row['productList_name']; ?>" type="text" class="form-control" >
-                                                                </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="barcode" value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
                                                             </div>
+                                                            <div class="col-xs-4">
+                                                                <input name="productList_name" value="<?php echo $row['productList_name']; ?>" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
                                                         <div class="client">
-                                                        <h5><b>Product Category</b></h5>
+                                                            <h5><b>Product Category</b></h5>
                                                             <?php
                                         $retrieveCat = ("SELECT * FROM category_list");
                                         $categoryResult = mysqli_query($db, $retrieveCat);          
                                     ?>
 
-                                     <select name="ProductCategory">
+                                                                <select name="ProductCategory">
                                         <?php                                
                                          while($datas=mysqli_fetch_array($categoryResult)){
                                               $toData = $datas["category_id"];
@@ -331,84 +305,86 @@ if(!$_SESSION['username'])  {
                                    }                                     
                                         ?>
                                     </select>
-                                        <div class="row">
-                                            <div class="col-xs-6"><label>Original Price</label></div>
-                                            <div class="col-xs-6"><label>Status</label></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control" >
-                                                </div>
-                                                <div class="col-xs-4">                                           
-       
-                                                <select name="status" class="form-control">
+                                                                <div class="row">
+                                                                    <div class="col-xs-6"><label>Original Price</label></div>
+                                                                    <div class="col-xs-6"><label>Status</label></div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-6">
+                                                                        <input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control">
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+
+                                                                        <select name="status" class="form-control">
                                                     <option>Enabled</option>
                                                     <option>Disabled</option>
-                                                </select>    
+                                                </select>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-6"><label>Baguio Alternate Price</label>
+                                                                        <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="col-xs-6"><label>Pangasinan Alternate Price</label>
+                                                                        <div class="row">
+                                                                            <div class="col-xs-10">
+                                                                                <input name="pangasinanprice" value="<?php echo $row['altprice']; ?>" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <br>
+                                                                        <div class="modal-footer">
+                                                                            <button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </form>
 
                                             </div>
-                                        </div>                                            
-                                    <div class="row">
-                                    <div class="col-xs-6"><label>Baguio Alternate Price</label> 
-                                    <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
-                                    </div>
-                                 
-                                    <div class="col-xs-6"><label>Pangasinan Alternate Price</label>
-                                    <div class="row">
-                                 <div class="col-xs-10">      
-                                      <input name="pangasinanprice" value="<?php echo $row['altprice']; ?>" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                                       </div>
-                                        <div class="row">
-                                        <div class="col-xs-12">
-                                        <br>
-                                <div class="modal-footer">
-                                    <button  name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                                      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                </div>
-                                        </div>               
-                                    </div>
-                                </form>
 
-                            </div>
-
-                          </div>
-                  </div>
-                    </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php     
                             endforeach;
                             ?>
                         </tbody>
-                    </table>    
-                                       
+                    </table>
+                </div>
 
-                    <!-- Modal -->
-                    <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
 
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Product</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="fragments/addProduct.php" method="POST" >
-                                        <h3>Barcode</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="barcode">
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
 
-                                        <h3>Product Name</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="productList_name" required>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add Product</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="fragments/addProduct.php" method="POST">
+                                    <h3>Barcode</h3>
+                                    <input type="text" class="form-control" maxlength="25" name="barcode">
 
-                                        <h3>Product Category</h3>
-                                        <?php
+                                    <h3>Product Name</h3>
+                                    <input type="text" class="form-control" maxlength="25" name="productList_name" required>
+
+                                    <h3>Product Category</h3>
+                                    <?php
                                         $retrieveCat = ("SELECT category_id, category_name, 
                                          category_status FROM category_list");
                                         $categoryResult = mysqli_query($db, $retrieveCat);
                                     ?>
 
-                                            <select name="ProductCategory">
+                                        <select name="ProductCategory">
                                                 <?php
                                                     foreach ($categoryResult as $data):
                                                         $toData = $data["category_id"];
@@ -423,33 +399,36 @@ if(!$_SESSION['username'])  {
 
 
 
-                                            <h3>Price</h3>
-                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="productList_price" required>
-                                            
-                                            <h3>Alternate Price</h3>
-                                            <input type="number" step="0.01" class="form-control" maxlength="25" name="altprice" required>
+                                        <h3>Price</h3>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="productList_price" required>
 
-                                            <h3>Restock Level</h3>
-                                            <p>*Default values for all branches!!</p>
-                                            <input type="number"  class="form-control" maxlength="25" name="restock" required>
+                                        <h3>Alternate Price</h3>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altprice" required>
 
-                                     
-                                            <h3>Status</h3>
-                                            <select name="status">
+                                        <h3>Restock Level</h3>
+                                        <p>*Default values for all branches!!</p>
+                                        <input type="number" class="form-control" maxlength="25" name="restock" required>
+
+
+                                        <h3>Status</h3>
+                                        <select name="status">
                                         <option value="Disabled">Disabled</option>
                                         <option value="Enabled">Enabled</option>
                                      </select>
 
 
-                                            <div class="modal-footer">
-                                                <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                    </form>
-                                </div>
+                                        <div class="modal-footer">
+                                            <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                   
+                </div>
+        </div>
+    </div>
+
 </body>
+
 </html>
