@@ -23,7 +23,7 @@ if(!$_SESSION['username'])  {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
+  
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -355,84 +355,7 @@ if(!$_SESSION['username'])  {
                                 </div>
                                 <div class="modal-body">
 									 
-									<?php
-										$query = "select * from product_list inner join product_loc on product_list.productList_id = product_loc.product_id";
-										$run = mysqli_query($db, $query);
-										$row = mysqli_fetch_array($run);
-									?>
-								 <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
-										<div class="row">
-											<div class="col-xs-4"><label>Barcode</label></div>
-											<div class="col-xs-4"><label>Product</label></div>
-										</div>
-										<div class="row">
-											<div class="col-xs-4">
-												<input name="barcode" value="<?php echo $row['barcode']; ?>" type="text" class="form-control" >
-											</div>
-											<div class="col-xs-4">
-												<input name="productList_name" value="<?php echo $row['productList_name']; ?>" type="text" class="form-control" >
-											</div>
-										</div>
-										<div class="client">
-                                        <h5><b>Product Category</b></h5>
-                                        <?php
-										$retrieveCat = ("SELECT category_id, category_name, 
-										category_status FROM category_list");
-										$categoryResult = mysqli_query($db, $retrieveCat);
-									    ?>
-
-                                        <select name="ProductCategory">
-				                        <?php
-											foreach ($categoryResult as $data):
-												$toData = $data["category_id"];
-										?>
-
-                                    	<option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
-                                	  
-                                	   <?php
-											endforeach;
-										?>
-                                	   </select>
-										</div>
-										<div class="row">
-											<div class="col-xs-6"><label>Original Price</label></div>
-											<div class="col-xs-6"><label>Alternate Price</label></div>
-										</div>
-										<div class="row">
-											<div class="col-xs-4">
-												<input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control" >
-											</div>
-											<div class="col-xs-4">
-												<input name="altprice" value="<?php echo $row['altprice']; ?>" type="text" class="form-control" >
-											</div>
-										</div>
-										
-										
-									<div class="row">
-									<div class="col-xs-6"><label>Status</label>
-										<select name="status" class="form-control">
-											<option>Enabled</option>
-											<option>Disabled</option>
-										</select>
 									
-									</div>
-
-									<div class="col-xs-6"><label>Location</label>
-										<div class="row">
-											<div class="col-xs-4">
-												<input name="location" value="<?php echo $row['location']; ?>" type="text" class="form-control" >
-											</div>
-										</div>
-									</div>
-									</div>
-										
-									<div class="row">
-									<div class="col-xs-12">
-									<br>
-										<button  name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button><br>
-									</div>				 
-									</div>
-											
 							</form>
 	
 						</div>
@@ -494,95 +417,74 @@ if(!$_SESSION['username'])  {
 				                                    </td>
 				                                    <td data-title="category">
 				                                        <?php echo $lowStock["category_name"]; ?>
-				                                    </td><td data-title="location">
+				                                    </td>
+                                                    <td data-title="location">
 				                                        <?php echo $lowStock["iS_location"]; ?>
 				                                    </td>
 				                                    <td data-title="edit">
 														<table class="table table-striped table-bordered">
-															<button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" data-target="#<?php echo $passID; ?>"></button>
+															<button type="button" data-dismiss="modal" class="glyphicon glyphicon-plus" data-toggle="modal" aria-hidden="true" data-target="#LowStocksAdd"></button>
 														</table>
 				                                    </td>
 				                                </tr>
-				                                <?php
-												endforeach;
-											?>
-				                        </tbody>
-				                    </table>      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    <?php 
+                                        $locationQuery = "SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_inventoryid = '$passID'";
+                                        $Lrun = mysqli_query($db, $locationQuery);
+                                        $Lrow = mysqli_fetch_array($Lrun);
+
+                                    ?> 
+                                    <!-- Modal Add from low Stocks-->
+                                    <div id ="LowStocksAdd" class="modal fade" role="dialog">
+                        
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title"><?php echo $Lrow["productList_name"]; ?></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="fragments/addStocks.php" method="POST">
+                                                        <label>Location</label>
 
 
-
-                    <!-- Modal Add from low Stocks-->
-                    <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Stock</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="fragments/addStocks.php" method="POST">
-                                        <label>Location</label>
-                                            
-                                            <select name="Loc">
-                                                <option value="Baguio">Baguio</option>
-                                                <option value="Pangasinan">Pangasinan</option>
-                                            </select>
+                                                                <input type="text" name="Loc" value=" <?php echo $Lrow["iS_location"]; ?>" readonly>
 
 
-                                        <label>Product</label>
-                                            <?php
-                                            $Products = ("SELECT * FROM product_list");
-                                            $categoryResult = mysqli_query($db, $Products);
-                                            ?>
+                                                        <label>Product</label>
+                        
+                                                            <input type="text" name="Products" value=" <?php echo $Lrow["productList_name"]; ?>" readonly>
 
-                                            <select name="Products">
-                                            <?php
-                                                foreach ($categoryResult as $data):
-                                                    $toData = $data["category_id"];
-                                            ?>
-
-                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]; ?></option>
-                                              
-                                           <?php
-                                                endforeach;
-                                            ?>
-                                           </select>
-
-                                            <label>Quantity</label>
-                                            <input type="number" name="Quantity" />
-
-                                        <!--
-                                            <table id="tbl">
-                                            <thead>
-                                                <th>Product</th>
-                                                <th>Quantity</th>
-                                            </thead>
-                                                <tbody>
-                                                    <tr>
-                                                      <td><input type="text" name="Product" /></td>     
-                                                      <td><input type="number" name="Quantity" /></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <button type="button" class="button" onclick="addStock('tbl');">Add Product</button>
-                                        -->
+                                                            <label>Quantity</label>
+                                                            <input type="number" name="Quantity" />
 
 
+                                                            <div class="modal-footer">
+                                                                <input name="add_stocks" type="submit" class="btn btn-default" value=" Submit " />
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                    </form>
+                                                    <?php
+                                                        endforeach;
+                                                    ?>
+                                                    </tbody>
+                                                    </table> 
 
-                                            <div class="modal-footer">
-                                                <input name="add_stocks" type="submit" class="btn btn-default" value=" Submit " />
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
-                                    </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                 
+
+
+
+
+
+
+        
 					
         </div>
 
