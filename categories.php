@@ -203,7 +203,7 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Clients</h1>
+                <h1 align="center">Category List</h1>
             </table>
 
             <!-- Retrieve Account Data -->
@@ -213,7 +213,7 @@ if(!$_SESSION['username'])  {
 						?>
 
                 <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Client</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Category</button>
                 </table>
 
                 <!-- Table Display for Accounts -->
@@ -256,24 +256,19 @@ if(!$_SESSION['username'])  {
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Add Client</h4>
+                                    <h4 class="modal-title">Add Category</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="fragments/addClient.php" method="POST" onsubmit="return validateForm()">
-                                        <h3>Name</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="c_name" onkeypress="return isAlfa(event)" autofocus required>
-
-                                        <h3>Address</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="c_address" required>
-
-                                        <h3>Contact Number</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="c_contact_no" onkeypress="return isNumber(event)" required>
-
-                                        <h3>Contact Person</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="c_contact_person" onkeypress="return isAlfa(event)" required>
-
+                                    <form action="fragments/addCategory.php" method="POST" onsubmit="return validateForm()">
+                                        <h3>Category Name</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="category_name" onkeypress="return isAlfa(event)" autofocus required>
+										<div class="col-xs-6"><h3>Status</h3></div>
+                                        <select name="category_status" class="form-control">
+                                              <option>Enabled</option>
+                                              <option>Disabled</option>
+                                        </select>
                                         <div class="modal-footer">
-                                            <input name="add_client" type="submit" class="btn btn-default" value=" Submit " />
+                                            <input name="add_category" type="submit" class="btn btn-default" value=" Submit " />
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </form>
