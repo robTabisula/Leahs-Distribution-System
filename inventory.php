@@ -354,9 +354,6 @@ if(!$_SESSION['username'])  {
                                     <h4 class="modal-title">Edit Stocks</h4>
                                 </div>
                                 <div class="modal-body">
-									 
-									
-							</form>
 	
 						</div>
 						<div class="modal-footer">
@@ -466,6 +463,10 @@ if(!$_SESSION['username'])  {
                                                     <?php
                                                         endforeach;
                                                     ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            </div>
                                                     </tbody>
                                                     </table> 
 
@@ -474,19 +475,8 @@ if(!$_SESSION['username'])  {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                 
 
 
-
-
-
-
-        
-					
-        </div>
 
 </body>
 
