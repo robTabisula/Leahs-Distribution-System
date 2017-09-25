@@ -160,17 +160,17 @@ if(!$_SESSION['username'])  {
                 </div>
                 <li class="sub-menu_nc">
                     <a href="issuance.php">
-                        <i class="fa fa-external-link" aria-hidden="true"></i> Issuance List
+                        <i class="fa fa-external-link" aria-hidden="true"></i> Issuance
                     </a>
                 </li>
                 <li class="sub-menu_nc">
                     <a href="issuance_BadOrder.php">
-                        <i class="fa fa-window-close" aria-hidden="true"></i> Bad Order List
+                        <i class="fa fa-window-close" aria-hidden="true"></i> Bad Order
                     </a>
                 </li>
                 <li class="sub-menu_nc">
                     <a href="issuance_Returns.php">
-                        <i class="fa fa-external-link fa-rotate-180" aria-hidden="true"></i> Returns/Pull Out List
+                        <i class="fa fa-external-link fa-rotate-180" aria-hidden="true"></i> Returns/Pull Out
                     </a>
                 </li>
 
