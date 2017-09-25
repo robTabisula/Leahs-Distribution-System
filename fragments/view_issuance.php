@@ -36,21 +36,20 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-    /*code for ajax*/
-         function viewCategory(prod_id){
-            $("#AdjustedPriceDiv").html('Loading').show();
-            var url="fragments/issuance_fn.php";
-            $.post(url,{prod_id:prod_id},function(data){
-            $("#AdjustedPriceDiv").html(data).show();
-    	;});
-    	}
-
-    /*            */
     	function clone(){
     		var myDiv = document.getElementById("toClone");
     		var nextDiv = document.getElementById("next");
     		var divClone = myDiv.cloneNode(true);
     		nextDiv.appendChild(divClone);
+
+    		//AdjustedPriceDiv -> changing div id
+    		//productselect -> select product id
+    		/*var counter = 1;
+    		counter++;
+    		var insidediv = document.getElementById("AdjustedPriceDiv");
+			var newID='AdjustedPriceDiv' + counter;
+			insidediv.attr('id',newID);
+			insidediv.val(counter);*/
     	}
 
     	function deleteclone(){
@@ -67,8 +66,7 @@ if(!$_SESSION['username'])  {
 			$choice=$_POST['choice'];
 		//regular issuance
 			if ($choice=='1'){
-	?>	
-					
+	?>		    
                 <div class="panel-body">        				
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
@@ -87,7 +85,7 @@ if(!$_SESSION['username'])  {
 							<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
 							<h4>Clients</h4>
                                     <?php
-										$retrieveCat = ("SELECT c_id, c_name  FROM clients");
+										$retrieveCat = ("SELECT *  FROM clients");
 										$clientRetrieve = mysqli_query($db, $retrieveCat);
 									?>						
                                     <select name="clientlist" required>
@@ -97,7 +95,7 @@ if(!$_SESSION['username'])  {
 												$toData = $data["c_id"];
 										?>
 
-                                    	<option value = "<?= $data['c_name'] ?>"> <?php echo $data["c_name"]; ?></option>
+                                    	<option value = "<?php echo $data["c_id"];?>"> <?php echo $data["c_name"]; ?></option>
                                 	  
                                 	   <?php
 											endforeach;
@@ -129,7 +127,7 @@ if(!$_SESSION['username'])  {
 										$prodRetrieve = mysqli_query($db, $retrieveProd);
 									?>
 								<div id="toClone">
-                                  <select name="productList" onchange ="javascript:viewCategory(this.value);" required>
+                                  <select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
 				                		<option value = "" selected="true" disabled="disabled">Choose Product..</option>
 				                     		<?php
 												foreach ($prodRetrieve as $datas):
@@ -144,20 +142,33 @@ if(!$_SESSION['username'])  {
 									  		?>
                                   </select>	
                                 
-                            <input placeholder="Adjusted Price" type="number" name="adjusted_price" required/> 
+                            <input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
                             <input placeholder="Quantity" name="quantity[]" type="number"  required>	 
-                            	</div> 
-                            <div id = "next">
-                            </div>
-							<!--Div to view adjusted price-->
-							<div id="AdjustedPriceDiv">
-							</div>				
-					
+										<script>
+											  function viewCategory(prod_id){
+									            $("#AdjustedPriceDiv").html('Loading').show();
+									            var url="fragments/issuance_fn.php";
+									            $.post(url,{prod_id:prod_id},function(data){
+									            $("#AdjustedPriceDiv").html(data).show();
+									    	;});
+									    	}
+										</script>
+                            	</div><!--end of cloned div--> 
+                            		<!--div to add new products-->
+                            		<div id = "next">
+                            		</div>					
+					           <!--Div to view adjusted price and category-->
+                                    <div id="AdjustedPriceDiv" style="position : fixed; padding: 5px 0 0 5px; height: 140px; width: 150px; top:10%;  width: 300px; height: 150px; border: 1px solid blue; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
+                                        <hr>
+                                        <h4>When Choosing a product, Information will be viewed here.</h4>
+                                        <hr>
+                                    </div>  
                             </div>	
                             <input class="btn btn-lg btn-primary btn-block" type="button" onclick="clone();" value="Add Product"/>   
                             <input class="btn btn-lg btn-danger btn-block" type="button" onclick="deleteclone();" value="Remove Product"/>  					
 							<input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
 	                       	</fieldset>  
+                            <input name="choice" value="<?php echo $choice;?>"type="hidden"></input>
                     	</form>  
                 	</div>   
     			</div>  

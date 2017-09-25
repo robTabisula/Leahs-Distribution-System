@@ -16,40 +16,49 @@
       		
       	<?php
         	if (isset($_POST["add_issuance"])) {
-  
-			$issue_id = $_POST['issue_id'];	
-      $clientlist = $_POST['clientlist'];
-			//$remarks = $_POST['remarks'];
-			//$date = $_POST['date'];
-			$productList = $_POST['productList'];
-      $adjustedprice = $_POST['adjusted_price'];
-			$quantity = $_POST['quantity'];
+      $choice = $_POST['choice'];//type of issuance, use if statements for this for other types
+			$issue_id = $_POST['issue_id'];//check
+      $clientlist = $_POST['clientlist'];//check (this gets client id)
+			$remarks = $_POST['remarks'];//remarks for issuance
+			$date = $_POST['date'];//check
+      $area = $_POST['area'];//check
+			$productList = $_POST['productList'];//array
+      $adjustedprice = $_POST['adjusted_price'];//array
+			$quantity = $_POST['quantity'];//array
+      //remarks for issuance list not yet made..
 
-      foreach ($quantity as $q){
-        echo $q;
-      }
+      //query for issuance table
+       $queryit = "INSERT INTO issuance (issue_id, issue_date_time, client_id, issue_account, remarks) 
+                     VALUE ('$issue_id','$date','$clientlist','$choice','$remarks')";
+       $runit = mysqli_query($db, $queryit);
+
+       //query for issuance list table
+       $mi = new MultipleIterator();
+       $mi->attachIterator(new ArrayIterator($productList));
+       $mi->attachIterator(new ArrayIterator($adjustedprice));
+       $mi->attachIterator(new ArrayIterator($quantity));
+
+       foreach ( $mi as $value ){
+      list($product, $adjprice, $qty) = $value;
+
+      $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, prod_id) 
+                     VALUE ('$issue_id','$qty','$adjprice','$product')";
+      $runil = mysqli_query($db, $queryil);    
+       }
+
+        echo"<script>alert('Successfuly Added Products')</script>";
+        echo "<script>window.open('../issuance.php','_self')</script>"; 
+
+
 /*
-            $clientQuery = "SELECT c_id FROM clients WHERE c_name = '$clientlist'";
-            $client = mysqli_query($db, $clientQuery);
-            $row = mysqli_fetch_array($client);
-            $clientRetrieve = $row['c_id'];
-			
-			$prodQuery = "SELECT productList_id FROM product_list WHERE productList_name = '$productList'";
-            $product = mysqli_query($db, $prodQuery);
-            $row = mysqli_fetch_array($product);
-            $prodRetrieve = $row['productList_id'];
-			
-          	$query = "INSERT INTO issuance (issue_id, client_id, issue_date_time) 
-                	   VALUE ('$issue_id','$clientRetrieve','$date')";
-			
+     
 			if(mysqli_query($db, $query)){
 				$get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
 				$run=mysqli_query($db,$get_id);
 	 
 				$row = mysqli_fetch_array($run);
 					$id=$row[0];
-					$query2 = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, prod_id,remarks) 
-                	   VALUE ('$id','$quantity','$?','$prodRetrieve','$remarks')";
+				
 				
 					if(mysqli_query($db, $query2)){
 						echo"<script>alert('Successfuly Added Products')</script>";
@@ -77,14 +86,18 @@
 
       				$Pangasinanquery = mysqli_query($db, $pquery);
       				$PangasinanPrice = mysqli_fetch_array($Pangasinanquery);
-                echo "<h4>Product: ".$BaguioPrice['productList_name']."</h4>";
-      				  echo "<h4>Baguio Price: ".$BaguioPrice['altprice']."</h4>";
-      				  echo "<h4>Pangasinan Price: ".$PangasinanPrice['altprice']."</h4>";
+                echo "<b>Product: </b>".$BaguioPrice['productList_name'];
+      				  echo "<br><input type='text' readonly value='Baguio Price: ".$BaguioPrice['altprice']."'></input>";
+      				  echo "&nbsp;<input type='text' readonly value='Pangasinan Price: ".$PangasinanPrice['altprice']."'></input>";
+                
 
       				if(mysqli_num_rows($pqueryactivate)>=1){	
-      				  echo "<h4>Category: ".$selectedProduct['category_name'].'</h4>';
+      				  echo "&nbsp;<input type='text' size='35' readonly value='Category: ".$selectedProduct['category_name']."'></input>
+                ";
+                echo "<hr>";
       				}else{
-      				  echo "Information in the Database is incomplete.";
+      				  echo " &nbsp; Information in the Database is incomplete.";
+                echo "<hr>";
       				}
         	}
        			?>
