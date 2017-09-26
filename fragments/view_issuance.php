@@ -41,15 +41,6 @@ if(!$_SESSION['username'])  {
     		var nextDiv = document.getElementById("next");
     		var divClone = myDiv.cloneNode(true);
     		nextDiv.appendChild(divClone);
-
-    		//AdjustedPriceDiv -> changing div id
-    		//productselect -> select product id
-    		/*var counter = 1;
-    		counter++;
-    		var insidediv = document.getElementById("AdjustedPriceDiv");
-			var newID='AdjustedPriceDiv' + counter;
-			insidediv.attr('id',newID);
-			insidediv.val(counter);*/
     	}
 
     	function deleteclone(){
@@ -143,7 +134,8 @@ if(!$_SESSION['username'])  {
                                   </select>	
                                 
                             <input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
-                            <input placeholder="Quantity" name="quantity[]" type="number"  required>	 
+                            <input placeholder="Quantity" name="quantity[]" type="number"  required>	
+                            <input type="button" class="btn btn-lg btn-danger btn-block" style="font-size: 12px; width:12%;" value="Remove"/> 
 										<script>
 											  function viewCategory(prod_id){
 									            $("#AdjustedPriceDiv").html('Loading').show();
@@ -154,7 +146,7 @@ if(!$_SESSION['username'])  {
 									    	}
 										</script>
                             	</div><!--end of cloned div--> 
-                            		<!--div to add new products-->
+                            		<!--Div to add new products-->
                             		<div id = "next">
                             		</div>					
 					           <!--Div to view adjusted price and category-->
@@ -164,9 +156,9 @@ if(!$_SESSION['username'])  {
                                         <hr>
                                     </div>  
                             </div>	
-                            <input class="btn btn-lg btn-primary btn-block" type="button" onclick="clone();" value="Add Product"/>   
-                            <input class="btn btn-lg btn-danger btn-block" type="button" onclick="deleteclone();" value="Remove Product"/>  					
-							<input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
+                                <input class="btn btn-lg btn-primary btn-block" type="button" onclick="clone();" value="Add Product"/>   
+                                <input class="btn btn-lg btn-danger btn-block" type="button" onclick="deleteclone();" value="Remove Product"/>  					
+							    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
 	                       	</fieldset>  
                             <input name="choice" value="<?php echo $choice;?>"type="hidden"></input>
                     	</form>  

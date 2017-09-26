@@ -272,7 +272,7 @@ if(!$_SESSION['username'])  {
 
                                             $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id' and c.location='Pangasinan'";
                                             $runp = mysqli_query($db, $query);
-                                            $row = mysqli_fetch_array($runp);//pangasinan
+                                            $rowp = mysqli_fetch_array($runp);//pangasinan
                                             ?>
                                                     <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
                                                         <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id" />
@@ -330,7 +330,7 @@ if(!$_SESSION['username'])  {
                                                                     <div class="col-xs-6"><label>Pangasinan Alternate Price</label>
                                                                         <div class="row">
                                                                             <div class="col-xs-10">
-                                                                                <input name="pangasinanprice" value="<?php echo $row['altprice']; ?>" class="form-control">
+                                                                                <input name="pangasinanprice" value="<?php echo $rowp['altprice']; ?>" class="form-control">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -402,8 +402,11 @@ if(!$_SESSION['username'])  {
                                         <h3>Price</h3>
                                         <input type="number" step="0.01" class="form-control" maxlength="25" name="productList_price" required>
 
-                                        <h3>Alternate Price</h3>
-                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altprice" required>
+                                        <h3>Alternate Price For Baguio</h3>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" required>
+
+                                        <h3>Alternate Price For Pangasinan</h3>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" required>
 
                                         <h3>Restock Level</h3>
                                         <p>*Default values for all branches!!</p>

@@ -18,7 +18,8 @@
           	$productList_price = $_POST['productList_price'];
 			      $barcode =$_POST['barcode'];
           	$status = $_POST['status'];
-			      $altprice = $_POST['altprice'];
+			      $altpriceB = $_POST['altpriceB'];
+            $altpriceP = $_POST['altpriceP'];
             $restock =  $_POST['restock'];
 
             $categoryQuery = "SELECT category_id FROM category_list WHERE category_name = '$ProductCategory'";
@@ -43,7 +44,7 @@
 
 
     					$query3 = "INSERT INTO product_loc (product_id, location, status, altprice, barcode) 
-                    	   VALUE ('$id','Baguio','$status','$altprice','$barcode'),('$id','Pangasinan','$status','$altprice','$barcode')";
+                    	   VALUE ('$id','Baguio','$status','$altpriceB','$barcode'),('$id','Pangasinan','$status','$altpriceP','$barcode')";
 
 
   				
