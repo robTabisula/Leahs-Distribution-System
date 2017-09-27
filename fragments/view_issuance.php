@@ -36,17 +36,41 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-    	function clone(){
-    		var myDiv = document.getElementById("toClone");
-    		var nextDiv = document.getElementById("next");
-    		var divClone = myDiv.cloneNode(true);
-    		nextDiv.appendChild(divClone);
-    	}
 
-    	function deleteclone(){
-    		var nextDiv = document.getElementById("next");
-    		nextDiv.removeChild(nextDiv.lastChild);
-    	}
+ function viewCategory(prod_id){
+          $("#AdjustedPriceDiv").html('Loading').show();
+          var url="fragments/issuance_fn.php";
+          $.post(url,{prod_id:prod_id},function(data){
+          $("#AdjustedPriceDiv").html(data).show();
+    ;});
+    }
+
+        var nextDiv = document.getElementById("next");
+        var regex = /^(.+?)(\d+)$/i;
+        var cloneIndex = $(".clonedInput").length;
+
+        function clone(){
+            $(this).parents(".clonedInput").clone()
+                .appendTo(nextDiv)
+                .attr("id", "clonedInput" +  cloneIndex)
+                .find("*")
+                .each(function() {
+                    var id = this.id || "";
+                    var match = id.match(regex) || [];
+                    if (match.length == 3) {
+                        this.id = match[1] + (cloneIndex);
+                    }
+                })
+                .on('click', 'input.clone', clone)
+                .on('click', 'input.remove', remove);
+            cloneIndex++;
+        }
+        function remove(){
+            $(this).parents(".clonedInput").remove();
+        }
+        $("input.clone").on("click", clone);
+
+        $("input.remove").on("click", remove);
     </script>
 </head>
 
@@ -117,47 +141,43 @@ if(!$_SESSION['username'])  {
 										$retrieveProd = ("SELECT * FROM product_list");
 										$prodRetrieve = mysqli_query($db, $retrieveProd);
 									?>
-								<div id="toClone">
-                                  <select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
-				                		<option value = "" selected="true" disabled="disabled">Choose Product..</option>
-				                     		<?php
-												foreach ($prodRetrieve as $datas):
-												$sproduct_id = $datas["productList_id"];
-									 		?>	
-                             			<option value = "<?php echo $sproduct_id;?>">
-                             				<?php echo $datas["productList_name"]; ?>
-                             			</option>
-                                	  
-                                	  		<?php
-												endforeach;
-									  		?>
-                                  </select>	
-                                
-                            <input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
-                            <input placeholder="Quantity" name="quantity[]" type="number"  required>	
-                            <input type="button" class="btn btn-lg btn-danger btn-block" style="font-size: 12px; width:12%;" value="Remove"/> 
-										<script>
-											  function viewCategory(prod_id){
-									            $("#AdjustedPriceDiv").html('Loading').show();
-									            var url="fragments/issuance_fn.php";
-									            $.post(url,{prod_id:prod_id},function(data){
-									            $("#AdjustedPriceDiv").html(data).show();
-									    	;});
-									    	}
-										</script>
-                            	</div><!--end of cloned div--> 
-                            		<!--Div to add new products-->
+                            
+                            	<!--Div where clones go-->
                             		<div id = "next">
                             		</div>					
 					           <!--Div to view adjusted price and category-->
-                                    <div id="AdjustedPriceDiv" style="position : fixed; padding: 5px 0 0 5px; height: 140px; width: 150px; top:10%;  width: 300px; height: 150px; border: 1px solid blue; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
+                                <div id="AdjustedPriceDiv" style="position : fixed; padding: 5px 0 0 5px; height: 140px; width: 150px; top:10%;  width: 300px; height: 150px; border: 1px solid blue; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
                                         <hr>
                                         <h4>When Choosing a product, Information will be viewed here.</h4>
                                         <hr>
                                     </div>  
                             </div>	
-                                <input class="btn btn-lg btn-primary btn-block" type="button" onclick="clone();" value="Add Product"/>   
-                                <input class="btn btn-lg btn-danger btn-block" type="button" onclick="deleteclone();" value="Remove Product"/>  					
+
+                    <div id="clonedInput1" class="clonedInput"><!--div to clone-->
+                
+                                <select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
+                                                <option value = "" selected="true" disabled="disabled">Choose Product..</option>
+                                            <?php
+                                                foreach ($prodRetrieve as $datas):
+                                                $sproduct_id = $datas["productList_id"];
+                                            ?>  
+                                                <option value = "<?php echo $sproduct_id;?>">
+                                                   <?php echo $datas["productList_name"]; ?>
+                                                </option>
+                                      
+                                            <?php
+                                                endforeach;
+                                            ?>
+                                  </select>                              
+                            <input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
+                            <input placeholder="Quantity" name="quantity[]" type="number"  required>                      
+                      <div class="actions">
+                            <input type="button" class="clone" value="Add More Products"/>
+                            <input type="button" class="remove" value="Remove"/>
+                      </div>
+                    </div><!--/div to clone-->
+
+                                <br>  					
 							    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
 	                       	</fieldset>  
                             <input name="choice" value="<?php echo $choice;?>"type="hidden"></input>
