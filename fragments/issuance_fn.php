@@ -25,9 +25,9 @@
         			$productList = $_POST['productList'];//array
               $adjustedprice = $_POST['adjusted_price'];//array
         			$quantity = $_POST['quantity'];//array
-              //remarks for issuance list not yet made..
-
-              //query for issuance table
+              $p_remarks = $_POST['premarks'];//array
+            
+        //query for issuance table
               $queryit = "INSERT INTO issuance (issue_id, issue_date_time, client_id, issue_account, remarks) 
                              VALUE ('$issue_id','$date','$clientlist','$choice','$remarks')";
               $runit = mysqli_query($db, $queryit);
@@ -37,12 +37,12 @@
                $mi->attachIterator(new ArrayIterator($productList));
                $mi->attachIterator(new ArrayIterator($adjustedprice));
                $mi->attachIterator(new ArrayIterator($quantity));
+               $mi->attachIterator(new ArrayIterator($p_remarks));
 
        foreach ( $mi as $value ){
-          list($product, $adjprice, $qty) = $value;
-
-               $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, prod_id) 
-                           VALUE ('$issue_id','$qty','$adjprice','$product')";
+          list($product, $adjprice, $qty, $p_remark) = $value;
+               $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, prod_id, remarks) 
+                           VALUE ('$issue_id','$qty','$adjprice','$product','$p_remark')";
                $runil = mysqli_query($db, $queryil);    
        }
 

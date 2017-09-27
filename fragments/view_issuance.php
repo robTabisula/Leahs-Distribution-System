@@ -148,7 +148,7 @@ if(!$_SESSION['username'])  {
 										$retrieveProd = ("SELECT * FROM product_list");
 										$prodRetrieve = mysqli_query($db, $retrieveProd);
 									?>
-                            
+                                
                             	<!--Div where clones go-->
                             		<div id = "next">
                             		</div>					
@@ -161,7 +161,7 @@ if(!$_SESSION['username'])  {
                             </div>	
 
                     <div id="clonedInput1" class="clonedInput"><!--div to clone-->
-                
+                     <br>
                                 <select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
                                                 <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                             <?php
@@ -177,14 +177,16 @@ if(!$_SESSION['username'])  {
                                             ?>
                                   </select>                              
                             <input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
-                            <input placeholder="Quantity" name="quantity[]" type="number"  required>                      
+                            <input placeholder="Quantity" name="quantity[]" type="number"  required>
+                            <input placeholder="Remarks" name="premarks[]"/>                      
                       <div class="actions">
                             <input type="button" class="clone" value="Add More Products"/>
                             <input type="button" class="remove" id="remid" value="Remove"/>
                       </div>
+                      <br> 
                     </div><!--/div to clone-->
 
-                                <br>  					
+                                 					
 							    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
 	                       	</fieldset>  
                             <input name="choice" value="<?php echo $choice;?>"type="hidden"></input>
