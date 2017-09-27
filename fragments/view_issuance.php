@@ -50,7 +50,7 @@ if(!$_SESSION['username'])  {
         var cloneIndex = $(".clonedInput").length;
 
         function clone(){
-            $(this).parents(".clonedInput").clone()
+          $(this).parents(".clonedInput").clone()
                 .appendTo(nextDiv)
                 .attr("id", "clonedInput" +  cloneIndex)
                 .find("*")
@@ -61,26 +61,37 @@ if(!$_SESSION['username'])  {
                         this.id = match[1] + (cloneIndex);
                     }
                 })
-                .on('click', 'input.clone', clone)
+                .on('click', 'input.add-row', clone)
                 .on('click', 'input.remove', remove);
             cloneIndex++;
+        
         }
 
         function remove(){
                 if(cloneIndex!=1){
                     $(this).parents(".clonedInput").remove();
                     cloneIndex --;
+
                 }else{
                     alert("Option not allowed");
                 }
     
             }
 
-        $("input.clone").on("click", clone);
+        $("input.add-row").on("click", clone);
         $("input.remove").on("click", remove);
+
     </script>
 </head>
+<style>
 
+
+.clonedInput { padding: 10px; border-radius: 5px; background-color: #def; margin-bottom: 10px; }
+
+.clonedInput div { margin: 5px; }
+
+.clonedInput ~ .clonedInput .add-row{ display:none; }
+</style>
 <body>
 	<?php
 		//variable for issuance categories
@@ -159,9 +170,9 @@ if(!$_SESSION['username'])  {
                                         <hr>
                                     </div>  
                             </div>	
-
-                    <div id="clonedInput1" class="clonedInput"><!--div to clone-->
-                     <br>
+                            <!--div to clone-->
+                <div id="clonedInput1" class="clonedInput">
+                   <br>
                                 <select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
                                                 <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                             <?php
@@ -178,15 +189,13 @@ if(!$_SESSION['username'])  {
                                   </select>                              
                             <input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
                             <input placeholder="Quantity" name="quantity[]" type="number"  required>
-                            <input placeholder="Remarks" name="premarks[]"/>                      
-                      <div class="actions">
-                            <input type="button" class="clone" value="Add More Products"/>
-                            <input type="button" class="remove" id="remid" value="Remove"/>
-                      </div>
-                      <br> 
-                    </div><!--/div to clone-->
-
-                                 					
+                            <input placeholder="Remarks" name="premarks[]"/>      
+                    <div class="actions">
+                        <input type="button" class="add-row" value="Add Product"/>  
+                        <input type="button" class="remove" value="Remove"/>
+                    </div>
+                </div> 
+                <!--/div to clone-->
 							    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
 	                       	</fieldset>  
                             <input name="choice" value="<?php echo $choice;?>"type="hidden"></input>
