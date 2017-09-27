@@ -65,11 +65,18 @@ if(!$_SESSION['username'])  {
                 .on('click', 'input.remove', remove);
             cloneIndex++;
         }
-        function remove(){
-            $(this).parents(".clonedInput").remove();
-        }
-        $("input.clone").on("click", clone);
 
+        function remove(){
+                if(cloneIndex!=1){
+                    $(this).parents(".clonedInput").remove();
+                    cloneIndex --;
+                }else{
+                    alert("Option not allowed");
+                }
+    
+            }
+
+        $("input.clone").on("click", clone);
         $("input.remove").on("click", remove);
     </script>
 </head>
@@ -173,7 +180,7 @@ if(!$_SESSION['username'])  {
                             <input placeholder="Quantity" name="quantity[]" type="number"  required>                      
                       <div class="actions">
                             <input type="button" class="clone" value="Add More Products"/>
-                            <input type="button" class="remove" value="Remove"/>
+                            <input type="button" class="remove" id="remid" value="Remove"/>
                       </div>
                     </div><!--/div to clone-->
 
