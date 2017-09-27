@@ -22,19 +22,15 @@
           	$contact_no = $_POST['contact_no'];
 			$branch = $_POST['branch'];
 			$acctype = $_POST['acctype'];
-			
-			if ($_POST['password']!= $_POST['password_2'])
-			 {
-				 echo"<script>alert('Oops! Password did not match! Try again.')</script>";
-				 exit(); 
-			 }
 			  
 			$check_username="select * from accounts WHERE username='$username'";  
 			$run_query=mysqli_query($db,$check_username);
-			if(mysqli_num_rows($run_query)>0)  
-			{  
-			echo "<script>alert('The username $username already exists, Please try another one!')</script>";  
-			echo "<script>window.open('../accounts_users.php','_self')</script>"; 
+			if(mysqli_num_rows($run_query)>0)
+
+			{
+			echo "<script>alert('The username $username already exists, Please try another one!')</script>";
+			header("Location: ../accounts_users.php");
+			exit();
 			}
 			 
 			 $password = hash("sha512",$_POST['password']);
@@ -49,7 +45,6 @@
 						echo ("ERROR: Could not able to execute" . mysqli_error($db));
 					}
          }
-        	 
         ?>
   </body>
 </html>

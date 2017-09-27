@@ -292,10 +292,11 @@ if(!$_SESSION['username'])  {
                                     <input type="text" class="form-control" maxlength="25" name="last_name" onkeypress="return isAlfa(event)" required>
 
                                     <h3>Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password" required>
+                                    <input type="password" id="password" class="form-control" maxlength="25" name="password" required>
 
                                     <h3>Confirm Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password_2" required>
+                                    <input type="password" id="confirm_password" class="form-control" maxlength="25" name="password_2" required>
+									 <span id='message'></span>
 
                                     <h3>Email</h3>
                                     <input type="email" class="form-control" maxlength="25" name="email" required>
@@ -351,5 +352,12 @@ if(!$_SESSION['username'])  {
         }
         return true;
     }
+	
+	$('#password, #confirm_password').on('keyup', function () {
+	  if ($('#password').val() == $('#confirm_password').val()) {
+		$('#message').html('Password Match').css('color', 'green');
+	  } else 
+		$('#message').html('Password Do Not Match').css('color', 'red');
+	});
 
 </script>

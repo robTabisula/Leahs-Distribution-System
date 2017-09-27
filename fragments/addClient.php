@@ -10,7 +10,7 @@
   <body>
         <?php
       	
-      	include('fragments/config.php');    
+      	include('config.php');    
         	if (isset($_POST["add_client"])) {
 
           	$c_name = $_POST['c_name'];
