@@ -13,14 +13,13 @@
               if (isset($_POST["save"])) {
                   $productList_name = $_POST['productList_name'];
                   $ProductCategory = $_POST['ProductCategory'];
-                  $productList_price = $_POST['productList_price'];
                   $barcode =$_POST['barcode'];
                   $pprice=$_POST['pangasinanprice'];
                   $bprice=$_POST['baguioprice'];
                   $status = $_POST['status'];
                   $indiv_prod_id = $_POST['indiv_prod_id'];
 
-           $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$ProductCategory' , productList_origprice = '$productList_price' where product_list.productList_id='$indiv_prod_id'";
+           $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$ProductCategory' where product_list.productList_id='$indiv_prod_id'";
 
           if(mysqli_query($db, $query)){
             //baguio

@@ -182,7 +182,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM issuance INNER JOIN clients ON issuance.client_id = clients.c_id;");
+                            $retrieve = ("SELECT * FROM issuance INNER JOIN clients ON issuance.client_id = clients.c_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -194,6 +194,7 @@ if(!$_SESSION['username'])  {
                             <th>Date/Time</th>
                             <th>Products Issued</th>
                             <th>Client</th>
+							<th>Branch</th>
                             <th>Remarks</th>
                             <th>Pull Out</th>
                             <th>Bad Orders</th>
@@ -223,6 +224,9 @@ if(!$_SESSION['username'])  {
                                 <td data-title="Client">
                                     <?php echo $data["c_name"]; ?>
                                 </td>
+								<td data-title="Branch">
+                                    <?php echo $data["branch"]; ?>
+                                </td>
                                 <td data-title="Remarks">
                                     <?php echo $data["remarks"]; ?>
                                 </td>
@@ -251,7 +255,7 @@ if(!$_SESSION['username'])  {
                             <div class="modal-body">
                                     <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
                                     <?php
-                                        $queryProducts = "SELECT * FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id WHERE issue_id ='$IsID'";
+                                        $queryProducts = "SELECT * FROM product_list INNER JOIN issuance_list INNER JOIN product_loc ON product_list.productList_id = issuance_list.prod_id AND product_list.productList_id = product_loc.product_id WHERE issue_id ='$IsID'";
                                         $run = mysqli_query($db, $queryProducts);
                                     ?>
                                     <label>Product</label>
@@ -266,7 +270,7 @@ if(!$_SESSION['username'])  {
                                         $toData = $log["productList_id"];        
                                     ?>
                                                         <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
-                                                        <input type="text" value= "<?php  echo $log["productList_origprice"];  ?>" readonly>
+                                                        <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>
                                                         <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
                                                                                    
                                         <?php
@@ -288,23 +292,3 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
-<script>
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-    }
-
-
-    function isAlfa(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
-            return false;
-        }
-        return true;
-    }
-</script>

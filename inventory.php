@@ -215,14 +215,6 @@ if(!$_SESSION['username'])  {
 				$results = mysqli_query($db, $retrieve); 
 			?>
 
-                <table class="table table-striped table-bordered">
-                   
-                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button> 
-
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
-                   
-                </table>
-
                 <div id="mainContainer">
                     <!-- Table Display for Accounts -->
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -233,7 +225,6 @@ if(!$_SESSION['username'])  {
                                 <th>Restock Level</th>
                                 <th>Catgory Name</th>
                                 <th>Location</th>
-                                <th>Edit/View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -242,6 +233,9 @@ if(!$_SESSION['username'])  {
 								$toData = $data["iS_inventoryid"];
 						?>
                                 <tr>
+									<?php
+										$individual_inventory_id=$data["iS_inventoryid"];
+                                    ?>
                                     <td data-title="productList name">
                                         <?php echo $data["productList_name"]; ?>
                                     </td>
@@ -256,17 +250,19 @@ if(!$_SESSION['username'])  {
                                     </td><td data-title="location">
                                         <?php echo $data["iS_location"]; ?>
                                     </td>
-                                    <td data-title="edit">
-										<table class="table table-striped table-bordered">
-											<button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#editModal"></button>
-										</table>
-                                    </td>
-                                </tr>
+								
                                 <?php
 								endforeach;
 							?>
                         </tbody>
                     </table>
+					                <table class="table table-striped table-bordered">
+                   
+                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
+                   
+                </table>
 
 
                     <!-- Modal Add Stocks-->
@@ -451,7 +447,6 @@ if(!$_SESSION['username'])  {
                 </div>
             </div>
         </div>
-
 
 
 </body>

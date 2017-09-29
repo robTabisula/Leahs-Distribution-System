@@ -103,9 +103,7 @@ if(!$_SESSION['username'])  {
                 <div class="panel-body">        				
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
-                        				                      
-							<div class="client">
-							
+
 							<h4>Issuance ID</h4>
 									<?php
 										$retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
@@ -116,7 +114,9 @@ if(!$_SESSION['username'])  {
 										$newID = $latestid + 1; //will increment 1 from the latest issuance ID
 									?>
 							<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
-							<h4>Clients</h4>
+							
+							<div class="client">
+								<h4>Clients</h4>
                                     <?php
 										$retrieveCat = ("SELECT *  FROM clients");
 										$clientRetrieve = mysqli_query($db, $retrieveCat);
@@ -135,25 +135,27 @@ if(!$_SESSION['username'])  {
 										?>
                                 	</select>
 							</div>
+							
 							<div class="remarks">
-                             <h4>Remarks</h4>
-                            <textarea rows="3" cols="30" name="remarks" ></textarea>
+								<h4>Remarks</h4>
+								<textarea rows="3" cols="30" name="remarks" ></textarea>
 							</div>
 							
 							<div class="dateTime">
-							<h4>Date and Time</h4> 
-                            	<?php $date = date("Y-m-d H:i:s");  ?>
-                            <input type="label" name="date" value="<?php echo $date;?>" readonly/>
+								<h4>Date and Time</h4> 
+									<?php $date = date("Y-m-d H:i:s");  ?>
+								<input type="label" name="date" value="<?php echo $date;?>" readonly/>
 							</div>
 							<br>
 
-								<select name="area" onchange="javascript:viewPrice(this.value);" required>
+							<select name="branch" onchange="javascript:viewPrice(this.value);" required>
 									<option value="" selected="true" disabled="disabled">Select an Area</option>
 									<option value="Baguio">Baguio</option>
 									<option value="Pangasinan">Pangasinan</option>
-								</select>
+							</select>
 							<br>
 							<br>
+							
                             <div class="form-group">							
                                     <?php
 										$retrieveProd = ("SELECT * FROM product_list");
@@ -168,33 +170,33 @@ if(!$_SESSION['username'])  {
                                         <hr>
                                         <h4>When Choosing a product, Information will be viewed here.</h4>
                                         <hr>
-                                    </div>  
+                                </div>  
                             </div>	
                             <!--div to clone-->
-                <div id="clonedInput1" class="clonedInput">
-                   <br>
-                                <select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
-                                                <option value = "" selected="true" disabled="disabled">Choose Product..</option>
-                                            <?php
-                                                foreach ($prodRetrieve as $datas):
-                                                $sproduct_id = $datas["productList_id"];
-                                            ?>  
-                                                <option value = "<?php echo $sproduct_id;?>">
-                                                   <?php echo $datas["productList_name"]; ?>
-                                                </option>
-                                      
-                                            <?php
-                                                endforeach;
-                                            ?>
-                                  </select>                              
-                            <input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
-                            <input placeholder="Quantity" name="quantity[]" type="number"  required>
-                            <input placeholder="Remarks" name="premarks[]"/>      
-                    <div class="actions">
-                        <input type="button" class="add-row" value="Add Product"/>  
-                        <input type="button" class="remove" value="Remove"/>
-                    </div>
-                </div> 
+							<div id="clonedInput1" class="clonedInput">
+							   <br>
+											<select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
+															<option value = "" selected="true" disabled="disabled">Choose Product..</option>
+														<?php
+															foreach ($prodRetrieve as $datas):
+															$sproduct_id = $datas["productList_id"];
+														?>  
+															<option value = "<?php echo $sproduct_id;?>">
+															   <?php echo $datas["productList_name"]; ?>
+															</option>
+												  
+														<?php
+															endforeach;
+														?>
+											  </select>                              
+										<input placeholder="Adjusted Price" type="number" name="adjusted_price[]" required/> 
+										<input placeholder="Quantity" name="quantity[]" type="number"  required>
+										<input placeholder="Remarks" name="premarks[]"/>      
+								<div class="actions">
+									<input type="button" class="add-row" value="Add Product"/>  
+									<input type="button" class="remove" value="Remove"/>
+								</div>
+							</div> 
                 <!--/div to clone-->
 							    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
 	                       	</fieldset>  

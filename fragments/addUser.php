@@ -26,14 +26,14 @@
 			$check_username="select * from accounts WHERE username='$username'";  
 			$run_query=mysqli_query($db,$check_username);
 			if(mysqli_num_rows($run_query)>0)
-
+				
 			{
 			echo "<script>alert('The username $username already exists, Please try another one!')</script>";
 			header("Location: ../accounts_users.php");
 			exit();
 			}
 			 
-			 $password = hash("sha512",$_POST['password']);
+			 $password = hash("sha512",$_POST['password[user_pass]']);
 
             	$query = "INSERT INTO accounts (username, first_name, last_name, password, email, contact_no,branch,acctype) 
                   	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no','$branch','$acctype')";

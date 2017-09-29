@@ -179,7 +179,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                $retrieve = ("SELECT * FROM product_list AS P INNER JOIN category_list AS C ON P.category_id = C.category_id");
+                $retrieve = ("select * from product_list NATURAL JOIN category_list");
                 $results = mysqli_query($db, $retrieve); 
             ?>
 

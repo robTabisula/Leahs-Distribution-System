@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2017 at 02:26 PM
+-- Generation Time: Sep 29, 2017 at 08:02 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -46,7 +46,12 @@ CREATE TABLE `accounts` (
 INSERT INTO `accounts` (`acc_id`, `username`, `first_name`, `last_name`, `password`, `email`, `contact_no`, `status`, `branch`, `acctype`) VALUES
 (3, 'res', 'res', 'res', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'res@email.com', '753153', 'Enabled', 'Pangasinan', NULL),
 (5, 'alex121', 'Alexandria', 'Rull', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'alex@gmail.com', '0909091901', 'Disabled', 'Baguio', 'Admin'),
-(6, 'admin', 'Admin', 'Ako', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 'markabad@gmail.com', '09152856391', 'Disabled', 'Pangasinan', 'User');
+(6, 'admin', 'Admin', 'Ako', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 'markabad@gmail.com', '09152856391', 'Disabled', 'Pangasinan', 'User'),
+(7, 'asd', 'add', 'asd', 'e54ee7e285fbb0275279143abc4c554e5314e7b417ecac83a5984a964facbaad68866a2841c3e83ddf125a2985566261c4014f9f960ec60253aebcda9513a9b4', 'oui@e', '45', 'Disabled', 'Baguio', 'Admin'),
+(16, 'mark', 'mark', 'mark', 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e', 'markabad@gmail.com', '2323', 'Disabled', 'Pangasinan', 'User'),
+(17, 'ram', 'ram', 'ram', 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e', 'ram@gmail.com', '09890', 'Disabled', 'Pangasinan', 'User'),
+(18, 'john', 'john', 'john', 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e', 'john@gmail.com', '09090909', 'Disabled', 'Pangasinan', 'User'),
+(19, 'Henry', 'Mark', 'Abad', 'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e', 'markabad@gmail.com', '23232323', 'Disabled', 'Pangasinan', 'User');
 
 -- --------------------------------------------------------
 
@@ -80,18 +85,18 @@ CREATE TABLE `category_list` (
 --
 
 INSERT INTO `category_list` (`category_id`, `category_name`, `category_status`) VALUES
-(1, 'Specialty Products', NULL),
-(2, 'Sweets', NULL),
-(3, 'Jam & Jellies', NULL),
-(4, 'Condiments, Sauces, & Oils', NULL),
-(5, 'Baking Products', NULL),
-(6, 'Glutinous/Powders', NULL),
-(7, 'Mallows/Gummies', NULL),
-(8, 'Beans/Mongo', NULL),
-(9, 'Others', NULL),
-(10, 'Roll Bag/Plastic Bags/Drinking Straws', NULL),
-(11, 'Microwave Containers', NULL),
-(12, 'Stationary Products', NULL);
+(1, 'Specialty Products', 'Disabled'),
+(2, 'Specialty Products', 'Disabled'),
+(3, 'Specialty Products', 'Disabled'),
+(4, 'Specialty Products', 'Disabled'),
+(5, 'Specialty Products', 'Disabled'),
+(6, 'Specialty Products', 'Enabled'),
+(7, 'Specialty Products', 'Enabled'),
+(8, 'Specialty Products', 'Enabled'),
+(9, 'Specialty Products', 'Enabled'),
+(10, 'Specialty Products', 'Enabled'),
+(11, 'Specialty Products', 'Enabled'),
+(12, 'Specialty Products', 'Disabled');
 
 -- --------------------------------------------------------
 
@@ -114,10 +119,7 @@ INSERT INTO `clients` (`c_id`, `c_name`, `c_address`, `c_location`) VALUES
 (9, 'Tiongsan', 'Harrison Road, B.C', 'Baguio'),
 (10, 'Victoria', '19 General Luna Road', 'Baguio'),
 (11, 'Sunshine', '78 Crossing', 'Baguio'),
-(12, 'Sari Sari', '34 Nowhere', 'Baguio'),
-(13, 'Sari Sari', '34 Nowhere', 'Baguio'),
-(14, 'Sari Sari', '31 Nowhere Baguio', 'Baguio'),
-(15, 'Sari Sari', '123 Bakakeng Sur', 'Baguio');
+(12, 'Sari Sari', '34 Nowhere', 'Baguio');
 
 -- --------------------------------------------------------
 
@@ -163,7 +165,9 @@ INSERT INTO `inventory` (`iS_inventoryid`, `iS_product_id`, `iS_restock_lvl`, `i
 (12, 236, 100, 202, 'Baguio'),
 (13, 236, 100, 202, 'Pangasinan'),
 (14, 239, 30, 0, 'Baguio'),
-(15, 239, 30, 0, 'Pangasinan');
+(15, 239, 30, 0, 'Pangasinan'),
+(16, 240, 90, 0, 'Baguio'),
+(17, 240, 90, 0, 'Pangasinan');
 
 -- --------------------------------------------------------
 
@@ -181,6 +185,14 @@ CREATE TABLE `issuance` (
   `penthouse_clients` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `issuance`
+--
+
+INSERT INTO `issuance` (`issue_id`, `issue_date_time`, `client_id`, `issue_account`, `remarks`, `other_clients`, `penthouse_clients`) VALUES
+(7, '2017-09-20 11:21:10.000000', 9, 3, 'sample', NULL, NULL),
+(8, '2017-10-18 11:13:07.000000', 10, 5, 'yeah', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -191,9 +203,18 @@ CREATE TABLE `issuance_list` (
   `issue_id` int(15) NOT NULL,
   `prod_qty` int(15) NOT NULL,
   `prod_price` int(15) NOT NULL,
+  `branch` varchar(20) NOT NULL,
   `prod_id` int(15) NOT NULL,
   `remarks` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `issuance_list`
+--
+
+INSERT INTO `issuance_list` (`issue_id`, `prod_qty`, `prod_price`, `branch`, `prod_id`, `remarks`) VALUES
+(7, 10, 90, '', 2, 'TRY'),
+(8, 10, 80, 'Baguio', 10, 'haha');
 
 -- --------------------------------------------------------
 
@@ -225,6 +246,13 @@ CREATE TABLE `logs` (
   `remarks` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`logs_id`, `acc_id`, `name`, `act`, `date_time`, `related_id`, `remarks`) VALUES
+(1, 5, 'none', 'remove item', '2017-09-20 10:26:24.000000', 2, 'asd');
+
 -- --------------------------------------------------------
 
 --
@@ -234,231 +262,231 @@ CREATE TABLE `logs` (
 CREATE TABLE `product_list` (
   `productList_id` int(15) NOT NULL,
   `productList_name` varchar(50) DEFAULT NULL,
-  `category_id` int(15) NOT NULL,
-  `productList_origprice` decimal(13,2) DEFAULT NULL
+  `category_id` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_list`
 --
 
-INSERT INTO `product_list` (`productList_id`, `productList_name`, `category_id`, `productList_origprice`) VALUES
-(1, 'Beef', 1, '38.00'),
-(2, 'Chicken', 1, '38.00'),
-(3, 'De Recado', 1, '38.00'),
-(4, 'Hamondo', 1, '38.00'),
-(5, 'Vigan', 1, '38.00'),
-(6, 'Smoked Hamondo (500 gms)', 1, '63.00'),
-(7, 'Smoked Hamondo (250 gms)', 1, '32.50'),
-(8, 'Smoked Vigan (500 gms)', 1, '78.00'),
-(9, 'Smoked Vigan (250 gms)', 1, '40.00'),
-(10, 'Embotido (450 gms)', 1, '70.00'),
-(11, 'Embotido (250 gms)', 1, '39.00'),
-(12, 'Tocino (500gms)', 1, '70.00'),
-(13, 'Tocino (200gms)', 1, '40.00'),
-(14, 'Lumpiang Shanghai', 1, '36.00'),
-(15, 'Bangus Shanghai', 1, '36.00'),
-(16, 'Chicken Shanghai', 1, '36.00'),
-(17, 'Burger Patties (200 gms)', 1, '35.00'),
-(18, 'Fish Ball (500 gms)', 1, '35.00'),
-(19, 'Fish Ball (250 gms)', 1, '20.50'),
-(20, 'Kikiam (500 gms)', 1, '50.00'),
-(21, 'Kikiam (250 gms)', 1, '27.00'),
-(22, 'Fish Lumpia (500 gms)', 1, '29.00'),
-(23, 'Chicken Balls (250 gms)', 1, '34.50'),
-(24, 'Squid Balls (250 gms)', 1, '34.50'),
-(25, 'Jumbo Hotdog (500 gms)', 1, '85.00'),
-(26, 'Jumbo Hotdog (250 gms)', 1, '45.50'),
-(27, 'Odocs (500 gms)', 1, '128.00'),
-(28, 'Odocs (250 gms)', 1, '66.00'),
-(29, 'Green Peas (400 gms)', 1, '55.00'),
-(30, 'Green Peas (200 gms)', 1, '30.00'),
-(31, 'Mixed Vegetable (400 gms)', 1, '55.00'),
-(32, 'Mixed Vegetable (200 gms)', 1, '30.00'),
-(33, 'French Fries (500 gms)', 1, '62.00'),
-(34, 'French Fries (1 kg)', 1, '120.00'),
-(35, 'French Fries (2.5 kg)', 1, '300.00'),
-(36, 'Puto Seco (25 pc)', 2, '4.50'),
-(37, 'Long Rice (20 pc)', 2, '9.00'),
-(38, 'Meringue (20 pc)', 2, '9.00'),
-(39, 'Pop Rice Round (15 pc)', 2, '9.00'),
-(40, 'Pop Rice Square (20 pc)', 2, '9.00'),
-(41, 'Belicoy (50 pc)', 2, '8.50'),
-(42, 'Bilog (50 pc)', 2, '8.50'),
-(43, 'Cornbar/Macarena (20 pc)', 2, '9.00'),
-(44, 'Bocarilyo (50 pc)', 2, '8.50'),
-(45, 'Katol (50 pc)', 2, '8.50'),
-(46, 'Lapad (50 pc)', 2, '8.50'),
-(47, 'Silag (50 pc)', 2, '8.50'),
-(48, 'Tamarind (50 pc)', 2, '8.50'),
-(49, 'Tira-Tira (50 pc)', 2, '8.50'),
-(50, 'With Mani (50 pc)', 2, '8.50'),
-(51, 'Prawn Cracker (175 gms)', 2, '44.50'),
-(52, 'Peanut Butter (small)', 3, '47.00'),
-(53, 'Peanut Butter (tall)', 3, '81.00'),
-(54, 'Peanut Butter (medium)', 3, '70.00'),
-(55, 'Strawberry Jelly (big)', 3, '48.00'),
-(56, 'Strawberry Jelly (small)', 3, '35.00'),
-(57, 'Strawberry Buo (big)', 3, '87.00'),
-(58, 'Strawberry Buo (small)', 3, '53.00'),
-(59, 'Honey (2x2)', 3, '82.00'),
-(60, 'Paminta (15pc)', 4, '9.50'),
-(61, 'Paminta Ground (20gms)', 4, '18.00'),
-(62, 'Paminta Crack (20gms)', 4, '18.00'),
-(63, 'Paminta Whole (20gms)', 4, '18.00'),
-(64, 'Paminta Ground (250gms)', 4, '210.00'),
-(65, 'Paminta Crack (250gms)', 4, '210.00'),
-(66, 'Paminta Whole (250gms)', 4, '210.00'),
-(67, 'Laurel (15pc)', 4, '9.50'),
-(68, 'Laurel (20gms)', 4, '14.00'),
-(69, 'Garlic Fried (100gms)', 4, '22.00'),
-(70, 'Curry Powder (50gms)', 4, '18.50'),
-(71, 'Curry Powder (200gms)', 4, '65.00'),
-(72, 'Star Anis (50gms)', 4, '27.50'),
-(73, 'Chili Powder (20gms)', 4, '16.50'),
-(74, 'Chili Powder (200gms)', 4, '78.50'),
-(75, 'JP Bagoong Big (750ml)', 4, '26.50'),
-(76, 'JP Bagoong Small (290ml)', 4, '14.00'),
-(77, 'Merly\'s Bagoong (750ml)', 4, '28.50'),
-(78, 'Merly\'s Bagoong (320ml)', 4, '15.25'),
-(79, 'Pangasinan\'s Best Bagoong', 4, '14.00'),
-(80, 'Patis (750ml)', 4, '27.25'),
-(81, 'Patis (320ml)', 4, '15.00'),
-(82, 'Padas (320ml)', 4, '35.00'),
-(83, 'Colored Sprinkle (200gms)', 5, '37.50'),
-(84, 'Choco Sprinkle (200gms)', 5, '43.00'),
-(85, 'Choco Lentils (100gms)', 5, '30.00'),
-(86, 'Peotraco Caster Suugar (24pcs)', 5, '57.00'),
-(87, 'Peotraco Icing Sugar (24pcs)', 5, '57.00'),
-(88, 'Confectioner\'s Icing Sugar (200gms)', 5, '24.50'),
-(89, 'Desiccated Coconut (100gms)', 5, '16.50'),
-(90, 'A & H Baking Soda (454 gms)', 5, '79.80'),
-(91, 'Baking Soda (250gms)', 5, '18.50'),
-(92, 'Baking Powder (250gms)', 5, '15.00'),
-(93, 'Cupcake Liners with Asst Designs', 5, '51.00'),
-(94, 'Sago Colored Big (400gms)', 5, '34.50'),
-(95, 'Sago Colored Medium (400gms)', 5, '34.50'),
-(96, 'Sago Colored Small (400gms)', 5, '34.50'),
-(97, 'Sago White Big (400gms)', 5, '32.50'),
-(98, 'Sago White Medium (400gms)', 5, '32.50'),
-(99, 'Sago White Small (400gms)', 5, '32.50'),
-(100, 'Polar (500gms)', 6, '39.50'),
-(101, 'Kings (20pc x 25gms)', 6, '39.50'),
-(102, 'Kangaroo (500gms)', 6, '39.50'),
-(103, 'Erawan (500 gms)', 6, '44.00'),
-(104, 'All-Purpose Flour 1st Class (1kg)', 6, '45.00'),
-(105, 'All-Purpose Flour (1kg)', 6, '38.00'),
-(106, 'Skim Milk (500gms)', 6, '32.00'),
-(107, 'Skim Milk (250gms)', 6, '17.50'),
-(108, 'Cake Flour (1kg)', 6, '55.00'),
-(109, 'Cassava Flour (250gms)', 6, '17.50'),
-(110, 'Cassava Flour (500gms)', 6, '32.50'),
-(111, 'Leah\'s Cornstarch (250gms)', 6, '17.50'),
-(112, 'Musovado (Raw Sugar) (500gms)', 6, '55.00'),
-(113, 'Agar-agar (250gms)', 6, '90.00'),
-(114, 'Agar Agar/Donfrank (50gms)', 6, '25.00'),
-(115, 'Glutinous Rice Powder (250gms)', 6, '25.00'),
-(116, 'Cheese Powder (100gms)', 6, '25.00'),
-(117, 'Cheese Powder (200gms)', 6, '32.00'),
-(118, 'Bensdrop Cocoa (200gms)', 6, '86.00'),
-(119, 'Margarine (250gms)', 6, '24.25'),
-(120, 'Star/Heart/Asst\'d (100gms)', 7, '20.00'),
-(121, 'Mini MM (100gms)', 7, '20.00'),
-(122, 'Canadian (100gms)', 7, '20.00'),
-(123, 'Cubes (100gms)', 7, '20.00'),
-(124, 'Mallow (100gms)', 7, '20.00'),
-(125, 'Caterpillar (100gms)', 7, '20.00'),
-(126, 'Snake  (100gms)', 7, '20.00'),
-(127, 'Melon (100gms)', 7, '20.00'),
-(128, 'Twist Rainbow (100gms)', 7, '20.00'),
-(129, 'Choco LENTILS (100gms)', 7, '20.00'),
-(130, 'Flower  (100gms)', 7, '20.00'),
-(131, 'Jelly Balls (100gms)', 7, '20.00'),
-(132, 'Wisel (100gms)', 7, '20.00'),
-(133, 'Black Beans (250gms)', 8, '23.50'),
-(134, 'White Beans (250gms)', 8, '23.50'),
-(135, 'Red Beans (250gms)', 8, '32.50'),
-(136, 'Mongo Buo  (250gms)', 8, '25.50'),
-(137, 'Mongo Split  (250gms)', 8, '25.50'),
-(138, 'Komeya 3Q (12pc x 500g)', 9, '310.00'),
-(139, '3Q Bihon (12pc)', 9, '25.85'),
-(140, 'Japanese Ramen Red (250gms)', 9, '12.50'),
-(141, 'Macaroni Elbow (500gms)', 9, '27.50'),
-(142, 'Macaroni Twist (500gms)', 9, '27.50'),
-(143, 'Macaroni Shell (500gms)', 9, '27.50'),
-(144, 'Spaghetti Mac (1kg)', 9, '56.00'),
-(145, 'RICE (BIGAS) (10kg)', 9, '0.00'),
-(146, 'RICE (BIGAS) (25kg)', 9, '0.00'),
-(147, 'RICE (BIGAS) (50kg)', 9, '0.00'),
-(148, 'Roll Bag 20x30 (20pc)', 10, '155.00'),
-(149, 'Counter Bag/CALYPSO (60pc)', 10, '16.50'),
-(150, 'Clingwrap (6pc)', 10, '298.00'),
-(151, 'Aluminium Foil (8m)', 10, '27.00'),
-(152, 'Aluminium Foil (5m)', 10, '22.00'),
-(153, 'Nylon Tali (10pc x 400g)', 10, '298.00'),
-(154, 'Starex (20 x 10)', 10, '16.50'),
-(155, 'Guarntee Calypso (20 x 10)', 10, '16.50'),
-(156, 'White Horse (20 x 10)', 10, '16.50'),
-(157, 'Mini Apple Sando Bag (10 x 40)', 10, '9.25'),
-(158, 'Tiny Texas Sando Bag (10 x 30)', 10, '13.25'),
-(159, 'Medium Texas Sando Bag (10 x 15)', 10, '25.50'),
-(160, 'Large Texas Sando Bag (10 x 10)', 10, '42.25'),
-(161, 'Oil Repacking Plastic (100pcs) (6 x 14)', 10, '365.00'),
-(162, 'Garbage bag  10\'s (XXL) (18 1/2x 18x1/2 x 40)', 10, '72.50'),
-(163, 'Garbage bag  10\'s (XL) (18 1/2x 18x1/2 x 37)', 10, '68.00'),
-(164, 'Garbage bag  10\'s (L) (13 x 13 x 32)', 10, '50.00'),
-(165, 'Garbage bag  10\'s  (M) (11 x 11 x 25)', 10, '35.00'),
-(166, 'Sandwich bag #2 (60pc)', 10, '17.50'),
-(167, 'Bending Drinking Straw (100pc)', 10, '24.00'),
-(168, 'Disposable Glove (50pc)', 10, '22.50'),
-(169, 'Sago Drinking Straw (30pc)', 10, '20.50'),
-(170, 'SP 10 ROUND (5pc)', 11, '32.00'),
-(171, 'SP 16 ROUND (5pc)', 11, '35.00'),
-(172, 'SP 30 ROUND (5pc)', 11, '40.00'),
-(173, 'SP 10 ROUND (10pc)', 11, '52.00'),
-(174, 'SP 16 ROUND (10pc)', 11, '58.00'),
-(175, 'SP 30 ROUND (10pc)', 11, '68.00'),
-(176, 'SP 500 RECTANGULAR (5pc)', 11, '45.00'),
-(177, 'SP 750 RECTANGULAR  (5pc)', 11, '50.00'),
-(178, 'SP 1000 RECTANGULAR  (5pc)', 11, '55.00'),
-(179, 'SP 1600 RECTANGULAR  (5pc)', 11, '80.00'),
-(180, 'SP 2500 RECTANGULAR  (5pc)', 11, '125.00'),
-(181, 'SP 500 RECTANGULAR (10pc)', 11, '75.00'),
-(182, 'SP 750 RECTANGULAR (10pc)', 11, '83.00'),
-(183, 'SP 1000 RECTANGULAR (10pc)', 11, '92.00'),
-(184, 'Packaging Tape Clear/Tan (12MMx50M)', 12, '6.00'),
-(185, 'Packaging Tape Clear/Tan (12MMx100M)', 12, '10.00'),
-(186, 'Packaging Tape Clear/Tan (24MMx50M)', 12, '11.25'),
-(187, 'Packaging Tape Clear/Tan (48MMx50M)', 12, '25.00'),
-(188, 'Packaging Tape Clear/Tan (24MMx100M)', 12, '25.00'),
-(189, 'Packaging Tape Clear/Tan (48MMx100M)', 12, '37.00'),
-(190, 'Kraft Tape (24MMx50YRDS)', 12, '56.80'),
-(191, 'Cloth Duct Tape (48MMx25M)', 12, '265.00'),
-(192, 'Cloth Duct Tape (72MM x 25M)', 12, '335.00'),
-(193, 'Aluminum Tape (48MM x 50YRDS)', 12, '355.00'),
-(194, 'Floor Marketing tape (48MM x 33YRDS)', 12, '155.00'),
-(195, 'Kraft Tape (48 MM X 50 YRDS)', 12, '102.80'),
-(196, 'Double Sided Tape (12MM X 10M)', 12, '9.25'),
-(197, 'Double Sided Tape (12MM X 50M)', 12, '37.28'),
-(198, 'Double Sided Tape (24MM X 50M)', 12, '72.80'),
-(199, 'Double Sided Tape (48MM X 50M)', 12, '138.00'),
-(200, 'Masking Tape (12MM X 15 YRDS)', 12, '7.80'),
-(201, 'Masking Tape (24MM X 15 YRDS)', 12, '14.85'),
-(202, 'Masking Tape (48MM X 15 YRDS)', 12, '27.80'),
-(203, 'Masking Tape (12MM X 20 YRDS)', 12, '10.80'),
-(204, 'Masking Tape (24MM X 20 YRDS)', 12, '18.90'),
-(205, 'Masking Tape (48MM X 20 YRDS)', 12, '36.80'),
-(206, 'Masking Tape (12MM X 25 YRDS)', 12, '12.80'),
-(207, 'Masking Tape (24MM X 25 YRDS)', 12, '22.98'),
-(208, 'Masking Tape (48MM X 25 YRDS )', 12, '44.80'),
-(209, 'Nopi Tape (9MM X 40M )', 12, '21.80'),
-(210, 'Small bubble Bag (1M X 52")', 12, '38.50'),
-(211, 'Big Bubble Bag (1M X 40")', 12, '37.80'),
-(235, 'Candy', 1, '1.00'),
-(236, 'Dog', 1, '100.00'),
-(237, 'Chocolate', 1, '20.00'),
-(238, 'Dog', 1, '150.00'),
-(239, 'water', 1, '10.00');
+INSERT INTO `product_list` (`productList_id`, `productList_name`, `category_id`) VALUES
+(1, 'Beef', 1),
+(2, 'Chicken', 1),
+(3, 'De Recado', 1),
+(4, 'Hamondo', 1),
+(5, 'Vigan', 1),
+(6, 'Smoked Hamondo (500 gms)', 1),
+(7, 'Smoked Hamondo (250 gms)', 1),
+(8, 'Smoked Vigan (500 gms)', 1),
+(9, 'Smoked Vigan (250 gms)', 1),
+(10, 'Embotido (450 gms)', 1),
+(11, 'Embotido (250 gms)', 1),
+(12, 'Tocino (500gms)', 1),
+(13, 'Tocino (200gms)', 1),
+(14, 'Lumpiang Shanghai', 1),
+(15, 'Bangus Shanghai', 1),
+(16, 'Chicken Shanghai', 1),
+(17, 'Burger Patties (200 gms)', 1),
+(18, 'Fish Ball (500 gms)', 1),
+(19, 'Fish Ball (250 gms)', 1),
+(20, 'Kikiam (500 gms)', 1),
+(21, 'Kikiam (250 gms)', 1),
+(22, 'Fish Lumpia (500 gms)', 1),
+(23, 'Chicken Balls (250 gms)', 1),
+(24, 'Squid Balls (250 gms)', 1),
+(25, 'Jumbo Hotdog (500 gms)', 1),
+(26, 'Jumbo Hotdog (250 gms)', 1),
+(27, 'Odocs (500 gms)', 1),
+(28, 'Odocs (250 gms)', 1),
+(29, 'Green Peas (400 gms)', 1),
+(30, 'Green Peas (200 gms)', 1),
+(31, 'Mixed Vegetable (400 gms)', 1),
+(32, 'Mixed Vegetable (200 gms)', 1),
+(33, 'French Fries (500 gms)', 1),
+(34, 'French Fries (1 kg)', 1),
+(35, 'French Fries (2.5 kg)', 1),
+(36, 'Puto Seco (25 pc)', 2),
+(37, 'Long Rice (20 pc)', 2),
+(38, 'Meringue (20 pc)', 2),
+(39, 'Pop Rice Round (15 pc)', 2),
+(40, 'Pop Rice Square (20 pc)', 2),
+(41, 'Belicoy (50 pc)', 2),
+(42, 'Bilog (50 pc)', 2),
+(43, 'Cornbar/Macarena (20 pc)', 2),
+(44, 'Bocarilyo (50 pc)', 2),
+(45, 'Katol (50 pc)', 2),
+(46, 'Lapad (50 pc)', 2),
+(47, 'Silag (50 pc)', 2),
+(48, 'Tamarind (50 pc)', 2),
+(49, 'Tira-Tira (50 pc)', 2),
+(50, 'With Mani (50 pc)', 2),
+(51, 'Prawn Cracker (175 gms)', 2),
+(52, 'Peanut Butter (small)', 3),
+(53, 'Peanut Butter (tall)', 3),
+(54, 'Peanut Butter (medium)', 3),
+(55, 'Strawberry Jelly (big)', 3),
+(56, 'Strawberry Jelly (small)', 3),
+(57, 'Strawberry Buo (big)', 3),
+(58, 'Strawberry Buo (small)', 3),
+(59, 'Honey (2x2)', 3),
+(60, 'Paminta (15pc)', 4),
+(61, 'Paminta Ground (20gms)', 4),
+(62, 'Paminta Crack (20gms)', 4),
+(63, 'Paminta Whole (20gms)', 4),
+(64, 'Paminta Ground (250gms)', 4),
+(65, 'Paminta Crack (250gms)', 4),
+(66, 'Paminta Whole (250gms)', 4),
+(67, 'Laurel (15pc)', 4),
+(68, 'Laurel (20gms)', 4),
+(69, 'Garlic Fried (100gms)', 4),
+(70, 'Curry Powder (50gms)', 4),
+(71, 'Curry Powder (200gms)', 4),
+(72, 'Star Anis (50gms)', 4),
+(73, 'Chili Powder (20gms)', 4),
+(74, 'Chili Powder (200gms)', 4),
+(75, 'JP Bagoong Big (750ml)', 4),
+(76, 'JP Bagoong Small (290ml)', 4),
+(77, 'Merly\'s Bagoong (750ml)', 4),
+(78, 'Merly\'s Bagoong (320ml)', 4),
+(79, 'Pangasinan\'s Best Bagoong', 4),
+(80, 'Patis (750ml)', 4),
+(81, 'Patis (320ml)', 4),
+(82, 'Padas (320ml)', 4),
+(83, 'Colored Sprinkle (200gms)', 5),
+(84, 'Choco Sprinkle (200gms)', 5),
+(85, 'Choco Lentils (100gms)', 5),
+(86, 'Peotraco Caster Suugar (24pcs)', 5),
+(87, 'Peotraco Icing Sugar (24pcs)', 5),
+(88, 'Confectioner\'s Icing Sugar (200gms)', 5),
+(89, 'Desiccated Coconut (100gms)', 5),
+(90, 'A & H Baking Soda (454 gms)', 5),
+(91, 'Baking Soda (250gms)', 5),
+(92, 'Baking Powder (250gms)', 5),
+(93, 'Cupcake Liners with Asst Designs', 5),
+(94, 'Sago Colored Big (400gms)', 5),
+(95, 'Sago Colored Medium (400gms)', 5),
+(96, 'Sago Colored Small (400gms)', 5),
+(97, 'Sago White Big (400gms)', 5),
+(98, 'Sago White Medium (400gms)', 5),
+(99, 'Sago White Small (400gms)', 5),
+(100, 'Polar (500gms)', 6),
+(101, 'Kings (20pc x 25gms)', 6),
+(102, 'Kangaroo (500gms)', 6),
+(103, 'Erawan (500 gms)', 6),
+(104, 'All-Purpose Flour 1st Class (1kg)', 6),
+(105, 'All-Purpose Flour (1kg)', 6),
+(106, 'Skim Milk (500gms)', 6),
+(107, 'Skim Milk (250gms)', 6),
+(108, 'Cake Flour (1kg)', 6),
+(109, 'Cassava Flour (250gms)', 6),
+(110, 'Cassava Flour (500gms)', 6),
+(111, 'Leah\'s Cornstarch (250gms)', 6),
+(112, 'Musovado (Raw Sugar) (500gms)', 6),
+(113, 'Agar-agar (250gms)', 6),
+(114, 'Agar Agar/Donfrank (50gms)', 6),
+(115, 'Glutinous Rice Powder (250gms)', 6),
+(116, 'Cheese Powder (100gms)', 6),
+(117, 'Cheese Powder (200gms)', 6),
+(118, 'Bensdrop Cocoa (200gms)', 6),
+(119, 'Margarine (250gms)', 6),
+(120, 'Star/Heart/Asst\'d (100gms)', 7),
+(121, 'Mini MM (100gms)', 7),
+(122, 'Canadian (100gms)', 7),
+(123, 'Cubes (100gms)', 7),
+(124, 'Mallow (100gms)', 7),
+(125, 'Caterpillar (100gms)', 7),
+(126, 'Snake  (100gms)', 7),
+(127, 'Melon (100gms)', 7),
+(128, 'Twist Rainbow (100gms)', 7),
+(129, 'Choco LENTILS (100gms)', 7),
+(130, 'Flower  (100gms)', 7),
+(131, 'Jelly Balls (100gms)', 7),
+(132, 'Wisel (100gms)', 7),
+(133, 'Black Beans (250gms)', 8),
+(134, 'White Beans (250gms)', 8),
+(135, 'Red Beans (250gms)', 8),
+(136, 'Mongo Buo  (250gms)', 8),
+(137, 'Mongo Split  (250gms)', 8),
+(138, 'Komeya 3Q (12pc x 500g)', 9),
+(139, '3Q Bihon (12pc)', 9),
+(140, 'Japanese Ramen Red (250gms)', 9),
+(141, 'Macaroni Elbow (500gms)', 9),
+(142, 'Macaroni Twist (500gms)', 9),
+(143, 'Macaroni Shell (500gms)', 9),
+(144, 'Spaghetti Mac (1kg)', 9),
+(145, 'RICE (BIGAS) (10kg)', 9),
+(146, 'RICE (BIGAS) (25kg)', 9),
+(147, 'RICE (BIGAS) (50kg)', 9),
+(148, 'Roll Bag 20x30 (20pc)', 10),
+(149, 'Counter Bag/CALYPSO (60pc)', 10),
+(150, 'Clingwrap (6pc)', 10),
+(151, 'Aluminium Foil (8m)', 10),
+(152, 'Aluminium Foil (5m)', 10),
+(153, 'Nylon Tali (10pc x 400g)', 10),
+(154, 'Starex (20 x 10)', 10),
+(155, 'Guarntee Calypso (20 x 10)', 10),
+(156, 'White Horse (20 x 10)', 10),
+(157, 'Mini Apple Sando Bag (10 x 40)', 10),
+(158, 'Tiny Texas Sando Bag (10 x 30)', 10),
+(159, 'Medium Texas Sando Bag (10 x 15)', 10),
+(160, 'Large Texas Sando Bag (10 x 10)', 10),
+(161, 'Oil Repacking Plastic (100pcs) (6 x 14)', 10),
+(162, 'Garbage bag  10\'s (XXL) (18 1/2x 18x1/2 x 40)', 10),
+(163, 'Garbage bag  10\'s (XL) (18 1/2x 18x1/2 x 37)', 10),
+(164, 'Garbage bag  10\'s (L) (13 x 13 x 32)', 10),
+(165, 'Garbage bag  10\'s  (M) (11 x 11 x 25)', 10),
+(166, 'Sandwich bag #2 (60pc)', 10),
+(167, 'Bending Drinking Straw (100pc)', 10),
+(168, 'Disposable Glove (50pc)', 10),
+(169, 'Sago Drinking Straw (30pc)', 10),
+(170, 'SP 10 ROUND (5pc)', 11),
+(171, 'SP 16 ROUND (5pc)', 11),
+(172, 'SP 30 ROUND (5pc)', 11),
+(173, 'SP 10 ROUND (10pc)', 11),
+(174, 'SP 16 ROUND (10pc)', 11),
+(175, 'SP 30 ROUND (10pc)', 11),
+(176, 'SP 500 RECTANGULAR (5pc)', 11),
+(177, 'SP 750 RECTANGULAR  (5pc)', 11),
+(178, 'SP 1000 RECTANGULAR  (5pc)', 11),
+(179, 'SP 1600 RECTANGULAR  (5pc)', 11),
+(180, 'SP 2500 RECTANGULAR  (5pc)', 11),
+(181, 'SP 500 RECTANGULAR (10pc)', 11),
+(182, 'SP 750 RECTANGULAR (10pc)', 11),
+(183, 'SP 1000 RECTANGULAR (10pc)', 11),
+(184, 'Packaging Tape Clear/Tan (12MMx50M)', 12),
+(185, 'Packaging Tape Clear/Tan (12MMx100M)', 12),
+(186, 'Packaging Tape Clear/Tan (24MMx50M)', 12),
+(187, 'Packaging Tape Clear/Tan (48MMx50M)', 12),
+(188, 'Packaging Tape Clear/Tan (24MMx100M)', 12),
+(189, 'Packaging Tape Clear/Tan (48MMx100M)', 12),
+(190, 'Kraft Tape (24MMx50YRDS)', 12),
+(191, 'Cloth Duct Tape (48MMx25M)', 12),
+(192, 'Cloth Duct Tape (72MM x 25M)', 12),
+(193, 'Aluminum Tape (48MM x 50YRDS)', 12),
+(194, 'Floor Marketing tape (48MM x 33YRDS)', 12),
+(195, 'Kraft Tape (48 MM X 50 YRDS)', 12),
+(196, 'Double Sided Tape (12MM X 10M)', 12),
+(197, 'Double Sided Tape (12MM X 50M)', 12),
+(198, 'Double Sided Tape (24MM X 50M)', 12),
+(199, 'Double Sided Tape (48MM X 50M)', 12),
+(200, 'Masking Tape (12MM X 15 YRDS)', 12),
+(201, 'Masking Tape (24MM X 15 YRDS)', 12),
+(202, 'Masking Tape (48MM X 15 YRDS)', 12),
+(203, 'Masking Tape (12MM X 20 YRDS)', 12),
+(204, 'Masking Tape (24MM X 20 YRDS)', 12),
+(205, 'Masking Tape (48MM X 20 YRDS)', 12),
+(206, 'Masking Tape (12MM X 25 YRDS)', 12),
+(207, 'Masking Tape (24MM X 25 YRDS)', 12),
+(208, 'Masking Tape (48MM X 25 YRDS )', 12),
+(209, 'Nopi Tape (9MM X 40M )', 12),
+(210, 'Small bubble Bag (1M X 52")', 12),
+(211, 'Big Bubble Bag (1M X 40")', 12),
+(235, 'Candy', 1),
+(236, 'Dog', 1),
+(237, 'Chocolate', 1),
+(238, 'Dog', 1),
+(239, 'water', 1),
+(240, 'Empanado', 1);
 
 -- --------------------------------------------------------
 
@@ -490,7 +518,9 @@ INSERT INTO `product_loc` (`product_id`, `location`, `status`, `altprice`, `barc
 (5, 'Baguio', 'Enabled', '213', NULL),
 (5, 'Pangasinan', 'Enabled', '4221', NULL),
 (239, 'Baguio', 'Enabled', '20', '123213aasd'),
-(239, 'Pangasinan', 'Enabled', '20', '123213aasd');
+(239, 'Pangasinan', 'Enabled', '20', '123213aasd'),
+(240, 'Baguio', 'Disabled', '12.00', '19090123'),
+(240, 'Pangasinan', 'Disabled', '90.00', '19090123');
 
 -- --------------------------------------------------------
 
@@ -678,7 +708,7 @@ ALTER TABLE `stock_transfer`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `acc_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `acc_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `bad_order`
 --
@@ -698,12 +728,12 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `iS_inventoryid` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `iS_inventoryid` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `issuance`
 --
 ALTER TABLE `issuance`
-  MODIFY `issue_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `issue_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `ledger`
 --
@@ -713,12 +743,12 @@ ALTER TABLE `ledger`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `product_list`
 --
 ALTER TABLE `product_list`
-  MODIFY `productList_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
+  MODIFY `productList_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 --
 -- AUTO_INCREMENT for table `pull_out`
 --

@@ -288,10 +288,10 @@ if(!$_SESSION['username'])  {
                                     <input type="text" class="form-control" maxlength="25" name="last_name" onkeypress="return isAlfa(event)" required>
 
                                     <h3>Password</h3>
-                                    <input type="password" id="password" class="form-control" maxlength="25" name="password" required>
+                                    <input type="password" id="pass" class="form-control" name="password[user_pass]" required>
 
                                     <h3>Confirm Password</h3>
-                                    <input type="password" id="confirm_password" class="form-control" maxlength="25" name="password_2" required>
+                                    <input type="password" id="confirm_pass" class="form-control" name="password_2[user_pass2]" required>
 									 <span id='message'></span>
 
                                     <h3>Email</h3>
@@ -315,7 +315,7 @@ if(!$_SESSION['username'])  {
 									</select>
 
                                     <div class="modal-footer">
-                                        <input name="add_user" type="submit" class="btn btn-default" value=" Submit " />
+                                        <input name="add_user" id="enter" disabled="true" type="submit" class="btn btn-default" value="Submit"/>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>
@@ -349,11 +349,21 @@ if(!$_SESSION['username'])  {
         return true;
     }
 	
-	$('#password, #confirm_password').on('keyup', function () {
-	  if ($('#password').val() == $('#confirm_password').val()) {
+	$("#confirm_pass").blur(function() {
+  var user_pass = $("#pass").val();
+  var user_pass2 = $("#confirm_pass").val();
+
+  if (user_pass.length == 0) {
+		alert("Please fill password first");
+		$("#enter").prop('disabled',true)//use prop()
+	  } else if (user_pass == user_pass2) {
+		$("#enter").prop('disabled',false)//use prop()
 		$('#message').html('Password Match').css('color', 'green');
-	  } else 
+	  } else {
+		$("#enter").prop('disabled',true)//use prop()
 		$('#message').html('Password Do Not Match').css('color', 'red');
+	  }
+
 	});
 
 </script>
