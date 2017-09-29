@@ -196,7 +196,6 @@ if(!$_SESSION['username'])  {
                                 <!--<th>Barcode</th>-->
                                 <th>Product Name</th>
                                 <th>Category</th>
-                                <th>Original Price</th>
                                 <!--<th>Alt Price Price</th>
                                 <th>Status</th>
                                 <th>Location</th>-->
@@ -210,7 +209,7 @@ if(!$_SESSION['username'])  {
                            foreach ($results as $data):
                             
                                 $toData = $data["productList_id"];
-                        ?>
+							?>
                                 <tr>
                                     <td data-title="Product_ID">
                                         <?php 
@@ -219,13 +218,6 @@ if(!$_SESSION['username'])  {
                                         ?>
 
                                     </td>
-                                    <!--<td data-title="barcode">
-                                        <?php //if ($data["barcode"] == '' ){
-                                        //echo "N/A";
-                                    //}else {
-                                        //echo $data["barcode"];}
-                                    ?>
-                                    </td>-->
                                     <td data-title="productname">
                                         <?php 
                                             echo $data["productList_name"]; 
@@ -234,22 +226,6 @@ if(!$_SESSION['username'])  {
                                     <td data-title="Category">
                                         <?php echo $data["category_name"]; ?>
                                     </td>
-                                    <td data-title="price">
-                                        <?php echo $data["productList_origprice"]; ?>
-                                    </td>
-                                    <!--<td data-title="location price">
-                                        <?php //if ($data["altprice"] == '' ){
-                                        //echo "N/A";
-                                    //}else {
-                                        //echo $data["altprice"];}
-                                    ?>
-                                    </td>
-                                    <td data-title="status">
-                                        <?php //echo $data["status"]; ?>
-                                    </td>
-                                    <td data-title="location">
-                                        <?php //echo $data["location"]; ?>
-                                    </td> -->
                                     <td data-title="edit">
                                         <table class="table table-striped table-bordered">
                                             <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>
@@ -265,7 +241,7 @@ if(!$_SESSION['username'])  {
                                                 <h4 class="modal-title">Edit Product</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <?php
+                                            <?php
                                             $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id' and c.location='Baguio'";
                                             $run = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($run);//baguio
@@ -274,7 +250,7 @@ if(!$_SESSION['username'])  {
                                             $runp = mysqli_query($db, $query);
                                             $rowp = mysqli_fetch_array($runp);//pangasinan
                                             ?>
-                                                    <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
+                                                   <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
                                                         <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id" />
                                                         <div class="row">
                                                             <div class="col-xs-4"><label>Barcode</label></div>
@@ -289,39 +265,39 @@ if(!$_SESSION['username'])  {
                                                             </div>
                                                         </div>
                                                         <div class="client">
+														
                                                             <h5><b>Product Category</b></h5>
                                                             <?php
-                                        $retrieveCat = ("SELECT * FROM category_list");
-                                        $categoryResult = mysqli_query($db, $retrieveCat);          
-                                    ?>
+															$retrieveCat = ("SELECT * FROM category_list");
+															$categoryResult = mysqli_query($db, $retrieveCat);
+															?>
 
-                                                                <select name="ProductCategory">
-                                        <?php                                
-                                         while($datas=mysqli_fetch_array($categoryResult)){
-                                              $toData = $datas["category_id"];
-                                        ?>
-                                        <option value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>                              
-                                       <?php
-                                   }                                     
-                                        ?>
-                                    </select>
+															<select name="ProductCategory">
+																<?php                                
+																while($datas=mysqli_fetch_array($categoryResult)){
+																  $toData = $datas["category_id"];
+																?>
+																<option value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>
+															   <?php
+																}
+																?>
+															</select>
+															
                                                                 <div class="row">
-                                                                    <div class="col-xs-6"><label>Original Price</label></div>
                                                                     <div class="col-xs-6"><label>Status</label></div>
                                                                 </div>
+
                                                                 <div class="row">
-                                                                    <div class="col-xs-6">
-                                                                        <input name="productList_price" value="<?php echo $row['productList_origprice']; ?>" type="text" class="form-control">
-                                                                    </div>
                                                                     <div class="col-xs-4">
 
-                                                                        <select name="status" class="form-control">
-                                                    <option>Enabled</option>
-                                                    <option>Disabled</option>
-                                                </select>
+																		 <select name="status" class="form-control">
+																			<option>Enabled</option>
+																			<option>Disabled</option>
+																		</select>
 
                                                                     </div>
                                                                 </div>
+																
                                                                 <div class="row">
                                                                     <div class="col-xs-6"><label>Baguio Alternate Price</label>
                                                                         <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
@@ -335,6 +311,7 @@ if(!$_SESSION['username'])  {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+																
                                                                 <div class="row">
                                                                     <div class="col-xs-12">
                                                                         <br>
@@ -396,11 +373,6 @@ if(!$_SESSION['username'])  {
                                                     endforeach;
                                                 ?>
                                             </select>
-
-
-
-                                        <h3>Price</h3>
-                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="productList_price" required>
 
                                         <h3>Alternate Price For Baguio</h3>
                                         <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" required>
