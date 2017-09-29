@@ -16,9 +16,9 @@
           	$productList_name = $_POST['productList_name'];
           	$ProductCategory = $_POST['ProductCategory'];
           	$productList_price = $_POST['productList_price'];
-			      $barcode =$_POST['barcode'];
+			$barcode =$_POST['barcode'];
           	$status = $_POST['status'];
-			      $altpriceB = $_POST['altpriceB'];
+			$altpriceB = $_POST['altpriceB'];
             $altpriceP = $_POST['altpriceP'];
             $restock =  $_POST['restock'];
 
