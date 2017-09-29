@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Accounts</title>
+    <title>Issuance Log</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -182,7 +182,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM issuance NATURAL JOIN issuance_list");
+                            $retrieve = ("SELECT * FROM issuance INNER JOIN clients ON issuance.client_id = clients.c_id;");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -192,11 +192,11 @@ if(!$_SESSION['username'])  {
                         <tr>
                             <th>Issuance ID</th>
                             <th>Date/Time</th>
-                            <th>Quantity Purchased</th>
-                            <th>Product Name</th>
-                            <th>Given Price</th>
-                            <th>Original Price</th>
-                            <th>Client Name</th>
+                            <th>Products Issued</th>
+                            <th>Client</th>
+                            <th>Remarks</th>
+                            <th>Pull Out</th>
+                            <th>Bad Orders</th>
                         </tr>
                     </thead>
 
@@ -207,74 +207,82 @@ if(!$_SESSION['username'])  {
                         ?>
                             <tr>
                                 <td data-title="Issuance ID">
-                                    <?php echo $data["issue_id"]; ?>
+                                    <?php 
+                                    $IsID =  $data["issue_id"];
+                                    echo $IsID; 
+                                    ?>
                                 </td>
                                 <td data-title="Date/Time">
-                                    <?php echo $data["Date/Time"]; ?>
+                                    <?php echo $data["issue_date_time"]; ?>
                                 </td>
-                                <td data-title="Quantity Purchased">
-                                    <?php echo $data["Quantity Purchased"]; ?>
+                                <td data-title="Products Issued">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#IssuedModal"></button>
+                                        </table>
                                 </td>
-                                <td data-title="Product Name">
-                                    <?php echo $data["Product Name"]; ?>
+                                <td data-title="Client">
+                                    <?php echo $data["c_name"]; ?>
                                 </td>
-                                <td data-title="Given Price">
-                                    <?php echo $data["Given Price"]; ?>
+                                <td data-title="Remarks">
+                                    <?php echo $data["remarks"]; ?>
                                 </td>
-                                <td data-title="Original Price">
-                                    <?php echo $data["Original Price"]; ?>
+                                <td data-title="Pull Out">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-transfer" data-toggle="modal" aria-hidden="true" data-target=></button>
+                                        </table>
                                 </td>
-                                <td data-title="Client Name">
-                                    <?php echo $data["Client Name"]; ?>
+                                <td data-title="Bad Orders">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-trash" data-toggle="modal" aria-hidden="true" data-target=></button>
+                                        </table>
                                 </td>
                             </tr>
-                            <?php
-                            endforeach;
-                        ?>
-                    </tbody>
-                </table>
+    
 
-                <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
+                <!-- Products Issued -->
+                <div id="IssuedModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
 
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Account</h4>
+                                <h4 class="modal-title">Products Issued</h4>
                             </div>
                             <div class="modal-body">
-                                <form action="fragments/addUser.php" method="POST" onsubmit="return validateForm()">
-                                    <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="username" autofocus required>
-
-                                    <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="first_name" onkeypress="return isAlfa(event)" required>
-
-                                    <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="last_name" onkeypress="return isAlfa(event)" required>
-
-                                    <h3>Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password" required>
-
-                                    <h3>Confirm Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password_2" required>
-
-                                    <h3>Email</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="email" required>
-
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="contact_no" onkeypress="return isNumber(event)" required>
-
-                                    <div class="modal-footer">
-                                        <input name="add_user" type="submit" class="btn btn-default" value=" Submit " />
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
+                                    <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
+                                    <?php
+                                        $queryProducts = "SELECT * FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id WHERE issue_id ='$IsID'";
+                                        $run = mysqli_query($db, $queryProducts);
+                                    ?>
+                                    <label>Product</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <label>Original Price</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <label>Adjusted Price</label>
+                                    <?php
+                                        foreach ($run as $log){
+                                        $toData = $log["productList_id"];        
+                                    ?>
+                                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+                                                        <input type="text" value= "<?php  echo $log["productList_origprice"];  ?>" readonly>
+                                                        <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
+                                                                                   
+                                        <?php
+                                            }
+                                        ?>
+                               
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <?php
+                    endforeach;
+                ?>
+                    </tbody>
+                </table>
         </div>
     </div>
 </body>
