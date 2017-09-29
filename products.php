@@ -192,13 +192,9 @@ if(!$_SESSION['username'])  {
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>Product ID</th>
-                                <!--<th>Barcode</th>-->
+
                                 <th>Product Name</th>
                                 <th>Category</th>
-                                <!--<th>Alt Price Price</th>
-                                <th>Status</th>
-                                <th>Location</th>-->
                                 <th>Edit</th>
                             </tr>
                         </thead>
@@ -211,14 +207,10 @@ if(!$_SESSION['username'])  {
                                 $toData = $data["productList_id"];
 							?>
                                 <tr>
-                                    <td data-title="Product_ID">
                                         <?php 
                                             $individual_product_id=$data["productList_id"];
-                                            echo $individual_product_id;
                                         ?>
-
-                                    </td>
-                                    <td data-title="productname">
+                                    <td data-title="Product Name">
                                         <?php 
                                             echo $data["productList_name"]; 
                                         ?>

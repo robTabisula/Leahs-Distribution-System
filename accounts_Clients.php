@@ -221,7 +221,6 @@ if(!$_SESSION['username'])  {
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>Clients ID</th>
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Contact Number</th>
@@ -237,9 +236,6 @@ if(!$_SESSION['username'])  {
 								$toData = $data["c_id"];
 						?>
                                 <tr>
-                                    <td data-title="clientID">
-                                        <?php echo $data["c_id"]; ?>
-                                    </td>
                                     <td data-title="c_name">
                                         <?php echo $data["c_name"]; ?>
                                     </td>

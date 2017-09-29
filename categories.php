@@ -221,7 +221,6 @@ if(!$_SESSION['username'])  {
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>Category ID</th>
                                 <th>Category Name</th>
                                 <th>Category Status</th>
                             </tr>
@@ -233,16 +232,71 @@ if(!$_SESSION['username'])  {
 								$toData = $data["category_id"];
 						?>
                                 <tr>
-                                     <td data-title="category_ID">
-                                        <?php echo $data["category_id"]; ?>
-                                    </td>
+										<?php
+											$individual_category_id=$data["category_id"];
+                                        ?>
                                     <td data-title="category_name">
                                         <?php echo $data["category_name"]; ?>
                                     </td>
                                     <td data-title="category_status">
                                         <?php echo $data["category_status"]; ?>
                                     </td>
+									<td data-title="edit">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_category_id;?>"></button>
+                                        </table>
+                                    </td>
                                 </tr>
+								
+								<!--Edit modal-->
+                                <div id="<?php echo $individual_category_id;?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Category</h4>
+                                            </div>
+                                            <div class="modal-body">
+					                        <?php
+                                            $query = "select * from category_list";
+                                            $run = mysqli_query($db, $query);
+                                            $row = mysqli_fetch_array($run);//
+                                            ?>
+                                                   <form method="post" action="fragments/editCategory.php">
+                                                        <input type="hidden" value="<?php echo $individual_category_id;?>" name="individual_cat_id" />
+                                                        <div class="row">
+                                                            <div class="col-xs-4"><label>Category Name</label></div>
+															<div class="col-xs-6"><label>Status</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="category_name" value="<?php echo $row['category_name']; ?>" type="text" class="form-control">
+                                                            </div>
+                                                            <div class="col-xs-4">
+
+																<select name="category_status" class="form-control">
+																	<option>Enabled</option>
+																	<option>Disabled</option>
+																</select>
+
+                                                            </div>
+                                                        </div>
+														<div class="row">
+                                                            <div class="col-xs-12">
+                                                                 <br>
+                                                                    <div class="modal-footer">
+																		<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
 							endforeach;
 						?>

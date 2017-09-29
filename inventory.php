@@ -228,7 +228,6 @@ if(!$_SESSION['username'])  {
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>Inventory ID</th>
                                 <th>Product Name</th>
                                 <th>Product Quantity</th>
                                 <th>Restock Level</th>
@@ -243,9 +242,6 @@ if(!$_SESSION['username'])  {
 								$toData = $data["iS_inventoryid"];
 						?>
                                 <tr>
-                                    <td data-title="inventory id">
-                                        <?php echo $data["iS_inventoryid"]; ?>
-                                    </td>
                                     <td data-title="productList name">
                                         <?php echo $data["productList_name"]; ?>
                                     </td>
@@ -361,7 +357,6 @@ if(!$_SESSION['username'])  {
                               		<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
 				                        <thead>
 				                            <tr>
-				                                <th>Inventory ID</th>
 				                                <th>Product Name</th>
 				                                <th>Product Quantity</th>
 				                                <th>Restock Level</th>
@@ -380,12 +375,10 @@ if(!$_SESSION['username'])  {
 												$toData = $lowStock["iS_inventoryid"];
 										?>
 				                                <tr>
-				                                    <td data-title="inventory id">
 				                                        <?php 
                                                             $passID = $lowStock["iS_inventoryid"];
-                                                            echo $passID; 
+     
                                                         ?>
-				                                    </td>
 				                                    <td data-title="productList name">
 				                                        <?php echo $lowStock["productList_name"]; ?>
 				                                    </td>
