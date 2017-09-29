@@ -13,22 +13,33 @@
       	include('config.php');    
         	if (isset($_POST["add_client"])) {
 
-          	$c_name = $_POST['c_name'];
-          	$c_address = $_POST['c_address'];
-          	$c_contact_no = $_POST['c_contact_no'];
-          	$c_contact_person = $_POST['c_contact_person'];
-			 
+				$c_name = $_POST['c_name'];
+				$c_address = $_POST['c_address'];
+				$c_location = $_POST['c_location'];
+				$contact_name = $_POST['contact_name'];
+				$contact_number = $_POST['contact_number'];
+				 
 
-            	$query = "INSERT INTO clients (c_name, c_address, c_contact_no, c_contact_person) 
-                  	VALUE ('$c_name','$c_address' , '$c_contact_no' , '$c_contact_person')";
+					$query = "INSERT INTO clients (c_name, c_address, c_location) 
+						VALUE ('$c_name','$c_address' , '$c_location')";
 					
 					if(mysqli_query($db, $query)){
-					echo"<script>alert('Successfuly Added Clients')</script>";
-					echo "<script>window.open('clients.php','_self')</script>";  
-					} else{
-						echo ("ERROR: Could not able to execute" . mysqli_error($db));
+						$get_id="select c_id from clients WHERE c_name='$c_name'";
+						$run=mysqli_query($db,$get_id);
+						$row = mysqli_fetch_array($run);
+						$id=$row[0];
+
+						$query2 = "INSERT INTO client_contact (contact_clientid,contact_name,contact_number)
+						   VALUE ('$id','$contact_name','$contact_number')";
+							   
+						if(mysqli_query($db, $query2)){
+						echo"<script>alert('Successfuly Added Clients')</script>";
+						echo "<script>window.open('../accounts_Clients.php','_self')</script>";  
+						} else{
+							echo ("ERROR: Could not able to execute" . mysqli_error($db));
+						}
 					}
-         }
+			}
         	 
         ?>
   </body>

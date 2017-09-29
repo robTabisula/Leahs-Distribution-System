@@ -208,7 +208,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM clients");
+							$retrieve = ("SELECT * FROM clients INNER JOIN client_contact ON clients.c_id = client_contact.contact_clientid");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -246,11 +246,11 @@ if(!$_SESSION['username'])  {
                                     <td data-title="c_address">
                                         <?php echo $data["c_address"]; ?>
                                     </td>
-                                    <td data-title="c_contact_no">
-                                        <?php echo $data["c_contact_no"]; ?>
+                                    <td data-title="contact_name">
+                                        <?php echo $data["contact_name"]; ?>
                                     </td>
-                                    <td data-title="c_contact_person">
-                                        <?php echo $data["c_contact_person"]; ?>
+                                    <td data-title="contact_number">
+                                        <?php echo $data["contact_number"]; ?>
                                     </td>
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
@@ -275,17 +275,24 @@ if(!$_SESSION['username'])  {
                                 <div class="modal-body">
                                     <form action="fragments/addClient.php" method="POST" onsubmit="return validateForm()">
                                         <h3>Name</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="c_name" onkeypress="return isAlfa(event)" autofocus required>
+                                        <input type="text" class="form-control" maxlength="25" name="c_name" autofocus required>
 
                                         <h3>Address</h3>
                                         <input type="text" class="form-control" maxlength="25" name="c_address" required>
 
                                         <h3>Contact Number</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="c_contact_no" onkeypress="return isNumber(event)" required>
+                                        <input type="text" class="form-control" maxlength="25" name="contact_number" onkeypress="return isNumber(event)" required>
 
                                         <h3>Contact Person</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="c_contact_person" onkeypress="return isAlfa(event)" required>
-
+                                        <input type="text" class="form-control" maxlength="50" name="contact_name" required>
+										
+										<h3>Location</h3>
+										<select name="c_location" required>
+										  <option value="">Select...</option>
+										  <option value="Baguio">Baguio</option>
+										  <option value="Pangasinan">Pangasinan</option>
+										</select>
+										
                                         <div class="modal-footer">
                                             <input name="add_client" type="submit" class="btn btn-default" value=" Submit " />
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
