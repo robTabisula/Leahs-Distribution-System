@@ -217,7 +217,7 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td data-title="Products Issued">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#IssuedModal"></button>
+                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo  $IsID ?>"></button>
                                         </table>
                                 </td>
                                 <td data-title="Client">
@@ -240,7 +240,7 @@ if(!$_SESSION['username'])  {
     
 
                 <!-- Products Issued -->
-                <div id="IssuedModal" class="modal fade" role="dialog">
+                <div id="<?php echo  $IsID ?>" class="modal fade" role="dialog">
                     <div class="modal-dialog">
 
                         <div class="modal-content">
