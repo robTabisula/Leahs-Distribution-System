@@ -84,13 +84,8 @@ if(!$_SESSION['username'])  {
                 </ul>
 
                 <!-- Settings Submenu -->
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
-                    <i class="fa fa-user"></i> Me <span class="arrow"></span>
-                </li>
-                <ul class="sub-menu collapse atarget" id="service">
-                    <li><a href="accounts_Info.php"><i class="fa fa-user-circle" aria-hidden="true"></i> Account Info</a></li>
-                    <li><a href="Settings.php"><i class="fa fa-cog"></i> Settings</a></li>
-                </ul>
+                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
+
 
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
@@ -123,12 +118,12 @@ if(!$_SESSION['username'])  {
 
                 <!-- Issuance Log Submenu -->
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
-                    <i class="fa fa-list" aria-hidden="true"></i> Issuance Logs <span class="arrow"></span>
+                    <i class="fa fa-list" aria-hidden="true"></i> Logs <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="issue">
                     <li><a class="sub-a" href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
                     <li><a class="sub-a" href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
-                    <li><a class="sub-a" href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Reports </a></li>
+                    <li><a class="sub-a" href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
                 </ul>
 
                 <!-- Issuance Submenu -->
@@ -181,108 +176,9 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Accounts</h1>
+                <h1 align="center">Bad Order Issuance</h1>
             </table>
 
-            <!-- Retrieve Account Data -->
-            <?php
-							$retrieve = ("SELECT acc_id, username, first_name, last_name, email, contact_no, status FROM accounts ");
-							$results = mysqli_query($db, $retrieve);
-						?>
-
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
-                </table>
-
-                <!-- Table Display for Accounts -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Username</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbod y>
-                        <?php
-							foreach ($results as $data):
-								$toData = $data["acc_id"];
-						?>
-                            <tr>
-                                <td data-title="accountID">
-                                    <?php echo $data["acc_id"]; ?>
-                                </td>
-                                <td data-title="user_name">
-                                    <?php echo $data["username"]; ?>
-                                </td>
-                                <td data-title="fname">
-                                    <?php echo $data["first_name"]; ?>
-                                </td>
-                                <td data-title="lname">
-                                    <?php echo $data["last_name"]; ?>
-                                </td>
-                                <td data-title="mail">
-                                    <?php echo $data["email"]; ?>
-                                </td>
-                                <td data-title="cno">
-                                    <?php echo $data["contact_no"]; ?>
-                                </td>
-                                <td data-title="status">
-                                    <?php echo $data["status"]; ?>
-                                </td>
-                            </tr>
-                            <?php
-							endforeach;
-						?>
-                            </tbody>
-                </table>
-
-                <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Account</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form action="addAccounts.php" method="POST" onsubmit="return validateForm()">
-                                    <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="username" required>
-
-                                    <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="firstname" required>
-
-                                    <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="lastname" required>
-
-                                    <h3>Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password" required>
-
-                                    <h3>Confirm Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password_2" required>
-
-                                    <h3>Email</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="email" required>
-
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="contact_no" required>
-
-                                    <div class="modal-footer">
-                                        <input name="reg_user" type="submit" class="btn btn-default" value=" Submit " />
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
         </div>
     </div>
 

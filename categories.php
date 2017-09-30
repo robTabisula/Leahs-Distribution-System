@@ -110,13 +110,8 @@ if(!$_SESSION['username'])  {
                 </ul>
 
                 <!-- Settings Submenu -->
-                <li data-toggle="collapse" data-target="#service" class="collapsed">
-                    <i class="fa fa-user"></i> Me <span class="arrow"></span>
-                </li>
-                <ul class="sub-menu collapse atarget" id="service">
-                    <li><a href="accounts_Info.php"><i class="fa fa-user-circle" aria-hidden="true"></i> Account Info</a></li>
-                    <li><a href="Settings.php"><i class="fa fa-cog"></i> Settings</a></li>
-                </ul>
+                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
+
 
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
@@ -145,12 +140,12 @@ if(!$_SESSION['username'])  {
 
                 <!-- Issuance Log Submenu -->
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
-                    <i class="fa fa-list" aria-hidden="true"></i> Issuance Logs <span class="arrow"></span>
+                    <i class="fa fa-list" aria-hidden="true"></i> Logs <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="issue">
                     <li> <a href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
-                    <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Reports </a></li>
+                    <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
                 </ul>
 
                 <!-- Issuance Submenu -->
