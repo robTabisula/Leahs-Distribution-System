@@ -176,7 +176,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM issuance INNER JOIN clients ON issuance.client_id = clients.c_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
+                            $retrieve = ("SELECT * FROM issuance INNER JOIN clients ON issuance.client_id = clients.c_id;");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -219,7 +219,7 @@ if(!$_SESSION['username'])  {
                                     <?php echo $data["c_name"]; ?>
                                 </td>
 								<td data-title="Branch">
-                                    <?php echo $data["branch"]; ?>
+                                    <?php echo $data["c_location"]; ?>
                                 </td>
                                 <td data-title="Remarks">
                                     <?php echo $data["remarks"]; ?>
@@ -239,7 +239,7 @@ if(!$_SESSION['username'])  {
 
                 <!-- Products Issued -->
                 <div id="<?php echo  $IsID ?>" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
 
                         <div class="modal-content">
                             <div class="modal-header">
@@ -249,10 +249,13 @@ if(!$_SESSION['username'])  {
                             <div class="modal-body">
                                     <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
                                     <?php
-                                        $queryProducts = "SELECT * FROM product_list INNER JOIN issuance_list INNER JOIN product_loc ON product_list.productList_id = issuance_list.prod_id AND product_list.productList_id = product_loc.product_id WHERE issue_id ='$IsID'";
+                                        $queryProducts = "SELECT * FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id WHERE issue_id ='$IsID'";
                                         $run = mysqli_query($db, $queryProducts);
                                     ?>
                                     <label>Product</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <label>Quantity</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     <label>Original Price</label>
@@ -263,13 +266,14 @@ if(!$_SESSION['username'])  {
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
                                     ?>
-                                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
-                                                        <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>
-                                                        <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+                                            <input type="text" value= "<?php  echo $log["prod_qty"];  ?>" readonly>
+                                            <input type="text" value= "<?php  echo $log["productList_origprice"];  ?>" readonly>
+                                            <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
                                                                                    
-                                        <?php
-                                            }
-                                        ?>
+                                    <?php
+                                        }
+                                    ?>
                                
                             </div>
                         </div>

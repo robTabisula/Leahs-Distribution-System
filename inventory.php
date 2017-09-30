@@ -262,7 +262,7 @@ if(!$_SESSION['username'])  {
 
                     <!-- Modal Add Stocks-->
                     <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog dialog modal-lg">
 
                             <div class="modal-content">
                                 <div class="modal-header">
