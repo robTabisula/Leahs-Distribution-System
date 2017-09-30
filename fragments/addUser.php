@@ -16,8 +16,8 @@
           	$username = $_POST['username'];
           	$first_name = $_POST['first_name'];
           	$last_name = $_POST['last_name'];
-          	$password = $_POST['password'];
-          	$password_2 = $_POST['password_2']; 
+          	$password = $_POST['user_pass'];
+          	$password_2 = $_POST['user_pass2']; 
           	$email = $_POST['email'];
           	$contact_no = $_POST['contact_no'];
 			$branch = $_POST['branch'];
@@ -29,11 +29,12 @@
 				
 			{
 			echo "<script>alert('The username $username already exists, Please try another one!')</script>";
-			header("Location: ../accounts_users.php");
-			exit();
+			
+			echo "<script>window.open('../accounts_users.php','_self')</script>"; 
+			exit(0);
 			}
 			 
-			 $password = hash("sha512",$_POST['password[user_pass]']);
+			 $password = hash("sha512",$_POST['user_pass']);
 
             	$query = "INSERT INTO accounts (username, first_name, last_name, password, email, contact_no,branch,acctype) 
                   	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no','$branch','$acctype')";

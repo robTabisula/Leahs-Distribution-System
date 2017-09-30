@@ -238,6 +238,9 @@ if(!$_SESSION['username'])  {
 								$toData = $data["acc_id"];
 						?>
                             <tr>
+								<?php
+									$individual_acc_id=$data["acc_id"];
+                                ?>
                                 <td data-title="user_name">
                                     <?php echo $data["username"]; ?>
                                 </td>
@@ -260,7 +263,111 @@ if(!$_SESSION['username'])  {
 								 <td data-title="acctype">
                                     <?php echo $data["acctype"]; ?>
                                 </td>
+								<td data-title="edit">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_acc_id;?>"></button>
+                                        </table>
+                                </td>
                             </tr>
+							<!--Edit modal-->
+                                <div id="<?php echo $individual_acc_id;?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Accounts</h4>
+                                            </div>
+                                            <div class="modal-body">
+					                        <?php
+                                            $query = "select * from accounts";
+                                            $run = mysqli_query($db, $query);
+                                            $row = mysqli_fetch_array($run);//
+                                            ?>
+                                                   <form method="post" action="fragments/editAccounts.php">
+                                                        <input type="hidden" value="<?php echo $individual_acc_id;?>" name="account_id" />
+                                                        <div class="row">
+                                                            <div class="col-xs-4"><label>Username</label></div>
+															<div class="col-xs-4"><label>First Name</label></div>
+															<div class="col-xs-4"><label>Last Name</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="username" value="<?php echo $row['username']; ?>" type="text" class="form-control">
+                                                            </div>
+															<div class="col-xs-4">
+                                                                <input name="first_name" value="<?php echo $row['first_name']; ?>" type="text" class="form-control">
+                                                            </div>
+															<div class="col-xs-4">
+                                                                <input name="last_name" value="<?php echo $row['last_name']; ?>" type="text" class="form-control">
+                                                            </div>
+														</div>
+														<div class="row">
+                                                            <div class="col-xs-6">
+															<div class="col-xs-6"><label>Status</label></div>
+																<select name="status" class="form-control">
+																	<option>Enabled</option>
+																	<option>Disabled</option>
+																</select>
+
+                                                            </div>
+                                                       
+                                                            <div class="col-xs-6">
+															<div class="col-xs-6"><label>Branch</label></div>
+																<select name="branch" class="form-control">
+																	<option>Baguio</option>
+																	<option>Pangasinan</option>
+																</select>
+
+                                                            </div>
+                                                        </div>
+														 <div class="row">
+                                                            <div class="col-xs-12"><label>Password</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <input name="password" value="<?php echo $row['password']; ?>" type="password" class="form-control">
+                                                            </div>
+														</div>
+														<div class="row">
+                                                            <div class="col-xs-6"><label>Email</label></div>
+															<div class="col-xs-6"><label>Contact Number</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <input name="email" value="<?php echo $row['email']; ?>" type="text" class="form-control">
+                                                            </div>
+															<div class="col-xs-6">
+                                                                <input name="contact_no" value="<?php echo $row['contact_no']; ?>" type="text" class="form-control">
+                                                            </div>
+														</div>
+														<div class="row">
+														<div class="col-xs-6">
+															<div class="col-xs-6"><label>Account Type</label></div>
+																<select name="acctype" class="form-control">
+																	<option>User</option>
+																	<option>Admin</option>
+																	<option>Secretary</option>
+																	<option>Bookkeeper</option>
+																</select>
+
+                                                            </div>
+                                                        </div>
+														<div class="row">
+															<div class="col-xs-12">
+                                                                 <br>
+                                                                    <div class="modal-footer">
+																		<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                    </div>
+															</div>
+                                                        </div>
+                                                    </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             <?php
 							endforeach;
 						?>
@@ -288,10 +395,10 @@ if(!$_SESSION['username'])  {
                                     <input type="text" class="form-control" maxlength="25" name="last_name" onkeypress="return isAlfa(event)" required>
 
                                     <h3>Password</h3>
-                                    <input type="password" id="pass" class="form-control" name="password[user_pass]" required>
+                                    <input type="password" id="pass" class="form-control" name="user_pass" required>
 
                                     <h3>Confirm Password</h3>
-                                    <input type="password" id="confirm_pass" class="form-control" name="password_2[user_pass2]" required>
+                                    <input type="password" id="confirm_pass" class="form-control" name="user_pass2" required>
 									 <span id='message'></span>
 
                                     <h3>Email</h3>

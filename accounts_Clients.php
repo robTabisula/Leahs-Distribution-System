@@ -236,23 +236,97 @@ if(!$_SESSION['username'])  {
 								$toData = $data["c_id"];
 						?>
                                 <tr>
+									<?php
+											$individual_c_id=$data["c_id"];
+                                        ?>
                                     <td data-title="c_name">
                                         <?php echo $data["c_name"]; ?>
                                     </td>
                                     <td data-title="c_address">
                                         <?php echo $data["c_address"]; ?>
                                     </td>
-                                    <td data-title="contact_name">
-                                        <?php echo $data["contact_name"]; ?>
-                                    </td>
                                     <td data-title="contact_number">
                                         <?php echo $data["contact_number"]; ?>
+                                    </td>
+                                    <td data-title="contact_name">
+                                        <?php echo $data["contact_name"]; ?>
                                     </td>
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
                                     </td>
+									<td data-title="edit">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_c_id;?>"></button>
+                                        </table>
+                                    </td>
 
                                 </tr>
+								<!--Edit modal-->
+                                <div id="<?php echo $individual_c_id;?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Client</h4>
+                                            </div>
+                                            <div class="modal-body">
+					                        <?php
+                                            $query = "select * from clients natural join client_contact";
+                                            $run = mysqli_query($db, $query);
+                                            $row = mysqli_fetch_array($run);//
+                                            ?>
+                                                   <form method="post" action="fragments/editClient.php">
+                                                        <input type="hidden" value="<?php echo $individual_c_id;?>" name="client_id" />
+                                                        <div class="row">
+                                                            <div class="col-xs-4"><label>Client Name</label></div>
+															<div class="col-xs-6"><label>Address</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="c_name" value="<?php echo $row['c_name']; ?>" type="text" class="form-control">
+                                                            </div>
+															<div class="col-xs-4">
+                                                                <input name="c_address" value="<?php echo $row['c_address']; ?>" type="text" class="form-control">
+                                                            </div>
+														</div>
+														<div class="row">
+                                                            <div class="col-xs-4">
+															<div class="col-xs-6"><label>Address</label></div>
+																<select name="c_location" class="form-control">
+																	<option>Baguio</option>
+																	<option>Pangasinan</option>
+																</select>
+
+                                                            </div>
+                                                        </div>
+														 <div class="row">
+                                                            <div class="col-xs-4"><label>Contact Number</label></div>
+															<div class="col-xs-6"><label>Contact Person</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="contact_number" value="<?php echo $row['contact_number']; ?>" type="text" class="form-control">
+                                                            </div>
+															<div class="col-xs-4">
+                                                                <input name="contact_name" value="<?php echo $row['contact_name']; ?>" type="text" class="form-control">
+                                                            </div>
+														</div>
+														<div class="row">
+                                                            <div class="col-xs-12">
+                                                                 <br>
+                                                                    <div class="modal-footer">
+																		<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
 							endforeach;
 						?>
