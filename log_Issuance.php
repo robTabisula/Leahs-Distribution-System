@@ -249,7 +249,7 @@ if(!$_SESSION['username'])  {
                             <div class="modal-body">
                                     <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
                                     <?php
-                                        $queryProducts = "SELECT * FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id WHERE issue_id ='$IsID'";
+                                        $queryProducts = "SELECT * FROM product_list INNER JOIN issuance_list INNER JOIN product_loc ON product_list.productList_id = issuance_list.prod_id AND product_list.productList_id = product_loc.product_id WHERE issue_id ='$IsID'";
                                         $run = mysqli_query($db, $queryProducts);
                                     ?>
                                     <label>Product</label>
@@ -268,8 +268,8 @@ if(!$_SESSION['username'])  {
                                     ?>
                                         <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_qty"];  ?>" readonly>
-                                            <input type="text" value= "<?php  echo $log["productList_origprice"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
+                                            <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>
                                                                                    
                                     <?php
                                         }
