@@ -16,17 +16,18 @@
                   $barcode =$_POST['barcode'];
                   $pprice=$_POST['pangasinanprice'];
                   $bprice=$_POST['baguioprice'];
-                  $status = $_POST['status'];
+                  $bstatus = $_POST['bstatus'];
+                  $pstatus = $_POST['pstatus'];
                   $indiv_prod_id = $_POST['indiv_prod_id'];
 
            $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$ProductCategory' where product_list.productList_id='$indiv_prod_id'";
 
           if(mysqli_query($db, $query)){
             //baguio
-            $query2 = "UPDATE product_loc SET status = '$status', altprice = '$bprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Baguio'";
+            $query2 = "UPDATE product_loc SET status = '$bstatus', altprice = '$bprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Baguio'";
 
              //pangasinan
-            $query3 = "UPDATE product_loc SET status = '$status', altprice = '$pprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Pangasinan'";
+            $query3 = "UPDATE product_loc SET status = '$pstatus', altprice = '$pprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Pangasinan'";
         
           if(mysqli_query($db, $query2) and mysqli_query($db, $query3)){
             echo"<script>alert('Successfuly edit products')</script>";
