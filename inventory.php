@@ -220,6 +220,7 @@ if(!$_SESSION['username'])  {
                                 <th>Restock Level</th>
                                 <th>Catgory Name</th>
                                 <th>Location</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -244,7 +245,44 @@ if(!$_SESSION['username'])  {
                                         <?php echo $data["category_name"]; ?>
                                     </td><td data-title="location">
                                         <?php echo $data["iS_location"]; ?>
+                                    </td><td>
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_inventory_id; ?>"></button>
+                                        </table>
                                     </td>
+
+                                 </tr>
+                                 <!-- Modal Edit Stocks -->
+                                <div id="<?php echo $individual_inventory_id; ?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Stocks</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="fragments/.php" method="POST">
+                                                    <label>Inventory ID</label>
+                                                    <input type="text" name="InvID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
+                                                    <label>Product Name</label>
+                                                    <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
+                                                    <label>Location</label>
+                                                    <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
+                                                    <label>Restock level</label>
+                                                    <input type="number" name="resLvl" />
+                                                </form>
+                        
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                            </div>
+                                            </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
 								
                                 <?php
 								endforeach;
@@ -312,29 +350,6 @@ if(!$_SESSION['username'])  {
                         </div>
                     </div>
 					
-					
-					
-                    <!-- Modal Edit Stocks -->
-                    <div id="editModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Edit Stocks</h4>
-                                </div>
-                                <div class="modal-body">
-	
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-						</div>
-						</div>
-									
-								</div>
-							</div>
-						</div>
-                    </div>
 
                     <!-- Modal low Stocks-->
                     <div id="lowStocks" class="modal fade" role="dialog">

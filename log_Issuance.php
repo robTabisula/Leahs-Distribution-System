@@ -252,7 +252,7 @@ if(!$_SESSION['username'])  {
                             <div class="modal-body">
                                     <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
                                     <?php
-                                        $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$IsID' AND '$passBranch' = location";
+                                        $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$IsID' AND  location = '$passBranch'";
                                         $run = mysqli_query($db, $queryProducts);
                                     ?>
                                     <label>Product</label>
