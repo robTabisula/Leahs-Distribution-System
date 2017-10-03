@@ -158,7 +158,7 @@ if(!$_SESSION['username'])  {
 							
                             <div class="form-group">							
                                     <?php
-										$retrieveProd = ("SELECT * FROM product_list");
+										$retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
 										$prodRetrieve = mysqli_query($db, $retrieveProd);
 									?>
                                 
