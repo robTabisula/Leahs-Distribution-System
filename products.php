@@ -271,20 +271,50 @@ if(!$_SESSION['username'])  {
 															</select>
 															
                                                                 <div class="row">
-                                                                    <div class="col-xs-6"><label>Status</label></div>
+                                                                    <div class="col-xs-6"><label>Baguio Status</label></div>
+                                                                    
+                                                                    <div class="col-xs-6"><label>Pangasinan Status</label></div>
+                                                                   
                                                                 </div>
+																
+                                                                 <div class="row">
+                                                                    
+                                                             
+                                                                    <div class="col-xs-6">
 
-                                                                <div class="row">
-                                                                    <div class="col-xs-4">
+                                                                         <select name="bstatus" class="form-control">
+                                                                        <option value="<?php echo $row['status'];?>"><?php 
+                                                                                $bstat=$row['status'];
+                                                                                echo $bstat;
+                                                                            ?></option>
+                                                                            <?php if ($bstat=="Enabled"){
+                                                                                echo "<option value='Disabled'>Disabled</option>" ;
+                                                                            }else{
+                                                                                echo "<option value='Enabled'>Enabled</option>" ;
+                                                                              }
+                                                                            ?>                                                                       
+                                                                        </select>
 
-																		 <select name="status" class="form-control">
-																			<option>Enabled</option>
-																			<option>Disabled</option>
-																		</select>
+                                                                    </div>
+
+                                                                   <div class="col-xs-6">
+
+                                                                         <select name="pstatus" class="form-control">
+                                                                        <option value="<?php echo $rowp['status'];?>"><?php 
+                                                                                $pstat=$rowp['status'];
+                                                                                echo $pstat;
+                                                                            ?></option>
+                                                                            <?php if ($pstat=="Enabled"){
+                                                                                echo "<option value='Disabled'>Disabled</option>" ;
+                                                                            }else{
+                                                                                echo "<option value='Enabled'>Enabled</option>" ;
+                                                                              }
+                                                                            ?>                                                                       
+                                                                        </select>
 
                                                                     </div>
                                                                 </div>
-																
+
                                                                 <div class="row">
                                                                     <div class="col-xs-6"><label>Baguio Alternate Price</label>
                                                                         <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
