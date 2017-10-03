@@ -188,7 +188,7 @@ if(!$_SESSION['username'])  {
                             <th>Date/Time</th>
                             <th>Products Issued</th>
                             <th>Client</th>
-							<th>Branch</th>
+                            <th>Branch</th>
                             <th>Remarks</th>
                             <th>Pull Out</th>
                             <th>Bad Orders</th>
@@ -218,10 +218,10 @@ if(!$_SESSION['username'])  {
                                 <td data-title="Client">
                                     <?php echo $data["c_name"]; ?>
                                 </td>
-								<td data-title="Branch">
+                                <td data-title="Branch">
                                     <?php
-	                                    $passBranch = $data["c_location"];  
-	                                    echo $passBranch; 
+                                        $passBranch = $data["c_location"];  
+                                        echo $passBranch; 
                                     ?>
                                 </td>
                                 <td data-title="Remarks">
@@ -252,7 +252,7 @@ if(!$_SESSION['username'])  {
                             <div class="modal-body">
                                     <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
                                     <?php
-                                        $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$IsID' AND '$passBranch' = location";
+                                        $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$IsID' AND  location = '$passBranch'";
                                         $run = mysqli_query($db, $queryProducts);
                                     ?>
                                     <label>Product</label>
