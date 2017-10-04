@@ -42,6 +42,25 @@ if(!$_SESSION['username'])  {
                 responsive: true
             });
         });
+
+    function edit(){
+        document.getElementById('inputun').removeAttribute('readonly');
+        document.getElementById('inputfn').removeAttribute('readonly');
+        document.getElementById('inputln').removeAttribute('readonly');
+        document.getElementById('inputem').removeAttribute('readonly');
+        document.getElementById('input').removeAttribute('readonly');
+        var inputun = document.getElementById("inputun");
+        inputun.style.backgroundColor = "white";
+        var inputfn = document.getElementById("inputfn");
+        inputfn.style.backgroundColor = "white";
+        var inputln = document.getElementById("inputln");
+        inputln.style.backgroundColor = "white";
+        var inputem = document.getElementById("inputem");
+        inputem.style.backgroundColor = "white";
+        var input = document.getElementById("input");
+        input.style.backgroundColor = "white";
+        document.getElementById('inputun').focus();
+};
     </script>
 </head>
 
@@ -171,10 +190,72 @@ if(!$_SESSION['username'])  {
     <!-- Main Container -->
     <div id="page-content-wrapper">
         <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Current User Login</h1>
-            </table>
-				<center><h1> To do :D :) :( :P xD </h1>
+
+   
+                <h3><center>Your Account</center></h3>
+                <?php 
+                    include('fragments/config.php'); 
+                        $username=$_SESSION['username'];
+
+                        $userq="select * from accounts where username='$username'";
+                        $runq=mysqli_query($db, $userq);
+                        $thisuser=mysqli_fetch_array($runq);
+
+                        $first_name=$thisuser['first_name'];
+                        $last_name=$thisuser['last_name'];
+                        $email=$thisuser['email'];
+                        $contact_no=$thisuser['contact_no'];
+                        $status=$thisuser['status'];
+                        $branch=$thisuser['branch'];
+
+                ?> 
+ 
+                <div class="col-lg-4">
+                    <center>Username</center> 
+                    <input name="username" id="inputun" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $username;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <center>First Name</center>
+                    <input name="first_name" id="inputfn" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $first_name;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <center>Last Name</center>
+                    <input name="last_name" id="inputln" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $last_name;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr>
+                    <center>Email Address</center>
+                    <input name="email_add" id="inputem" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $email;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr>
+                    <center>Contact Number</center>
+                    <input name="contact_num" id="input" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $contact_no;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr>
+                    <center>Status</center>
+                    <input name="status" class="input-lg" type="textfield" value="<?php echo $status;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr>
+                    <center>Branch</center>
+                    <select name="branch" class="form-control">
+                    <!--$branch-->
+                        <option>Baguio</option>
+                        <option>Pangasinan</option>
+                    </select>
+                </div>
+                 <div class="col-lg-4">
+                    <hr>
+                    <center>Password</center>
+                    <input name="password" class="input-lg" type="textfield" value="-----" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr><br>
+                     <input name="branch" id="edit" type="button" class="btn-lg" onclick="edit();" class="form-control" value="Edit"/>
+                </div>
+
             
         </div>
     </div>
