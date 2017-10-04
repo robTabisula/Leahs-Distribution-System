@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Accounts</title>
+    <title>Bad Orders</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -42,6 +42,14 @@ if(!$_SESSION['username'])  {
                 responsive: true
             });
         });
+
+        function viewIssuance(choice){
+            $("#issuanceDiv").html('Loading').show();
+            var url="fragments/view_issuance.php";
+            $.post(url,{choice:choice},function(data){
+            $("#issuanceDiv").html(data).show();
+        });
+}
     </script>
 </head>
 
@@ -101,12 +109,8 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-line-chart" aria-hidden="true"></i> Reports <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="reports">
-                    <li>
-                        <a href="reports_Client.php"><i class="fa fa-table" aria-hidden="true"></i> Client Reports </a>
-                    </li>
-                    <li>
-                        <a href="reports_Product.php"><i class="fa fa-table" aria-hidden="true"></i> Product Reports </a>
-                    </li>
+                    <li> <a href="reports_Client.php"><i class="fa fa-table" aria-hidden="true"></i> Client Reports </a></li>
+                    <li> <a href="reports_Product.php"><i class="fa fa-table" aria-hidden="true"></i> Product Reports </a></li>
                 </ul>
 
                 <!-- Activity Logs menu -->
@@ -118,12 +122,12 @@ if(!$_SESSION['username'])  {
 
                 <!-- Issuance Log Submenu -->
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
-                    <i class="fa fa-list" aria-hidden="true"></i> Logs <span class="arrow"></span>
+                    <i class="fa fa-list" aria-hidden="true"></i>Logs <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="issue">
-                    <li><a class="sub-a" href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
-                    <li><a class="sub-a" href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
-                    <li><a class="sub-a" href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
+                    <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
+                    <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
                 </ul>
 
                 <!-- Issuance Submenu -->
@@ -171,17 +175,30 @@ if(!$_SESSION['username'])  {
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
-
     <!-- Main Container -->
-    <div id="page-content-wrapper">
-        <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Bad Order Issuance</h1>
-            </table>
 
+            <div id="page-content-wrapper">
+                <div class="containers">
+                    <table class="table table-striped table-bordered">
+                        <h1 align="center">Bad Orders</h1>
+                    </table>
+
+                        <center><select name="acctype" onchange="javascript:viewIssuance(this.value);" required>
+                            <option value="1" selected="true" disabled="disabled">Please Select Issuance Category...</option>
+                            <option value="1">Regular</option>
+                            <option value="2">Penthouse</option>
+                            <option value="3">Others</option>
+                        </select><center>
+                        <!--This is the div to show issuance-->
+                        <div id="issuanceDiv">
+                        </div>
+                        <!---->         
+                </div>  
+            </div>  
         </div>
     </div>
 
 </body>
 
 </html>
+
