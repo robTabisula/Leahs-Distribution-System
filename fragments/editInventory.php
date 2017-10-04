@@ -10,13 +10,11 @@
   <body>
        <?php
             include('config.php');
-              if (isset($_POST["editInv"])) {
+              if (isset($_POST["edit_Inv"])) {
                   
-                  $ID = $_POST['InID'];
-         		  $restock = $_POST['restckLvl'];
-
-				  
-				  
+                  $ID = $_POST['Inventory_ID'];
+         		  $restock = $_POST['restck_Lvl'];
+	  			  
 				  $query = "UPDATE inventory SET iS_restock_lvl = '$ID' where iS_inventoryid = '$restock'";
 					if(mysqli_query($db, $query)){
 						echo"<script>alert('Successfuly edit restock')</script>";

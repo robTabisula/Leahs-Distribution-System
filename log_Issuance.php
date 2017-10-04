@@ -180,7 +180,7 @@ if(!$_SESSION['username'])  {
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
-                <!-- Table Display for Accounts -->
+                <!-- Table Display for Issuances -->
                 <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                     <thead>
                         <tr>
@@ -212,7 +212,7 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td data-title="Products Issued">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo  $IsID ?>"></button>
+                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
                                         </table>
                                 </td>
                                 <td data-title="Client">
@@ -229,12 +229,20 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td data-title="Pull Out">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-transfer" data-toggle="modal" aria-hidden="true" data-target=></button>
+                                            <a href="issuance_Returns.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>">
+                                                <button type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                                </button>
+                                            </a>
                                         </table>
                                 </td>
                                 <td data-title="Bad Orders">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-trash" data-toggle="modal" aria-hidden="true" data-target=></button>
+                                            <a href="issuance_BadOrder.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>">
+                                                <button type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                </button>
+                                            </a>
                                         </table>
                                 </td>
                             </tr>
