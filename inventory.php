@@ -262,23 +262,24 @@ if(!$_SESSION['username'])  {
                                                 <h4 class="modal-title">Edit Stocks</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="fragments/.php" method="POST">
+                                                <form action="fragments/editInventory.php" method="POST">
                                                     <label>Inventory ID</label>
-                                                    <input type="text" name="InvID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
+                                                    <input type="text" name="InID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
                                                     <label>Product Name</label>
                                                     <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
                                                     <label>Location</label>
-                                                    <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
+                                                    <input type="text" name="Lct" value="<?php echo $data["iS_location"]; ?>" readonly>
                                                     <label>Restock level</label>
-                                                    <input type="number" name="resLvl" />
-                                                </form>
+                                                    <input type="number" name="restckLvl" />
+                                                
                         
                                             </div>
                                             <div class="modal-footer">
+                                                <input name="edit_inv" type="submit" class="btn btn-default" value=" Submit " />
                                                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                                             </div>
                                             </div>
-                                                
+                                            </form>    
                                             </div>
                                         </div>
                                     </div>
