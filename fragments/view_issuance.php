@@ -17,7 +17,7 @@ if(!$_SESSION['username'])  {
     <title>Issuance</title>
 
     <!-- Database Connection -->
-    <?php include('config.php') ?>
+    <?php include('config.php'); ?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -78,6 +78,23 @@ if(!$_SESSION['username'])  {
     
             }
 
+        function Lclients(location){
+           $("#TheClients").html('Loading').show();
+              var url="../fragments/issuance_clients.php";
+              $.post(url,{location:location},function(data){
+              $("#TheClients").html(data).show();
+        ;});
+
+
+            /*success:function(data){
+              alert(data);
+              $('#hiddenInputId').val(data); 
+            }*/
+
+            var divC=document.getElementById('TheClients');
+            divC.style.display = 'block';
+        }
+
         $("input.add-row").on("click", clone);
         $("input.remove").on("click", remove);
 
@@ -115,25 +132,17 @@ if(!$_SESSION['username'])  {
                                     ?>
                             <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
                             
-                            <div class="client">
-                                <h4>Clients</h4>
-                                    <?php
-                                        $retrieveCat = ("SELECT *  FROM clients");
-                                        $clientRetrieve = mysqli_query($db, $retrieveCat);
-                                    ?>                      
-                                    <select name="clientlist" required>
-                                    <option value = "" selected="true" disabled="disabled">Select Client..</option>
-                                        <?php
-                                            foreach ($clientRetrieve as $data):
-                                                $toData = $data["c_id"];
-                                        ?>
 
-                                        <option value = "<?php echo $data["c_id"];?>"> <?php echo $data["c_name"]; ?></option>
-                                      
-                                       <?php
-                                            endforeach;
-                                        ?>
-                                    </select>
+                              <br>
+
+                            <select name="branch" onchange="Lclients(this.value);" required>
+                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                    <option value="Baguio">Baguio</option>
+                                    <option value="Pangasinan">Pangasinan</option>
+                            </select>
+                            <!--clientslist-->
+                            <div class="client" id="TheClients" style="display: none;">
+                              
                             </div>
                             
                             <div class="remarks">
@@ -146,15 +155,6 @@ if(!$_SESSION['username'])  {
                                     <?php $date = date("Y-m-d H:i:s");  ?>
                                 <input type="label" name="date" value="<?php echo $date;?>" readonly/>
                             </div>
-                            <br>
-
-                            <select name="branch" onchange="javascript:viewPrice(this.value);" required>
-                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                    <option value="Baguio">Baguio</option>
-                                    <option value="Pangasinan">Pangasinan</option>
-                            </select>
-                            <br>
-                            <br>
                             
                             <div class="form-group">                            
                                     <?php
@@ -201,6 +201,15 @@ if(!$_SESSION['username'])  {
                                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
                             </fieldset>  
                             <input name="choice" value="<?php echo $choice;?>"type="hidden"></input>
+                            <?php
+                                if(isset($_SESSION['CCC'])){
+                                $clients_list=$_SESSION['CCC'];
+                            
+                            ?>
+                            <input name="clientlist" type="hidden" value="<?php echo $clients_list?>"/>
+                            <?php 
+                                } 
+                            ?>
                         </form>  
                     </div>   
                 </div>  
