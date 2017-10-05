@@ -80,7 +80,7 @@ if(!$_SESSION['username'])  {
 
         function Lclients(location){
            $("#TheClients").html('Loading').show();
-              var url="../fragments/issuance_clients.php";
+              var url="fragments/issuance_clients.php";
               $.post(url,{location:location},function(data){
               $("#TheClients").html(data).show();
         ;});
