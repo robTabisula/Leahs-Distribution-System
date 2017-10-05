@@ -274,7 +274,7 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
 					                        <?php
-                                            $query = "select * from accounts";
+                                            $query = "select * from accounts where accounts.acc_id='$individual_acc_id'";
                                             $run = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($run);//
                                             ?>

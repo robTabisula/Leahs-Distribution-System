@@ -174,7 +174,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                $retrieve = ("select * from product_list NATURAL JOIN category_list");
+                $retrieve = ("SELECT * FROM product_list INNER JOIN category_list ON category_list.category_id = product_list.category_id");
                 $results = mysqli_query($db, $retrieve); 
             ?>
 
@@ -229,11 +229,13 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
                                             <?php
-                                            $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id' and c.location='Baguio'";
+                                            $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list
+													 on product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Baguio'";
                                             $run = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($run);//baguio
 
-                                            $query = "select * from product_list p inner join product_loc c inner join category_list cl on p.productList_id=c.product_id and cl.category_id=p.category_id where p.productList_id='$individual_product_id' and c.location='Pangasinan'";
+                                            $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list on 
+													product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Pangasinan'";
                                             $runp = mysqli_query($db, $query);
                                             $rowp = mysqli_fetch_array($runp);//pangasinan
                                             ?>

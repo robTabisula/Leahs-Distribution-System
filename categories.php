@@ -310,7 +310,7 @@ if(!$_SESSION['username'])  {
                                 <div class="modal-body">
                                     <form action="fragments/addCategory.php" method="POST" onsubmit="return validateForm()">
                                         <h3>Category Name</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="category_name" onkeypress="return isAlfa(event)" autofocus required>
+                                        <input type="text" class="form-control" maxlength="25" name="category_name" autofocus required>
 										<div class="col-xs-6"><h3>Status</h3></div>
                                         <select name="category_status" class="form-control">
                                               <option>Enabled</option>

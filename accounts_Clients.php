@@ -266,7 +266,7 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
 					                        <?php
-                                            $query = "select * from clients natural join client_contact";
+                                            $query = "select * from clients inner join client_contact ON clients.c_id = client_contact.contact_clientid where clients.c_id='$individual_c_id'";
                                             $run = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($run);//
                                             ?>
