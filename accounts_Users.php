@@ -72,7 +72,7 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
-    <!-- Sidebar -->
+      <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -82,7 +82,8 @@ if(!$_SESSION['username'])  {
         <div class="user_info">
             <span>Welcome, <?php
                 echo $_SESSION['username'];
-            ?> </span>
+                ?> 
+            </span>
             <a href="fragments/logout.php">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
             </a>
@@ -129,14 +130,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="reports_Client.php"><i class="fa fa-table" aria-hidden="true"></i> Client Reports </a></li>
                     <li> <a href="reports_Product.php"><i class="fa fa-table" aria-hidden="true"></i> Product Reports </a></li>
                 </ul>
-
-                <!-- Activity Logs menu -->
-                <li>
-                    <a href="log_Activity.php">
-                        <i class="fa fa-book"></i> Activity Logs
-                    </a>
-                </li>
-
+                
                 <!-- Issuance Log Submenu -->
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
                     <i class="fa fa-list" aria-hidden="true"></i> Logs <span class="arrow"></span>
@@ -145,26 +139,13 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
                 </ul>
-
-                <!-- Issuance Submenu -->
-                <div class="sub-menu_nct">
-                    <span class="sub-menu">Issuance
-                    </span>
-                </div>
-                <li class="sub-menu_nc">
+                
+                <!-- Issuance menu -->
+                <li>
                     <a href="issuance.php">
-                        <i class="fa fa-external-link" aria-hidden="true"></i> Issuance
-                    </a>
-                </li>
-                <li class="sub-menu_nc">
-                    <a href="issuance_BadOrder.php">
-                        <i class="fa fa-window-close" aria-hidden="true"></i> Bad Order
-                    </a>
-                </li>
-                <li class="sub-menu_nc">
-                    <a href="issuance_Returns.php">
-                        <i class="fa fa-external-link fa-rotate-180" aria-hidden="true"></i> Returns/Pull Out
+                        <i class="fa fa-book"></i> Create Issuance
                     </a>
                 </li>
 

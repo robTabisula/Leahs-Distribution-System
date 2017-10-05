@@ -18,7 +18,9 @@
         	if (isset($_POST["add_issuance"])) {
 				$choice = $_POST['choice'];//type of issuance, use if statements for this for other types
 				$issue_id = $_POST['issue_id'];//check
-				$clientlist = $_POST['clientlist'];//check (this gets client id)
+				//$clientlist = $_POST['clientlist'];//check (this gets client id)
+        session_start();
+        $clientlist=$_SESSION['CCC'];
 				$remarks = $_POST['remarks'];//remarks for issuance
 				$date = $_POST['date'];//check
 				$branch = $_POST['branch'];//check

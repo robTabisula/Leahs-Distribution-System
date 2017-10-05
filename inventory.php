@@ -134,14 +134,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="reports_Client.php"><i class="fa fa-table" aria-hidden="true"></i> Client Reports </a></li>
                     <li> <a href="reports_Product.php"><i class="fa fa-table" aria-hidden="true"></i> Product Reports </a></li>
                 </ul>
-
-                <!-- Activity Logs menu -->
-                <li>
-                    <a href="log_Activity.php">
-                        <i class="fa fa-book"></i> Activity Logs
-                    </a>
-                </li>
-
+                
                 <!-- Issuance Log Submenu -->
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
                     <i class="fa fa-list" aria-hidden="true"></i> Logs <span class="arrow"></span>
@@ -150,26 +143,13 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
                 </ul>
-
-                <!-- Issuance Submenu -->
-                <div class="sub-menu_nct">
-                    <span class="sub-menu">Issuance
-                    </span>
-                </div>
-                <li class="sub-menu_nc">
+                
+                <!-- Issuance menu -->
+                <li>
                     <a href="issuance.php">
-                        <i class="fa fa-external-link" aria-hidden="true"></i> Issuance
-                    </a>
-                </li>
-                <li class="sub-menu_nc">
-                    <a href="issuance_BadOrder.php">
-                        <i class="fa fa-window-close" aria-hidden="true"></i> Bad Order
-                    </a>
-                </li>
-                <li class="sub-menu_nc">
-                    <a href="issuance_Returns.php">
-                        <i class="fa fa-external-link fa-rotate-180" aria-hidden="true"></i> Returns/Pull Out
+                        <i class="fa fa-book"></i> Create Issuance
                     </a>
                 </li>
 
@@ -197,6 +177,7 @@ if(!$_SESSION['username'])  {
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
+    
     <!-- Main Container -->
        <div id="page-content-wrapper">
         <div class="containers">
@@ -263,34 +244,40 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
                                                 <form action="fragments/editInventory.php" method="POST">
+                                                    
                                                     <label>Inventory ID</label>
-                                                    <input type="text" name="InID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
+                                                    <input type="text" name="Inventory_ID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
+                                                    
+                                                    
                                                     <label>Product Name</label>
                                                     <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
+                                                    
                                                     <label>Location</label>
-                                                    <input type="text" name="Lct" value="<?php echo $data["iS_location"]; ?>" readonly>
+                                                    <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
+                                                    
                                                     <label>Restock level</label>
-                                                    <input type="number" name="restckLvl" />
-                                                
+                                                    <input type="number" name="restck_Lvl" />
+                                                   
+		                                            
+		                                            <div class="modal-footer">
+		                                                <input name="edit_inv" type="submit" class="btn btn-default" value=" Submit " />
+		                                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                                            </div>
+	                                            </form>
                         
                                             </div>
-                                            <div class="modal-footer">
-                                                <input name="edit_inv" type="submit" class="btn btn-default" value=" Submit " />
-                                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                                            </div>
-                                            </div>
-                                            </form>    
-                                            </div>
+                                  
                                         </div>
                                     </div>
+                                    
                                 </div>   
 								
-                                <?php
+                            <?php
 								endforeach;
 							?>
                         </tbody>
                     </table>
-					                <table class="table table-striped table-bordered">
+	                <table class="table table-striped table-bordered">
                    
                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 

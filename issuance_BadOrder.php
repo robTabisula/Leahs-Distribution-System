@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bad Orders</title>
+    <title>Bad Order Issuance</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -54,7 +54,7 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
-    <!-- Sidebar -->
+         <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -112,42 +112,22 @@ if(!$_SESSION['username'])  {
                     <li> <a href="reports_Client.php"><i class="fa fa-table" aria-hidden="true"></i> Client Reports </a></li>
                     <li> <a href="reports_Product.php"><i class="fa fa-table" aria-hidden="true"></i> Product Reports </a></li>
                 </ul>
-
-                <!-- Activity Logs menu -->
-                <li>
-                    <a href="log_Activity.php">
-                        <i class="fa fa-book"></i> Activity Logs
-                    </a>
-                </li>
-
+                
                 <!-- Issuance Log Submenu -->
                 <li data-toggle="collapse" data-target="#issue" class="collapsed">
-                    <i class="fa fa-list" aria-hidden="true"></i>Logs <span class="arrow"></span>
+                    <i class="fa fa-list" aria-hidden="true"></i> Logs <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="issue">
                     <li> <a href="log_Issuance.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Issuance Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
                 </ul>
-
-                <!-- Issuance Submenu -->
-                <div class="sub-menu_nct">
-                    <span class="sub-menu">Issuance
-                    </span>
-                </div>
-                <li class="sub-menu_nc">
+                
+                <!-- Issuance menu -->
+                <li>
                     <a href="issuance.php">
-                        <i class="fa fa-external-link" aria-hidden="true"></i> Issuance
-                    </a>
-                </li>
-                <li class="sub-menu_nc">
-                    <a href="issuance_BadOrder.php">
-                        <i class="fa fa-window-close" aria-hidden="true"></i> Bad Order
-                    </a>
-                </li>
-                <li class="sub-menu_nc">
-                    <a href="issuance_Returns.php">
-                        <i class="fa fa-external-link fa-rotate-180" aria-hidden="true"></i> Returns/Pull Out
+                        <i class="fa fa-book"></i> Create Issuance
                     </a>
                 </li>
 
@@ -175,24 +155,87 @@ if(!$_SESSION['username'])  {
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
+    
     <!-- Main Container -->
 
             <div id="page-content-wrapper">
                 <div class="containers">
                     <table class="table table-striped table-bordered">
-                        <h1 align="center">Bad Orders</h1>
+                        <h1 align="center">Bad Order Issuance</h1>
                     </table>
+                    
+                        <form role="form" method="post" action="fragments/.php">  
+                            <fieldset>  
+                                <div align="center">
+                                    <h4>Bad Orders ID</h4>
+                                    <?php
+                                            $retrieveId = ("SELECT bo_id from bad_order order by 1 desc limit 1;");
+                                            $idRetrieve = mysqli_query($db, $retrieveId);
+                                            $idRow = mysqli_fetch_array($idRetrieve);
 
-                        <center><select name="acctype" onchange="javascript:viewIssuance(this.value);" required>
-                            <option value="1" selected="true" disabled="disabled">Please Select Issuance Category...</option>
-                            <option value="1">Regular</option>
-                            <option value="2">Penthouse</option>
-                            <option value="3">Others</option>
-                        </select><center>
-                        <!--This is the div to show issuance-->
-                        <div id="issuanceDiv">
-                        </div>
-                        <!---->         
+                                            $latestid = $idRow['bo_id'];
+                                            $newID = $latestid + 1; //will increment 1 from the latest issuance ID
+                                    ?>
+                                    <h4><input type="label" name="BO_id" value="<?php echo $newID;?>" readonly></input></h4>
+                                    
+                                    <div class="remarks">
+                                        <h4>Remarks</h4>
+                                        <textarea rows="3" cols="30" name="remarks" ></textarea>
+                                    </div>
+                                    
+                                    <div class="dateTime">
+                                        <h4>Date and Time</h4> 
+                                            <?php $date = date("Y-m-d H:i:s");  ?>
+                                        <input type="label" name="date" value="<?php echo $date;?>" readonly/>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                </div>
+                                <?php 
+                                    $getIsID = $_GET['IsID'];
+                                    $getBranch = $_GET['Branch'];
+
+                                    $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch'";
+                                    $run = mysqli_query($db, $queryProducts);
+                                ?>
+                                <!--div to clone-->
+                                <div id="clonedInput1" class="clonedInput">
+                                   <br>
+                                                <select name="productList[]" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
+                                                    <option value = "" selected="true" disabled="disabled">Choose Product..</option>
+                                                            <?php
+                                                                foreach ($run as $datas):
+                                                                $product_id = $datas["productList_id"];
+                                                            ?>  
+                                                                
+                                                                <option value = "<?php  echo $datas["productList_name"];  ?>">
+                                                                   <?php  echo $datas["productList_name"];  ?>
+                                                                </option>
+                                                      
+                                                            <?php
+                                                                endforeach;
+                                                            ?>
+                                                  </select>                              
+                                            <input placeholder="Quantity" name="quantity[]" type="number"  required>
+                                            <input placeholder="Remarks" name="premarks[]"/>      
+                                    <div class="actions">
+                                        <input type="button" class="add-row" value="Add Product"/>  
+                                        <input type="button" class="remove" value="Remove"/>
+                                    </div>
+                                </div> 
+                                <!--/div to clone-->
+                     
+                                
+
+
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
+                            </fieldset>  
+                            
+                        </form>  
+                        
+
+       
                 </div>  
             </div>  
         </div>
