@@ -199,6 +199,7 @@ if(!$_SESSION['username'])  {
                             <tr>
                                 <th>Category Name</th>
                                 <th>Category Status</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
 
@@ -212,7 +213,10 @@ if(!$_SESSION['username'])  {
 											$individual_category_id=$data["category_id"];
                                         ?>
                                     <td data-title="category_name">
-                                        <?php echo $data["category_name"]; ?>
+                                        <?php 
+                                        $passCatName = $data["category_name"];
+                                        echo $passCatName; 
+                                        ?>
                                     </td>
                                     <td data-title="category_status">
                                         <?php echo $data["category_status"]; ?>
@@ -233,11 +237,7 @@ if(!$_SESSION['username'])  {
                                                 <h4 class="modal-title">Edit Category</h4>
                                             </div>
                                             <div class="modal-body">
-					                        <?php
-                                            $query = "select * from category_list";
-                                            $run = mysqli_query($db, $query);
-                                            $row = mysqli_fetch_array($run);//
-                                            ?>
+					     
                                                    <form method="post" action="fragments/editCategory.php">
                                                         <input type="hidden" value="<?php echo $individual_category_id;?>" name="individual_cat_id" />
                                                         <div class="row">
@@ -246,7 +246,7 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <input name="category_name" value="<?php echo $row['category_name']; ?>" type="text" class="form-control">
+                                                                <input name="category_name" value="<?php echo $passCatName ?>" type="text" class="form-control">
                                                             </div>
                                                             <div class="col-xs-4">
 
@@ -289,7 +289,7 @@ if(!$_SESSION['username'])  {
                                     <h4 class="modal-title">Add Category</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="fragments/addCategory.php" method="POST" onsubmit="return validateForm()">
+                                    <form action="fragments/addCategory.php" method="POST" >
                                         <h3>Category Name</h3>
                                         <input type="text" class="form-control" maxlength="25" name="category_name" autofocus required>
 										<div class="col-xs-6"><h3>Status</h3></div>

@@ -203,6 +203,7 @@ if(!$_SESSION['username'])  {
 							<th>Branch</th>
                             <th>Status</th>
 							<th>Account type</th>
+                            <th>Edit</th>
 							
                         </tr>
                     </thead>
