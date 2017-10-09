@@ -188,11 +188,15 @@ if(!$_SESSION['username'])  {
                                         ?>
                                     <td data-title="Product Name">
                                         <?php 
-                                            echo $data["productList_name"]; 
+                                            $passProdName = $data["productList_name"];
+                                            echo $passProdName; 
                                         ?>
                                     </td>
                                     <td data-title="Category">
-                                        <?php echo $data["category_name"]; ?>
+                                        <?php
+                                            $passCategory = $data["category_name"];  
+                                            echo $passCategory; 
+                                        ?>
                                     </td>
                                     <td data-title="edit">
                                         <table class="table table-striped table-bordered">
