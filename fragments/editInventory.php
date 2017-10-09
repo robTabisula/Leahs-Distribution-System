@@ -10,12 +10,12 @@
   <body>
        <?php
             include('config.php');
-              if (isset($_POST["edit_Inv"])) {
+              if (isset($_POST["edit_inv"])) {
                   
                   $ID = $_POST['Inventory_ID'];
          		  $restock = $_POST['restck_Lvl'];
 	  			  
-				  $query = "UPDATE inventory SET iS_restock_lvl = '$ID' where iS_inventoryid = '$restock'";
+				  $query = "UPDATE inventory SET iS_restock_lvl = '$restock' where iS_inventoryid = '$ID'";
 					if(mysqli_query($db, $query)){
 						echo"<script>alert('Successfuly edit restock')</script>";
 						echo "<script>window.open('../inventory.php','_self')</script>";
@@ -25,7 +25,5 @@
         
 			 }
         ?>
-        <h1> <?php  echo $ID ?></h1>
-        <h1> <?php echo $restock ?></h1>
   </body>
 </html>

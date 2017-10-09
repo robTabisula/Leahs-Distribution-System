@@ -354,7 +354,7 @@ if(!$_SESSION['username'])  {
 				                                <th>Product Name</th>
 				                                <th>Product Quantity</th>
 				                                <th>Restock Level</th>
-				                                <th>Catgory Name</th>
+				                                <th>Category Name</th>
 				                                <th>Location</th>
 				                                <th>Add Stock</th>
 				                            </tr>
