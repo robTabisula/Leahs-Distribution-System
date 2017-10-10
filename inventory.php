@@ -57,7 +57,7 @@ if(!$_SESSION['username'])  {
 
             $.fn.dataTable.ext.search.push(
                 function(settings, data) {
-                    var statusData = data[5] || "";
+                    var statusData = data[4] || "";
                     var filterVal = $("#mySelect").val();
                     if (filterVal != "*") {
                         if (statusData == filterVal)
