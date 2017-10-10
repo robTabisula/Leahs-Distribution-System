@@ -211,12 +211,12 @@ if(!$_SESSION['username'])  {
                         </thead>
                         <tbody>
                             <?php
-							foreach ($results as $data):
-								$toData = $data["iS_inventoryid"];
-						?>
+								foreach ($results as $data):
+									$toData = $data["iS_inventoryid"];
+							?>
                                 <tr>
 									<?php
-										$individual_inventory_id=$data["iS_inventoryid"];
+										$inventory_id = $data["iS_inventoryid"];
                                     ?>
                                     <td data-title="productList name">
                                         <?php echo $data["productList_name"]; ?>
@@ -233,13 +233,13 @@ if(!$_SESSION['username'])  {
                                         <?php echo $data["iS_location"]; ?>
                                     </td><td>
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_inventory_id; ?>"></button>
+                                            <button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $inventory_id; ?>"></button>
                                         </table>
                                     </td>
 
                                  </tr>
-                                 <!-- Modal Edit Stocks -->
-                                <div id="<?php echo $individual_inventory_id; ?>" class="modal fade" role="dialog">
+                                 <!-- Modal Edit Stocks--> 
+                                <div id="<?php echo $inventory_id; ?>" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
 
                                         <div class="modal-content">
@@ -269,24 +269,17 @@ if(!$_SESSION['username'])  {
 		                                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
 		                                            </div>
 	                                            </form>
-                        
                                             </div>
-                                  
                                         </div>
-                                    </div>
-                                    
-                                </div>   
+                                    </div>                               
+                                </div> 
+								
 								
                             <?php
 								endforeach;
 							?>
                         </tbody>
                     </table>
-	                <table class="table table-striped table-bordered">
-                   
-
-                   
-                </table>
 
 
                     <!-- Modal Add Stocks-->
@@ -373,8 +366,8 @@ if(!$_SESSION['username'])  {
 										?>
 				                                <tr>
 				                                        <?php 
-                                                            $passID = $lowStock["iS_inventoryid"];
-     
+                                                            $pass_ID = $lowStock["iS_inventoryid"];
+
                                                         ?>
 				                                    <td data-title="productList name">
 				                                        <?php echo $lowStock["productList_name"]; ?>
@@ -393,20 +386,24 @@ if(!$_SESSION['username'])  {
 				                                    </td>
 				                                    <td data-title="edit">
 														<table class="table table-striped table-bordered">
-
-															<button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $passID; ?>" data-dismiss="modal"></button>
+																<button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" aria-hidden="true" data-target="#Edit<?php echo $pass_ID; ?>"></button>
 														</table>
 				                                    </td>
 				                                </tr>
+                                    
                                     <?php 
-                                        $locationQuery = "SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_inventoryid = '$passID'";
+                                        $locationQuery = "SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_inventoryid = '$pass_ID'";
                                         $Lrun = mysqli_query($db, $locationQuery);
                                         $Lrow = mysqli_fetch_array($Lrun);
 
                                     ?> 
-                                    <!-- Modal Add from low Stocks-->
-                                    <div id ="<?php echo $passID; ?>" class="modal fade" role="dialog" tabindex="-1>
-                        
+
+                                   
+                                    <!-- Modal Add from low Stocks --> 
+
+
+                                    
+                                    <div id ="Edit<?php echo $pass_ID; ?>" class="modal fade" tabindex="-1">                       
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -438,7 +435,7 @@ if(!$_SESSION['username'])  {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>               
+                                    </div>                                              
                                         <?php
                                             endforeach;
                                         ?>
@@ -449,6 +446,8 @@ if(!$_SESSION['username'])  {
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 
 </body>
