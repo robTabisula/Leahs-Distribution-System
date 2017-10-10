@@ -18,7 +18,7 @@
 				  $contact_name = $_POST['contact_name'];
 				  $client_id = $_POST['client_id'];
 				  
-				  $query = "UPDATE clients SET c_name = '$c_name', c_address = '$c_address',c_location = '$c_location' where clients.c_id= '$client_id'";
+				  $query = "UPDATE clients SET c_name = '$c_name', c_address = '$c_address',c_location = '$c_location' where clients.c_id= '$client_id' AND c_name = '$c_name'";
 				
 				  if(mysqli_query($db, $query)){
 

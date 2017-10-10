@@ -394,8 +394,10 @@ if(!$_SESSION['username'])  {
 									<h3>Account Type</h3>
                                     <select name="acctype" required>
 										  <option value="">Select...</option>
-										  <option value="Admin">Admin</option>
-										  <option value="User">User</option>
+										  <option value="Admin">User</option>
+										  <option value="User">Admin</option>
+										  <option value="Admin">Secretary</option>
+										  <option value="User">Bookkeeper</option>
 									</select>
 
                                     <div class="modal-footer">

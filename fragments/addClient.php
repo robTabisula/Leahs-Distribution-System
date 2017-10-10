@@ -19,12 +19,20 @@
 				$contact_name = $_POST['contact_name'];
 				$contact_number = $_POST['contact_number'];
 				 
+				    $check_username_query="select * from clients WHERE c_name='$c_name' AND c_location = '$c_location'";  
+					$run_query=mysqli_query($db,$check_username_query);
+					if(mysqli_num_rows($run_query)>0)  
+					{  
+					echo "<script>alert('$c_name with address $c_location already exist,Please try another one!')</script>";
+					echo "<script>window.open('../accounts_Clients.php','_self')</script>";
+					exit();
+					}
 
 					$query = "INSERT INTO clients (c_name, c_address, c_location) 
 						VALUE ('$c_name','$c_address' , '$c_location')";
 					
 					if(mysqli_query($db, $query)){
-						$get_id="select c_id from clients WHERE c_name='$c_name'";
+						$get_id="select c_id from clients WHERE c_address='$c_address'";
 						$run=mysqli_query($db,$get_id);
 						$row = mysqli_fetch_array($run);
 						$id=$row[0];
