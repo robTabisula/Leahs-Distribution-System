@@ -17,17 +17,16 @@
       	<?php
         	if (isset($_POST["add_issuance"])) {
 				$choice = $_POST['choice'];//type of issuance, use if statements for this for other types
-				$issue_id = $_POST['issue_id'];//check
-				//$clientlist = $_POST['clientlist'];//check (this gets client id)
+				$issue_id = $_POST['issue_id'];//new issuance id +1
         session_start();
-        $clientlist=$_SESSION['CCC'];
+        $clientlist=$_SESSION['CCC'];//list of clients (id)
 				$remarks = $_POST['remarks'];//remarks for issuance
-				$date = $_POST['date'];//check
-				$branch = $_POST['branch'];//check
-				$productList = $_POST['productList'];//array
-				$adjustedprice = $_POST['adjusted_price'];//array
-				$quantity = $_POST['quantity'];//array
-				$p_remarks = $_POST['premarks'];//array
+				$date = $_POST['date'];//system date
+				$branch = $_POST['branch'];//baguio or pangasinan
+				$productList = $_POST['productList'];//array for product id
+				$adjustedprice = $_POST['adjusted_price'];//array for new price
+				$quantity = $_POST['quantity'];//array for quantity ordered
+				$p_remarks = $_POST['premarks'];//array for remarks
             
         //query for issuance table
               $queryit = "INSERT INTO issuance (issue_id, issue_date_time, client_id, issue_account, remarks) 
@@ -43,11 +42,22 @@
 
 			   foreach ( $mi as $value ){
 				  list($product, $adjprice, $qty, $p_remark) = $value;
-					   $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, remarks) 
+      //read inventory per product chosen
+              $pinq="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='$branch'";
+              $pinqactivate=mysqli_query($db, $pinq);
+              $product_inventory=mysqli_fetch_array($pinqactivate);
+                $product_quantity=$product_inventory['iS_quantity'];
+      //reduce quantity in inventory
+                $newQ=$product_quantity-$qty;
+              $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$product' and inventory.iS_location = '$branch'";
+              $update=mysqli_query($db,$insertnew);
+     
+      //query for issuance list
+					     $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, remarks) 
 								   VALUE ('$issue_id','$qty','$adjprice','$branch','$product','$p_remark')";
-					   $runil = mysqli_query($db, $queryil);    
+					     $runil = mysqli_query($db, $queryil);    
 			   }
-
+        
 				echo"<script>alert('Successfuly Added Products')</script>";
 				echo "<script>window.open('../issuance.php','_self')</script>"; 
 
@@ -68,13 +78,11 @@
 					$pquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID'");
             			 $pqueryactivate = mysqli_query($db, $pquery);
             			 $selectedProduct = mysqli_fetch_array($pqueryactivate);
-				?>    
-      			<?php 
       				//to view price per location
       				//baguio
-                $bquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Baguio'");
-
-                $pquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Pangasinan'");
+                $bquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Baguio' and z.iS_product_id=p.productList_id and z.iS_location='Baguio'");
+              //pangasinan
+                $pquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Pangasinan' and z.iS_product_id=p.productList_id and z.iS_location='Pangasinan'");
 
             				$Baguioquery = mysqli_query($db, $bquery);
             				$BaguioPrice = mysqli_fetch_array($Baguioquery);
@@ -88,9 +96,10 @@
                 
 
       				if(mysqli_num_rows($pqueryactivate)>=1){	
-                  echo "&nbsp;<input type='text' size='35' readonly value='Category: ".$selectedProduct['category_name']."'></input>
-                ";
+                  echo "&nbsp;<input type='text' size='35' readonly value='Category: ".$selectedProduct['category_name']."'></input>";
                   echo "<hr>";
+                  echo "&nbsp;<input type='text' size='35' readonly value='Quantity Left in Baguio: ".$BaguioPrice['iS_quantity']."'></input>";
+                  echo "&nbsp;<input type='text' size='35' readonly value='Quantity Left in Pangasinan: ".$PangasinanPrice['iS_quantity']."'></input>";
       				}else{
       				    echo " &nbsp; Information in the Database is incomplete.";
                   echo "<hr>";
