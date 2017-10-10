@@ -155,7 +155,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                $retrieve = ("SELECT * FROM product_list INNER JOIN category_list ON category_list.category_id = product_list.category_id INNER JOIN product_loc on product_list.productList_id= product_loc.product_id");
+                $retrieve = ("SELECT * FROM product_list INNER JOIN category_list ON category_list.category_id = product_list.category_id INNER JOIN product_loc on product_list.productList_id= product_loc.product_id GROUP BY productList_id");
                 $results = mysqli_query($db, $retrieve); 
             ?>
 
@@ -200,6 +200,7 @@ if(!$_SESSION['username'])  {
                                         </table>
                                     </td>
                                 </tr>
+								
                                 <!--Edit modal-->
                                 <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
