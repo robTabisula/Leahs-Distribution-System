@@ -249,10 +249,11 @@ if(!$_SESSION['username'])  {
                                     <label>Quantity</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <label>Original Price</label>
+                                    <label>Adjusted Price</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <label>Adjusted Price</label>
+                                    <label>Original Price</label>
+                                    
                                     <?php
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
@@ -261,6 +262,8 @@ if(!$_SESSION['username'])  {
                                             <input type="text" value= "<?php  echo $log["prod_qty"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>
+                                            
+                                            
                                                                                    
                                     <?php
                                         }

@@ -192,6 +192,11 @@ if(!$_SESSION['username'])  {
 			?>
 
                 <div id="mainContainer">
+                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
+                    <br>
+                    <br>
                     <!-- Table Display for Accounts -->
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                         <thead>
@@ -279,9 +284,7 @@ if(!$_SESSION['username'])  {
                     </table>
 	                <table class="table table-striped table-bordered">
                    
-                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
                    
                 </table>
 
@@ -390,7 +393,8 @@ if(!$_SESSION['username'])  {
 				                                    </td>
 				                                    <td data-title="edit">
 														<table class="table table-striped table-bordered">
-															<button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $passID; ?>"></button>
+
+															<button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $passID; ?>" data-dismiss="modal"></button>
 														</table>
 				                                    </td>
 				                                </tr>
@@ -401,7 +405,7 @@ if(!$_SESSION['username'])  {
 
                                     ?> 
                                     <!-- Modal Add from low Stocks-->
-                                    <div id ="<?php echo $passID; ?>" class="modal fade" role="dialog">
+                                    <div id ="<?php echo $passID; ?>" class="modal fade" role="dialog" tabindex="-1>
                         
                                         <div class="modal-dialog">
                                             <div class="modal-content">
