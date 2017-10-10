@@ -13,12 +13,11 @@
               if (isset($_POST["save"])) {
                   $c_name = $_POST['c_name'];
                   $c_address = $_POST['c_address'];
-				  $c_location = $_POST['c_location'];
 				  $contact_number = $_POST['contact_number'];
 				  $contact_name = $_POST['contact_name'];
 				  $client_id = $_POST['client_id'];
 				  
-				  $query = "UPDATE clients SET c_name = '$c_name', c_address = '$c_address',c_location = '$c_location' where clients.c_id= '$client_id' AND c_name = '$c_name'";
+				  $query = "UPDATE clients SET c_name = '$c_name', c_address = '$c_address' where clients.c_id= '$client_id'";
 				
 				  if(mysqli_query($db, $query)){
 

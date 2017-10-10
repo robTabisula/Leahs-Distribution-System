@@ -386,19 +386,22 @@ if(!$_SESSION['username'])  {
 									
 									<h3>Branch</h3>
                                     <select name="branch" required>
+										<option><?php echo $row['branch']; ?></option>
 										  <option value="">Select...</option>
 										  <option value="Baguio">Baguio</option>
 										  <option value="Pangasinan">Pangasinan</option>
 									</select>
 									
 									<h3>Account Type</h3>
-                                    <select name="acctype" required>
-										  <option value="">Select...</option>
-										  <option value="Admin">User</option>
-										  <option value="User">Admin</option>
-										  <option value="Admin">Secretary</option>
-										  <option value="User">Bookkeeper</option>
-									</select>
+                                    <div class="col-xs-4">
+										<select name="acctype" class="form-control">
+											<option><?php echo $row['acctype']; ?></option>
+											<option>User</option>
+											<option>Admin</option>
+											<option>Secretary</option>
+											<option>Bookkeeper</option>
+										</select>
+									</div>
 
                                     <div class="modal-footer">
                                         <input name="add_user" id="enter" disabled="true" type="submit" class="btn btn-default" value="Submit"/>

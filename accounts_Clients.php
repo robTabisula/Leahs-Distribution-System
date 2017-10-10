@@ -265,16 +265,6 @@ if(!$_SESSION['username'])  {
                                                                 <input name="c_address" value="<?php echo $row['c_address']; ?>" type="text" class="form-control">
                                                             </div>
 														</div>
-														<div class="row">
-                                                            <div class="col-xs-4">
-															<div class="col-xs-6"><label>Address</label></div>
-																<select name="c_location" class="form-control">
-																	<option>Baguio</option>
-																	<option>Pangasinan</option>
-																</select>
-
-                                                            </div>
-                                                        </div>
 														 <div class="row">
                                                             <div class="col-xs-4"><label>Contact Number</label></div>
 															<div class="col-xs-6"><label>Contact Person</label></div>

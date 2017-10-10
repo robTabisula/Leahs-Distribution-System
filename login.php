@@ -19,7 +19,7 @@ session_start();
     <body class="login2background">
         <div class="container">  
             <div class="col-lg-6 col-md-6 col-sm-8  loginbox">
-               <form class="form-horizontal" method="POST" action="login_fn.php">
+               <form class="form-horizontal" method="POST" action="login.php">
                 <div class=" row">
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">
                         <img src="src/img/LeahsText.png" alt="Logo" class="logo"> 
@@ -60,25 +60,25 @@ session_start();
         </div>
     </body>
         
-        	
-        <!--<div class="container">
-           <form class="form-horizontal" method="POST" action="login_fn.php">
-              <div class="form-group">
-                  <div class="col-xs-4">
-                      <label for="urn">Username:</label>
-                      <input id="username" type="text" class="form-control" name="username" placeholder="Enter Username" autofocus required>
-                  </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xzs-4">
-                      <label for="pwd">Password:</label>
-                        <input id="pwd "type="password" class="form-control" name="password" placeholder="Enter password">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-default" name="login">Submit</button>
-           </form>
-        </div>-->
 </html>
+	<?php
+			include('fragments/config.php');
+			if (isset($_POST['login'])){
+				$username = $_POST['username'];
+				$password = hash("sha512",$_POST['password']);
+
+				$query ="select * FROM accounts WHERE username = '$username' AND password='$password' AND status = 'enabled'";
+				$results = mysqli_query($db, $query);
+
+				if(mysqli_num_rows($results)>0){
+					header("location: index.php");
+					$_SESSION['username']=$username;
+				}
+				else {
+					echo"<script>alert('Invalid User Credentials..!')</script>";
+				}
+			}
+		?>
 
 
 
