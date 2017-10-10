@@ -12,7 +12,7 @@
 <script>
  function sendID(IDs){
           $("#AdjustedPriceDiv").html('Loading').show();
-          var url="../fragments/clientsdata.php";
+          var url="fragments/clientsdata.php";
           $.post(url,{clientID:IDs},function(data){
           $("#AdjustedPriceDiv").html(data).show();
     ;});

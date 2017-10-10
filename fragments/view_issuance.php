@@ -166,7 +166,7 @@ if(!$_SESSION['username'])  {
                                     <div id = "next">
                                     </div>                  
                                <!--Div to view adjusted price and category-->
-                                <div id="AdjustedPriceDiv" style="position : fixed; padding: 5px 0 0 5px; height: 140px; width: 150px; top:10%;  width: 300px; height: 150px; border: 1px solid blue; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
+                                <div id="AdjustedPriceDiv" style="position : fixed; padding: 5px 0 0 5px; height: 200px; width: 150px; top:10%;  width: 300px; height: 200px; border: 1px solid blue; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
                                         <hr>
                                         <h4>When Choosing a product, Information will be viewed here.</h4>
                                         <hr>
