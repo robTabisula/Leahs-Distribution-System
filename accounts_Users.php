@@ -246,7 +246,7 @@ if(!$_SESSION['username'])  {
                                         </table>
                                 </td>
                             </tr>
-							<!--Edit modal-->
+							<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Edit modal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
                                 <div id="<?php echo $individual_acc_id;?>" class="modal fade" role="dialog">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -282,8 +282,23 @@ if(!$_SESSION['username'])  {
                                                             <div class="col-xs-6">
 															<div class="col-xs-6"><label>Status</label></div>
 																<select name="status" class="form-control">
-																	<option>Enabled</option>
-																	<option>Disabled</option>
+                                                                    <?php
+                                                                        $status = $row['status'];
+                                                                        if ($status == 'Enabled') {
+                                                                     ?>   
+                                                                            <option>Enabled</option>
+                                                                            <option>Disabled</option>
+                                                                    <?php
+                                                                            } else {
+                                                                    ?>
+                                                                            <option>Disabled</option>
+                                                                            <option>Enabled</option>
+                                                                    <?php
+                                                                            }
+                                                                    ?>
+
+                                                                    
+																	
 																</select>
 
                                                             </div>
@@ -291,8 +306,25 @@ if(!$_SESSION['username'])  {
                                                             <div class="col-xs-6">
 															<div class="col-xs-6"><label>Branch</label></div>
 																<select name="branch" class="form-control">
-																	<option>Baguio</option>
-																	<option>Pangasinan</option>
+																	
+                                                                    <?php
+                                                                        $branch = $row['branch'];
+                                                                        if ($branch == 'Baguio') {
+                                                                    ?>   
+                                                                            <option>Baguio</option>
+                                                                            <option>Pangasinan</option>
+                                                                    <?php
+                                                                            } else {
+                                                                    ?>
+                                                                            <option>Pangasinan</option>
+                                                                            <option>Baguio</option>
+                                                                    <?php
+                                                                            }
+                                                                    ?>
+
+
+
+                                                                    
 																</select>
 
                                                             </div>
@@ -321,10 +353,42 @@ if(!$_SESSION['username'])  {
 														<div class="col-xs-6">
 															<div class="col-xs-6"><label>Account Type</label></div>
 																<select name="acctype" class="form-control">
-																	<option>User</option>
-																	<option>Admin</option>
-																	<option>Secretary</option>
-																	<option>Bookkeeper</option>
+                                                                    <?php
+                                                                        $acctype = $row['acctype'];
+                                                                        if ($acctype == 'User') {
+                                                                    ?>   
+                                                                            <option>User</option>
+                                                                            <option>Admin</option>
+                                                                            <option>Bookkeeper</option>
+                                                                            <option>Secretary</option>
+                                                                            
+                                                                    <?php
+                                                                            } else if($acctype == 'Admin') {
+                                                                    ?>
+                                                                            <option>Admin</option>
+                                                                            <option>Bookkeeper</option>
+                                                                            <option>Secretary</option>
+                                                                            <option>User</option>
+                                                                            
+                                                                    <?php
+                                                                            } else if($acctype == 'Bookkeeper') {
+                                                                    ?>
+                                                                            <option>Bookkeeper</option>
+                                                                            <option>Admin</option>
+                                                                            <option>Secretary</option>
+                                                                            <option>User</option>
+                                                                    <?php
+                                                                            } else {
+                                                                    ?>
+                                                                            <option>Secretary</option>
+                                                                            <option>Admin</option>
+                                                                            <option>Bookkeeper</option>
+                                                                            <option>User</option>
+                                                                    <?php
+                                                                            }
+                                                                    ?>
+
+																	
 																</select>
 
                                                             </div>
