@@ -260,8 +260,9 @@ if(!$_SESSION['username'])  {
                                     ?>
                                         <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_qty"];  ?>" readonly>
-                                            <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
+                                            <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>
+                                            
                                             
                                                                                    
                                     <?php
