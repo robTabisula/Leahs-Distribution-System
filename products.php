@@ -155,7 +155,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                $retrieve = ("SELECT * FROM product_list INNER JOIN category_list ON category_list.category_id = product_list.category_id INNER JOIN product_loc on product_list.productList_id= product_loc.product_id GROUP BY productList_id");
+                $retrieve = ("SELECT * FROM product_list INNER JOIN category_list ON category_list.category_id = product_list.category_id INNER JOIN product_loc on product_list.productList_id= product_loc.product_id");
                 $results = mysqli_query($db, $retrieve); 
             ?>
 
@@ -181,7 +181,7 @@ if(!$_SESSION['username'])  {
                            foreach ($results as $data):
                             
                                 $toData = $data["productList_id"];
-							?>
+                            ?>
                                 <tr>
                                         <?php 
                                             $individual_product_id=$data["productList_id"];
@@ -204,137 +204,143 @@ if(!$_SESSION['username'])  {
                                         </table>
                                     </td>
                                 </tr>
-								
                                 <!--Edit modal-->
-                    <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                      <h4 class="modal-title">Edit Product</h4>
-                                </div>
-                            <div class="modal-body">
-                            <?php
-                                $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list on product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Baguio'";
-                                    $run = mysqli_query($db, $query);
-                                    $row = mysqli_fetch_array($run);//baguio
+                                <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Product</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                            <?php
+                                            $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list
+                                                     on product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Baguio'";
+                                            $run = mysqli_query($db, $query);
+                                            $row = mysqli_fetch_array($run);//baguio
 
-                                $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list on product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Pangasinan'";
-                                    $runp = mysqli_query($db, $query);
-                                    $rowp = mysqli_fetch_array($runp);//pangasinan
-                            ?>
-                <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
-                                   <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id" />
-                                   <div class="row">
-                                   <div class="col-xs-4"><label>Barcode</label></div>
-                                   <div class="col-xs-4"><label>Product</label></div>
-                                   </div>
-                                   <div class="row">
-                                      <div class="col-xs-4">
-                                          <input name="barcode" value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
-                                      </div>
-                                      <div class="col-xs-4">
-                                          <input name="productList_name" value="<?php echo $row['productList_name']; ?>" type="text" class="form-control">
-                                      </div>
-                                   </div>
-                                   <div class="client">
+                                            $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list on 
+                                                    product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Pangasinan'";
+                                            $runp = mysqli_query($db, $query);
+                                            $rowp = mysqli_fetch_array($runp);//pangasinan
+                                            ?>
+                                                   <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
+                                                        <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id" />
+                                                        <div class="row">
+                                                            <div class="col-xs-4"><label>Barcode</label></div>
+                                                            <div class="col-xs-4"><label>Product</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="barcode" value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <input name="productList_name" value="<?php echo $row['productList_name']; ?>" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="client">
                                                         
-                                    <h5><b>Product Category</b></h5>
-                                    <?php
-                                        $retrieveCat = ("SELECT * FROM category_list");
-                                        $categoryResult = mysqli_query($db, $retrieveCat);
-                                    ?>
-                            <select name="ProductCategory">
-                            <option value="#" disabled selected><?php echo $row["category_name"];?></option>
-                                    <?php                                
-                                      while($datas=mysqli_fetch_array($categoryResult)){
-                                            $toData = $datas["category_id"];
-                                     ?>
-                                        
-                                        <option value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>
-                                    <?php
-                                      }
-                                     ?>
-                            </select>                                       
-                            <div class="row">
-                                 <div class="col-xs-6"><label>Baguio Status</label></div>
+                                                            <h5><b>Product Category</b></h5>
+                                                            <?php
+                                                            $retrieveCat = ("SELECT * FROM category_list");
+                                                            $categoryResult = mysqli_query($db, $retrieveCat);
+                                                            ?>
+
+                                                            <select name="ProductCategory">
+                                                                <?php                                
+                                                                while($datas=mysqli_fetch_array($categoryResult)){
+                                                                  $toData = $datas["category_id"];
+                                                                ?>
+                                                                <option value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>
+                                                               <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                            
+                                                                <div class="row">
+                                                                    <div class="col-xs-6"><label>Baguio Status</label></div>
                                                                     
-                                 <div class="col-xs-6"><label>Pangasinan Status</label></div>
+                                                                    <div class="col-xs-6"><label>Pangasinan Status</label></div>
                                                                    
-                            </div>                                    
-                            <div class="row">
-                                 <div class="col-xs-6">
-                                    <select name="bstatus" class="form-control">
-                                        <option value="<?php echo $row['status'];?>">
-                                        <?php 
-                                            $bstat=$row['status'];
-                                            echo $bstat;
-                                        ?>
-                                        </option>
-                                        <?php if ($bstat=="Enabled"){
-                                            echo "<option value='Disabled'>Disabled</option>" ;
-                                            }else{
-                                            echo "<option value='Enabled'>Enabled</option>" ;
-                                            }
-                                        ?>                                                                       
-                                    </select>
-                                </div>
-
-                            <div class="col-xs-6">
-
-                                    <select name="pstatus" class="form-control">
-                                        <option value="<?php echo $rowp['status'];?>">
-                                        <?php 
-                                            $pstat=$rowp['status'];
-                                            echo $pstat;
-                                        ?>
-                                        </option>
-                                        <?php if ($pstat=="Enabled"){
-                                            echo "<option value='Disabled'>Disabled</option>" ;
-                                            }else{
-                                            echo "<option value='Enabled'>Enabled</option>" ;
-                                            }
-                                         ?>                                                                       
-                                     </select>
-
-                             </div>
-                        </div>
-
-                            <div class="row">
-                                <div class="col-xs-6"><label>Baguio Alternate Price</label>
-                                        <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
-                                </div>
-
-                                <div class="col-xs-6"><label>Pangasinan Alternate Price</label>
-                                <div class="row">
-                                  <div class="col-xs-10">
-                                        <input name="pangasinanprice" value="<?php echo $rowp['altprice']; ?>" class="form-control">
-                                  </div>
-                                </div>
-                                </div>
-                            </div>
+                                                                </div>
                                                                 
-                            <div class="row">
-                                <div class="col-xs-12">
-                                <br>
-                                <div class="modal-footer">
-                                    <button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                 <div class="row">
+                                                                    
+                                                             
+                                                                    <div class="col-xs-6">
+
+                                                                         <select name="bstatus" class="form-control">
+                                                                        <option value="<?php echo $row['status'];?>"><?php 
+                                                                                $bstat=$row['status'];
+                                                                                echo $bstat;
+                                                                            ?></option>
+                                                                            <?php if ($bstat=="Enabled"){
+                                                                                echo "<option value='Disabled'>Disabled</option>" ;
+                                                                            }else{
+                                                                                echo "<option value='Enabled'>Enabled</option>" ;
+                                                                              }
+                                                                            ?>                                                                       
+                                                                        </select>
+
+                                                                    </div>
+
+                                                                   <div class="col-xs-6">
+
+                                                                         <select name="pstatus" class="form-control">
+                                                                        <option value="<?php echo $rowp['status'];?>"><?php 
+                                                                                $pstat=$rowp['status'];
+                                                                                echo $pstat;
+                                                                            ?></option>
+                                                                            <?php if ($pstat=="Enabled"){
+                                                                                echo "<option value='Disabled'>Disabled</option>" ;
+                                                                            }else{
+                                                                                echo "<option value='Enabled'>Enabled</option>" ;
+                                                                              }
+                                                                            ?>                                                                       
+                                                                        </select>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-xs-6"><label>Baguio Alternate Price</label>
+                                                                        <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="col-xs-6"><label>Pangasinan Alternate Price</label>
+                                                                        <div class="row">
+                                                                            <div class="col-xs-10">
+                                                                                <input name="pangasinanprice" value="<?php echo $rowp['altprice']; ?>" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <br>
+                                                                        <div class="modal-footer">
+                                                                            <button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                 </div>
-           </form>
-        </div>
-      </div>
-  </div>
-</div>
-       <?php     
-          endforeach;
-        ?>
-    </tbody>
-</table>
-</div>
+                                <?php     
+                            endforeach;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+
                 <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
