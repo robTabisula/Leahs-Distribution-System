@@ -158,7 +158,8 @@ if(!$_SESSION['username'])  {
         					<option value="1" selected="true" disabled="disabled">Please Select Issuance Category...</option>
         					<option value="1">Regular</option>
         					<option value="2">Penthouse</option>
-        					<option value="3">Others</option>
+        					<option value="3">Stock Transfer</option>
+        					<option value="4">Others</option>
         				</select><center>
                         <!--This is the div to show issuance-->
                         <div id="issuanceDiv">

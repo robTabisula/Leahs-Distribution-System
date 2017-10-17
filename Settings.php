@@ -49,6 +49,7 @@ if(!$_SESSION['username'])  {
         document.getElementById('inputln').removeAttribute('readonly');
         document.getElementById('inputem').removeAttribute('readonly');
         document.getElementById('input').removeAttribute('readonly');
+        document.getElementById('key').removeAttribute('readonly');
         var inputun = document.getElementById("inputun");
         inputun.style.backgroundColor = "white";
         var inputfn = document.getElementById("inputfn");
@@ -59,6 +60,8 @@ if(!$_SESSION['username'])  {
         inputem.style.backgroundColor = "white";
         var input = document.getElementById("input");
         input.style.backgroundColor = "white";
+        var key = document.getElementById("key");
+        key.style.backgroundColor = "white";
         document.getElementById('inputun').focus();
 };
     </script>
@@ -205,6 +208,11 @@ if(!$_SESSION['username'])  {
                     <hr>
                     <center><h4>Password</h4></center>
                     <input name="password" class="input-lg" style="background-color: #DCDCDC;" type="textfield" value="---------------------------" readonly/>
+                </div>
+                    <div class="col-lg-4">
+                    <hr>
+                    <center><h4>Security Key</h4></center>
+                    <input name="secKey" id="key" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="ASDRF" readonly/>
                 </div>
                 <div class="col-lg-4">
                     <hr><br>
