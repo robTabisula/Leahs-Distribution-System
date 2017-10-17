@@ -92,16 +92,6 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
-                <!-- Requests Submenu -->
-                <li data-toggle="collapse" data-target="#products" class="collapsed">
-                    <i class="fa fa-exclamation"></i> Requests <span class="arrow"></span>
-                </li>
-                <ul class="sub-menu collapse atarget" id="products">
-                    <li><a id="pending" href="request_Pending.php"><i class="fa fa-clock-o"></i> Pending Requests</a></li>
-                    <li><a id="approved" href="request_Approved.php"><i class="fa fa-check"></i> Approved Request</a></li>
-                    <li><a id="denied" href="request_Denied.php"><i class="fa fa-ban"></i> Denied Request</a></li>
-                </ul>
-
                 <!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -190,49 +180,35 @@ if(!$_SESSION['username'])  {
                 ?> 
  
                 <div class="col-lg-4">
-                    <center>Username</center> 
+                    <center><h4>Username</h4></center> 
                     <input name="username" id="inputun" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $username;?>" readonly/>
                 </div>
                 <div class="col-lg-4">
-                    <center>First Name</center>
+                    <center><h4>First Name</h4></center>
                     <input name="first_name" id="inputfn" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $first_name;?>" readonly/>
                 </div>
                 <div class="col-lg-4">
-                    <center>Last Name</center>
+                    <center><h4>Last Name</h4></center>
                     <input name="last_name" id="inputln" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $last_name;?>" readonly/>
                 </div>
                 <div class="col-lg-4">
                     <hr>
-                    <center>Email Address</center>
+                    <center><h4>Email Address</h4></center>
                     <input name="email_add" id="inputem" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $email;?>" readonly/>
                 </div>
                 <div class="col-lg-4">
                     <hr>
-                    <center>Contact Number</center>
+                    <center><h4>Contact Number</h4></center>
                     <input name="contact_num" id="input" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $contact_no;?>" readonly/>
-                </div>
-                <div class="col-lg-4">
-                    <hr>
-                    <center>Status</center>
-                    <input name="status" class="input-lg" type="textfield" value="<?php echo $status;?>" readonly/>
-                </div>
-                <div class="col-lg-4">
-                    <hr>
-                    <center>Branch</center>
-                    <select name="branch" class="form-control">
-                    <!--$branch-->
-                        <option>Baguio</option>
-                        <option>Pangasinan</option>
-                    </select>
                 </div>
                  <div class="col-lg-4">
                     <hr>
-                    <center>Password</center>
-                    <input name="password" class="input-lg" type="textfield" value="-----" readonly/>
+                    <center><h4>Password</h4></center>
+                    <input name="password" class="input-lg" style="background-color: #DCDCDC;" type="textfield" value="---------------------------" readonly/>
                 </div>
                 <div class="col-lg-4">
                     <hr><br>
-                     <input name="branch" id="edit" type="button" class="btn-lg" onclick="edit();" class="form-control" value="Edit"/>
+                     <input name="branch" id="edit" type="button" style="background-color: #90EE90;" class="btn-lg" onclick="edit();" class="form-control" value="Edit"/>
                 </div>
 
             

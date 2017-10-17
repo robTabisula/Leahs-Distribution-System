@@ -73,15 +73,6 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
-                <!-- Requests Submenu -->
-                <li data-toggle="collapse" data-target="#products" class="collapsed">
-                    <i class="fa fa-exclamation"></i> Requests <span class="arrow"></span>
-                </li>
-                <ul class="sub-menu collapse atarget" id="products">
-                    <li><a id="pending" href="request_Pending.php"><i class="fa fa-clock-o"></i> Pending Requests</a></li>
-                    <li><a id="approved" href="request_Approved.php"><i class="fa fa-check"></i> Approved Request</a></li>
-                    <li><a id="denied" href="request_Denied.php"><i class="fa fa-ban"></i> Denied Request</a></li>
-                </ul>
 
                 <!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
