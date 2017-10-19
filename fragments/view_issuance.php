@@ -225,7 +225,7 @@ if(!$_SESSION['username'])  {
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
 
-                            <h4>Penthouse Issuance ID</h4>
+                            <h4>Issuance ID</h4>
                                     <?php
                                         $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
                                         $idRetrieve = mysqli_query($db, $retrieveId);
@@ -235,7 +235,12 @@ if(!$_SESSION['username'])  {
                                         $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
                             <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
-                            
+
+                            <div class = "Pclients">    
+                                <h4>Client Name</h4>
+                                <input type="text" name="Pcleint" />
+                            </div>
+                           
                             
                             <div class="remarks">
                                 <h4>Remarks</h4>
@@ -310,13 +315,14 @@ if(!$_SESSION['username'])  {
     </div>    
 <?php
 }else if ($choice=='3'){
+    //stock trasfer
 ?>
-//stock trasfer
+
         <div class="panel-body">                        
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
 
-                            <h4>Stock Transfer ID</h4>
+                            <h4>Issuance ID</h4>
                                     <?php
                                         $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
                                         $idRetrieve = mysqli_query($db, $retrieveId);
@@ -330,16 +336,12 @@ if(!$_SESSION['username'])  {
 
                               <br>
 
-                            <select name="branch" onchange="Lclients(this.value);" required>
-                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
+                            <select name="branch" required>
+                                    <option value="" selected="true" disabled="disabled">Transfer To:</option>
                                     <option value="Baguio">Baguio</option>
                                     <option value="Pangasinan">Pangasinan</option>
                             </select>
-                            <!--clientslist-->
-                            <div class="client" id="TheClients" style="display: none;">
-                              
-                            </div>
-                            
+     
                             <div class="remarks">
                                 <h4>Remarks</h4>
                                 <textarea rows="3" cols="30" name="remarks" ></textarea>
@@ -414,13 +416,14 @@ if(!$_SESSION['username'])  {
    
 <?php    
 } else if ($choice=='4'){
+    //others
 ?>
-//others issuance
+
         <div class="panel-body">                        
                     <form role="form" method="post" action="fragments/issuance_fn.php">  
                         <fieldset>  
 
-                            <h4>Others Issuance ID</h4>
+                            <h4>Issuance ID</h4>
                                     <?php
                                         $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
                                         $idRetrieve = mysqli_query($db, $retrieveId);
@@ -430,19 +433,12 @@ if(!$_SESSION['username'])  {
                                         $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
                             <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
-                            
 
-                              <br>
-
-                            <select name="branch" onchange="Lclients(this.value);" required>
-                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                    <option value="Baguio">Baguio</option>
-                                    <option value="Pangasinan">Pangasinan</option>
-                            </select>
-                            <!--clientslist-->
-                            <div class="client" id="TheClients" style="display: none;">
-                              
+                            <div class = "Pclients">    
+                                <h4>Client Name</h4>
+                                <input type="text" name="Pcleint" />
                             </div>
+                           
                             
                             <div class="remarks">
                                 <h4>Remarks</h4>
@@ -514,7 +510,7 @@ if(!$_SESSION['username'])  {
                 </div>  
             </div>  
        </div>
-    </div>  
+    </div>    
 
 <?php
 }

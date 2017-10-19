@@ -193,6 +193,7 @@ if(!$_SESSION['username'])  {
                                 <th>Contact Number</th>
                                 <th>Contact Person</th>
                                 <th>Location</th>
+                                <th>Edit</th>
 
                             </tr>
                         </thead>

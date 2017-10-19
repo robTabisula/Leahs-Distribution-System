@@ -38,14 +38,6 @@ if(!$_SESSION['username'])  {
     <!-- Datatables-->
     <script>
 
- function viewCategory(prod_id){
-          $("#AdjustedPriceDiv").html('Loading').show();
-          var url="fragments/issuance_fn.php";
-          $.post(url,{prod_id:prod_id},function(data){
-          $("#AdjustedPriceDiv").html(data).show();
-    ;});
-    }
-
         var nextDiv = document.getElementById("next");
         var regex = /^(.+?)(\d+)$/i;
         var cloneIndex = $(".clonedInput").length;
@@ -62,7 +54,7 @@ if(!$_SESSION['username'])  {
                         this.id = match[1] + (cloneIndex);
                     }
                 })
-                .on('click', 'input.add-row', clone)
+                .on('click', 'input.addrow', clone)
                 .on('click', 'input.remove', remove);
             cloneIndex++;
         
@@ -77,10 +69,9 @@ if(!$_SESSION['username'])  {
                     alert("Option not allowed");
                 }
     
-            }
+        }
 
-
-        $("input.add-row").on("click", clone);
+        $("input.addrow").on("click", clone);
         $("input.remove").on("click", remove);
 
     </script>
@@ -251,10 +242,10 @@ if(!$_SESSION['username'])  {
                                                                 endforeach;
                                                             ?>
                                                 </select>                              
-                                                <input placeholder="Quantity" name="quantity[]" type="number"  required>
+                                                <input placeholder="Quantity" name="quantity[]" type="number" required>
                                                 <input placeholder="Remarks" name="premarks[]"/>      
                                         <div class="actions">
-                                            <input type="button" class="add-row" value="Add Product"/>  
+                                            <input type="button" class="addrow" value="Add Product"/>  
                                             <input type="button" class="remove" value="Remove"/>
                                         </div>
                                     </div>
