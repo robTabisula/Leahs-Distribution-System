@@ -51,6 +51,11 @@ if(!$_SESSION['username'])  {
         });
 }
     </script>
+    <style>
+    .clonedInput { padding: 10px; border-radius: 5px; background-color: #def; margin-bottom: 10px; }
+    .clonedInput div { margin: 5px; }
+    .clonedInput ~ .clonedInput .add-row{ display:none; }
+    </style>
 </head>
 
 <body>

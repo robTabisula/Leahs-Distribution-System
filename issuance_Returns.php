@@ -37,12 +37,14 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-        $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
-            });
-        });
 
+ function viewCategory(prod_id){
+          $("#AdjustedPriceDiv").html('Loading').show();
+          var url="fragments/issuance_fn.php";
+          $.post(url,{prod_id:prod_id},function(data){
+          $("#AdjustedPriceDiv").html(data).show();
+    ;});
+    }
 
         var nextDiv = document.getElementById("next");
         var regex = /^(.+?)(\d+)$/i;
@@ -77,9 +79,17 @@ if(!$_SESSION['username'])  {
     
             }
 
+
         $("input.add-row").on("click", clone);
         $("input.remove").on("click", remove);
+
     </script>
+
+    <style>
+    .clonedInput { padding: 10px; border-radius: 5px; background-color: #def; margin-bottom: 10px; }
+    .clonedInput div { margin: 5px; }
+    .clonedInput ~ .clonedInput .add-row{ display:none; }
+    </style>
 </head>
 
 <body>
@@ -249,19 +259,10 @@ if(!$_SESSION['username'])  {
                                         </div>
                                     </div>
                                 </div> 
-                                <!--/div to clone-->
-                        
-                     
-                                
-
-
+                                <!--/div to clone-->            
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
-                            </fieldset>  
-                            
+                            </fieldset>                 
                         </form>  
-                        
-
-       
                 </div>  
             </div>  
         </div>

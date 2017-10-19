@@ -236,18 +236,6 @@ if(!$_SESSION['username'])  {
                                     ?>
                             <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
                             
-
-                              <br>
-
-                            <select name="branch" onchange="Lclients(this.value);" required>
-                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                    <option value="Baguio">Baguio</option>
-                                    <option value="Pangasinan">Pangasinan</option>
-                            </select>
-                            <!--clientslist-->
-                            <div class="client" id="TheClients" style="display: none;">
-                              
-                            </div>
                             
                             <div class="remarks">
                                 <h4>Remarks</h4>
