@@ -222,7 +222,7 @@ if(!$_SESSION['username'])  {
 //penthouse issuance
 ?>
     <div class="panel-body">                        
-                    <form role="form" method="post" action="fragments/issuance_fn.php">  
+                    <form role="form" method="post" action="fragments/issuance_fn_penthouse.php">  
                         <fieldset>  
 
                             <h4>Issuance ID</h4>
@@ -235,6 +235,12 @@ if(!$_SESSION['username'])  {
                                         $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
                             <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+
+                            <select name="branch" required>
+                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                    <option value="Baguio">Baguio</option>
+                                    <option value="Pangasinan">Pangasinan</option>
+                            </select>
 
                             <div class = "Pclients">    
                                 <h4>Client Name</h4>
@@ -420,7 +426,7 @@ if(!$_SESSION['username'])  {
 ?>
 
         <div class="panel-body">                        
-                    <form role="form" method="post" action="fragments/issuance_fn.php">  
+                    <form role="form" method="post" action="fragments/issuance_fn_others.php">  
                         <fieldset>  
 
                             <h4>Issuance ID</h4>
@@ -434,9 +440,15 @@ if(!$_SESSION['username'])  {
                                     ?>
                             <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
 
-                            <div class = "Pclients">    
+                            <select name="branch" required>
+                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                    <option value="Baguio">Baguio</option>
+                                    <option value="Pangasinan">Pangasinan</option>
+                            </select>
+
+                            <div class = "Oclients">    
                                 <h4>Client Name</h4>
-                                <input type="text" name="Pcleint" />
+                                <input type="text" name="Ocleint" />
                             </div>
                            
                             
