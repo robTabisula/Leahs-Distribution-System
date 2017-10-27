@@ -39,7 +39,7 @@ if(!$_SESSION['username'])  {
 
  function viewCategory(prod_id){
           $("#AdjustedPriceDiv").html('Loading').show();
-          var url="fragments/issuance_fn.php";
+          var url="fragments/issuance_fnRemake.php";
           $.post(url,{prod_id:prod_id},function(data){
           $("#AdjustedPriceDiv").html(data).show();
     ;});
@@ -64,9 +64,38 @@ if(!$_SESSION['username'])  {
         var cell1=row.insertCell(0);
         var cell2=row.insertCell(1);
         var cell3=row.insertCell(2);
-        cell1.innerHTML=product;
-        cell2.innerHTML=qty;        
-        cell3.innerHTML=price;           
+        var cell4=row.insertCell(3);
+
+        addedProduct = document.createElement( 'input' );
+        addedProduct.setAttribute("name", "addedProd");
+        addedProduct.setAttribute("type", "text");
+        addedProduct.setAttribute("value", product);
+        addedProduct.setAttribute("readOnly","true");
+                  
+        addedQuantity = document.createElement( 'input' );
+        addedQuantity.setAttribute("name", "quantity");
+        addedQuantity.setAttribute("type", "text");
+        addedQuantity.setAttribute("value", qty);
+        addedQuantity.setAttribute("readOnly","true");
+
+        addedPrc = document.createElement( 'input' );
+        addedPrc.setAttribute("name", "adjusted_price");
+        addedPrc.setAttribute("type", "text");
+        addedPrc.setAttribute("value", price); 
+        addedPrc.setAttribute("readOnly","true");  
+
+        deleteButton = document.createElement( 'input' );
+        deleteButton.setAttribute("name", "deleteButton");
+        deleteButton.setAttribute("type", "button");
+        deleteButton.setAttribute("value", "Discard"); 
+    
+        
+
+        cell1.appendChild(addedProduct);
+        cell2.appendChild(addedQuantity);       
+        cell3.appendChild(addedPrc);     
+        cell4.appendChild(deleteButton); 
+
     }
 
 
@@ -178,13 +207,13 @@ if(!$_SESSION['username'])  {
                                                 <label for="product">Product:</label>
                                             </td>
                                             <td>
-                                                <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
+                                                <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
                                                             <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                         <?php
                                                             foreach ($prodRetrieve as $datas):
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
-                                                            <option value = "<?php echo $sproduct_id;?>">
+                                                            <option value = "<?php echo $datas["productList_name"];?>">
                                                                <?php echo $datas["productList_name"]; ?>
                                                             </option>
                                                   
@@ -199,7 +228,7 @@ if(!$_SESSION['username'])  {
                                                 <label for="quantity">Quantity:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"  required/>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -207,7 +236,7 @@ if(!$_SESSION['username'])  {
                                                 <label for="price">Price:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" required/>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -224,6 +253,7 @@ if(!$_SESSION['username'])  {
                                         <th scope="col" width="120">Products</th>
                                         <th scope="col" width="120">Quantity</th>
                                         <th scope="col" width="120">Price</th>
+                                        <th scope="col" width="120">Action</th>
                                     </tr>
                                     </thead>
                                 </table>
