@@ -74,15 +74,15 @@
 			}*/
 			}else{
         	//this is to view the adjusted price
-					$selectedproductName = $_POST['prod_id'];
-					$pquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_name = '$selectedproductName'");
+					$selectedproductID = $_POST['prod_id'];
+					$pquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID'");
             			 $pqueryactivate = mysqli_query($db, $pquery);
             			 $selectedProduct = mysqli_fetch_array($pqueryactivate);
       				//to view price per location
       				//baguio
-                $bquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_name = '$selectedproductName' and l.location='Baguio' and z.iS_product_id=p.productList_id and z.iS_location='Baguio'");
+                $bquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Baguio' and z.iS_product_id=p.productList_id and z.iS_location='Baguio'");
               //pangasinan
-                $pquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_name = '$selectedproductName' and l.location='Pangasinan' and z.iS_product_id=p.productList_id and z.iS_location='Pangasinan'");
+                $pquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Pangasinan' and z.iS_product_id=p.productList_id and z.iS_location='Pangasinan'");
 
             				$Baguioquery = mysqli_query($db, $bquery);
             				$BaguioPrice = mysqli_fetch_array($Baguioquery);
