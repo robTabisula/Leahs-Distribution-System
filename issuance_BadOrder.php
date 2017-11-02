@@ -46,63 +46,71 @@ if(!$_SESSION['username'])  {
             ;});
         }
 
-        var qtyTotal = 0;
-        var priceTotal = 0;
+     var qtyTotal = 0;
+    var priceTotal = 0;
 
-        function updateForm() {
-            var product = document.getElementById("product").value;
+    function updateForm() {
+        var product = document.getElementById("product").value;
 
-            var qty = document.getElementById("quantity").value;
-            qtyTotal = qtyTotal + parseInt(qty);
-            document.getElementById("qtyTotals").innerHTML=qtyTotal;
+        var qty = document.getElementById("quantity").value;
+        qtyTotal = qtyTotal + parseInt(qty);
+        document.getElementById("qtyTotals").innerHTML=qtyTotal;
 
-            var price = document.getElementById("price").value;    
-            priceTotal = priceTotal + parseInt(price);
-            document.getElementById("priceTotals").innerHTML=priceTotal;
+        var price = document.getElementById("price").value;    
+        priceTotal = priceTotal + parseInt(price);
+        document.getElementById("priceTotals").innerHTML=priceTotal;
 
-            var table=document.getElementById("results");
-            var row=table.insertRow(-1);
-            var cell1=row.insertCell(0);
-            var cell2=row.insertCell(1);
-            var cell3=row.insertCell(2);
-            var cell4=row.insertCell(3);
-            var cell5=row.insertCell(4);
+        var table=document.getElementById("results");
+        var row=table.insertRow(-1);
+        var cell1=row.insertCell(0);
+        var cell2=row.insertCell(1);
+        var cell3=row.insertCell(2);
+        var cell4=row.insertCell(3);
+        var cell5=row.insertCell(4);
 
-            addedProduct = document.createElement( 'input' );
-            addedProduct.setAttribute("name", "productList[]");
-            addedProduct.setAttribute("type", "text");
-            addedProduct.setAttribute("value", product);
-            addedProduct.setAttribute("readOnly","true");
-                      
-            addedQuantity = document.createElement( 'input' );
-            addedQuantity.setAttribute("name", "quantity[]");
-            addedQuantity.setAttribute("type", "text");
-            addedQuantity.setAttribute("value", qty);
-            addedQuantity.setAttribute("readOnly","true");
+        addedProduct = document.createElement( 'input' );
+        addedProduct.setAttribute("name", "productList[]");
+        addedProduct.setAttribute("type", "text");
+        addedProduct.setAttribute("value", product);
+        addedProduct.setAttribute("readOnly","true");
+                  
+        addedQuantity = document.createElement( 'input' );
+        addedQuantity.setAttribute("name", "quantity[]");
+        addedQuantity.setAttribute("type", "text");
+        addedQuantity.setAttribute("value", qty);
+        addedQuantity.setAttribute("readOnly","true");
 
-            addedPrc = document.createElement( 'input' );
-            addedPrc.setAttribute("name", "adjusted_price[]");
-            addedPrc.setAttribute("type", "text");
-            addedPrc.setAttribute("value", price); 
-            addedPrc.setAttribute("readOnly","true");  
+        addedPrc = document.createElement( 'input' );
+        addedPrc.setAttribute("name", "adjusted_price[]");
+        addedPrc.setAttribute("type", "text");
+        addedPrc.setAttribute("value", price); 
+        addedPrc.setAttribute("readOnly","true");  
 
-            indvRemark = document.createElement( 'input' );
-            indvRemark.setAttribute("name", "premarks[]");
-            indvRemark.setAttribute("type", "textarea");   
+        indvRemark = document.createElement( 'input' );
+        indvRemark.setAttribute("name", "premarks[]");
+        indvRemark.setAttribute("type", "textarea");   
 
-            deleteButton = document.createElement( 'input' );
-            deleteButton.setAttribute("name", "deleteRow");
-            deleteButton.setAttribute("type", "button");
-            deleteButton.setAttribute("value", "Discard"); 
-           
-             
-            cell1.appendChild(addedProduct);
-            cell2.appendChild(addedQuantity);       
-            cell3.appendChild(addedPrc);  
-            cell4.appendChild(indvRemark);   
-            cell5.appendChild(deleteButton); 
+        deleteButton = document.createElement( 'input' );
+        deleteButton.setAttribute("name", "deleteRow");
+        deleteButton.setAttribute("type", "button");
+        deleteButton.setAttribute("value", "Discard");
+        deleteButton.setAttribute("class","deleteFN");
+        deleteButton.setAttribute("onClick","delRow(this)");
+       
+         
+        cell1.appendChild(addedProduct);
+        cell2.appendChild(addedQuantity);       
+        cell3.appendChild(addedPrc);  
+        cell4.appendChild(indvRemark);   
+        cell5.appendChild(deleteButton); 
 
+    }
+        
+        function delRow(btn) {
+          var row = btn.parentNode.parentNode;
+          row.parentNode.removeChild(row);
         }
+
     </script>
 
 </head>
