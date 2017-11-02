@@ -36,12 +36,13 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-    $(document).ready(function() {
+        $(document).ready(function() {
             $('#datatables').DataTable({
                 responsive: true
             });
         });
     </script>
+    
 </head>
 
 <body>

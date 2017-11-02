@@ -35,14 +35,14 @@ if(!$_SESSION['username'])  {
     <link href="src/css/custom.css" rel="stylesheet">
 
     <!-- Datatables-->
-    <script>
+    <script type="text/javascript">
 
- function viewCategory(prod_id){
-          $("#AdjustedPriceDiv").html('Loading').show();
-          var url="fragments/issuance_fn.php";
-          $.post(url,{prod_id:prod_id},function(data){
-          $("#AdjustedPriceDiv").html(data).show();
-    ;});
+    function viewCategory(prod_id){
+              $("#AdjustedPriceDiv").html('Loading').show();
+              var url="fragments/issuance_fn.php";
+              $.post(url,{prod_id:prod_id},function(data){
+              $("#AdjustedPriceDiv").html(data).show();
+        ;});
     }
 
     var qtyTotal = 0;
@@ -92,7 +92,9 @@ if(!$_SESSION['username'])  {
         deleteButton = document.createElement( 'input' );
         deleteButton.setAttribute("name", "deleteRow");
         deleteButton.setAttribute("type", "button");
-        deleteButton.setAttribute("value", "Discard"); 
+        deleteButton.setAttribute("value", "Discard");
+        deleteButton.setAttribute("class","deleteFN");
+        deleteButton.setAttribute("onClick","delRow(this)");
        
          
         cell1.appendChild(addedProduct);
@@ -102,10 +104,14 @@ if(!$_SESSION['username'])  {
         cell5.appendChild(deleteButton); 
 
     }
+        
+        function delRow(btn) {
+          var row = btn.parentNode.parentNode;
+          row.parentNode.removeChild(row);
+        }
 
 
-
-        function Lclients(location){
+        function Lclients(location) {
            $("#TheClients").html('Loading').show();
               var url="fragments/issuance_clients.php";
               $.post(url,{location:location},function(data){
@@ -122,8 +128,6 @@ if(!$_SESSION['username'])  {
             divC.style.display = 'block';
         }
 
-        $("input.add-row").on("click", clone);
-        $("input.remove").on("click", remove);
 
     </script>
 </head>
