@@ -45,19 +45,13 @@ if(!$_SESSION['username'])  {
         ;});
     }
 
-    var qtyTotal = 0;
-    var priceTotal = 0;
+  
 
     function updateForm() {
         var product = document.getElementById("product").value;
-
         var qty = document.getElementById("quantity").value;
-        qtyTotal = qtyTotal + parseInt(qty);
-        document.getElementById("qtyTotals").innerHTML=qtyTotal;
-
         var price = document.getElementById("price").value;    
-        priceTotal = priceTotal + parseInt(price);
-        document.getElementById("priceTotals").innerHTML=priceTotal;
+
 
         var table=document.getElementById("results");
         var row=table.insertRow(-1);
@@ -265,13 +259,6 @@ if(!$_SESSION['username'])  {
                                     </thead>
                                 </table>
                                 
-                                <table id="resultTotals" width="360">
-                                <tr>
-                                    <td scope="col" width="120">Totals</td>
-                                    <td scope="col" width="120"><div id="qtyTotals"></div></td>
-                                    <td scope="col" width="120"><div id="priceTotals"></div></td>
-                                </tr>
-                                </table>
                                 <hr style = "border-top: 3px double #8c8b8b;">
                                 <br>
                          
@@ -427,13 +414,7 @@ if(!$_SESSION['username'])  {
                                 </thead>
                             </table>
                             
-                            <table id="resultTotals" width="360">
-                            <tr>
-                                <td scope="col" width="120">Totals</td>
-                                <td scope="col" width="120"><div id="qtyTotals"></div></td>
-                                <td scope="col" width="120"><div id="priceTotals"></div></td>
-                            </tr>
-                            </table>
+        
                             <hr style = "border-top: 3px double #8c8b8b;">
                             <br>
                      
@@ -573,13 +554,7 @@ if(!$_SESSION['username'])  {
                                 </thead>
                             </table>
                             
-                            <table id="resultTotals" width="360">
-                            <tr>
-                                <td scope="col" width="120">Totals</td>
-                                <td scope="col" width="120"><div id="qtyTotals"></div></td>
-                                <td scope="col" width="120"><div id="priceTotals"></div></td>
-                            </tr>
-                            </table>
+    
                             <hr style = "border-top: 3px double #8c8b8b;">
                             <br>
                      
@@ -724,13 +699,7 @@ if(!$_SESSION['username'])  {
                                 </thead>
                             </table>
                             
-                            <table id="resultTotals" width="360">
-                            <tr>
-                                <td scope="col" width="120">Totals</td>
-                                <td scope="col" width="120"><div id="qtyTotals"></div></td>
-                                <td scope="col" width="120"><div id="priceTotals"></div></td>
-                            </tr>
-                            </table>
+
                             <hr style = "border-top: 3px double #8c8b8b;">
                             <br>
                      

@@ -46,27 +46,18 @@ if(!$_SESSION['username'])  {
             ;});
         }
 
-     var qtyTotal = 0;
-    var priceTotal = 0;
 
     function updateForm() {
         var product = document.getElementById("product").value;
-
         var qty = document.getElementById("quantity").value;
-        qtyTotal = qtyTotal + parseInt(qty);
-        document.getElementById("qtyTotals").innerHTML=qtyTotal;
-
-        var price = document.getElementById("price").value;    
-        priceTotal = priceTotal + parseInt(price);
-        document.getElementById("priceTotals").innerHTML=priceTotal;
-
+  
         var table=document.getElementById("results");
         var row=table.insertRow(-1);
         var cell1=row.insertCell(0);
         var cell2=row.insertCell(1);
         var cell3=row.insertCell(2);
         var cell4=row.insertCell(3);
-        var cell5=row.insertCell(4);
+        
 
         addedProduct = document.createElement( 'input' );
         addedProduct.setAttribute("name", "productList[]");
@@ -79,12 +70,6 @@ if(!$_SESSION['username'])  {
         addedQuantity.setAttribute("type", "text");
         addedQuantity.setAttribute("value", qty);
         addedQuantity.setAttribute("readOnly","true");
-
-        addedPrc = document.createElement( 'input' );
-        addedPrc.setAttribute("name", "adjusted_price[]");
-        addedPrc.setAttribute("type", "text");
-        addedPrc.setAttribute("value", price); 
-        addedPrc.setAttribute("readOnly","true");  
 
         indvRemark = document.createElement( 'input' );
         indvRemark.setAttribute("name", "premarks[]");
@@ -99,10 +84,9 @@ if(!$_SESSION['username'])  {
        
          
         cell1.appendChild(addedProduct);
-        cell2.appendChild(addedQuantity);       
-        cell3.appendChild(addedPrc);  
-        cell4.appendChild(indvRemark);   
-        cell5.appendChild(deleteButton); 
+        cell2.appendChild(addedQuantity);        
+        cell3.appendChild(indvRemark);   
+        cell4.appendChild(deleteButton); 
 
     }
         
@@ -298,14 +282,7 @@ if(!$_SESSION['username'])  {
                                                 <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <label for="price">Price:</label>
-                                            </td>
-                                            <td>
-                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
-                                            </td>
-                                        </tr>
+                        
                                     </table>
                                     
                                     <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
@@ -319,20 +296,13 @@ if(!$_SESSION['username'])  {
                                     <tr>
                                         <th scope="col" width="120">Products</th>
                                         <th scope="col" width="120">Quantity</th>
-                                        <th scope="col" width="120">Price</th>
+                                        
                                         <th scope="col" width="120">Remarks</th>
                                         <th scope="col" width="120">Action</th>
                                     </tr>
                                     </thead>
                                 </table>
                                 
-                                <table id="resultTotals" width="360">
-                                <tr>
-                                    <td scope="col" width="120">Totals</td>
-                                    <td scope="col" width="120"><div id="qtyTotals"></div></td>
-                                    <td scope="col" width="120"><div id="priceTotals"></div></td>
-                                </tr>
-                                </table>
                                 <hr style = "border-top: 3px double #8c8b8b;">
                                 <br>
                          
