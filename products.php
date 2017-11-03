@@ -237,8 +237,8 @@ if(!$_SESSION['username'])  {
                                                             $retrieveCat = ("SELECT * FROM category_list");
                                                             $categoryResult = mysqli_query($db, $retrieveCat);
                                                             ?>
-
-                                                            <select name="ProductCategory">
+															<div class="col-xs-4">
+                                                            <select name="ProductCategory" class="form-control">
                                                                 <?php                                
                                                                 while($datas=mysqli_fetch_array($categoryResult)){
                                                                   $toData = $datas["category_id"];
@@ -248,19 +248,10 @@ if(!$_SESSION['username'])  {
                                                                 }
                                                                 ?>
                                                             </select>
+															</div><br><br>
                                                             
-                                                                <div class="row">
-                                                                    <div class="col-xs-6"><label>Baguio Status</label></div>
-                                                                    
-                                                                    <div class="col-xs-6"><label>Pangasinan Status</label></div>
-                                                                   
-                                                                </div>
-                                                                
-                                                                 <div class="row">
-                                                                    
-                                                             
-                                                                    <div class="col-xs-6">
-
+                                                            <div class="row">
+                                                             <div class="col-xs-6"><label>Baguio Status</label>
                                                                          <select name="bstatus" class="form-control">
                                                                         <option value="<?php echo $row['status'];?>"><?php 
                                                                                 $bstat=$row['status'];
@@ -273,26 +264,23 @@ if(!$_SESSION['username'])  {
                                                                               }
                                                                             ?>                                                                       
                                                                         </select>
-
                                                                     </div>
-
-                                                                   <div class="col-xs-6">
-
+															
+																	<div class="col-xs-6"><label>Pangasinan Status</label>
                                                                          <select name="pstatus" class="form-control">
-                                                                        <option value="<?php echo $rowp['status'];?>"><?php 
-                                                                                $pstat=$rowp['status'];
-                                                                                echo $pstat;
-                                                                            ?></option>
-                                                                            <?php if ($pstat=="Enabled"){
-                                                                                echo "<option value='Disabled'>Disabled</option>" ;
-                                                                            }else{
-                                                                                echo "<option value='Enabled'>Enabled</option>" ;
-                                                                              }
-                                                                            ?>                                                                       
+																			<option value="<?php echo $rowp['status'];?>"><?php 
+																					$pstat=$rowp['status'];
+																					echo $pstat;
+																				?></option>
+																				<?php if ($pstat=="Enabled"){
+																					echo "<option value='Disabled'>Disabled</option>" ;
+																				}else{
+																					echo "<option value='Enabled'>Enabled</option>" ;
+																				  }
+																				?>                                                                       
                                                                         </select>
-
                                                                     </div>
-                                                                </div>
+                                                            </div>
 
                                                                 <div class="row">
                                                                     <div class="col-xs-6"><label>Baguio Alternate Price</label>
@@ -356,8 +344,8 @@ if(!$_SESSION['username'])  {
                                          category_status FROM category_list");
                                         $categoryResult = mysqli_query($db, $retrieveCat);
                                     ?>
-
-                                        <select name="ProductCategory">
+										
+                                        <select name="ProductCategory" class="form-control">
                                                 <?php
                                                     foreach ($categoryResult as $data):
                                                         $toData = $data["category_id"];
@@ -382,10 +370,11 @@ if(!$_SESSION['username'])  {
 
 
                                         <h3>Status</h3>
-                                        <select name="status">
+                                        <select name="status" class="form-control">
+										<option></option>
                                         <option value="Disabled">Disabled</option>
                                         <option value="Enabled">Enabled</option>
-                                     </select>
+										</select>
 
 
                                         <div class="modal-footer">

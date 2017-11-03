@@ -313,13 +313,15 @@ if(!$_SESSION['username'])  {
 
                                         <h3>Contact Person</h3>
                                         <input type="text" class="form-control" maxlength="50" name="contact_name" required>
-										
-										<h3>Location</h3>
-										<select name="c_location" required>
-										  <option value="">Select...</option>
-										  <option value="Baguio">Baguio</option>
-										  <option value="Pangasinan">Pangasinan</option>
-										</select>
+
+										<h3>Branch</h3>
+										<div class="col-xs-4">
+											<select name="c_location" class="form-control" required>
+												<option></option>
+												<option>Baguio</option>
+												<option>Pangasinan</option>
+											</select>
+										</div><br><br>
 										
                                         <div class="modal-footer">
                                             <input name="add_client" type="submit" class="btn btn-default" value=" Submit " />

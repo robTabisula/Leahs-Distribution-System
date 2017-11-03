@@ -64,15 +64,30 @@ session_start();
 	<?php
 			include('fragments/config.php');
 			if (isset($_POST['login'])){
+				//$acc_id = $_POST['acc_id'];
 				$username = $_POST['username'];
 				$password = hash("sha512",$_POST['password']);
+				$date_time = date("Y-m-d H:i:s");
+				
 
 				$query ="select * FROM accounts WHERE username = '$username' AND password='$password' AND status = 'enabled'";
 				$results = mysqli_query($db, $query);
 
 				if(mysqli_num_rows($results)>0){
-					header("location: index.php");
-					$_SESSION['username']=$username;
+					$get_id="select acc_id from accounts WHERE username='$username'";
+						$run=mysqli_query($db,$get_id);
+						$row = mysqli_fetch_array($run);
+						$id=$row[0];
+						
+					$query2 = "INSERT INTO logs (acc_id,act,date_time,remarks) 
+						   VALUE ('$id','login','$date_time','has successfully login')";
+						   
+						if(mysqli_query($db,$query2)){
+							header("location: index.php");
+							$_SESSION['username']=$username;
+						}else{
+						echo ("ERROR: Could not able to execute" . mysqli_error($db));
+					}
 				}
 				else {
 					echo"<script>alert('Invalid User Credentials..!')</script>";

@@ -164,7 +164,7 @@ if(!$_SESSION['username'])  {
         <div class="containers">
 
    
-                <h3><center>Your Account</center></h3>
+                <h3><center>Profile</center></h3>
                 <?php 
                     include('fragments/config.php'); 
                         $username=$_SESSION['username'];
@@ -214,11 +214,15 @@ if(!$_SESSION['username'])  {
                     <center><h4>Security Key</h4></center>
                     <input name="secKey" id="key" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="ASDRF" readonly/>
                 </div>
-                <div class="col-lg-4">
-                    <hr><br>
-                     <input name="branch" id="edit" type="button" style="background-color: #90EE90;" class="btn-lg" onclick="edit();" class="form-control" value="Edit"/>
-                </div>
-
+				
+				<div class="col-xs-12">
+					<br>
+						<div class="modal-footer">
+						<input name="branch" id="edit" type="button" style="background-color: #90EE90;" class="btn btn-success" onclick="edit();" class="fa fa-save" value="Edit"/>
+							<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Discard</button>
+						</div>
+				</div>
             
         </div>
     </div>

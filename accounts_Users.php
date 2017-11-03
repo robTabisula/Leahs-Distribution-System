@@ -437,23 +437,24 @@ if(!$_SESSION['username'])  {
                                     <input type="text" class="form-control" maxlength="25" name="contact_no" onkeypress="return isNumber(event)" required>
 									
 									<h3>Branch</h3>
-                                    <select name="branch" required>
-										<option><?php echo $row['branch']; ?></option>
-										  <option value="">Select...</option>
-										  <option value="Baguio">Baguio</option>
-										  <option value="Pangasinan">Pangasinan</option>
-									</select>
+                                    <div class="col-xs-4">
+										<select name="branch" class="form-control">
+											<option></option>
+											<option>Baguio</option>
+											<option>Pangasinan</option>
+										</select>
+									</div><br>
 									
 									<h3>Account Type</h3>
                                     <div class="col-xs-4">
 										<select name="acctype" class="form-control">
-											<option><?php echo $row['acctype']; ?></option>
+											<option></option>
 											<option>User</option>
 											<option>Admin</option>
 											<option>Secretary</option>
 											<option>Bookkeeper</option>
 										</select>
-									</div>
+									</div><br><br>
 
                                     <div class="modal-footer">
                                         <input name="add_user" id="enter" disabled="true" type="submit" class="btn btn-default" value="Submit"/>

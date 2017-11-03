@@ -288,41 +288,6 @@ if(!$_SESSION['username'])  {
                         </div>
                     </div>
                 </div>
-                <div class="items col-xs-12 col-sm-12 col-md-6 col-lg-6 clearfix">
-                    <div class="info-block block-info clearfix">
-                        <div class="square-box pull-left">
-                            <span class="fa fa-user"></span>
-                        </div>
-                        <h5 class="text-success">Company Name</h5>
-                        <h4>Name: <b>Full name</b></h4>
-                        <p>Title: Manager</p>
-                        <span>Email: sample@company.com</span>
-                    </div>
-                </div>
-                <div class="items col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <div class="info-block block-info clearfix">
-                        <div class="square-box pull-left">
-                            <span class="fa fa-user"></span>
-                        </div>
-                        <h5 class="text-success">Company Name</h5>
-                        <h4>Name: <b>Full name</b></h4>
-                        <p>Title: Manager</p>
-                        <span>Email: sample@company.com</span>
-                    </div>
-                </div>
-                <div class="items col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                    <div class="info-block block-info clearfix">
-                        <div class="square-box pull-left">
-                            <span class="fa fa-user"></span>
-                        </div>
-                        <h5 class="text-success">Company Name</h5>
-                        <h4>Name: <b>Full name</b></h4>
-                        <p>Title: Manager</p>
-                        <span>Email: sample@company.com</span>
-                    </div>
-                </div>
-                <!-- /.table-responsive -->
-
             </div>
             <!-- /.panel-body -->
         </div>
