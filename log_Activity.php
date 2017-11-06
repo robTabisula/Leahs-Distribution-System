@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Accounts</title>
+    <title>Activity Logs</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -148,7 +148,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM logs INNER JOIN accounts ON logs.acc_id = accounts.acc_id");
+							$retrieve = ("SELECT * FROM logs INNER JOIN accounts ON logs.acc_id = accounts.acc_id ORDER BY date_time desc");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -156,8 +156,9 @@ if(!$_SESSION['username'])  {
                 <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th>Account Name</th>
+                            <th>Activity</th>
 							<th>date_time</th>
+							<th>Position</th>
                         </tr>
                     </thead>
 
@@ -171,8 +172,11 @@ if(!$_SESSION['username'])  {
                                 <td data-title="name">
 									<?php echo $data["first_name"]." ".$data["last_name"]." ".$data["remarks"];  ?>
                                 </td>
-                                <td data-title="cno">
+                                <td data-title="date_time">
                                     <?php echo $data["date_time"]; ?>
+                                </td>
+								<td data-title="cno">
+                                    <?php echo $data["acctype"]; ?>
                                 </td>
                             </tr>
                             <?php

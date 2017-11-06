@@ -18,11 +18,14 @@
         	if (isset($_POST["add_issuance"])) {
 				$choice = $_POST['choice'];//type of issuance, use if statements for this for other types
 				$issue_id = $_POST['issue_id'];//new issuance id +1
-        session_start();
-        $clientlist=$_SESSION['CCC'];//list of clients (id)
-        $Pcleint = $_POST['Pcleint'];//client name
+				
+				session_start();
+				$clientlist=$_SESSION['CCC'];//list of clients (id)
+				
+				$Pcleint = $_POST['Pcleint'];//client name
 				$remarks = $_POST['remarks'];//remarks for issuance
-				$date = $_POST['date'];//system date
+				date_default_timezone_set('Asia/Manila');
+				$issue_date_time = date("F j, Y, g:i a");
 				$branch = $_POST['branch'];//baguio or pangasinan
 				$productList = $_POST['productList'];//array for product id
 				$adjustedprice = $_POST['adjusted_price'];//array for new price
@@ -30,49 +33,47 @@
 				$p_remarks = $_POST['premarks'];//array for remarks
             
         //query for issuance table
-              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_account, remarks,penthouse_clients) 
-                             VALUE ('$issue_id','$date','$choice','$remarks','$Pcleint')";
-              $runit = mysqli_query($db, $queryit);
+              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks,penthouse_clients) 
+                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$Pcleint')";
+				   if(mysqli_query($db, $queryit)){
+				    $get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
+      				$run=mysqli_query($db,$get_id);
+  				    $row = mysqli_fetch_array($run);
+					$id=$row[0];
+					//query for issuance list table
+					
+					
+					   $mi = new MultipleIterator();
+					   $mi->attachIterator(new ArrayIterator($productList));
+					   $mi->attachIterator(new ArrayIterator($adjustedprice));
+					   $mi->attachIterator(new ArrayIterator($quantity));
+					   $mi->attachIterator(new ArrayIterator($p_remarks));
 
-       //query for issuance list table
-               $mi = new MultipleIterator();
-               $mi->attachIterator(new ArrayIterator($productList));
-               $mi->attachIterator(new ArrayIterator($adjustedprice));
-               $mi->attachIterator(new ArrayIterator($quantity));
-               $mi->attachIterator(new ArrayIterator($p_remarks));
-
-			   foreach ( $mi as $value ){
-				  list($product, $adjprice, $qty, $p_remark) = $value;
-      //read inventory per product chosen
-              $pinq="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='$branch'";
-              $pinqactivate=mysqli_query($db, $pinq);
-              $product_inventory=mysqli_fetch_array($pinqactivate);
-                $product_quantity=$product_inventory['iS_quantity'];
-      //reduce quantity in inventory
-                $newQ=$product_quantity-$qty;
-              $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$product' and inventory.iS_location = '$branch'";
-              $update=mysqli_query($db,$insertnew);
-     
-      //query for issuance list
+					   foreach ( $mi as $value ){
+						  list($product, $adjprice, $qty, $p_remarks) = $value;
+							//read inventory per product chosen
+						  $pinq="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='$branch'";
+						  $pinqactivate=mysqli_query($db, $pinq);
+						  $product_inventory=mysqli_fetch_array($pinqactivate);
+							$product_quantity=$product_inventory['iS_quantity'];
+							//reduce quantity in inventory
+							$newQ=$product_quantity-$qty;
+						  $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$product' and inventory.iS_location = '$branch'";
+						  $update=mysqli_query($db,$insertnew);
+					   
+				//query for issuance list
 					     $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, remarks) 
-								   VALUE ('$issue_id','$qty','$adjprice','$branch','$product','$p_remark')";
-					     $runil = mysqli_query($db, $queryil);    
+								   VALUE ('$id','$qty','$adjprice','$branch','$product','$p_remarks')";
+					     if(mysqli_query($db, $queryil)){
+							echo"<script>alert('Successfuly Added Products')</script>";
+							echo "<script>window.open('../issuance.php','_self')</script>"; 
+							}else{
+								echo ("ERROR: Could not able to execute" . mysqli_error($db));
+							}
+					   }
 			   }
-        
-				echo"<script>alert('Successfuly Added Products')</script>";
-				echo "<script>window.open('../issuance.php','_self')</script>"; 
 
-
-			/*    
-			if(mysqli_query($db, $query)){
-				
-					if(mysqli_query($db, $query2)){
-						echo"<script>alert('Successfuly Added Products')</script>";
-						echo "<script>window.open('../products.php','_self')</script>";  
-						} else{
-							echo ("ERROR: Could not able to execute" . mysqli_error($db));
-						}	
-			}*/
+			   
 			}else{
         	//this is to view the adjusted price
 					$selectedproductID = $_POST['prod_id'];

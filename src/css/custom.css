@@ -5,6 +5,16 @@
     width: 79%;
     padding-right: 5%;
 }
+.issue{
+	margin:0px;
+	border: solid black;
+	max-width:100%;
+	padding:0px;
+}
+.client .area{
+	    padding: 0px;
+    margin: 0px;
+}
 
 @media (max-width: 1600px) {
     .containers {

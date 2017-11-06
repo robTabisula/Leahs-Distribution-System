@@ -67,7 +67,8 @@ session_start();
 				//$acc_id = $_POST['acc_id'];
 				$username = $_POST['username'];
 				$password = hash("sha512",$_POST['password']);
-				$date_time = date("Y-m-d H:i:s");
+				date_default_timezone_set('Asia/Manila');
+				$date_time = date("F j, Y, g:i a");
 				
 
 				$query ="select * FROM accounts WHERE username = '$username' AND password='$password' AND status = 'enabled'";
@@ -79,7 +80,7 @@ session_start();
 						$row = mysqli_fetch_array($run);
 						$id=$row[0];
 						
-					$query2 = "INSERT INTO logs (acc_id,act,date_time,remarks) 
+					$query2 = "INSERT INTO logs (acc_id,act_type,date_time,remarks) 
 						   VALUE ('$id','login','$date_time','has successfully login')";
 						   
 						if(mysqli_query($db,$query2)){

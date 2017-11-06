@@ -18,7 +18,7 @@
     ;});
     }
 </script>
-
+								<div class="col-xs-4">
                                 <h4>Clients</h4>
                                     <?php
                                         include('config.php');
@@ -45,3 +45,4 @@
                                             endforeach;
                                         ?>
                                     </select>
+								</div>
