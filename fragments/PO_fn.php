@@ -74,36 +74,26 @@
 			}*/
 			}else{
         	//this is to view the adjusted price
-					$selectedproductID = $_POST['prod_id'];
-					$pquery = ("Select * From product_list p inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID'");
-            			 $pqueryactivate = mysqli_query($db, $pquery);
-            			 $selectedProduct = mysqli_fetch_array($pqueryactivate);
-      				//to view price per location
-      				//baguio
-                $bquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Baguio' and z.iS_product_id=p.productList_id and z.iS_location='Baguio'");
-              //pangasinan
-                $pquery = ("Select * From product_list p inner join inventory z inner join category_list c inner join product_loc l on p.category_id = c.category_id and l.product_id = p.productList_id where p.productList_id = '$selectedproductID' and l.location='Pangasinan' and z.iS_product_id=p.productList_id and z.iS_location='Pangasinan'");
+					$selectedproductName = $_POST['prod_id'];
+          echo "<b>Product: $selectedproductName</b>";
+          $IsID = $_GET['issuanceID'];
+           // $pquery = ("SELECT productList_name FROM product_list WHERE productList_id = '$selectedproductID'");
+		
+            			//$pqueryactivate = mysqli_query($db, $pquery);
+            			// $selectedProduct = mysqli_fetch_array($pqueryactivate);
+      				
+  
 
-            				$Baguioquery = mysqli_query($db, $bquery);
-            				$BaguioPrice = mysqli_fetch_array($Baguioquery);
-
-            				$Pangasinanquery = mysqli_query($db, $pquery);
-            				$PangasinanPrice = mysqli_fetch_array($Pangasinanquery);
-
-                  echo "<b>Product: </b>".$BaguioPrice['productList_name'];
-                  echo "<br><input type='text' readonly value='Baguio Price: ".$BaguioPrice['altprice']."'></input>";
-                  echo "&nbsp;<input type='text' readonly value='Pangasinan Price: ".$PangasinanPrice['altprice']."'></input>";
-                
-
-      				if(mysqli_num_rows($pqueryactivate)>=1){	
-                  echo "&nbsp;<input type='text' size='35' readonly value='Category: ".$selectedProduct['category_name']."'></input>";
-                  echo "<hr>";
-                  echo "&nbsp;<input type='text' size='35' readonly value='Quantity Left in Baguio: ".$BaguioPrice['iS_quantity']."'></input>";
-                  echo "&nbsp;<input type='text' size='35' readonly value='Quantity Left in Pangasinan: ".$PangasinanPrice['iS_quantity']."'></input>";
-      				}else{
-      				    echo " &nbsp; Information in the Database is incomplete.";
-                  echo "<hr>";
-      				}
+                  
+  
+      				//if(mysqli_num_rows($pqueryactivate)>=1){	
+                  //echo "&nbsp;<input type='text' size='35' readonly value='Category: ".$selectedProduct['category_name']."'></input>";
+                 // echo "<hr>";
+                  //echo "&nbsp;<input type='text' size='35' readonly value='Quantity Issued: ".$BaguioPrice['iS_quantity']."'></input>";
+      				//}else{
+      				//    echo " &nbsp; Information in the Database is incomplete.";
+              //    echo "<hr>";
+      				//}
         	}
        			?>
   </body>

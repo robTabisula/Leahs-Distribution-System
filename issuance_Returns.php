@@ -38,13 +38,20 @@ if(!$_SESSION['username'])  {
     <!-- Datatables-->
     <script>
 
-        function viewCategory(prod_id){
+        function passValues(prod_id){
             $("#AdjustedPriceDiv").html('Loading').show();
-            var url="fragments/issuance_fn.php";
+            var url="fragments/PO_fn.php";
+            
             $.post(url,{prod_id:prod_id},function(data){
             $("#AdjustedPriceDiv").html(data).show();
             ;});
         }
+
+        function IssuanceIDPass() { 
+          var issuanceID = <?php  echo $_GET['IsID']; ?>;
+          window.location.href = "fragments/PO_fn.php" + issuanceID;
+        }
+
 
   function updateForm() {
         var product = document.getElementById("product").value;
@@ -231,13 +238,13 @@ if(!$_SESSION['username'])  {
                                 </div>
                                     <div id = "next">
                                     
-                                    </div>
                                     <?php 
                                         $getIsID = $_GET['IsID'];
                                         $getBranch = $_GET['Branch'];
 
                                         $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch'";
                                         $run = mysqli_query($db, $queryProducts);
+
                                     ?>
                               <!--********************************************************************************** -->
                             
@@ -253,12 +260,13 @@ if(!$_SESSION['username'])  {
                                 
                                     <table class="table table-striped table-bordered">
                                         <tr>
+
                                             <td>
                                                 <label for="product">Product:</label>
                                             </td>
                                             <td>
 
-                                                <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
+                                                <select id="product" name="product" id="productselect" onchange ="javascript:passValues(this.value);">
                                                     <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                             <?php
                                                                 foreach ($run as $datas):
@@ -275,6 +283,10 @@ if(!$_SESSION['username'])  {
                                                 </select> 
                                             </td>
                                         </tr>
+                                  
+                                            <input type='hidden' name="branch" readonly value='<?php  echo $getBranch = $_GET['Branch']; ?>' onchange ="javascript:passBranch(this.value);"/>
+
+                                        
                                         <tr>
                                             <td>
                                                 <label for="quantity">Quantity:</label>
