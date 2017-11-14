@@ -23,6 +23,7 @@
 				$clientlist=$_SESSION['CCC'];//list of clients (id)
 				
 				$remarks = $_POST['remarks'];//remarks for issuance
+				$issueAcnt = $_POST['issueAct'];//issuer
 				date_default_timezone_set('Asia/Manila');
 				$issue_date_time = date("F j, Y, g:i a");
 				$branch = $_POST['branch'];//baguio or pangasinan
@@ -32,8 +33,8 @@
 				$p_remarks = $_POST['premarks'];//array for remarks
             
         //query for issuance table
-              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks, client_id) 
-                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$clientlist')";
+              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks, client_id, issue_account) 
+                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$clientlist','$issueAcnt')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
       				$run=mysqli_query($db,$get_id);
@@ -46,31 +47,82 @@
 				   $mi->attachIterator(new ArrayIterator($adjustedprice));
 				   $mi->attachIterator(new ArrayIterator($quantity));
 				   $mi->attachIterator(new ArrayIterator($p_remarks));
-
+				   	
+				   	if($branch == "Baguio"){
 					   foreach ( $mi as $value ){
 							list($product, $adjprice, $qty, $p_remarks) = $value;
 							//read inventory per product chosen
-							$pinq="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='$branch'";
+							$pinq = "SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='Baguio'";
 							$pinqactivate=mysqli_query($db, $pinq);
+
 							$product_inventory=mysqli_fetch_array($pinqactivate);
 							$product_quantity=$product_inventory['iS_quantity'];
 							//reduce quantity in inventory
-							$newQ=$product_quantity-$qty;
-                           
-							$insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$product' and inventory.iS_location = '$branch'";
-							$update=mysqli_query($db,$insertnew);
+							$minusProd = $product_quantity-$qty;                        
+							$minus = "UPDATE inventory set iS_quantity='$minusProd' where inventory.iS_product_id = '$product' and inventory.iS_location = 'Baguio'";
+							$update = mysqli_query($db,$minus);
+
+
+							$pinqSecond="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='Pangasinan'";
+							$pinqactivateSecond = mysqli_query($db, $pinqSecond);
+							//add quantity in inventory
+							$product_inventorySecond = mysqli_fetch_array($pinqactivateSecond);
+							$product_quantitySecond = $product_inventorySecond['iS_quantity'];
+
+							$AddProd = $product_quantitySecond + $qty;
+							$add ="UPDATE inventory set iS_quantity='$AddProd' where inventory.iS_product_id = '$product' and inventory.iS_location = 'Pangasinan";
+							$updateSecond=mysqli_query($db,$add);
 					   
 							//query for issuance list
 									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, remarks) 
 											   VALUE ('$id','$qty','$adjprice','$branch','$product','$p_remarks')";
 									if(mysqli_query($db, $queryil)){
-										echo"<script>alert('Successfuly Added Products')</script>";
+										echo"<script>alert('Successfuly Issued Products')</script>";
 										echo "<script>window.open('../issuance.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));
 									}
 					   
                        }
+                   }else{
+
+	                   	foreach ( $mi as $value ){
+							list($product, $adjprice, $qty, $p_remarks) = $value;
+							//read inventory per product chosen
+							$pinq = "SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='Pangasinan'";
+							$pinqactivate=mysqli_query($db, $pinq);
+
+							$product_inventory=mysqli_fetch_array($pinqactivate);
+							$product_quantity=$product_inventory['iS_quantity'];
+							//reduce quantity in inventory
+							$minusProd = $product_quantity-$qty;                        
+							$minus = "UPDATE inventory set iS_quantity='$minusProd' where inventory.iS_product_id = '$product' and inventory.iS_location = 'Pangasinan'";
+							$update = mysqli_query($db,$minus);
+
+
+							$pinqSecond="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='Baguio'";
+							$pinqactivateSecond = mysqli_query($db, $pinqSecond);
+							//add quantity in inventory
+							$product_inventorySecond = mysqli_fetch_array($pinqactivateSecond);
+							$product_quantitySecond = $product_inventorySecond['iS_quantity'];
+
+							$AddProd = $product_quantitySecond + $qty;
+							$add ="UPDATE inventory set iS_quantity='$AddProd' where inventory.iS_product_id = '$product' and inventory.iS_location = 'Baguio";
+							$updateSecond=mysqli_query($db,$add);
+					   
+							//query for issuance list
+									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, remarks) 
+											   VALUE ('$id','$qty','$adjprice','$branch','$product','$p_remarks')";
+									if(mysqli_query($db, $queryil)){
+										echo"<script>alert('Successfuly Issued Products')</script>";
+										echo "<script>window.open('../issuance.php','_self')</script>"; 
+									}else{
+										echo ("ERROR: Could not able to execute" . mysqli_error($db));
+									}
+					   
+                       }
+                   }
+                   
 			  }else{
 				    echo ("ERROR: Could not able to execute" . mysqli_error($db));
                     }

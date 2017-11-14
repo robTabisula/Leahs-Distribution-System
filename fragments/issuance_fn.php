@@ -23,6 +23,7 @@
 				$clientlist=$_SESSION['CCC'];//list of clients (id)
 				
 				$remarks = $_POST['remarks'];//remarks for issuance
+				$issueAcnt = $_POST['issueAct'];//issuer
 				date_default_timezone_set('Asia/Manila');
 				$issue_date_time = date("F j, Y, g:i a");
 				$branch = $_POST['branch'];//baguio or pangasinan
@@ -32,8 +33,8 @@
 				$p_remarks = $_POST['premarks'];//array for remarks
             
         //query for issuance table
-              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks, client_id) 
-                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$clientlist')";
+              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks, client_id, issue_account) 
+                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$clientlist','$issueAcnt')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
       				$run=mysqli_query($db,$get_id);

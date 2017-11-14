@@ -147,6 +147,7 @@ if(!$_SESSION['username'])  {
                         <fieldset>  
 							<div class="issue">
 								<div class="col-xs-4">
+                                    <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
 									<h4>Issuance ID</h4>
 											<?php
 												$retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
@@ -286,6 +287,7 @@ if(!$_SESSION['username'])  {
                         <fieldset>  
 							<div class="issue">
 								<div class="col-xs-4">
+                                    <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
 									<h4>Issuance ID</h4>
 											<?php
 												$retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
@@ -432,11 +434,10 @@ if(!$_SESSION['username'])  {
 }else if ($choice=='4'){
     //stock trasfer
 ?>
-
         <div class="panel-body">                        
                     <form role="form" method="post" action="fragments/stock_transfer.php">  
                         <fieldset>  
-
+                            <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
                             <h4>Issuance ID</h4>
                                     <?php
                                         $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
@@ -450,9 +451,9 @@ if(!$_SESSION['username'])  {
                             
 
                               <br>
-
+                            <label>Transfer From:</label>
                             <select name="branch" required>
-                                    <option value="" selected="true" disabled="disabled">Transfer To:</option>
+                                    <option value="" selected="true" disabled="disabled">Transfer From:</option>
                                     <option value="Baguio">Baguio</option>
                                     <option value="Pangasinan">Pangasinan</option>
                             </select>
@@ -563,11 +564,10 @@ if(!$_SESSION['username'])  {
 } else if ($choice=='3'){
     //others
 ?>
-
         <div class="panel-body">                        
                     <form role="form" method="post" action="fragments/issuance_fn_others.php">  
                         <fieldset>  
-
+                            <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
                             <h4>Issuance ID</h4>
                                     <?php
                                         $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");

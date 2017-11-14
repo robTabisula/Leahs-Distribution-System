@@ -162,6 +162,7 @@ if(!$_SESSION['username'])  {
                             <th>Issuance ID</th>
                             <th>Date/Time</th>
                             <th>Products Issued</th>
+                            <th>Issuer</th>
                             <th>Client</th>
                             <th>Branch</th>
                             <th>Remarks</th>
@@ -189,6 +190,12 @@ if(!$_SESSION['username'])  {
                                         <table class="table table-striped table-bordered">
                                             <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
                                         </table>
+                                </td>
+                                <td  data-title="Issuer">
+                                    <?php
+                                        $passBranch = $data["issue_account"];  
+                                        echo $passBranch; 
+                                    ?>
                                 </td>
                                 <td data-title="Client">
                                     <?php echo $data["c_name"]; ?>
