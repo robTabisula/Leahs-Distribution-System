@@ -71,7 +71,9 @@
 								echo ("ERROR: Could not able to execute" . mysqli_error($db));
 							}
 					   }
-			   }
+			   }else{
+				    echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                    }
 
 			   
 			}else{

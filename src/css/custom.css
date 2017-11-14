@@ -6,10 +6,10 @@
     padding-right: 5%;
 }
 .issue{
-	margin:0px;
+	margin:2px;
 	border: solid black;
 	max-width:100%;
-	padding:0px;
+	padding:10px;
 }
 .client .area{
 	    padding: 0px;

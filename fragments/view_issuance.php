@@ -329,9 +329,9 @@ if(!$_SESSION['username'])  {
 								<div class="col-xs-4">
 									<h4>Remarks</h4>
 									<textarea rows="2" cols="20" name="remarks" ></textarea>
-								</div>
+								</div><br><br><br>
 							</div>
-                            
+                            <br><br><br><br><br><br>
                             <div class="form-group">                            
                                     <?php
                                         $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
@@ -434,7 +434,7 @@ if(!$_SESSION['username'])  {
 ?>
 
         <div class="panel-body">                        
-                    <form role="form" method="post" action="fragments/issuance_fn.php">  
+                    <form role="form" method="post" action="fragments/stock_transfer.php">  
                         <fieldset>  
 
                             <h4>Issuance ID</h4>

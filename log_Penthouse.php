@@ -151,7 +151,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM issuance INNER JOIN clients ON issuance.client_id = clients.c_id");
+                            $retrieve = ("SELECT * FROM issuance INNER JOIN accounts ON issuance.penthouse_clients = accounts.acc_id");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -191,11 +191,11 @@ if(!$_SESSION['username'])  {
                                         </table>
                                 </td>
                                 <td data-title="Client">
-                                    <?php echo $data["c_name"]; ?>
+                                    <?php echo $data["first_name"]; ?>
                                 </td>
                                 <td data-title="Branch">
                                     <?php
-                                        $passBranch = $data["c_location"];  
+                                        $passBranch = $data["branch"];  
                                         echo $passBranch; 
                                     ?>
                                 </td>

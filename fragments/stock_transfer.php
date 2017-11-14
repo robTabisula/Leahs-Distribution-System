@@ -56,6 +56,7 @@
 							$product_quantity=$product_inventory['iS_quantity'];
 							//reduce quantity in inventory
 							$newQ=$product_quantity-$qty;
+                           
 							$insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$product' and inventory.iS_location = '$branch'";
 							$update=mysqli_query($db,$insertnew);
 					   
