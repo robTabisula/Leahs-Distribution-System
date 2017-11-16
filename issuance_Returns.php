@@ -209,19 +209,18 @@ if(!$_SESSION['username'])  {
                 <fieldset>
                     <div align="center">
 
-                        <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION[' username ']; ?>'/>
-                        <input type='hidden' name="branch" readonly value='<?php  echo $_GET[' Branch ']; ?>'/>
+                        <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
+                        <input type='hidden' name="branch" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                         <h4>Pull Out ID</h4>
-                        <?php
+                                  <?php
                                             $retrieveId = ("SELECT po_id from pull_out order by 1 desc limit 1;");
                                             $idRetrieve = mysqli_query($db, $retrieveId);
                                             $idRow = mysqli_fetch_array($idRetrieve);
 
-                                            $latestid = $idRow['bo_id'];
+                                            $latestid = $idRow['po_id'];
                                             $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
-                            <h4><input type="label" name="PO_id" value="<?php echo $newID;?>" readonly />
-                            </h4>
+                            <h4><input type="text" name="PO_id" value='<?php echo $newID;?>' readonly></input></h4>
 
                             <div class="remarks">
                                 <h4>Remarks</h4>
@@ -237,16 +236,17 @@ if(!$_SESSION['username'])  {
                             <br>
                             <br>
                     </div>
+
                     <div id="next">
 
                         <?php 
-                                        $getIsID = $_GET['IsID'];
-                                        $getBranch = $_GET['Branch'];
+                            $getIsID = $_GET['IsID'];
+                            $getBranch = $_GET['Branch'];
 
-                                        $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch'";
-                                        $run = mysqli_query($db, $queryProducts);
+                            $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch'";
+                            $run = mysqli_query($db, $queryProducts);
 
-                                    ?>
+                        ?>
                         <!--********************************************************************************** -->
 
                         <hr style="border-top: 3px double #8c8b8b;">
@@ -260,9 +260,9 @@ if(!$_SESSION['username'])  {
                                             $runInfoQuery = mysqli_query($db, $infoQuery);
                                         ?>
                                 <label>Issuance ID</label>
-                                <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET[' IsID ']; ?>'/>
+                                <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>
                                 <label>Branch</label>
-                                <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET[' Branch ']; ?>'/>
+                                <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                                 <?php
                                             foreach ($runInfoQuery as $info):
                                             $product_id = $info["issue_id"];
@@ -295,8 +295,6 @@ if(!$_SESSION['username'])  {
                                     <label for="product">Product:</label>
                                 </td>
                                 <td>
-                                    <input type='hidden' name="branch" readonly value='<?php  echo $_GET[' IsID ']; ?>' onchange="javascript:passValues(this.value);" />
-
                                     <select id="product" name="product" id="productselect">
                                                     <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                             <?php
@@ -304,7 +302,7 @@ if(!$_SESSION['username'])  {
                                                                 $product_id = $datas["productList_id"];
                                                             ?>  
                                                                 
-                                                                <option value = "<?php  echo $datas["productList_name"];  ?>">
+                                                                <option value = "<?php  echo $datas["productList_id"];  ?>">
                                                                    <?php  echo $datas["productList_name"];  ?>
                                                                 </option>
                                                       
@@ -355,7 +353,7 @@ if(!$_SESSION['username'])  {
                         <br>
 
                         <!--********************************************************************************************************-->
-                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance" />
+                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_PO" />
                         </div>
                 </fieldset>
             </form>
