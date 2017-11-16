@@ -38,32 +38,19 @@ if(!$_SESSION['username'])  {
     <!-- Datatables-->
     <script>
 
-        function passValues(prod_id){
-            $("#AdjustedPriceDiv").html('Loading').show();
-            var url="fragments/PO_fn.php";
-            
-            $.post(url,{prod_id:prod_id},function(data){
-            $("#AdjustedPriceDiv").html(data).show();
-            ;});
-        }
-
-        function IssuanceIDPass() { 
-          var issuanceID = <?php  echo $_GET['IsID']; ?>;
-          window.location.href = "fragments/PO_fn.php" + issuanceID;
-        }
-
-
-  function updateForm() {
+    function updateForm() {
         var product = document.getElementById("product").value;
         var qty = document.getElementById("quantity").value;
-  
+        var price = document.getElementById("price").value;    
+
+
         var table=document.getElementById("results");
         var row=table.insertRow(-1);
         var cell1=row.insertCell(0);
         var cell2=row.insertCell(1);
         var cell3=row.insertCell(2);
         var cell4=row.insertCell(3);
-        
+        var cell5=row.insertCell(4);
 
         addedProduct = document.createElement( 'input' );
         addedProduct.setAttribute("name", "productList[]");
@@ -76,6 +63,12 @@ if(!$_SESSION['username'])  {
         addedQuantity.setAttribute("type", "text");
         addedQuantity.setAttribute("value", qty);
         addedQuantity.setAttribute("readOnly","true");
+
+        addedPrc = document.createElement( 'input' );
+        addedPrc.setAttribute("name", "adjusted_price[]");
+        addedPrc.setAttribute("type", "text");
+        addedPrc.setAttribute("value", price); 
+        addedPrc.setAttribute("readOnly","true");  
 
         indvRemark = document.createElement( 'input' );
         indvRemark.setAttribute("name", "premarks[]");
@@ -90,9 +83,10 @@ if(!$_SESSION['username'])  {
        
          
         cell1.appendChild(addedProduct);
-        cell2.appendChild(addedQuantity);        
-        cell3.appendChild(indvRemark);   
-        cell4.appendChild(deleteButton); 
+        cell2.appendChild(addedQuantity);       
+        cell3.appendChild(addedPrc);  
+        cell4.appendChild(indvRemark);   
+        cell5.appendChild(deleteButton); 
 
     }
         
@@ -212,9 +206,12 @@ if(!$_SESSION['username'])  {
                         <h1 align="center">Return Issuance</h1>
                     </table>
                     
-                        <form role="form" method="post" action="fragments/.php">  
+                        <form role="form" method="post" action="fragments/PO_fn.php">  
                             <fieldset>  
                                 <div align="center">
+                                    
+                                    <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'/>
+                                    <input type='hidden' name="branch" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                                     <h4>Pull Out ID</h4>
                                     <?php
                                             $retrieveId = ("SELECT po_id from pull_out order by 1 desc limit 1;");
@@ -224,7 +221,7 @@ if(!$_SESSION['username'])  {
                                             $latestid = $idRow['bo_id'];
                                             $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
-                                    <h4><input type="label" name="BO_id" value="<?php echo $newID;?>" readonly></input></h4>
+                                    <h4><input type="label" name="PO_id" value="<?php echo $newID;?>" readonly></input></h4>
                                     
                                     <div class="remarks">
                                         <h4>Remarks</h4>
@@ -255,13 +252,42 @@ if(!$_SESSION['username'])  {
                                 <hr style = "border-top: 3px double #8c8b8b;">
                                 <br>
                                 <!--Div to view adjusted price and category-->
-                                <div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 150px; width: 150px; top:10%;  width: 300px; height: 200px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
-                                            <hr>
-                                            <h4>When Choosing a product, Information will be viewed here.</h4>
-                                            <hr>
+                                <div id="AdjustedPriceDiv" >
+                                        <?php
+                                            $getIsID = $_GET['IsID'];
+
+                                            $infoQuery = "SELECT * FROM leahs.issuance_list inner join product_list on productList_id=prod_id where issue_id = '$getIsID'";
+                                            $runInfoQuery = mysqli_query($db, $infoQuery);
+                                        ?>
+                                        <label>Issuance ID</label>
+                                        <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>
+                                        <label>Branch</label>
+                                        <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>
+                                        <?php
+                                            foreach ($runInfoQuery as $info):
+                                            $product_id = $info["issue_id"];
+                                        ?> 
+                                            <h4>Product Description: </h4>
+                                            <label>Product Name: </label>
+                                            <input type='text' size='35' readonly value='<?php  echo $info["productList_name"]; ?>'/>
+                                            <label>Issued Quantity: </label>
+                                            <input type='text' size='35' readonly value='<?php  echo $info["prod_qty"]; ?>'/>
+                                            <label>Issued Price:</label>
+                                            <input type='text' size='35' readonly value='<?php  echo $info["prod_price"]; ?>'/>
+                                            <label>Product Remarks:</label>
+                                            <input type='text' size='35' readonly value='<?php  echo $info["prod_remarks"]; ?>'/>
+
+
+
+                                        <?php
+                                            endforeach;
+                                        ?>
+
                                 </div>  
-                                
-                                
+                                <br>
+                                <br>
+                                <br>
+                  
                                     <table class="table table-striped table-bordered">
                                         <tr>
 
@@ -269,8 +295,9 @@ if(!$_SESSION['username'])  {
                                                 <label for="product">Product:</label>
                                             </td>
                                             <td>
+                                                <input type='hidden' name="branch" readonly value='<?php  echo $_GET['IsID']; ?>' onchange ="javascript:passValues(this.value);"/>
 
-                                                <select id="product" name="product" id="productselect" onchange ="javascript:passValues(this.value);">
+                                                <select id="product" name="product" id="productselect">
                                                     <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                             <?php
                                                                 foreach ($run as $datas):
@@ -286,17 +313,21 @@ if(!$_SESSION['username'])  {
                                                             ?>
                                                 </select> 
                                             </td>
-                                        </tr>
-                                  
-                                            <input type='hidden' name="branch" readonly value='<?php  echo $getBranch = $_GET['Branch']; ?>' onchange ="javascript:passBranch(this.value);"/>
-
-                                        
+                                        </tr>                                        
                                         <tr>
                                             <td>
                                                 <label for="quantity">Quantity:</label>
                                             </td>
                                             <td>
                                                 <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="price">Price:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -312,6 +343,7 @@ if(!$_SESSION['username'])  {
                                     <tr>
                                         <th scope="col" width="120">Products</th>
                                         <th scope="col" width="120">Quantity</th>
+                                        <th scope="col" width="120">Price</th>
                                         <th scope="col" width="120">Remarks</th>
                                         <th scope="col" width="120">Action</th>
                                     </tr>

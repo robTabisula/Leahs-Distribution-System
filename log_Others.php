@@ -151,7 +151,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM issuance INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id where other_clients IS NOT NULL ");
+                            $retrieve = ("SELECT * FROM issuance as i INNER JOIN issuance_list AS il ON i.issue_id = il.issue_id where other_clients IS NOT NULL ");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
