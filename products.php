@@ -35,6 +35,7 @@ if(!$_SESSION['username'])  {
     <link href="src/css/custom.css" rel="stylesheet">
 
     <!-- Datatables-->
+
     <script>
         $(document).ready(function() {
             $('#datatables').DataTable({
