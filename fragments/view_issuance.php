@@ -135,7 +135,8 @@
                 if ($choice=='1'){
         ?>          
                     <div class="panel-body">                        
-                        <form role="form" method="post" action="fragments/issuance_fn.php">  
+                        <form role="form" method="post" action="fragments/issuance_fn.php">				
+							<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>						
                             <fieldset>  
                                 <div class="issue">
                                    <div id="issue_num">
@@ -286,7 +287,8 @@
     //penthouse issuance
     ?>
         <div class="panel-body">                        
-                        <form role="form" method="post" action="fragments/issuance_fn_penthouse.php">  
+                        <form role="form" method="post" action="fragments/issuance_fn_penthouse.php">
+						<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                             <fieldset>  
                                 <div class="issue">
                                    <div id="issue_num">
@@ -448,6 +450,7 @@
     ?>
             <div class="panel-body">                        
                         <form role="form" method="post" action="fragments/stock_transfer.php">  
+						<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                             <fieldset>
                                 <div class="issue">
                                     <div class="col-xs-4">
@@ -586,7 +589,8 @@
         //others
     ?>
             <div class="panel-body">                        
-                        <form role="form" method="post" action="fragments/issuance_fn_others.php">  
+                        <form role="form" method="post" action="fragments/issuance_fn_others.php">
+							<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                             <fieldset>
                                 <div class="issue"style="height:180px;">
                                    <div id="issue_num">

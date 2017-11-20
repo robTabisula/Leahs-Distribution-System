@@ -18,6 +18,9 @@
 				$c_location = $_POST['c_location'];
 				$contact_name = $_POST['contact_name'];
 				$contact_number = $_POST['contact_numberAdd'];
+				date_default_timezone_set('Asia/Manila');
+				$date_time = date("F j, Y, g:i a");
+				$issueAcnt = $_POST['issueAcnt'];
 				 
 				    $check_username_query="select * from clients WHERE c_name='$c_name' AND c_location = '$c_location'";  
 					$run_query=mysqli_query($db,$check_username_query);
@@ -39,8 +42,12 @@
 
 						$query2 = "INSERT INTO client_contact (contact_clientid,contact_name,contact_number)
 						   VALUE ('$id','$contact_name','$contact_number')";
+						    mysqli_query($db,$query2);
+						   
+						   $query3 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+						   VALUE ('$issueAcnt','Added Client','$date_time','has successfully added a new client')";
 							   
-						if(mysqli_query($db, $query2)){
+						if(mysqli_query($db, $query3)){
 						echo"<script>alert('New client have been successfully added')</script>";
 						echo "<script>window.open('../accounts_Clients.php','_self')</script>";  
 						} else{
@@ -50,6 +57,5 @@
 			}
         	 
         ?>
-      <h1><?php echo $contact_number; ?></</h1>
   </body>
 </html>

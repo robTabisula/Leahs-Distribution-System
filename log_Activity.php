@@ -152,7 +152,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM logs INNER JOIN accounts ON logs.acc_id = accounts.acc_id ORDER BY date_time desc");
+							$retrieve = ("SELECT * FROM logs INNER JOIN accounts ON logs.issue_acnt = accounts.username ORDER BY date_time desc");
 							$results = mysqli_query($db, $retrieve);
 						?>
 

@@ -206,6 +206,7 @@ if(!$_SESSION['username'])  {
             </table>
 
             <form role="form" method="post" action="fragments/BO_fn.php">
+			<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                 <fieldset>
                     <div align="center">
 

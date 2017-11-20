@@ -31,6 +31,9 @@
 				$adjustedprice = $_POST['adjusted_price'];//array for new price
 				$quantity = $_POST['quantity'];//array for quantity ordered
 				$p_remarks = $_POST['premarks'];//array for remarks
+				
+				$date_time = date("F j, Y, g:i a");
+				$issueAcnt = $_POST['issueAcnt'];
             
         //query for issuance table
               $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks, client_id, issue_account) 
@@ -68,7 +71,12 @@
 							//query for issuance list
 									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
 											   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks')";
-									if(mysqli_query($db, $queryil)){
+											   	mysqli_query($db, $queryil);
+					
+									$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+										   VALUE ('$issueAcnt','Added Issuance','$date_time','has successfully issued a product')";
+
+									if(mysqli_query($db, $query2)){
 										echo"<script>alert('Products have been successfuly issued to a client')</script>";
 										echo "<script>window.open('../issuance.php','_self')</script>"; 
 									}else{

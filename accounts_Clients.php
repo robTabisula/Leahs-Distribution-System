@@ -308,6 +308,7 @@ if(!$_SESSION['username'])  {
                                 </div>
                                 <div class="modal-body">
                                     <form action="fragments/addClient.php" method="POST" onsubmit="return validateForm()">
+										<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                         <h3>Name</h3>
                                         <input type="text" class="form-control" maxlength="25" name="c_name" autofocus required>
 

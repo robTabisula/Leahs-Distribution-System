@@ -15,6 +15,7 @@
         	if (isset($_POST["add_user"])) {
 				date_default_timezone_set('Asia/Manila');
 				$date_time = date("F j, Y, g:i a");
+				$issueAcnt = $_POST['issueAcnt'];
           	$username = $_POST['username'];
           	$first_name = $_POST['first_name'];
           	$last_name = $_POST['last_name'];
@@ -40,9 +41,12 @@
 
             	$query = "INSERT INTO accounts (username, first_name, last_name, password, email, contact_no,branch,acctype) 
                   	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no','$branch','$acctype')";
-
+					mysqli_query($db, $query);
+					
+					$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+						   VALUE ('$issueAcnt','Added User','$date_time','has successfully added a new user')";
 						   
-					if(mysqli_query($db, $query)){
+					if(mysqli_query($db, $query2)){
 					echo"<script>alert('New accounts have been successfully added ')</script>";
 					echo "<script>window.open('../accounts_users.php','_self')</script>";  
 					} else{

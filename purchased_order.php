@@ -150,7 +150,7 @@ if(!$_SESSION['username'])  {
 						<h1 align="center">Purchase Orders</h1>
 					</table>				
                     <form role="form" method="post" action="fragments/add_order.php">  
-                        
+                        <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
 						<fieldset>
 								<div class="col-xs-4">
 								<h4>Branch </h4>
