@@ -206,15 +206,14 @@ if(!$_SESSION['username'])  {
             </table>
 
             <form role="form" method="post" action="fragments/PO_fn.php">
-			<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                 <fieldset>
                     <div align="center">
 
                         <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                         <input type='hidden' name="branch" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                         
-						<div class="col-xs-4">
-							<h4>Pull Out ID</h4>
+                        <div class="col-xs-4">
+                            <h4>Pull Out ID</h4>
                                   <?php
                                             $retrieveId = ("SELECT po_id from pull_out order by 1 desc limit 1;");
                                             $idRetrieve = mysqli_query($db, $retrieveId);
@@ -224,9 +223,9 @@ if(!$_SESSION['username'])  {
                                             $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
                             <h4><input type="text" size='2' name="PO_id" value='<?php echo $newID;?>' readonly></input></h4>
-						</div>
-						
-						<div class="col-xs-4">
+                        </div>
+                        
+                        <div class="col-xs-4">
                                 <h4>Remarks</h4>
                                 <textarea rows="1" cols="30" name="remarks"></textarea>
                         </div>
@@ -236,7 +235,7 @@ if(!$_SESSION['username'])  {
                                 <?php $date = date("Y-m-d H:i:s");  ?>
                                 <input type="label" name="date" value="<?php echo $date;?>" readonly/>
                         </div>
-						
+                        
                             <br>
                             <br>
                             <br>

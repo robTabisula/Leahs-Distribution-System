@@ -206,24 +206,23 @@ if(!$_SESSION['username'])  {
             </table>
 
             <form role="form" method="post" action="fragments/BO_fn.php">
-			<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                 <fieldset>
                     <div align="center">
 
                         <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                         <input type='hidden' name="branch" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                             <div class="col-xs-4">
-								<h4>Bad Orders ID</h4>
-								<?php
-										$retrieveId = ("SELECT bo_id from bad_order order by 1 desc limit 1;");
-										$idRetrieve = mysqli_query($db, $retrieveId);
-										$idRow = mysqli_fetch_array($idRetrieve);
+                                <h4>Bad Orders ID</h4>
+                                <?php
+                                        $retrieveId = ("SELECT bo_id from bad_order order by 1 desc limit 1;");
+                                        $idRetrieve = mysqli_query($db, $retrieveId);
+                                        $idRow = mysqli_fetch_array($idRetrieve);
 
-										$latestid = $idRow['bo_id'];
-										$newID = $latestid + 1; //will increment 1 from the latest issuance ID
-								?>
-								<h4><input type="label" size='2' name="BO_id" value="<?php echo $newID;?>" readonly></input></h4>
-							</div>
+                                        $latestid = $idRow['bo_id'];
+                                        $newID = $latestid + 1; //will increment 1 from the latest issuance ID
+                                ?>
+                                <h4><input type="label" size='2' name="BO_id" value="<?php echo $newID;?>" readonly></input></h4>
+                            </div>
                             <div class="col-xs-4">
                                 <h4>Remarks</h4>
                                 <textarea rows="1" cols="30" name="remarks"></textarea>
