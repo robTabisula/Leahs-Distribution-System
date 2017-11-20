@@ -42,7 +42,7 @@
                   	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no','$branch','$acctype')";
 
 						   
-					if(mysqli_query($db, $query2)){
+					if(mysqli_query($db, $query)){
 					echo"<script>alert('New accounts have been successfully added ')</script>";
 					echo "<script>window.open('../accounts_users.php','_self')</script>";  
 					} else{
