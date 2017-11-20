@@ -21,14 +21,15 @@
 				
 				date_default_timezone_set('Asia/Manila');
 				$order_date = date("F j, Y, g:i a");
+				$merchandiser = $_POST['merchandiser'];
 				$branch = $_POST['branch'];//baguio or pangasinan
 				$productList = $_POST['productList'];//array for product id
 				$quantity = $_POST['quantity'];//array for quantity ordered
 				$p_remarks = $_POST['premarks'];//array for remarks
             
         //query for issuance table
-              $queryit = "INSERT INTO purchased_order (order_date,client_id) 
-                             VALUE ('$order_date','$clientlist')";
+              $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser) 
+                             VALUE ('$order_date','$clientlist','$merchandiser')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select order_id from purchased_order WHERE order_date='$order_date'";
       				$run=mysqli_query($db,$get_id);

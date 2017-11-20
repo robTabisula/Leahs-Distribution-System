@@ -1,5 +1,6 @@
 <?php  
-session_start();  
+session_start();
+$id = session_id();  
   
 if(!$_SESSION['username'])  {  
   
@@ -163,6 +164,11 @@ if(!$_SESSION['username'])  {
 								<div class="col-xs-4" id="TheClients" style="display: none;">
 									  
 								</div>
+								
+								<div class="col-xs-4">  
+                                        <h4>Merchandiser</h4>
+                                        <input type="text" size="15" name="merchandiser" />
+                                    </div>
 								<br><br><br><br>
 								
 								<div class="form-group">                            

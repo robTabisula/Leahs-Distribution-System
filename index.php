@@ -172,6 +172,7 @@ if(!$_SESSION['username'])  {
 							<tr>
 								<th>Ordered Products</th>
 								<th>Client</th>
+								<th>Merchandiser</th>
 								<th>Date and Time</th>
 								<th>Branch</th>
 							</tr>
@@ -196,6 +197,10 @@ if(!$_SESSION['username'])  {
 									
 									<td data-title="Client">
 										<?php echo $data["c_name"]; ?>
+									</td>
+									
+									<td data-title="Merchandiser">
+										<?php echo $data["merchandiser"]; ?>
 									</td>
 									
 									<td data-title="Date/Time">
