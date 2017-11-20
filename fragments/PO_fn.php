@@ -26,6 +26,9 @@
             $po_price = $_POST['adjusted_price'];//array for new price
             $quantity = $_POST['quantity'];//array for quantity ordered
             $p_remarks = $_POST['premarks'];//array for remarks
+			
+			$date_time = date("F j, Y, g:i a");
+			$issueAcnt = $_POST['issueAcnt'];
             
 
             //query for PO table
@@ -60,7 +63,12 @@
                     //query for issuance list
                          $queryil = "INSERT INTO po_list (po_id, po_price, po_qty, branch, po_product_id, po_remarks) 
                                VALUE ('$id','$adjprice','$qty','$branch','$product','$p_remarks')";
-                        if(mysqli_query($db, $queryil)){
+								mysqli_query($db, $queryil);
+								
+								$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+									   VALUE ('$issueAcnt','Added Pull out','$date_time','has successfully issued a pull out')";
+							   
+                        if(mysqli_query($db, $query2)){
                           echo"<script>alert('Products have been successfully added to pull-out')</script>";
                           echo "<script>window.open('../log_Returns.php','_self')</script>"; 
                         }else{

@@ -75,13 +75,9 @@ session_start();
 				$results = mysqli_query($db, $query);
 
 				if(mysqli_num_rows($results)>0){
-					$get_id="select acc_id from accounts WHERE username='$username'";
-						$run=mysqli_query($db,$get_id);
-						$row = mysqli_fetch_array($run);
-						$id=$row[0];
 						
-					$query2 = "INSERT INTO logs (acc_id,act_type,date_time,remarks) 
-						   VALUE ('$id','Login','$date_time','has successfully login')";
+					$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+						   VALUE ('$username','Login','$date_time','has successfully login')";
 						   
 						if(mysqli_query($db,$query2)){
 							header("location: index.php");

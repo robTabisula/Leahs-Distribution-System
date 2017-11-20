@@ -26,6 +26,8 @@
 				$productList = $_POST['productList'];//array for product id
 				$quantity = $_POST['quantity'];//array for quantity ordered
 				$p_remarks = $_POST['premarks'];//array for remarks
+				$issueAcnt = $_POST['issueAcnt'];
+				$date_time = date("F j, Y, g:i a");
             
         //query for issuance table
               $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser) 
@@ -53,7 +55,12 @@
 							//query for issuance list
 									 $queryil = "INSERT INTO purchased_order_list (p_order_id, order_qty, branch, prdct_id, order_remarks) 
 											   VALUE ('$id','$qty','$branch','$product','$p_remarks')";
-									if(mysqli_query($db, $queryil)){
+												mysqli_query($db, $queryil);
+					
+									$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+										   VALUE ('$issueAcnt','Added Order','$date_time','has successfully added a new order')";
+						   
+									if(mysqli_query($db, $query2)){
 										echo"<script>alert('Orders have been successfuly added ')</script>";
 										echo "<script>window.open('../index.php','_self')</script>"; 
 									}else{

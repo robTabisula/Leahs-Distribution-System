@@ -385,6 +385,7 @@ if(!$_SESSION['username'])  {
                             </div>
                             <div class="modal-body">
                                 <form action="fragments/addProduct.php" method="POST">
+								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                     <h3>Barcode</h3>
                                     <input type="text" class="form-control" maxlength="25" name="barcode">
 
