@@ -61,7 +61,7 @@
 							$update=mysqli_query($db,$insertnew);
 					   
 							//query for issuance list
-									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, remarks) 
+									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
 											   VALUE ('$id','$qty','$adjprice','$branch','$product','$p_remarks')";
 									if(mysqli_query($db, $queryil)){
 										echo"<script>alert('Successfuly Added Products')</script>";
