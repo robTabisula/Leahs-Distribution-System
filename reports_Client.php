@@ -147,12 +147,56 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Reports per Client</h1>
+                <h1 align="center">Reports Per Client</h1>
             </table>
 
+            <!-- Retrieve Account Data -->
+            <?php
+                            $retrieve = ("SELECT * FROM clients INNER JOIN issuance ON clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
+                            $results = mysqli_query($db, $retrieve);
+                        ?>
+
+                <!-- Table Display for Issuances -->
+                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+							<th>ID</th>
+                            <th>Grocery</th>
+                            <th>Sales</th>
+                            <th>Bad Order</th>
+                            <th>Others</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            foreach ($results as $data):
+                                $toData = $data["c_id"];
+                        ?>
+                            <tr>
+                                <td data-title="ID">
+                                    <?php 
+                                    $cid =  $data["c_id"];
+                                    echo $cid; 
+                                    ?>
+                                </td>
+								
+                                <td data-title="Name">
+                                    <?php echo $data["c_name"]; ?>
+                                </td>
+								
+                                <td data-title="Remarks">
+                                    <?php echo $data["Sales"]; ?>
+                                </td>
+
+                            </tr>
+						   <?php
+							endforeach;
+						?>
+                    </tbody>
+                </table>
         </div>
     </div>
 
 </body>
-
 </html>

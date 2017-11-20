@@ -149,174 +149,121 @@ if(!$_SESSION['username'])  {
     <!-- /#sidebar-wrapper -->
 
     <!-- /#Main Content -->
+	    <!-- Main Container -->
+    <div id="page-content-wrapper">
+        <div class="containers">
+            <table class="table table-striped table-bordered">
+                <h1 align="center">Purchase Order</h1>
+            </table>
 
-    <div class="col-sm-9">
+            <!-- Retrieve Account Data -->
+            <?php
+							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id");
+							$results = mysqli_query($db, $retrieve);
+						?>
 
-        <!--  statitics -->
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <i class="fa fa-envelope-o fa-5x"></i>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <p class="announcement-heading">1</p>
-                                <!--	<p class="announcement-text">Users</p> -->
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer announcement-bottom">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    Messages
-                                </div>
-                                <div class="col-xs-6 text-right">
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <i class="fa fa-comment-o fa-5x"></i>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <p class="announcement-heading">12</p>
-                                <!-- <p class="announcement-text"> Items</p> -->
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer announcement-bottom">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    Interests
-                                </div>
-                                <div class="col-xs-6 text-right">
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <i class="fa fa-bell-o fa-5x"></i>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <p class="announcement-heading">18</p>
-                                <p class="announcement-text">Crawl</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer announcement-bottom">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    Requests
-                                </div>
-                                <div class="col-xs-6 text-right">
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <i class="fa fa-comments fa-5x"></i>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <p class="announcement-heading">56</p>
-                                <p class="announcement-text"> Orders!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#">
-                        <div class="panel-footer announcement-bottom">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    Complete
-                                </div>
-                                <div class="col-xs-6 text-right">
-                                    <i class="fa fa-arrow-circle-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
+                <table class="table table-striped table-bordered">
+                    <a href="purchased_order.php"><button type="button" class="btn btn-info btn-lg" data-toggle="modal">Add Order</button></a>
+                </table>
 
-        <!--  statitics -->
+                <!-- Table Display for Accounts -->
+					<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+						<thead>
+							<tr>
+								<th>Order ID</th>
+								<th>Ordered Products</th>
+								<th>Client</th>
+								<th>Date and Time</th>
+								<th>Branch</th>
+							</tr>
+						</thead>
+			   
 
+						<tbody>
+							<?php
+								foreach ($results as $data):
+									$toData = $data["order_id"];
+							?>
+								<tr>
+									<td data-title="Order ID">
+										<?php
+											$po_id=$data["order_id"];
+											echo $po_id;
+										?>
+									</td>
+									
+									<td data-title="Products Ordered">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $po_id ?>"></button>
+                                        </table>
+									</td>
+									
+									<td data-title="Client">
+										<?php echo $data["c_name"]; ?>
+									</td>
+									
+									<td data-title="Date/Time">
+										<?php echo $data["order_date"]; ?>
+									</td>
+									
+									<td data-title="Branch">
+										<?php 
+										$passBranch = $data["c_location"];  
+                                        echo $passBranch;
+										?>
+									</td>
+									
+								</tr>
+								
+								<!-- Products Issued -->
+									<div id="<?php echo  $po_id ?>" class="modal fade" role="dialog">
+										<div class="modal-dialog modal-lg">
 
-        <div class="panel rounded shadow panel-teal">
-            <div class="panel-heading">
-                <div class="pull-left">
-                    <h3 class="panel-title"><i class="fa fa-line-chart" aria-hidden="true"></i> Summary </h3>
-                </div>
-                <div class="pull-right">
-                    <form action="#" class="form-horizontal mr-5 mt-3">
-                        <div class="form-group no-margin no-padding has-feedback">
-                            Right area contents
-                        </div>
-                    </form>
-                </div>
-                <div class="clearfix"></div>
-            </div>
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">Purchase Ordered</h4>
+												</div>
+												<div class="modal-body">
+														<h4>Purchased Order ID: <?php  echo $data["order_id"];  ?></h4>
+														<?php
+															$queryProducts = "SELECT * FROM  purchased_order_list INNER JOIN product_list ON purchased_order_list.prdct_id = product_list.productList_id INNER JOIN product_loc ON purchased_order_list.prdct_id = product_loc.product_id WHERE p_order_id = '$po_id' AND location = '$passBranch'";
+															$run = mysqli_query($db, $queryProducts);
+														?>
+														<label>Product</label>
+														&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+														&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+														<label>Quantity</label>
+														&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+														&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+														
+														<?php
+														
+															foreach ($run as $log){
+															$toData = $log["productList_id"];        
+														?>
+															<br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+																<input type="text" value= "<?php  echo $log["order_qty"];  ?>" readonly>
 
-            <div class="panel-body no-padding">
-                <div class="items col-xs-12 col-sm-6 col-md-6 col-lg-6 clearfix">
-                    <div class="info-block block-info clearfix">
-                        <div class="pie">
-                            <!-- pie chart canvas element -->
-                            <canvas id="pie-chart" responsive="true"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
+														<?php
+															}
+														
+														?>
+												   
+												</div>
+											</div>
+										</div>
+									</div>
+				
+
+								<?php
+								endforeach;
+							?>
+						</tbody>
+					</table>
+		</div>
     </div>
-    <script>
-        new Chart(document.getElementById("pie-chart"), {
-            type: 'pie',
-            data: {
-                labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-                datasets: [{
-                    label: "Population (millions)",
-                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                    data: [2478, 5267, 734, 784, 433]
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'Predicted world population (millions) in 2050'
-                }
-            }
-        });
 
-    </script>
 </body>
 
 </html>
