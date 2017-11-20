@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +13,8 @@
       	
       	include('config.php');   
         	if (isset($_POST["add_user"])) {
-
+				date_default_timezone_set('Asia/Manila');
+				$date_time = date("F j, Y, g:i a");
           	$username = $_POST['username'];
           	$first_name = $_POST['first_name'];
           	$last_name = $_POST['last_name'];
@@ -38,8 +40,9 @@
 
             	$query = "INSERT INTO accounts (username, first_name, last_name, password, email, contact_no,branch,acctype) 
                   	VALUE ('$username','$first_name' , '$last_name' , '$password' ,'$email', '$contact_no','$branch','$acctype')";
-					
-					if(mysqli_query($db, $query)){
+
+						   
+					if(mysqli_query($db, $query2)){
 					echo"<script>alert('New accounts have been successfully added ')</script>";
 					echo "<script>window.open('../accounts_users.php','_self')</script>";  
 					} else{

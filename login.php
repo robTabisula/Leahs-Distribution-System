@@ -81,7 +81,7 @@ session_start();
 						$id=$row[0];
 						
 					$query2 = "INSERT INTO logs (acc_id,act_type,date_time,remarks) 
-						   VALUE ('$id','login','$date_time','has successfully login')";
+						   VALUE ('$id','Login','$date_time','has successfully login')";
 						   
 						if(mysqli_query($db,$query2)){
 							header("location: index.php");

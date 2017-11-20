@@ -169,18 +169,20 @@ if(!$_SESSION['username'])  {
 									</select>
 								</div>
 								
+								<div class="col-xs-4" id="TheClients" style="display: none;">
+									  
+								</div>
+								
 								<div class="col-xs-4">
 									<div class="remarks">
 										<h4>Remarks</h4>
-										<textarea rows="3" cols="20" name="remarks" ></textarea>
+										<textarea rows="1" cols="30" name="remarks" ></textarea>
 									</div>
 								</div>
 								
 																 <!--clientslist-->
-								<div class="col-xs-4" id="TheClients" style="display: none;">
-									  
-								</div>
-							</div><br><br><br><br><br><br><br><br>
+
+							</div><br><br><br><br><br>	
 							
                             <div class="form-group">                            
                                     <?php
@@ -189,7 +191,7 @@ if(!$_SESSION['username'])  {
                                     ?>
                             <!--********************************************************************************** -->
                             
-                                <hr style = "border-top: 3px double #8c8b8b;">
+                                <hr style = "border-top: 2px double #8c8b8b;">
                                 <br>
                                 <!--Div to view adjusted price and category-->
                                 <div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 100px; width: 150px; top:20%;  width: 300px; height: 230px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
@@ -330,10 +332,10 @@ if(!$_SESSION['username'])  {
 
 								<div class="col-xs-4">
 									<h4>Remarks</h4>
-									<textarea rows="2" cols="20" name="remarks" ></textarea>
-								</div><br><br><br>
+									<textarea rows="1" cols="30" name="remarks" ></textarea>
+								</div>
 							</div>
-                            <br><br><br><br><br><br>
+                            <br><br><br><br><br>
                             <div class="form-group">                            
                                     <?php
                                         $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
@@ -342,7 +344,7 @@ if(!$_SESSION['username'])  {
                
                         <!--********************************************************************************** -->
                         
-                            <hr style = "border-top: 3px double #8c8b8b;">
+                            <hr style = "border-top: 2px double #8c8b8b;">
                             <br>
                             <!--Div to view adjusted price and category-->
                             <div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 150px; width: 150px; top:10%;  width: 300px; height: 200px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
@@ -436,51 +438,55 @@ if(!$_SESSION['username'])  {
 ?>
         <div class="panel-body">                        
                     <form role="form" method="post" action="fragments/stock_transfer.php">  
-                        <fieldset>  
-                            <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
-                            <h4>Issuance ID</h4>
-                                    <?php
-                                        $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
-                                        $idRetrieve = mysqli_query($db, $retrieveId);
-                                        $idRow = mysqli_fetch_array($idRetrieve);
+                        <fieldset>
+							<div class="issue">
+								<div class="col-xs-4">
+									<input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
+									<h4>Issuance ID</h4>
+											<?php
+												$retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
+												$idRetrieve = mysqli_query($db, $retrieveId);
+												$idRow = mysqli_fetch_array($idRetrieve);
 
-                                        $latestid = $idRow['issue_id'];
-                                        $newID = $latestid + 1; //will increment 1 from the latest issuance ID
-                                    ?>
-                            <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
-                            
-
-                              <br>
-                            <label>Transfer From:</label>
-                            <select name="branch" required>
-                                    <option value="" selected="true" disabled="disabled">Transfer From:</option>
-                                    <option value="Baguio">Baguio</option>
-                                    <option value="Pangasinan">Pangasinan</option>
-                            </select>
-     
-                            <div class="remarks">
-                                <h4>Remarks</h4>
-                                <textarea rows="3" cols="30" name="remarks" ></textarea>
-                            </div>
-                            
-                            <div class="form-group">                            
-                                    <?php
-                                        $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
-                                        $prodRetrieve = mysqli_query($db, $retrieveProd);
-                                    ?>
+												$latestid = $idRow['issue_id'];
+												$newID = $latestid + 1; //will increment 1 from the latest issuance ID
+											?>
+									<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+								</div>	
+								
+								<div class="col-xs-4">
+									<label>Transfer From:</label>
+									<select name="branch" required>
+											<option value="" selected="true" disabled="disabled">Transfer From:</option>
+											<option value="Baguio">Baguio</option>
+											<option value="Pangasinan">Pangasinan</option>
+									</select>
+								</div>
+			 
+								<div class="col-xs-4">
+										<h4>Remarks</h4>
+										<textarea rows="1" cols="30" name="remarks" ></textarea>
+								</div>
+							</div><br><br><br>
+									
+								<div class="form-group">                            
+											<?php
+												$retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+												$prodRetrieve = mysqli_query($db, $retrieveProd);
+											?>
                                 
                      
-                        <!--********************************************************************************** -->
-                        
-                            <hr style = "border-top: 3px double #8c8b8b;">
-                            <br>
-                            <!--Div to view adjusted price and category-->
-                            <div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 150px; width: 150px; top:10%;  width: 300px; height: 200px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
-                                        <hr>
-                                        <h4>When Choosing a product, Information will be viewed here.</h4>
-                                        <hr>
-                                </div>  
-                            </div> 
+											<!--********************************************************************************** -->
+											
+										<hr style = "border-top: 2px double #8c8b8b;">
+										<br>
+										<!--Div to view adjusted price and category-->
+										<div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 150px; width: 150px; top:10%;  width: 300px; height: 200px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
+													<hr>
+													<h4>When Choosing a product, Information will be viewed here.</h4>
+													<hr>
+										</div>  
+								</div> 
                             
                                 <table class="table table-striped table-bordered">
                                     <tr>
@@ -566,36 +572,40 @@ if(!$_SESSION['username'])  {
 ?>
         <div class="panel-body">                        
                     <form role="form" method="post" action="fragments/issuance_fn_others.php">  
-                        <fieldset>  
-                            <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
-                            <h4>Issuance ID</h4>
-                                    <?php
-                                        $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
-                                        $idRetrieve = mysqli_query($db, $retrieveId);
-                                        $idRow = mysqli_fetch_array($idRetrieve);
+                        <fieldset>
+							<div class="issue">
+								<div class="col-xs-4">
+									<input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
+									<h4>Issuance ID</h4>
+											<?php
+												$retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
+												$idRetrieve = mysqli_query($db, $retrieveId);
+												$idRow = mysqli_fetch_array($idRetrieve);
 
-                                        $latestid = $idRow['issue_id'];
-                                        $newID = $latestid + 1; //will increment 1 from the latest issuance ID
-                                    ?>
-                            <h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+												$latestid = $idRow['issue_id'];
+												$newID = $latestid + 1; //will increment 1 from the latest issuance ID
+											?>
+									<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+								</div>
 
-                            <select name="branch" required>
-                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                    <option value="Baguio">Baguio</option>
-                                    <option value="Pangasinan">Pangasinan</option>
-                            </select>
+								<div class="col-xs-4">
+									<select name="branch" required>
+											<option value="" selected="true" disabled="disabled">Select an Area</option>
+											<option value="Baguio">Baguio</option>
+											<option value="Pangasinan">Pangasinan</option>
+									</select>
+								</div>
 
-                            <div class = "Oclients">    
-                                <h4>Client Name</h4>
-                                <input type="text" name="Ocleint" />
+								<div class="col-xs-4">  
+									<h4>Client Name</h4>
+									<input type="text" name="Ocleint" />
+								</div>
+
+								<div class="col-xs-4">
+									<h4>Remarks</h4>
+									<textarea rows="1" cols="30" name="remarks" ></textarea>
+								</div><br><br><br><br><br><br>
                             </div>
-                           
-                            
-                            <div class="remarks">
-                                <h4>Remarks</h4>
-                                <textarea rows="2" cols="20" name="remarks" ></textarea>
-                            </div>
-                            
                             <div class="form-group">                            
                                     <?php
                                         $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
@@ -606,7 +616,7 @@ if(!$_SESSION['username'])  {
 
                         <!--********************************************************************************** -->
                         
-                            <hr style = "border-top: 3px double #8c8b8b;">
+                            <hr style = "border-top: 2px double #8c8b8b;">
                             <br>
                             <!--Div to view adjusted price and category-->
                             <div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 150px; width: 150px; top:10%;  width: 300px; height: 200px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
