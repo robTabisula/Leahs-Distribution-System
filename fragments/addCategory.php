@@ -20,7 +20,7 @@
                   	VALUE ('$category_name','$category_status')";
 					
 					if(mysqli_query($db, $query)){
-					echo"<script>alert('Successfuly Added Category')</script>";
+					echo"<script>alert('New Category have been successfuly added')</script>";
 					echo "<script>window.open('../categories.php','_self')</script>";
 					} else{
 						echo ("ERROR: Could not able to execute" . mysqli_error($db));

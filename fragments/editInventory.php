@@ -17,7 +17,7 @@
 	  			  
 				  $query = "UPDATE inventory SET iS_restock_lvl = '$restock' where iS_inventoryid = '$ID'";
 					if(mysqli_query($db, $query)){
-						echo"<script>alert('Successfuly edit restock')</script>";
+						echo"<script>alert('Successfully edited re-stock level')</script>";
 						echo "<script>window.open('../inventory.php','_self')</script>";
 					} else{
 						  echo ("ERROR: Could not able to execute" . mysqli_error($db));

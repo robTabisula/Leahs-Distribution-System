@@ -26,7 +26,7 @@
 							email = '$email', contact_no = '$contact_no', status = '$status' , branch = '$branch' , acctype = '$acctype' 
 							where accounts.acc_id= '$account_id'";
 					if(mysqli_query($db, $query)){
-						echo"<script>alert('Successfuly edit accounts')</script>";
+						echo"<script>alert('Accounts have been successfully updated')</script>";
 						echo "<script>window.open('../accounts_Users.php','_self')</script>";
 					} else{
 						  echo ("ERROR: Could not able to execute" . mysqli_error($db));

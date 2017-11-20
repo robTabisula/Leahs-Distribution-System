@@ -61,7 +61,7 @@
                          $queryil = "INSERT INTO bo_list (bo_id, bo_price, bo_qty, branch, bo_product_id, po_remarks) 
                                VALUE ('$id','$adjprice','$qty','$branch','$product','$p_remarks')";
                         if(mysqli_query($db, $queryil)){
-                          echo"<script>alert('Successfuly Added Products')</script>";
+                          echo"<script>alert('Products have been successfuly added as bad-order')</script>";
                           echo "<script>window.open('../log_BadOrders.php','_self')</script>"; 
                         }else{
                           echo ("ERROR: Could not able to execute" . mysqli_error($db));

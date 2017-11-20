@@ -30,7 +30,7 @@
             $query3 = "UPDATE product_loc SET status = '$pstatus', altprice = '$pprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Pangasinan'";
         
           if(mysqli_query($db, $query2) and mysqli_query($db, $query3)){
-            echo"<script>alert('Successfuly edit products')</script>";
+            echo"<script>alert('Successfully edited products')</script>";
             echo "<script>window.open('../products.php','_self')</script>";  
             } else{
               echo ("ERROR: Could not able to execute" . mysqli_error($db));
