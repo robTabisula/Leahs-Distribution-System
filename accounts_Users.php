@@ -419,13 +419,13 @@ if(!$_SESSION['username'])  {
                             <div class="modal-body">
                                 <form action="fragments/addUser.php" method="POST" onsubmit="return validateForm()">
                                     <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="username" autofocus required>
+                                    <input type="text" class="form-control" maxlength="100" name="username" autofocus required>
 
                                     <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="first_name" onkeypress="return isAlfa(event)" required>
+                                    <input type="text" class="form-control" maxlength="100" name="first_name" required>
 
                                     <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="last_name" onkeypress="return isAlfa(event)" required>
+                                    <input type="text" class="form-control" maxlength="100" name="last_name" required>
 
                                     <h3>Password</h3>
                                     <input type="password" id="pass" class="form-control" name="user_pass" required>
@@ -435,7 +435,7 @@ if(!$_SESSION['username'])  {
 									 <span id='message'></span>
 
                                     <h3>Email</h3>
-                                    <input type="email" class="form-control" maxlength="25" name="email" required>
+                                    <input type="email" class="form-control" name="email" required>
 
                                     <h3>Contact Number</h3>
                                     <input type="text" class="form-control" maxlength="25" name="contact_no" onkeypress="return isNumber(event)" required>
@@ -443,7 +443,6 @@ if(!$_SESSION['username'])  {
 									<h3>Branch</h3>
                                     <div class="col-xs-4">
 										<select name="branch" class="form-control">
-											<option></option>
 											<option>Baguio</option>
 											<option>Pangasinan</option>
 										</select>
@@ -452,9 +451,8 @@ if(!$_SESSION['username'])  {
 									<h3>Account Type</h3>
                                     <div class="col-xs-4">
 										<select name="acctype" class="form-control">
-											<option></option>
-											<option>User</option>
 											<option>Admin</option>
+											<option>Manager</option>
 											<option>Secretary</option>
 											<option>Bookkeeper</option>
 										</select>
