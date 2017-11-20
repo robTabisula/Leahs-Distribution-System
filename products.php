@@ -424,7 +424,6 @@ if(!$_SESSION['username'])  {
 
                                         <h3>Status</h3>
                                         <select name="status" class="form-control">
-										<option></option>
                                         <option value="Disabled">Disabled</option>
                                         <option value="Enabled">Enabled</option>
 										</select>
