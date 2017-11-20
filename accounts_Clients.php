@@ -255,6 +255,8 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
+                                                                
+                                                                
                                                                 <input name="c_name" value="<?php echo $row['c_name']; ?>" type="text" class="form-control">
                                                             </div>
 															<div class="col-xs-4">
@@ -313,7 +315,7 @@ if(!$_SESSION['username'])  {
                                         <input type="text" class="form-control" maxlength="25" name="c_address" required>
 
                                         <h3>Contact Number</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="contact_number" onkeypress="return isNumber(event)" required>
+                                        <input type="text" class="form-control" maxlength="25" name="contact_numberAdd" onkeypress="return isNumber(event)" required>
 
                                         <h3>Contact Person</h3>
                                         <input type="text" class="form-control" maxlength="50" name="contact_name" required>

@@ -17,7 +17,7 @@
 				$c_address = $_POST['c_address'];
 				$c_location = $_POST['c_location'];
 				$contact_name = $_POST['contact_name'];
-				$contact_number = $_POST['contact_number'];
+				$contact_number = $_POST['contact_numberAdd'];
 				 
 				    $check_username_query="select * from clients WHERE c_name='$c_name' AND c_location = '$c_location'";  
 					$run_query=mysqli_query($db,$check_username_query);
@@ -50,5 +50,6 @@
 			}
         	 
         ?>
+      <h1><?php echo $contact_number; ?></</h1>
   </body>
 </html>
