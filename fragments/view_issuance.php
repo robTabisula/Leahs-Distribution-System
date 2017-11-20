@@ -213,7 +213,7 @@ if(!$_SESSION['username'])  {
                                                             foreach ($prodRetrieve as $datas):
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
-                                                            <option value = "<?php echo $sproduct_id;?>">
+                                                            <option value = "<?php echo $datas["productList_name"]; ?>">
                                                                <?php echo $datas["productList_name"]; ?>
                                                             </option>
                                                   
@@ -366,7 +366,7 @@ if(!$_SESSION['username'])  {
                                                         foreach ($prodRetrieve as $datas):
                                                         $sproduct_id = $datas["productList_id"];
                                                     ?>  
-                                                        <option value = "<?php echo $sproduct_id;?>">
+                                                        <option value = "<?php echo $datas["productList_name"]; ?>">
                                                            <?php echo $datas["productList_name"]; ?>
                                                         </option>
                                               
@@ -500,7 +500,7 @@ if(!$_SESSION['username'])  {
                                                         foreach ($prodRetrieve as $datas):
                                                         $sproduct_id = $datas["productList_id"];
                                                     ?>  
-                                                        <option value = "<?php echo $sproduct_id;?>">
+                                                        <option value = "<?php echo $datas["productList_name"]; ?>">
                                                            <?php echo $datas["productList_name"]; ?>
                                                         </option>
                                               
@@ -638,7 +638,7 @@ if(!$_SESSION['username'])  {
                                                         foreach ($prodRetrieve as $datas):
                                                         $sproduct_id = $datas["productList_id"];
                                                     ?>  
-                                                        <option value = "<?php echo $sproduct_id;?>">
+                                                        <option value = "<?php echo $datas["productList_name"]; ?>">
                                                            <?php echo $datas["productList_name"]; ?>
                                                         </option>
                                               
