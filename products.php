@@ -58,6 +58,7 @@ if(!$_SESSION['username'])  {
                     ],
                     buttons: [
                         {
+
                             title:'Leahs', 
                             message:'Product List', 
                             customize: function ( win ) {
@@ -70,6 +71,7 @@ if(!$_SESSION['username'])  {
                             },  
                                     
                                 extend:'print',
+
                                 exportOptions: {
                                 columns: ':visible',
                                     modifier: {
@@ -83,6 +85,7 @@ if(!$_SESSION['username'])  {
                             'pageLength', 
                             
                     ],
+
                         columnDefs: [{
                             targets: -1,
                             visible: true
