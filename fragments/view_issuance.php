@@ -138,39 +138,41 @@
                         <form role="form" method="post" action="fragments/issuance_fn.php">  
                             <fieldset>  
                                 <div class="issue">
-                                    <div class="col-xs-4">
-                                        <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
-                                        <h4>Issuance ID</h4>
-                                                <?php
-                                                    $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
-                                                    $idRetrieve = mysqli_query($db, $retrieveId);
-                                                    $idRow = mysqli_fetch_array($idRetrieve);
+                                   <div id="issue_num">
+                                        <div class="col-xs-4">
+                                                <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
+                                                <h4>Issuance ID</h4>
+                                                        <?php
+                                                            $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
+                                                            $idRetrieve = mysqli_query($db, $retrieveId);
+                                                            $idRow = mysqli_fetch_array($idRetrieve);
 
-                                                    $latestid = $idRow['issue_id'];
-                                                    $newID = $latestid + 1; //will increment 1 from the latest issuance ID
-                                                ?>
-                                        <h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
-                                    </div>
+                                                            $latestid = $idRow['issue_id'];
+                                                            $newID = $latestid + 1; //will increment 1 from the latest issuance ID
+                                                        ?>
+                                                <h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+                                            </div>
+                        
+                                        <div id="branch" class="col-xs-4">
+                                            <h4>Branch </h4>
+                                                <select name="branch" onchange="Lclients(this.value);" required>
+                                                        <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                                        <option value="Baguio">Baguio</option>
+                                                        <option value="Pangasinan">Pangasinan</option>
+                                                </select>
+                                            </div>
 
-                                    <div class="col-xs-4">
-                                    <h4>Branch </h4>
-                                        <select name="branch" onchange="Lclients(this.value);" required>
-                                                <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                                <option value="Baguio">Baguio</option>
-                                                <option value="Pangasinan">Pangasinan</option>
-                                        </select>
-                                    </div>
+                                            <div class="col-xs-4" id="TheClients" style="display: none;">
 
-                                    <div class="col-xs-4" id="TheClients" style="display: none;">
-
-                                    </div>
-
-                                    <div class="col-xs-4">
-                                        <div class="remarks">
-                                            <h4>Remarks</h4>
-                                            <textarea rows="1" cols="30" name="remarks" ></textarea>
+                                            </div>
                                         </div>
-                                    </div>
+
+                                        <div id="remarks_field" class="col-xs-4">
+                                            <div class="remarks">
+                                                <h4>Remarks</h4>
+                                                <textarea rows="1" cols="30" name="remarks" ></textarea>
+                                            </div>
+                                        </div>
 
                                                                      <!--clientslist-->
 
@@ -287,52 +289,55 @@
                         <form role="form" method="post" action="fragments/issuance_fn_penthouse.php">  
                             <fieldset>  
                                 <div class="issue">
-                                    <div class="col-xs-4">
-                                        <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
-                                        <h4>Issuance ID</h4>
-                                                <?php
-                                                    $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
-                                                    $idRetrieve = mysqli_query($db, $retrieveId);
-                                                    $idRow = mysqli_fetch_array($idRetrieve);
+                                   <div id="issue_num">
+                                        <div class="col-xs-4">
+                                            <input type='hidden' name="issueAct" readonly value='<?php  echo $_SESSION['username']; ?>' />
+                                            <h4>Issuance ID</h4>
+                                                    <?php
+                                                        $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
+                                                        $idRetrieve = mysqli_query($db, $retrieveId);
+                                                        $idRow = mysqli_fetch_array($idRetrieve);
 
-                                                    $latestid = $idRow['issue_id'];
-                                                    $newID = $latestid + 1; //will increment 1 from the latest issuance ID
-                                                ?>
-                                        <h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
-                                    </div>
+                                                        $latestid = $idRow['issue_id'];
+                                                        $newID = $latestid + 1; //will increment 1 from the latest issuance ID
+                                                    ?>
+                                            <h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+                                        </div>
 
-                                    <div class="col-xs-4">
-                                        <select name="branch" required>
-                                                <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                                <option value="Baguio">Baguio</option>
-                                                <option value="Pangasinan">Pangasinan</option>
-                                        </select>
-                                    </div>
+                                        <div id="branch" class="col-xs-4">
+                                           <h4>Branch</h4>
+                                            <select name="branch" required>
+                                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                                    <option value="Baguio">Baguio</option>
+                                                    <option value="Pangasinan">Pangasinan</option>
+                                            </select>
+                                        </div>
 
-                                    <div class="col-xs-4">
-                                        <h4>Client Name</h4>
-                                        <?php
-                                            $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin'");
-                                            $adminRetrieve = mysqli_query($db, $retrieveAdmin);
-                                        ?>
+                                        <div id="TheClients" class="col-xs-4">
+                                            <h4>Client Name</h4>
+                                            <?php
+                                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin'");
+                                                $adminRetrieve = mysqli_query($db, $retrieveAdmin);
+                                            ?>
 
-                                        <select name="Pcleint" required>
-                                                <option value="" selected="true" disabled="disabled">Client</option>
-                                                <?php
-                                                    foreach ($adminRetrieve as $userData):
-                                                    $user_id = $userData["acc_id"];
-                                                ?> 
-                                                    <option value="<?php echo $userData["acc_id"]; ?>"><?php echo $userData["username"]; ?></option>
-                                               <?php
-                                                    endforeach;
-                                                ?>
-                                        </select>
-                                    </div>
+                                            <select name="Pcleint" required>
+                                                    <option value="" selected="true" disabled="disabled">Client</option>
+                                                    <?php
+                                                        foreach ($adminRetrieve as $userData):
+                                                        $user_id = $userData["acc_id"];
+                                                    ?> 
+                                                        <option value="<?php echo $userData["acc_id"]; ?>"><?php echo $userData["username"]; ?></option>
+                                                   <?php
+                                                        endforeach;
+                                                    ?>
+                                            </select>
+                                        </div>
+                                        </div>
 
-                                    <div class="col-xs-4">
-                                        <h4>Remarks</h4>
-                                        <textarea rows="1" cols="30" name="remarks" ></textarea>
-                                    </div>
+                                        <div id="remarks_field" class="col-xs-4">
+                                            <h4>Remarks</h4>
+                                            <textarea rows="1" cols="30" name="remarks" ></textarea>
+                                        </div>
                                 </div>
                                 <br><br><br><br><br>
                                 <div class="form-group">                            
