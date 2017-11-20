@@ -170,7 +170,6 @@ if(!$_SESSION['username'])  {
 					<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
 						<thead>
 							<tr>
-								<th>Order ID</th>
 								<th>Ordered Products</th>
 								<th>Client</th>
 								<th>Date and Time</th>
@@ -185,13 +184,10 @@ if(!$_SESSION['username'])  {
 									$toData = $data["order_id"];
 							?>
 								<tr>
-									<td data-title="Order ID">
 										<?php
 											$po_id=$data["order_id"];
-											echo $po_id;
 										?>
-									</td>
-									
+
 									<td data-title="Products Ordered">
                                         <table class="table table-striped table-bordered">
                                             <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $po_id ?>"></button>

@@ -53,7 +53,7 @@
 									 $queryil = "INSERT INTO purchased_order_list (p_order_id, order_qty, branch, prdct_id, order_remarks) 
 											   VALUE ('$id','$qty','$branch','$product','$p_remarks')";
 									if(mysqli_query($db, $queryil)){
-										echo"<script>alert('Successfuly Added Orders')</script>";
+										echo"<script>alert('Orders have been successfuly added ')</script>";
 										echo "<script>window.open('../index.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));

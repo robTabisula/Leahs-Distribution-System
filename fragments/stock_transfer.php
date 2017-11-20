@@ -77,7 +77,7 @@
 									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, remarks) 
 											   VALUE ('$id','$qty','$adjprice','$branch','$product','$p_remarks')";
 									if(mysqli_query($db, $queryil)){
-										echo"<script>alert('Successfuly Issued Products')</script>";
+										echo"<script>alert('Product(s) have been successfully transfered')</script>";
 										echo "<script>window.open('../issuance.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));

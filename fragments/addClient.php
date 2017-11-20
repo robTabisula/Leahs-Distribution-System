@@ -41,7 +41,7 @@
 						   VALUE ('$id','$contact_name','$contact_number')";
 							   
 						if(mysqli_query($db, $query2)){
-						echo"<script>alert('Successfuly Added Clients')</script>";
+						echo"<script>alert('New client have been successfully added')</script>";
 						echo "<script>window.open('../accounts_Clients.php','_self')</script>";  
 						} else{
 							echo ("ERROR: Could not able to execute" . mysqli_error($db));

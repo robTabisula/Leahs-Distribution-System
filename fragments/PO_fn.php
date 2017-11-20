@@ -61,7 +61,7 @@
                          $queryil = "INSERT INTO po_list (po_id, po_price, po_qty, branch, po_product_id, po_remarks) 
                                VALUE ('$id','$adjprice','$qty','$branch','$product','$p_remarks')";
                         if(mysqli_query($db, $queryil)){
-                          echo"<script>alert('Successfuly Added Products')</script>";
+                          echo"<script>alert('Products have been successfully added to pull-out')</script>";
                           echo "<script>window.open('../log_Returns.php','_self')</script>"; 
                         }else{
                           echo ("ERROR: Could not able to execute" . mysqli_error($db));

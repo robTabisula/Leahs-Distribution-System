@@ -24,7 +24,7 @@
 					$query2 = "UPDATE client_contact SET contact_name = '$contact_name', contact_number = '$contact_number' where client_contact.contact_clientid= '$client_id'";
 
 					  if(mysqli_query($db, $query2)){
-						echo"<script>alert('Successfuly edit client')</script>";
+						echo"<script>alert('Client have been successfully updated')</script>";
 						echo "<script>window.open('../accounts_Clients.php','_self')</script>";
 						} else{
 						  echo ("ERROR: Could not able to execute" . mysqli_error($db));

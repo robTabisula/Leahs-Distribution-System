@@ -17,7 +17,7 @@
 				  
 				  $query = "UPDATE category_list SET category_name = '$category_name', category_status = '$category_status' where category_list.category_id= '$individual_cat_id'";
 					if(mysqli_query($db, $query)){
-						echo"<script>alert('Successfuly edit category')</script>";
+						echo"<script>alert('Successfully edited category')</script>";
 						echo "<script>window.open('../categories.php','_self')</script>";
 					} else{
 						  echo ("ERROR: Could not able to execute" . mysqli_error($db));

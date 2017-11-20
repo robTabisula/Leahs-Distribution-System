@@ -48,7 +48,7 @@
 
   				
     					if(mysqli_query($db, $query3)){
-    						echo"<script>alert('Successfuly Added Products')</script>";
+    						echo"<script>alert('New products have been successfully added ')</script>";
     						echo "<script>window.open('../products.php','_self')</script>";  
     						} else{
     							echo ("ERROR: Could not able to execute" . mysqli_error($db));

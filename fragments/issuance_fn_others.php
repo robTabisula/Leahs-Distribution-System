@@ -67,7 +67,7 @@
 									   VALUE ('$id','$qty','$adjprice','$branch','$product','$p_remarks')";
 									   
 							if(mysqli_query($db, $queryil)){
-								echo"<script>alert('Successfuly Added Products')</script>";
+								echo"<script>alert('Products have been successfuly issued to others')</script>";
 								echo "<script>window.open('../issuance.php','_self')</script>"; 
 							}else{
 								echo ("ERROR: Could not able to execute" . mysqli_error($db));
