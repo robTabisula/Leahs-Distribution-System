@@ -346,14 +346,13 @@
                                 <hr style = "border-top: 2px double #8c8b8b;">
                                 <br>
                                 <!--Div to view adjusted price and category-->
-                                <div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 150px; width: 150px; top:10%;  width: 300px; height: 200px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
+                                <div id="AdjustedPriceDiv">
                                             <hr>
                                             <h4>When Choosing a product, Information will be viewed here.</h4>
                                             <hr>
-                                    </div>  
                                 </div> 
 
-                                    <table class="table table-striped table-bordered">
+                                <table id="form_" class="table table-striped table-bordered">
                                         <tr>
                                             <td>
                                                 <label for="product">Product:</label>
@@ -391,11 +390,18 @@
                                                 <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
                                             </td>
                                         </tr>
-                                    </table>
+                                        <tr>
+                                            <td>
+                                                <label for="Action">Action:</label>
+                                            </td>
+                                           <td> 
+                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                                <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                            </td>
+                                        </tr>
+                                    </table>  
+                                </div>
 
-                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
-                                    <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
-                                    <br>
                                 <br>
 
                                 <table id="results" width="360" class="table table-striped table-bordered">
@@ -524,12 +530,17 @@
                                                 <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="Action">Action:</label>
+                                            </td>
+                                           <td> 
+                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                                <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                            </td>
+                                        </tr>
                                     </table>
                                     </div>
-
-                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
-                                    <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
-                                    <br>
                                 <br>
 
                                 <table id="results" width="360" class="table table-striped table-bordered">
@@ -662,12 +673,18 @@
                                                 <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="Action">Action:</label>
+                                            </td>
+                                           <td> 
+                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                                <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                            </td>
+                                        </tr>
                                     </table> 
                                     </div> 
 
-                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
-                                    <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
-                                    <br>
                                 <br>
 
                                 <table id="results" width="360" class="table table-striped table-bordered">
