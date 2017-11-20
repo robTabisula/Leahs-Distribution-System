@@ -46,20 +46,27 @@
 
                foreach ( $mi as $value ){
                     list($product, $adjprice, $qty, $p_remarks) = $value;
+
+                    $idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
+                    $queryId = mysqli_query($db, $idQuery);
+                    $productID = mysqli_fetch_array($queryId);
+                    $productIDList = $productID['productList_id'];
+
+
                     //read inventory per product chosen
-                    $pinq="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='$branch'";
+                    $pinq="SELECT * FROM inventory where inventory.iS_product_id = '$productIDList' and inventory.iS_location='$branch'";
                     $pinqactivate=mysqli_query($db, $pinq);
                     $product_inventory=mysqli_fetch_array($pinqactivate);
                     $product_quantity=$product_inventory['iS_quantity'];
 
                     //reduce quantity in inventory
                     $newQ=$product_quantity+$qty;
-                    $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$product' and inpo_id, po_price, po_qty, branch, po_product_id, po_remarksventory.iS_location = '$branch'";
+                    $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inpo_id, po_price, po_qty, branch, po_product_id, po_remarksventory.iS_location = '$branch'";
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
                          $queryil = "INSERT INTO bo_list (bo_id, bo_price, bo_qty, branch, bo_product_id, po_remarks) 
-                               VALUE ('$id','$adjprice','$qty','$branch','$product','$p_remarks')";
+                               VALUE ('$id','$adjprice','$qty','$branch','$productIDList','$p_remarks')";
                         if(mysqli_query($db, $queryil)){
                           echo"<script>alert('Products have been successfuly added as bad-order')</script>";
                           echo "<script>window.open('../log_BadOrders.php','_self')</script>"; 
