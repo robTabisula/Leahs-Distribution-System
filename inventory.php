@@ -44,9 +44,10 @@ if(!$_SESSION['username'])  {
        var table;
         responsive: true;
         $(document).ready(function() {
-            table = $('#datatables').dataTable({
+            var table = $('#datatables').dataTable({
                 "dom": "l<'#myFilter'>frtip"
             });
+
             var myFilter = '<select id="mySelect">' +
                 '<option value="*">All</option>' +
                 '<option value="Baguio">Baguio</option>' +
@@ -329,7 +330,7 @@ if(!$_SESSION['username'])  {
                         </div>
                     </div>
 					
-
+             
                     <!-- Modal low Stocks-->
                     <div id="lowStocks" class="modal fade" role="dialog">
                         <div class="modal-dialog">
@@ -339,7 +340,7 @@ if(!$_SESSION['username'])  {
                                     <h4 class="modal-title">Low Stock</h4>
                                 </div>
                                 <div class="modal-body">
-                              		<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                              		<table id="datatables1" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
 				                        <thead>
 				                            <tr>
 				                                <th>Product Name</th>
