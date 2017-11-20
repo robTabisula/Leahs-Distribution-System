@@ -157,7 +157,7 @@ if(!$_SESSION['username'])  {
 												$latestid = $idRow['issue_id'];
 												$newID = $latestid + 1; //will increment 1 from the latest issuance ID
 											?>
-									<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+									<h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
 								</div>
 
 								<div class="col-xs-4">
@@ -299,7 +299,7 @@ if(!$_SESSION['username'])  {
 												$latestid = $idRow['issue_id'];
 												$newID = $latestid + 1; //will increment 1 from the latest issuance ID
 											?>
-									<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+									<h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
 								</div>
 								
 								<div class="col-xs-4">
@@ -451,7 +451,7 @@ if(!$_SESSION['username'])  {
 												$latestid = $idRow['issue_id'];
 												$newID = $latestid + 1; //will increment 1 from the latest issuance ID
 											?>
-									<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+									<h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
 								</div>	
 								
 								<div class="col-xs-4">
@@ -585,7 +585,7 @@ if(!$_SESSION['username'])  {
 												$latestid = $idRow['issue_id'];
 												$newID = $latestid + 1; //will increment 1 from the latest issuance ID
 											?>
-									<h4><input type="label" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
+									<h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
 								</div>
 
 								<div class="col-xs-4">

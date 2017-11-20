@@ -166,8 +166,6 @@ if(!$_SESSION['username'])  {
                             <th>Client</th>
                             <th>Branch</th>
                             <th>Remarks</th>
-                            <th>Pull Out</th>
-                            <th>Bad Orders</th>
                         </tr>
                     </thead>
 
@@ -208,24 +206,6 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td data-title="Remarks">
                                     <?php echo $data["remarks"]; ?>
-                                </td>
-                                <td data-title="Pull Out">
-                                        <table class="table table-striped table-bordered">
-                                            <a href="issuance_Returns.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>">
-                                                <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
-                                                </button>
-                                            </a>
-                                        </table>
-                                </td>
-                                <td data-title="Bad Orders">
-                                        <table class="table table-striped table-bordered">
-                                            <a href="issuance_BadOrder.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>">
-                                                <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                </button>
-                                            </a>
-                                        </table>
                                 </td>
                             </tr>
     

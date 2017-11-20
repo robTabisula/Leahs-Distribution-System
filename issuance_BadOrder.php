@@ -211,23 +211,24 @@ if(!$_SESSION['username'])  {
 
                         <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                         <input type='hidden' name="branch" readonly value='<?php  echo $_GET['Branch']; ?>'/>
-                            <h4>Bad Orders ID</h4>
-                            <?php
-                                    $retrieveId = ("SELECT bo_id from bad_order order by 1 desc limit 1;");
-                                    $idRetrieve = mysqli_query($db, $retrieveId);
-                                    $idRow = mysqli_fetch_array($idRetrieve);
+                            <div class="col-xs-4">
+								<h4>Bad Orders ID</h4>
+								<?php
+										$retrieveId = ("SELECT bo_id from bad_order order by 1 desc limit 1;");
+										$idRetrieve = mysqli_query($db, $retrieveId);
+										$idRow = mysqli_fetch_array($idRetrieve);
 
-                                    $latestid = $idRow['bo_id'];
-                                    $newID = $latestid + 1; //will increment 1 from the latest issuance ID
-                            ?>
-                            <h4><input type="label" name="BO_id" value="<?php echo $newID;?>" readonly></input></h4>
-
-                            <div class="remarks">
+										$latestid = $idRow['bo_id'];
+										$newID = $latestid + 1; //will increment 1 from the latest issuance ID
+								?>
+								<h4><input type="label" size='2' name="BO_id" value="<?php echo $newID;?>" readonly></input></h4>
+							</div>
+                            <div class="col-xs-4">
                                 <h4>Remarks</h4>
-                                <textarea rows="3" cols="30" name="remarks"></textarea>
+                                <textarea rows="1" cols="30" name="remarks"></textarea>
                             </div>
 
-                            <div class="dateTime">
+                           <div class="col-xs-4">
                                 <h4>Date and Time</h4>
                                 <?php $date = date("Y-m-d H:i:s");  ?>
                                 <input type="label" name="date" value="<?php echo $date;?>" readonly/>
@@ -260,22 +261,22 @@ if(!$_SESSION['username'])  {
                                             $runInfoQuery = mysqli_query($db, $infoQuery);
                                         ?>
                                 <label>Issuance ID</label>
-                                <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>
+                                <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp
                                 <label>Branch</label>
-                                <input type='text' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>
+                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                                 <?php
                                             foreach ($runInfoQuery as $info):
                                             $product_id = $info["issue_id"];
                                         ?>
                                     <h4>Product Description: </h4>
                                     <label>Product Name: </label>
-                                    <input type='text' size='35' readonly value='<?php  echo $info["productList_name"]; ?>' />
+                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
-                                    <input type='text' size='35' readonly value='<?php  echo $info["prod_qty"]; ?>' />
+                                    <input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' />&nbsp
                                     <label>Issued Price:</label>
-                                    <input type='text' size='35' readonly value='<?php  echo $info["prod_price"]; ?>' />
+                                    <input type='text' size='2' readonly value='<?php  echo $info["prod_price"]; ?>' />&nbsp
                                     <label>Product Remarks:</label>
-                                    <input type='text' size='35' readonly value='<?php  echo $info["prod_remarks"]; ?>' />
+                                    <input type='text' size='20' readonly value='<?php  echo $info["prod_remarks"]; ?>' />&nbsp
 
 
 

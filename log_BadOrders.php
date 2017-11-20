@@ -146,9 +146,124 @@ if(!$_SESSION['username'])  {
 
     <!-- Main Container -->
     <div id="page-content-wrapper">
+        <div class="containers">
+            <table class="table table-striped table-bordered">
+                <h1 align="center">Bad Order Logs</h1>
+            </table>
 
+            <!-- Retrieve Account Data -->
+            <?php
+                            $retrieve = ("SELECT * FROM bad_order inner join bo_list on bad_order.bo_id = bo_list.bo_id");
+                            $results = mysqli_query($db, $retrieve);
+                        ?>
+
+                <!-- Table Display for Issuances -->
+                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Bad Order ID</th>
+							<th>Bad Order Product(s)</th>
+                            <th>Date/Time</th>
+                            <th>Issuer</th>
+							<th>Branch</th>
+                            <th>Remarks</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <?php
+                            foreach ($results as $data):
+                                $toData = $data["bo_id"];
+                        ?>
+                            <tr>
+                                <td data-title="Issuance ID">
+                                    <?php 
+                                    $IsID =  $data["bo_id"];
+                                    echo $IsID; 
+                                    ?>
+                                </td>
+
+                                <td data-title="Bad Order Products">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
+                                        </table>
+                                </td>
+								
+								<td data-title="Date/Time">
+                                    <?php echo $data["bo_dateReleased"]; ?>
+                                </td>
+								
+                                <td  data-title="Issuer">
+                                    <?php echo $data["bo_issue_account"];
+                                    ?>
+                                </td>
+								
+								<td data-title="Branch">
+                                    <?php
+                                        $passBranch = $data["branch"];  
+                                        echo $passBranch; 
+                                    ?>
+                                </td>
+
+                                <td data-title="Remarks">
+                                    <?php echo $data["bo_remarks"]; ?>
+                                </td>
+
+                            </tr>
+    
+
+                <!-- Products Issued -->
+                <div id="<?php echo  $IsID ?>" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Bad Order Products</h4>
+                            </div>
+                            <div class="modal-body">
+                                    <h4>Bad Order ID: <?php  echo $data["bo_id"];  ?></h4>
+                                    <?php
+                                        $queryProducts = "SELECT * FROM  bo_list INNER JOIN product_list ON bo_list.bo_product_id = product_list.productList_id INNER JOIN product_loc ON bo_list.bo_product_id = product_loc.product_id WHERE bo_id = '$IsID' AND  location = '$passBranch'";
+                                        $run = mysqli_query($db, $queryProducts);
+                                    ?>
+                                    <label>Product</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <label>Quantity</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    <label>Adjusted Price</label>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    
+                                    <?php
+                                        foreach ($run as $log){
+                                        $toData = $log["productList_id"];        
+                                    ?>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+											<input type="text" value= "<?php  echo $log["bo_price"];  ?>" readonly>
+                                            <input type="text" value= "<?php  echo $log["bo_qty"];  ?>" readonly>
+                                            
+                                            
+                                                                                   
+                                    <?php
+                                        }
+                                    ?>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                    endforeach;
+                ?>
+                    </tbody>
+                </table>
+        </div>
     </div>
-
 </body>
 
 </html>
