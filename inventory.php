@@ -245,7 +245,7 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
                                                 <form action="fragments/editInventory.php" method="POST">
-                                                    
+                                                    <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                                     <label>Inventory ID</label>
                                                     <input type="text" name="Inventory_ID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
                                                     
@@ -289,6 +289,7 @@ if(!$_SESSION['username'])  {
                                 </div>
                                 <div class="modal-body">
                                     <form action="fragments/addStocks.php" method="POST">
+									<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                         <label>Location</label>
                                             
                                             <select name="Loc">
@@ -408,7 +409,7 @@ if(!$_SESSION['username'])  {
                                                 </div>
                                                 <div class="modal-body">
                                                     <form action="fragments/addLowStocks.php" method="POST">
-                                                        
+                                                        <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                                         <label>Product ID</label>
                                                                 <input type="text" name="PId" value="<?php echo $Lrow["iS_product_id"]; ?>" readonly><br>
 
