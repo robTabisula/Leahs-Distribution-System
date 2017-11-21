@@ -171,7 +171,7 @@ if(!$_SESSION['username'])  {
                             <div class="well" id="prod_mostb">
 
                                 <?php 
-                                    $queryProdB= "SELECT productList_name as 'name', count(issuance_list.issue_id) AS 'MAGNITUDE' FROM clients INNER JOIN issuance ON  clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id INNER JOIN product_list ON productList_id = issuance_list.prod_id WHERE c_location= 'Pangasinan' GROUP BY productList_name ORDER BY MAGNITUDE DESC;";
+                                    $queryProdB= "SELECT productList_name as 'name', count(issuance_list.issue_id) AS 'MAGNITUDE' FROM clients INNER JOIN issuance ON  clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id INNER JOIN product_list ON productList_id = issuance_list.prod_id WHERE c_location= 'Baguio' GROUP BY productList_name ORDER BY MAGNITUDE DESC;";
                                     $runpb = mysqli_query($db, $queryProdB);
                                     $thisprodb=mysqli_fetch_array($runpb);
 
