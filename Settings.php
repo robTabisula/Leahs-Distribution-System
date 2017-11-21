@@ -44,14 +44,13 @@ if(!$_SESSION['username'])  {
         });
 
     function edit(){
-        document.getElementById('inputun').removeAttribute('readonly');
+ 
         document.getElementById('inputfn').removeAttribute('readonly');
         document.getElementById('inputln').removeAttribute('readonly');
         document.getElementById('inputem').removeAttribute('readonly');
         document.getElementById('input').removeAttribute('readonly');
         document.getElementById('key').removeAttribute('readonly');
-        var inputun = document.getElementById("inputun");
-        inputun.style.backgroundColor = "white";
+
         var inputfn = document.getElementById("inputfn");
         inputfn.style.backgroundColor = "white";
         var inputln = document.getElementById("inputln");
@@ -167,6 +166,7 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
 
+            <form role="form" method="post" action="fragments/editProfile.php">
    
                 <h3><center>Profile</center></h3>
                 <?php 
@@ -174,21 +174,22 @@ if(!$_SESSION['username'])  {
                         $username=$_SESSION['username'];
 
                         $userq="select * from accounts where username='$username'";
-                        $runq=mysqli_query($db, $userq);
+                        $runq = mysqli_query($db, $userq);
                         $thisuser=mysqli_fetch_array($runq);
-
                         $first_name=$thisuser['first_name'];
                         $last_name=$thisuser['last_name'];
                         $email=$thisuser['email'];
                         $contact_no=$thisuser['contact_no'];
                         $status=$thisuser['status'];
                         $branch=$thisuser['branch'];
+                        $secKey=$thisuser['security_key'];
+                        $ID = $thisuser['acc_id'];
 
                 ?> 
- 
+                <input type='hidden' name="UserID" value="<?php echo $ID; ?>" readonly/>
                 <div class="col-lg-4">
                     <center><h4>Username</h4></center> 
-                    <input name="username" id="inputun" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $username;?>" readonly/>
+                    <input name="username" id="inputun" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="res" readonly/>
                 </div>
                 <div class="col-lg-4">
                     <center><h4>First Name</h4></center>
@@ -208,26 +209,23 @@ if(!$_SESSION['username'])  {
                     <center><h4>Contact Number</h4></center>
                     <input name="contact_num" id="input" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $contact_no;?>" readonly/>
                 </div>
-                 <div class="col-lg-4">
-                    <hr>
-                    <center><h4>Password</h4></center>
-                    <input name="password" class="input-lg" style="background-color: #DCDCDC;" type="textfield" value="---------------------------" readonly/>
-                </div>
-                    <div class="col-lg-4">
+                <div class="col-lg-4">
                     <hr>
                     <center><h4>Security Key</h4></center>
-                    <input name="secKey" id="key" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="ASDRF" readonly/>
+                    <input name="secKey" id="key" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $secKey;?>" readonly/>
                 </div>
 				
 				<div class="col-xs-12">
 					<br>
 						<div class="modal-footer">
-						<input name="branch" id="edit" type="button" style="background-color: #90EE90;" class="btn btn-success" onclick="edit();" class="fa fa-save" value="Edit"/>
-							<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-							<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Discard</button>
+							<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>					
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onClick="location.href=location.href"><i class="fa fa-times"></i> Discard</button>
 						</div>
 				</div>
-            
+             </form>
+              <input name="branch" id="edit" type="button" style="background-color: #90EE90;" class="btn btn-success" onclick="edit();" class="fa fa-save" value="Edit"/>
+
+
         </div>
     </div>
 
