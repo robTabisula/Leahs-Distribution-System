@@ -16,6 +16,9 @@
             $Loc = $_POST['LLoc'];
           	$productList = $_POST['LProducts'];
           	$addQuantity = $_POST['LQuantity'];
+				date_default_timezone_set('Asia/Manila');
+				$date_time = date("F j, Y, g:i a");
+				$issueAcnt = $_POST['issueAcnt'];
 
             $quantityQuery = "SELECT iS_quantity FROM inventory WHERE iS_product_id = '$PId' AND iS_location = '$Loc'";
             $Lrow = mysqli_query($db, $quantityQuery);
@@ -27,8 +30,12 @@
           
 			 
           	$query = "UPDATE inventory SET iS_quantity = '$Quantity' WHERE iS_product_id = '$PId' AND iS_location = '$Loc'";
-            
-            if(mysqli_query($db, $query)){ 					
+            mysqli_query($db, $query);
+					
+					$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+						   VALUE ('$issueAcnt','Added Low Stock','$date_time','has successfully added a stock to low stock products')";
+
+            if(mysqli_query($db, $query2)){ 					
 						echo"<script>alert('Stock have been successfully added ')</script>";
 						echo "<script>window.open('../inventory.php','_self')</script>";  
 						} else{

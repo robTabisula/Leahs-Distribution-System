@@ -271,12 +271,12 @@ if(!$_SESSION['username'])  {
                                 <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
                                 <label>Branch</label>
                                 <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>
-
+                                <h4>Product Description: </h4>
                                 <?php
                                             foreach ($runInfoQuery as $info):
                                             $product_id = $info["issue_id"];
                                         ?>
-                                    <h4>Product Description: </h4>
+                                    
                                     <label>Product Name: </label>
                                     <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
