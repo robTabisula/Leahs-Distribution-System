@@ -182,7 +182,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM clients INNER JOIN client_contact ON clients.c_id = client_contact.contact_clientid");
+							$retrieve = ("SELECT * FROM clients;");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -197,8 +197,6 @@ if(!$_SESSION['username'])  {
                             <tr>
                                 <th>Name</th>
                                 <th>Address</th>
-                                <th>Contact Number</th>
-                                <th>Contact Person</th>
                                 <th>Location</th>
                                 <th>Edit</th>
 
@@ -220,12 +218,7 @@ if(!$_SESSION['username'])  {
                                     <td data-title="c_address">
                                         <?php echo $data["c_address"]; ?>
                                     </td>
-                                    <td data-title="contact_number">
-                                        <?php echo $data["contact_number"]; ?>
-                                    </td>
-                                    <td data-title="contact_name">
-                                        <?php echo $data["contact_name"]; ?>
-                                    </td>
+                          
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
                                     </td>
