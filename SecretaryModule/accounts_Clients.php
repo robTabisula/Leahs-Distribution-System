@@ -1,6 +1,6 @@
 <?php  
 session_start();  
-
+  
 if(!$_SESSION['username'])  {  
   
     header("location: login.php");
@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Accounts</title>
+    <title>Clients</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -37,7 +37,7 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-         var table;
+        var table;
         responsive: true;
         $(document).ready(function() {
             table = $('#datatables').dataTable({
@@ -68,11 +68,12 @@ if(!$_SESSION['username'])  {
                 table.fnDraw();
             });
         });
+
     </script>
 </head>
 
 <body>
-      <!-- Sidebar -->
+         <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -146,7 +147,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="issuance.php"><i class="fa fa-users" aria-hidden="true"></i> Create Issuance </a></li>
                     <li> <a href="porder.php"><i class="fa fa-users" aria-hidden="true"></i> Create Purchase Order </a></li>
                 </ul>
-
+                
                 <!-- Inventory Submenu -->
                 <div class="sub-menu_nct">
                     <span class="sub-menu">Inventory
@@ -176,75 +177,60 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">User Accounts</h1>
+                <h1 align="center">Clients</h1>
             </table>
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM accounts ");
+							$retrieve = ("SELECT * FROM clients;");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
-
                 <!-- Table Display for Accounts -->
                 <div id="mainContainer">
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-							<th>Branch</th>
-                            <th>Status</th>
-							<th>Account type</th>
-                   
-                        </tr>
-                    </thead>
-           
-
-                    <tbody>
-                        <?php
-							foreach ($results as $data):
-								$toData = $data["acc_id"];
-						?>
+                    <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                        <thead>
                             <tr>
-								<?php
-									$individual_acc_id=$data["acc_id"];
-                                ?>
-                                <td data-title="user_name">
-                                    <?php echo $data["username"]; ?>
-                                </td>
-                                <td data-title="name">
-                                    <?php echo $data["first_name"]." ".$data["last_name"]; ?>
-                                </td>
-
-                                <td data-title="mail">
-                                    <?php echo $data["email"]; ?>
-                                </td>
-                                <td data-title="cno">
-                                    <?php echo $data["contact_no"]; ?>
-                                </td>
-								 <td data-title="branch">
-                                    <?php echo $data["branch"]; ?>
-                                </td>
-                                <td data-title="status">
-                                    <?php echo $data["status"]; ?>
-                                </td>
-								 <td data-title="acctype">
-                                    <?php echo $data["acctype"]; ?>
-                                </td>
-		
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Location</th>
+                       
                             </tr>
+                        </thead>
 
+                        <tbody>
                             <?php
+							foreach ($results as $data):
+								$toData = $data["c_id"];
+						?>
+                                <tr>
+									<?php
+											$individual_c_id=$data["c_id"];
+                                        ?>
+                                    <td data-title="c_name">
+                                        <?php echo $data["c_name"]; ?>
+                                    </td>
+                                    <td data-title="c_address">
+                                        <?php echo $data["c_address"]; ?>
+                                    </td>
+                          
+                                    <td data-title="c_location">
+                                        <?php echo $data["c_location"]; ?>
+                                    </td>
+	
+
+                                </tr>
+                                <?php
 							endforeach;
 						?>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+
+
+                </div>
         </div>
     </div>
-    </div>
+
 </body>
 
 </html>
@@ -267,22 +253,5 @@ if(!$_SESSION['username'])  {
         }
         return true;
     }
-	
-	$("#confirm_pass").blur(function() {
-  var user_pass = $("#pass").val();
-  var user_pass2 = $("#confirm_pass").val();
-
-  if (user_pass.length == 0) {
-		alert("Please fill password first");
-		$("#enter").prop('disabled',true)//use prop()
-	  } else if (user_pass == user_pass2) {
-		$("#enter").prop('disabled',false)//use prop()
-		$('#message').html('Password Match').css('color', 'green');
-	  } else {
-		$("#enter").prop('disabled',true)//use prop()
-		$('#message').html('Password Do Not Match').css('color', 'red');
-	  }
-
-	});
 
 </script>
