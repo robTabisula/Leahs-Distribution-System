@@ -25,6 +25,8 @@ if(!$_SESSION['username'])  {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
+    <script type="text/javascript" src="src/js/canvasjs-1.9.10/canvasjs-1.9.10-stable/canvasjs.min.js"></script>
+    <script type="text/javascript" src="src/js/App.js"></script>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -363,19 +365,15 @@ if(!$_SESSION['username'])  {
                             </div>
                             <div class="panel-body">
 
-
+                            <div id="chartContainer" style="height: 500px; width: 50%;">
+                                <canvas id="prodpie"></canvas>
+                            </div>
 
                             </div>
                             <!--/panel content-->
                         </div>
                         <!--/panel-->
 
-
-                        <i class="icon-bar-chart icon-3x"></i>
-                        <i class="icon-plus icon-3x"></i>
-                        <i class="icon-facebook icon-3x"></i>
-                        <i class="icon-beaker icon-3x"></i>
-                        <i class="icon-twitter icon-3x"></i>
 
 
                     </div>

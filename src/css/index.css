@@ -1,5 +1,14 @@
 /****** Searchable container */
 
+#prodpie{
+    width:100%;
+}
+
+#chartContainer{
+    width:100%;
+}
+
+
 .title {
     margin-left: 20px
 }
