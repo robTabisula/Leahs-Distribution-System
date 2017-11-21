@@ -1,6 +1,7 @@
 .containers {
     padding: 0px;
     margin: 0px;
+    margin-top:2%;
     float: right;
     width: 79%;
     padding-right: 5%;
@@ -12,9 +13,21 @@
     height: 30px;
     
 }
+
+#head{
+    margin-bottom: 3%;
+}
+
 .client .area{
 	    padding: 0px;
     margin: 0px;
+}
+
+#stat_info .well{
+    width: 23%;
+    height: 100%;
+    margin-right: 2%; display: table-cell;
+    vertical-align: top:
 }
 
 @media (max-width: 1600px) {
