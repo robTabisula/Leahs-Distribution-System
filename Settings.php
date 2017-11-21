@@ -132,11 +132,14 @@ if(!$_SESSION['username'])  {
                 </ul>
                 
                 <!-- Issuance menu -->
-                <li>
-                    <a href="issuance.php">
-                        <i class="fa fa-book"></i> Create Issuance
-                    </a>
+                
+                 <li data-toggle="collapse" data-target="#issuance" class="collapsed">
+                    <i class="fa fa-id-card" aria-hidden="true"></i>Issuance<span class="arrow"></span>
                 </li>
+                <ul class="sub-menu collapse atarget" id="issuance">
+                    <li> <a href="issuance.php"><i class="fa fa-users" aria-hidden="true"></i> Create Issuance </a></li>
+                    <li> <a href="porder.php"><i class="fa fa-users" aria-hidden="true"></i> Create Purchase Order </a></li>
+                </ul>
 
                 <!-- Inventory Submenu -->
                 <div class="sub-menu_nct">
