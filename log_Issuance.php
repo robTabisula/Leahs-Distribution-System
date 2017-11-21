@@ -254,10 +254,10 @@ if(!$_SESSION['username'])  {
                                     <label>Quantity</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <label>Adjusted Price</label>
+                                    <label>Issued Price</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <label>Original Price</label>
+                                    <label>Factory Price</label>
                                     
                                     <?php
                                         foreach ($run as $log){
