@@ -320,7 +320,6 @@ if(!$_SESSION['username'])  {
 										<h3>Branch</h3>
 										<div class="col-xs-4">
 											<select name="c_location" class="form-control" required>
-												<option></option>
 												<option>Baguio</option>
 												<option>Pangasinan</option>
 											</select>

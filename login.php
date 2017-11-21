@@ -73,22 +73,51 @@ session_start();
 
 				$query ="select * FROM accounts WHERE username = '$username' AND password='$password' AND status = 'enabled'";
 				$results = mysqli_query($db, $query);
+                $filter = mysqli_fetch_array($results);
+                $accnt_type = $filter['acctype'];
 
-				if(mysqli_num_rows($results)>0){
-						
-					$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
-						   VALUE ('$username','Login','$date_time','has successfully login')";
-						   
-						if(mysqli_query($db,$query2)){
-							header("location: index.php");
-							$_SESSION['username']=$username;
-						}else{
-						echo ("ERROR: Could not able to execute" . mysqli_error($db));
-					}
-				}
-				else {
-					echo"<script>alert('Invalid User Credentials..!')</script>";
-				}
+                
+
+                if(($accnt_type == "Admin") || ($accnt_type == "Manager" )){       
+
+                    if(mysqli_num_rows($results)>0){
+                            
+                        $query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+                               VALUE ('$username','Login','$date_time','has successfully login')";
+                               
+                            if(mysqli_query($db,$query2)){
+                               header("location: index.php");
+                                $_SESSION['username']=$username;
+                            }else{
+                            echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                        }
+                    }
+                    else {
+                        echo"<script>alert('Invalid User Credentials..!')</script>";
+                    }
+
+                  
+
+                }else{
+
+                    if(mysqli_num_rows($results)>0){
+                            
+                        $query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+                               VALUE ('$username','Login','$date_time','has successfully login')";
+                               
+                            if(mysqli_query($db,$query2)){
+                                header("location: SecretaryModule/index.php");
+                                   echo $accnt_type;
+                                $_SESSION['username']=$username;
+                            }else{
+                            echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                        }
+                    }
+                    else {
+                        echo"<script>alert('Invalid User Credentials..!')</script>";
+                    }
+
+                }
 			}
 		?>
 
