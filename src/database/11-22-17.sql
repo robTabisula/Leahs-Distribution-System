@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Nov 21, 2017 at 01:37 PM
--- Server version: 5.7.19
--- PHP Version: 5.6.31
+-- Host: 127.0.0.1
+-- Generation Time: Nov 21, 2017 at 08:44 PM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,9 +26,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts`
 --
 
-DROP TABLE IF EXISTS `accounts`;
-CREATE TABLE IF NOT EXISTS `accounts` (
-  `acc_id` int(12) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `accounts` (
+  `acc_id` int(12) NOT NULL,
   `username` varchar(15) NOT NULL,
   `first_name` varchar(20) NOT NULL,
   `last_name` varchar(20) NOT NULL,
@@ -40,20 +37,20 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `status` varchar(10) NOT NULL DEFAULT 'Disabled',
   `branch` varchar(50) NOT NULL,
   `acctype` varchar(45) NOT NULL,
-  `security_key` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`acc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `security_key` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`acc_id`, `username`, `first_name`, `last_name`, `password`, `email`, `contact_no`, `status`, `branch`, `acctype`, `security_key`) VALUES
-(1, 'res', 'res', 'res', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'res@email.com', '753153', 'Enabled', 'Baguio', 'Bookkeeper', ''),
+(1, 'ress', 'ress', 'ress', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'resss@res.com', '09173968693', 'Enabled', 'Baguio', 'Bookkeeper', 'FFFF2'),
 (2, 'mark', 'mark', 'abad', '3b4f122b181aeef98042c4219b554f4d76934f125c0c183494e9fa909f5f249e0ccfbd626da5851e904d5b8f66e29dbe819d2ba4fd2439f53462caaed4eeee90', 'markk@gmail.com', '123123213', 'Disabled', 'Pangasinan', 'User', ''),
 (3, 'testAdmin', 'test', 'testing', 'c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec', 'test@email.com', '09999999999', 'Enabled', 'Baguio', 'User', ''),
 (4, 'test', 'test', 'testing', 'd404559f602eab6fd602ac7680dacbfaadd13630335e951f097af3900e9de176b6db28512f2e000b9d04fba5133e8b1c6e8df59db3a8ab9d60be4b97cc9e81db', 'test@yahoo.com', '09173968691', 'Enabled', 'Pangasinan', 'Admin', ''),
-(5, 'MichaelRai', 'Michael Angelo', 'Rai', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'michaelangelorai@gmail.com', '09260827646', 'Disabled', 'Baguio', 'Manager', NULL);
+(5, 'MichaelRai', 'Michael Angelo', 'Rai', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'michaelangelorai@gmail.com', '09260827646', 'Enabled', 'Baguio', 'Manager', NULL),
+(6, 'robijn', 'robijn', 'Tabisula', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'joss_robijn@yahoo.com.ph', '09173968691', 'Enabled', 'Baguio', 'Admin', NULL);
 
 -- --------------------------------------------------------
 
@@ -61,14 +58,12 @@ INSERT INTO `accounts` (`acc_id`, `username`, `first_name`, `last_name`, `passwo
 -- Table structure for table `bad_order`
 --
 
-DROP TABLE IF EXISTS `bad_order`;
-CREATE TABLE IF NOT EXISTS `bad_order` (
-  `bo_id` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `bad_order` (
+  `bo_id` int(15) NOT NULL,
   `bo_dateReleased` varchar(50) NOT NULL,
   `bo_issue_account` varchar(200) NOT NULL,
-  `bo_remarks` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`bo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `bo_remarks` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bad_order`
@@ -86,15 +81,13 @@ INSERT INTO `bad_order` (`bo_id`, `bo_dateReleased`, `bo_issue_account`, `bo_rem
 -- Table structure for table `bo_list`
 --
 
-DROP TABLE IF EXISTS `bo_list`;
-CREATE TABLE IF NOT EXISTS `bo_list` (
+CREATE TABLE `bo_list` (
   `bo_id` int(15) NOT NULL,
   `bo_price` int(15) NOT NULL,
   `bo_qty` int(15) NOT NULL,
   `branch` varchar(45) NOT NULL,
   `bo_product_id` int(11) NOT NULL,
-  `po_remarks` varchar(200) DEFAULT NULL,
-  KEY `bo_id_idx` (`bo_id`)
+  `po_remarks` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -113,13 +106,11 @@ INSERT INTO `bo_list` (`bo_id`, `bo_price`, `bo_qty`, `branch`, `bo_product_id`,
 -- Table structure for table `category_list`
 --
 
-DROP TABLE IF EXISTS `category_list`;
-CREATE TABLE IF NOT EXISTS `category_list` (
-  `category_id` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `category_list` (
+  `category_id` int(15) NOT NULL,
   `category_name` varchar(100) NOT NULL,
-  `category_status` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+  `category_status` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category_list`
@@ -140,14 +131,12 @@ INSERT INTO `category_list` (`category_id`, `category_name`, `category_status`) 
 -- Table structure for table `clients`
 --
 
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE IF NOT EXISTS `clients` (
-  `c_id` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clients` (
+  `c_id` int(15) NOT NULL,
   `c_name` varchar(20) NOT NULL,
   `c_address` varchar(20) NOT NULL,
-  `c_location` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+  `c_location` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `clients`
@@ -162,7 +151,9 @@ INSERT INTO `clients` (`c_id`, `c_name`, `c_address`, `c_location`) VALUES
 (27, 'smde', 'asdasd', 'Pangasinan'),
 (30, 'sma', 'fghjkasda', 'Baguio'),
 (31, 'sma', 'ajs', 'Pangasinan'),
-(32, 'tiongsan', 'harrison road', 'Baguio');
+(32, 'tiongsan', 'harrison road', 'Baguio'),
+(33, 'robijn', 'robijn street', 'Baguio'),
+(34, 'mineski deli', 'slu', 'Baguio');
 
 -- --------------------------------------------------------
 
@@ -170,12 +161,10 @@ INSERT INTO `clients` (`c_id`, `c_name`, `c_address`, `c_location`) VALUES
 -- Table structure for table `client_contact`
 --
 
-DROP TABLE IF EXISTS `client_contact`;
-CREATE TABLE IF NOT EXISTS `client_contact` (
+CREATE TABLE `client_contact` (
   `contact_clientid` int(11) NOT NULL,
   `contact_name` varchar(45) DEFAULT NULL,
-  `contact_number` int(50) DEFAULT NULL,
-  KEY `contact_clientid_idx` (`contact_clientid`)
+  `contact_number` int(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -192,7 +181,8 @@ INSERT INTO `client_contact` (`contact_clientid`, `contact_name`, `contact_numbe
 (26, 'asd', 342),
 (30, 'asdasd', 567890),
 (31, 'assdasd', 34),
-(32, 'Abad', 6070488);
+(32, 'Abad', 6070488),
+(34, 'kuya tnc', 55664864);
 
 -- --------------------------------------------------------
 
@@ -200,16 +190,13 @@ INSERT INTO `client_contact` (`contact_clientid`, `contact_name`, `contact_numbe
 -- Table structure for table `inventory`
 --
 
-DROP TABLE IF EXISTS `inventory`;
-CREATE TABLE IF NOT EXISTS `inventory` (
-  `iS_inventoryid` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `inventory` (
+  `iS_inventoryid` int(15) NOT NULL,
   `iS_product_id` int(15) NOT NULL,
   `iS_restock_lvl` int(10) NOT NULL,
   `iS_quantity` int(10) NOT NULL DEFAULT '0',
-  `iS_location` varchar(45) NOT NULL,
-  PRIMARY KEY (`iS_inventoryid`),
-  KEY `product_id_idx` (`iS_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
+  `iS_location` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
@@ -228,9 +215,9 @@ INSERT INTO `inventory` (`iS_inventoryid`, `iS_product_id`, `iS_restock_lvl`, `i
 (27, 245, 30, 54, 'Pangasinan'),
 (28, 246, 30, 12, 'Baguio'),
 (29, 246, 30, 78, 'Pangasinan'),
-(30, 247, 30, 0, 'Baguio'),
-(31, 247, 30, 54, 'Pangasinan'),
-(32, 248, 30, 50, 'Baguio'),
+(30, 247, 30, 54, 'Baguio'),
+(31, 247, 30, 0, 'Pangasinan'),
+(32, 248, 30, 0, 'Baguio'),
 (33, 248, 30, 54, 'Pangasinan'),
 (34, 249, 30, 60, 'Baguio'),
 (35, 249, 30, 78, 'Pangasinan'),
@@ -283,18 +270,16 @@ INSERT INTO `inventory` (`iS_inventoryid`, `iS_product_id`, `iS_restock_lvl`, `i
 -- Table structure for table `issuance`
 --
 
-DROP TABLE IF EXISTS `issuance`;
-CREATE TABLE IF NOT EXISTS `issuance` (
-  `issue_id` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `issuance` (
+  `issue_id` int(15) NOT NULL,
   `issue_date_time` varchar(50) NOT NULL,
   `issue_account` varchar(50) DEFAULT NULL,
   `issue_type` varchar(45) NOT NULL,
   `remarks` varchar(45) DEFAULT NULL,
   `other_clients` varchar(45) DEFAULT NULL,
   `penthouse_clients` varchar(45) DEFAULT NULL,
-  `client_id` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`issue_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+  `client_id` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `issuance`
@@ -317,7 +302,9 @@ INSERT INTO `issuance` (`issue_id`, `issue_date_time`, `issue_account`, `issue_t
 (14, 'November 14, 2017, 4:50 pm', NULL, '1', 'issue baguuo', NULL, NULL, '20'),
 (15, 'November 14, 2017, 4:55 pm', NULL, '1', '', NULL, NULL, '18'),
 (16, 'November 14, 2017, 4:57 pm', NULL, '2', 'pent issue multiple', NULL, '4', NULL),
-(17, 'November 16, 2017, 10:21 pm', 'res', '1', '', NULL, NULL, '20');
+(17, 'November 16, 2017, 10:21 pm', 'res', '1', '', NULL, NULL, '20'),
+(18, 'November 21, 2017, 11:58 pm', 'ress', '1', 'im half mexican half Guadalupe ', NULL, NULL, '33'),
+(19, 'November 22, 2017, 3:12 am', 'ress', '4', 'cfvgbhnjm', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -325,16 +312,13 @@ INSERT INTO `issuance` (`issue_id`, `issue_date_time`, `issue_account`, `issue_t
 -- Table structure for table `issuance_list`
 --
 
-DROP TABLE IF EXISTS `issuance_list`;
-CREATE TABLE IF NOT EXISTS `issuance_list` (
+CREATE TABLE `issuance_list` (
   `issue_id` int(15) NOT NULL,
   `prod_qty` int(15) NOT NULL,
   `prod_price` int(15) NOT NULL,
   `branch` varchar(20) NOT NULL,
   `prod_id` int(15) NOT NULL,
-  `prod_remarks` varchar(200) DEFAULT NULL,
-  KEY `FK_issuancelist_productlist_idx` (`prod_id`),
-  KEY `issue_id_idx` (`issue_id`)
+  `prod_remarks` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -361,7 +345,9 @@ INSERT INTO `issuance_list` (`issue_id`, `prod_qty`, `prod_price`, `branch`, `pr
 (16, 10, 82, 'Baguio', 255, ''),
 (16, 20, 8, 'Baguio', 248, ''),
 (17, 60, 9, 'Baguio', 247, ''),
-(17, 10, 48, 'Baguio', 252, '');
+(17, 10, 48, 'Baguio', 252, ''),
+(18, 50, 54, 'Baguio', 248, 'guadalupe'),
+(19, 54, 10, 'Pangasinan', 247, 'jhkhjk');
 
 -- --------------------------------------------------------
 
@@ -369,15 +355,12 @@ INSERT INTO `issuance_list` (`issue_id`, `prod_qty`, `prod_price`, `branch`, `pr
 -- Table structure for table `ledger`
 --
 
-DROP TABLE IF EXISTS `ledger`;
-CREATE TABLE IF NOT EXISTS `ledger` (
-  `ledger_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ledger` (
+  `ledger_id` int(10) NOT NULL,
   `ledger_date` date NOT NULL,
   `ledger_in` int(10) NOT NULL,
   `ledger_out` int(10) NOT NULL,
-  `ledger_product_id` int(15) NOT NULL,
-  PRIMARY KEY (`ledger_id`),
-  KEY `FK_ledger_product_list_idx` (`ledger_product_id`)
+  `ledger_product_id` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -386,17 +369,14 @@ CREATE TABLE IF NOT EXISTS `ledger` (
 -- Table structure for table `logs`
 --
 
-DROP TABLE IF EXISTS `logs`;
-CREATE TABLE IF NOT EXISTS `logs` (
-  `logs_id` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `logs` (
+  `logs_id` int(15) NOT NULL,
   `issue_acnt` varchar(40) NOT NULL,
   `act_type` varchar(15) NOT NULL,
   `date_time` varchar(50) NOT NULL,
   `related_id` int(15) DEFAULT NULL,
-  `remarks` varchar(65) NOT NULL,
-  PRIMARY KEY (`logs_id`),
-  KEY `issue_acnt` (`issue_acnt`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `remarks` varchar(65) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logs`
@@ -411,7 +391,40 @@ INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_i
 (6, '1', 'login', 'November 19, 2017, 9:02 pm', NULL, 'has successfully login'),
 (7, '1', 'login', 'November 20, 2017, 7:19 pm', NULL, 'has successfully login'),
 (8, '1', 'Login', 'November 20, 2017, 11:10 pm', NULL, 'has successfully login'),
-(9, 'res', 'Login', 'November 21, 2017, 9:36 pm', NULL, 'has successfully login');
+(9, 'res', 'Login', 'November 21, 2017, 9:36 pm', NULL, 'has successfully login'),
+(10, 'res', 'Login', 'November 21, 2017, 10:14 pm', NULL, 'has successfully login'),
+(11, 'ress', 'Login', 'November 21, 2017, 11:27 pm', NULL, 'has successfully login'),
+(12, 'ress', 'Added Client', 'November 21, 2017, 11:43 pm', NULL, 'has successfully added a new client'),
+(13, 'ress', 'Added Issuance', 'November 21, 2017, 11:58 pm', NULL, 'has successfully issued a product'),
+(14, 'ress', 'Added Client', 'November 22, 2017, 12:16 am', NULL, 'has successfully added a new client'),
+(15, 'ress', 'Login', 'November 22, 2017, 3:56 am', NULL, 'has successfully login'),
+(16, 'MichaelRai', 'Login', 'November 22, 2017, 4:02 am', NULL, 'has successfully login'),
+(17, 'ress', 'Login', 'November 22, 2017, 4:05 am', NULL, 'has successfully login'),
+(18, 'ress', 'Login', 'November 22, 2017, 4:06 am', NULL, 'has successfully login'),
+(19, 'ress', 'Login', 'November 22, 2017, 4:07 am', NULL, 'has successfully login'),
+(20, 'ress', 'Added User', 'November 22, 2017, 4:08 am', NULL, 'has successfully added a new user'),
+(21, 'robijn', 'Login', 'November 22, 2017, 4:09 am', NULL, 'has successfully login'),
+(22, 'robijn', 'Login', 'November 22, 2017, 4:09 am', NULL, 'has successfully login'),
+(23, 'robijn', 'Login', 'November 22, 2017, 4:11 am', NULL, 'has successfully login'),
+(24, 'robijn', 'Login', 'November 22, 2017, 4:12 am', NULL, 'has successfully login'),
+(25, 'ress', 'Login', 'November 22, 2017, 4:13 am', NULL, 'has successfully login'),
+(26, 'ress', 'Login', 'November 22, 2017, 4:13 am', NULL, 'has successfully login'),
+(27, 'ress', 'Login', 'November 22, 2017, 4:14 am', NULL, 'has successfully login'),
+(28, 'robijn', 'Login', 'November 22, 2017, 4:14 am', NULL, 'has successfully login'),
+(29, 'ress', 'Login', 'November 22, 2017, 4:18 am', NULL, 'has successfully login'),
+(30, 'ress', 'Login', 'November 22, 2017, 4:19 am', NULL, 'has successfully login'),
+(31, 'ress', 'Login', 'November 22, 2017, 4:19 am', NULL, 'has successfully login'),
+(32, 'ress', 'Login', 'November 22, 2017, 4:19 am', NULL, 'has successfully login'),
+(33, 'robijn', 'Login', 'November 22, 2017, 4:19 am', NULL, 'has successfully login'),
+(34, 'robijn', 'Login', 'November 22, 2017, 4:20 am', NULL, 'has successfully login'),
+(35, 'robijn', 'Login', 'November 22, 2017, 4:20 am', NULL, 'has successfully login'),
+(36, 'robijn', 'Login', 'November 22, 2017, 4:20 am', NULL, 'has successfully login'),
+(37, 'ress', 'Login', 'November 22, 2017, 4:20 am', NULL, 'has successfully login'),
+(38, 'ress', 'Login', 'November 22, 2017, 4:22 am', NULL, 'has successfully login'),
+(39, 'robijn', 'Login', 'November 22, 2017, 4:22 am', NULL, 'has successfully login'),
+(40, 'ress', 'Login', 'November 22, 2017, 4:23 am', NULL, 'has successfully login'),
+(41, 'ress', 'Login', 'November 22, 2017, 4:42 am', NULL, 'has successfully login'),
+(42, 'robijn', 'Login', 'November 22, 2017, 4:43 am', NULL, 'has successfully login');
 
 -- --------------------------------------------------------
 
@@ -419,15 +432,13 @@ INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_i
 -- Table structure for table `po_list`
 --
 
-DROP TABLE IF EXISTS `po_list`;
-CREATE TABLE IF NOT EXISTS `po_list` (
+CREATE TABLE `po_list` (
   `po_id` int(15) NOT NULL,
   `po_price` int(15) NOT NULL,
   `po_qty` int(15) NOT NULL,
   `branch` varchar(45) NOT NULL,
   `po_product_id` int(15) NOT NULL,
-  `po_remarks` varchar(200) DEFAULT NULL,
-  KEY `po_id_idx` (`po_id`)
+  `po_remarks` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -450,14 +461,11 @@ INSERT INTO `po_list` (`po_id`, `po_price`, `po_qty`, `branch`, `po_product_id`,
 -- Table structure for table `product_list`
 --
 
-DROP TABLE IF EXISTS `product_list`;
-CREATE TABLE IF NOT EXISTS `product_list` (
-  `productList_id` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product_list` (
+  `productList_id` int(15) NOT NULL,
   `productList_name` varchar(50) DEFAULT NULL,
-  `category_id` int(15) NOT NULL,
-  PRIMARY KEY (`productList_id`),
-  KEY `FK_product_list_category_idx` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=latin1;
+  `category_id` int(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_list`
@@ -501,14 +509,12 @@ INSERT INTO `product_list` (`productList_id`, `productList_name`, `category_id`)
 -- Table structure for table `product_loc`
 --
 
-DROP TABLE IF EXISTS `product_loc`;
-CREATE TABLE IF NOT EXISTS `product_loc` (
+CREATE TABLE `product_loc` (
   `product_id` int(15) NOT NULL,
   `location` varchar(50) NOT NULL,
   `status` varchar(45) NOT NULL,
   `altprice` varchar(45) DEFAULT NULL,
-  `barcode` varchar(45) DEFAULT NULL,
-  KEY `prod_id_idx` (`product_id`)
+  `barcode` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -583,14 +589,12 @@ INSERT INTO `product_loc` (`product_id`, `location`, `status`, `altprice`, `barc
 -- Table structure for table `pull_out`
 --
 
-DROP TABLE IF EXISTS `pull_out`;
-CREATE TABLE IF NOT EXISTS `pull_out` (
-  `po_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pull_out` (
+  `po_id` int(10) NOT NULL,
   `po_date` varchar(50) NOT NULL,
   `po_issue_account` varchar(200) NOT NULL,
-  `po_remarks` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`po_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  `po_remarks` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pull_out`
@@ -615,13 +619,11 @@ INSERT INTO `pull_out` (`po_id`, `po_date`, `po_issue_account`, `po_remarks`) VA
 -- Table structure for table `purchased_order`
 --
 
-DROP TABLE IF EXISTS `purchased_order`;
-CREATE TABLE IF NOT EXISTS `purchased_order` (
-  `order_id` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `purchased_order` (
+  `order_id` int(50) NOT NULL,
   `order_date` varchar(50) NOT NULL,
-  `client_id` int(20) NOT NULL,
-  PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  `client_id` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `purchased_order`
@@ -636,15 +638,12 @@ INSERT INTO `purchased_order` (`order_id`, `order_date`, `client_id`) VALUES
 -- Table structure for table `purchased_order_list`
 --
 
-DROP TABLE IF EXISTS `purchased_order_list`;
-CREATE TABLE IF NOT EXISTS `purchased_order_list` (
+CREATE TABLE `purchased_order_list` (
   `p_order_id` int(50) NOT NULL,
   `order_qty` int(10) NOT NULL,
   `branch` varchar(10) NOT NULL,
   `prdct_id` int(15) NOT NULL,
-  `order_remarks` varchar(100) NOT NULL,
-  KEY `order_id_idx` (`p_order_id`),
-  KEY `product_id_idx` (`prdct_id`)
+  `order_remarks` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -661,16 +660,13 @@ INSERT INTO `purchased_order_list` (`p_order_id`, `order_qty`, `branch`, `prdct_
 -- Table structure for table `stock_adjustments`
 --
 
-DROP TABLE IF EXISTS `stock_adjustments`;
-CREATE TABLE IF NOT EXISTS `stock_adjustments` (
-  `sA_id` int(15) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stock_adjustments` (
+  `sA_id` int(15) NOT NULL,
   `sA_product_id` int(15) NOT NULL,
   `sA_qty` int(10) NOT NULL,
   `sA_remarks` varchar(10) NOT NULL,
   `sA_in` int(15) NOT NULL,
-  `sA_out` int(15) NOT NULL,
-  PRIMARY KEY (`sA_id`),
-  KEY `FK_stock_adjustments_product_idx` (`sA_product_id`)
+  `sA_out` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -679,17 +675,209 @@ CREATE TABLE IF NOT EXISTS `stock_adjustments` (
 -- Table structure for table `stock_transfer`
 --
 
-DROP TABLE IF EXISTS `stock_transfer`;
-CREATE TABLE IF NOT EXISTS `stock_transfer` (
-  `sT_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stock_transfer` (
+  `sT_id` int(10) NOT NULL,
   `sT_price` int(10) NOT NULL,
   `sT_qty` int(10) NOT NULL,
   `sT_branch` text NOT NULL,
-  `sT_product_id` int(15) NOT NULL,
-  PRIMARY KEY (`sT_id`),
-  KEY `FK_stock_transfer_product_list_idx` (`sT_product_id`)
+  `sT_product_id` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`acc_id`);
+
+--
+-- Indexes for table `bad_order`
+--
+ALTER TABLE `bad_order`
+  ADD PRIMARY KEY (`bo_id`);
+
+--
+-- Indexes for table `bo_list`
+--
+ALTER TABLE `bo_list`
+  ADD KEY `bo_id_idx` (`bo_id`);
+
+--
+-- Indexes for table `category_list`
+--
+ALTER TABLE `category_list`
+  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`c_id`);
+
+--
+-- Indexes for table `client_contact`
+--
+ALTER TABLE `client_contact`
+  ADD KEY `contact_clientid_idx` (`contact_clientid`);
+
+--
+-- Indexes for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`iS_inventoryid`),
+  ADD KEY `product_id_idx` (`iS_product_id`);
+
+--
+-- Indexes for table `issuance`
+--
+ALTER TABLE `issuance`
+  ADD PRIMARY KEY (`issue_id`);
+
+--
+-- Indexes for table `issuance_list`
+--
+ALTER TABLE `issuance_list`
+  ADD KEY `FK_issuancelist_productlist_idx` (`prod_id`),
+  ADD KEY `issue_id_idx` (`issue_id`);
+
+--
+-- Indexes for table `ledger`
+--
+ALTER TABLE `ledger`
+  ADD PRIMARY KEY (`ledger_id`),
+  ADD KEY `FK_ledger_product_list_idx` (`ledger_product_id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`logs_id`),
+  ADD KEY `issue_acnt` (`issue_acnt`);
+
+--
+-- Indexes for table `po_list`
+--
+ALTER TABLE `po_list`
+  ADD KEY `po_id_idx` (`po_id`);
+
+--
+-- Indexes for table `product_list`
+--
+ALTER TABLE `product_list`
+  ADD PRIMARY KEY (`productList_id`),
+  ADD KEY `FK_product_list_category_idx` (`category_id`);
+
+--
+-- Indexes for table `product_loc`
+--
+ALTER TABLE `product_loc`
+  ADD KEY `prod_id_idx` (`product_id`);
+
+--
+-- Indexes for table `pull_out`
+--
+ALTER TABLE `pull_out`
+  ADD PRIMARY KEY (`po_id`);
+
+--
+-- Indexes for table `purchased_order`
+--
+ALTER TABLE `purchased_order`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `purchased_order_list`
+--
+ALTER TABLE `purchased_order_list`
+  ADD KEY `order_id_idx` (`p_order_id`),
+  ADD KEY `product_id_idx` (`prdct_id`);
+
+--
+-- Indexes for table `stock_adjustments`
+--
+ALTER TABLE `stock_adjustments`
+  ADD PRIMARY KEY (`sA_id`),
+  ADD KEY `FK_stock_adjustments_product_idx` (`sA_product_id`);
+
+--
+-- Indexes for table `stock_transfer`
+--
+ALTER TABLE `stock_transfer`
+  ADD PRIMARY KEY (`sT_id`),
+  ADD KEY `FK_stock_transfer_product_list_idx` (`sT_product_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `accounts`
+--
+ALTER TABLE `accounts`
+  MODIFY `acc_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `bad_order`
+--
+ALTER TABLE `bad_order`
+  MODIFY `bo_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `category_list`
+--
+ALTER TABLE `category_list`
+  MODIFY `category_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `c_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+--
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `iS_inventoryid` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+--
+-- AUTO_INCREMENT for table `issuance`
+--
+ALTER TABLE `issuance`
+  MODIFY `issue_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `ledger`
+--
+ALTER TABLE `ledger`
+  MODIFY `ledger_id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+--
+-- AUTO_INCREMENT for table `product_list`
+--
+ALTER TABLE `product_list`
+  MODIFY `productList_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+--
+-- AUTO_INCREMENT for table `pull_out`
+--
+ALTER TABLE `pull_out`
+  MODIFY `po_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `purchased_order`
+--
+ALTER TABLE `purchased_order`
+  MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `stock_adjustments`
+--
+ALTER TABLE `stock_adjustments`
+  MODIFY `sA_id` int(15) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `stock_transfer`
+--
+ALTER TABLE `stock_transfer`
+  MODIFY `sT_id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -761,7 +949,6 @@ ALTER TABLE `stock_adjustments`
 --
 ALTER TABLE `stock_transfer`
   ADD CONSTRAINT `sT_product_id` FOREIGN KEY (`sT_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
