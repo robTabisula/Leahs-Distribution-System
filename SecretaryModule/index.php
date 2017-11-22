@@ -360,7 +360,7 @@ if(!$_SESSION['username'])  {
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="panel-title">
-                                    <i class="glyphicon glyphicon-chevron-up chevron"></i>Charts
+                                    <i class="glyphicon glyphicon-chevron-up chevron"></i>Top Issued Products
                                 </div>
                             </div>
                             <div class="panel-body">
