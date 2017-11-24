@@ -150,7 +150,7 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Pull-Out Logs</h1>
+                <h1 align="center">Return Logs</h1>
             </table>
 
             <!-- Retrieve Account Data -->
