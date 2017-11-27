@@ -105,7 +105,7 @@ session_start();
                                VALUE ('$username','Login','$date_time','has successfully login')";
                                
                             if(mysqli_query($db,$query2)){
-                                header("location: SecretaryModule/index.php");
+                                header("location: Secretary&BookkeeperModule/index.php");
                                    echo $accnt_type;
                                 $_SESSION['username']=$username;
                             }else{

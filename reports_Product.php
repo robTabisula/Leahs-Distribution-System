@@ -148,15 +148,51 @@ if(!$_SESSION['username'])  {
     
 
     <!-- Main Container -->
-    <div id="page-content-wrapper">
-        <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Reports per Product</h1>
-            </table>
+			<div id="page-content-wrapper">
+				<div class="containers">
+					<table class="table table-striped table-bordered">
+						<h1 align="center">Summary of Products</h1>
+					</table>
+					
+					
+					<!-- Retrieve Account Data -->
+					<?php
+									$retrieve = ("SELECT productList_id,productList_name,prod_qty FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id");
+									$results = mysqli_query($db, $retrieve);
+								?>
+						<!-- Table Display for Accounts -->
+						<div id="mainContainer">
+							<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+								<thead>
+									<tr>
+										<th>Products</th>
+										<th>Quantity Sold</th>
+									</tr>
+								</thead>
 
-        </div>
-    </div>
-
-</body>
-
+								<tbody>
+									<?php
+										foreach ($results as $data):
+											$toData = $data["productList_id"];
+									?>
+										<tr>
+											<?php
+												$individual_prod_id=$data["productList_id"];
+											?>
+											<td data-title="productList_name">
+												<?php echo $data["productList_name"]; ?>
+											</td>
+											 <td data-title="productList_name">
+												<?php echo $data["prod_qty"]; ?>
+											</td>
+										</tr>
+										<?php
+										endforeach;
+									?>
+								</tbody>
+							</table>									
+						</div>
+				</div>
+			</div>
+	</body>
 </html>

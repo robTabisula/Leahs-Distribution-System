@@ -37,16 +37,44 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
+       var table;
+        responsive: true;
         $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
+            var table = $('#datatables').dataTable({
+                "dom": "l<'#myFilter'>frtip"
+            });
+
+            var myFilter = '<select id="mySelect">' +
+                '<option value="*">All</option>' +
+                '<option value="Baguio">Baguio</option>' +
+                '<option value="Pangasinan">Pangasinan</option>' +
+                '</select>';
+            $("#myFilter").html(myFilter);
+            table.fnDraw();
+
+            $.fn.dataTable.ext.search.push(
+                function(settings, data) {
+                    var statusData = data[4] || "";
+                    var filterVal = $("#mySelect").val();
+                    if (filterVal != "*") {
+                        if (statusData == filterVal)
+                            return true;
+                        else
+                            return false;
+                    } else
+                        return true;
+                });
+
+            $("#mainContainer").on("change", "#mySelect", function() {
+                table.fnDraw();
             });
         });
     </script>
+	
 </head>
 
 <body>
-          <!-- Sidebar -->
+     <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -120,7 +148,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="issuance.php"><i class="fa fa-users" aria-hidden="true"></i> Create Issuance </a></li>
                     <li> <a href="porder.php"><i class="fa fa-users" aria-hidden="true"></i> Create Purchase Order </a></li>
                 </ul>
-
+                
                 <!-- Inventory Submenu -->
                 <div class="sub-menu_nct">
                     <span class="sub-menu">Inventory
@@ -145,18 +173,53 @@ if(!$_SESSION['username'])  {
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
-    
 
-    <!-- Main Container -->
-    <div id="page-content-wrapper">
-        <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Reports per Product</h1>
-            </table>
+     <!-- Main Container -->
+			<div id="page-content-wrapper">
+				<div class="containers">
+					<table class="table table-striped table-bordered">
+						<h1 align="center">Client's Summary of Sales</h1>
+					</table>
+					
+					
+					<!-- Retrieve Account Data -->
+					<?php
+									$retrieve = ("SELECT * FROM clients INNER JOIN issuance ON clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
+									$results = mysqli_query($db, $retrieve);
+								?>
+						<!-- Table Display for Accounts -->
+						<div id="mainContainer">
+							<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+								<thead>
+									<tr>
+										<th>Clients</th>
+										<th>Sales</th>
+									</tr>
+								</thead>
 
-        </div>
-    </div>
-
-</body>
-
+								<tbody>
+									<?php
+										foreach ($results as $data):
+											$toData = $data["c_id"];
+									?>
+										<tr>
+											<?php
+												$individual_c_id=$data["c_id"];
+											?>
+											<td data-title="c_name">
+												<?php echo $data["c_name"]; ?>
+											</td>
+											 <td data-title="prod_price">
+												<?php echo $data["prod_price"]; ?>
+											</td>
+										</tr>
+										<?php
+										endforeach;
+									?>
+								</tbody>
+							</table>									
+						</div>
+				</div>
+			</div>
+	</body>
 </html>

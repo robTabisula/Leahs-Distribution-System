@@ -37,12 +37,40 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
+       var table;
+        responsive: true;
         $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
+            var table = $('#datatables').dataTable({
+                "dom": "l<'#myFilter'>frtip"
+            });
+
+            var myFilter = '<select id="mySelect">' +
+                '<option value="*">All</option>' +
+                '<option value="Baguio">Baguio</option>' +
+                '<option value="Pangasinan">Pangasinan</option>' +
+                '</select>';
+            $("#myFilter").html(myFilter);
+            table.fnDraw();
+
+            $.fn.dataTable.ext.search.push(
+                function(settings, data) {
+                    var statusData = data[4] || "";
+                    var filterVal = $("#mySelect").val();
+                    if (filterVal != "*") {
+                        if (statusData == filterVal)
+                            return true;
+                        else
+                            return false;
+                    } else
+                        return true;
+                });
+
+            $("#mainContainer").on("change", "#mySelect", function() {
+                table.fnDraw();
             });
         });
     </script>
+	
 </head>
 
 <body>
@@ -146,60 +174,52 @@ if(!$_SESSION['username'])  {
     </div>
     <!-- /#sidebar-wrapper -->
 
-    <!-- Main Container -->
-    <div id="page-content-wrapper">
-        <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Reports Per Client</h1>
-            </table>
+     <!-- Main Container -->
+			<div id="page-content-wrapper">
+				<div class="containers">
+					<table class="table table-striped table-bordered">
+						<h1 align="center">Client's Summary of Sales</h1>
+					</table>
+					
+					
+					<!-- Retrieve Account Data -->
+					<?php
+									$retrieve = ("SELECT * FROM clients INNER JOIN issuance ON clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
+									$results = mysqli_query($db, $retrieve);
+								?>
+						<!-- Table Display for Accounts -->
+						<div id="mainContainer">
+							<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+								<thead>
+									<tr>
+										<th>Clients</th>
+										<th>Sales</th>
+									</tr>
+								</thead>
 
-            <!-- Retrieve Account Data -->
-            <?php
-                            $retrieve = ("SELECT * FROM clients INNER JOIN issuance ON clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
-                            $results = mysqli_query($db, $retrieve);
-                        ?>
-
-                <!-- Table Display for Issuances -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-							<th>ID</th>
-                            <th>Grocery</th>
-                            <th>Sales</th>
-                            <th>Bad Order</th>
-                            <th>Others</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php
-                            foreach ($results as $data):
-                                $toData = $data["c_id"];
-                        ?>
-                            <tr>
-                                <td data-title="ID">
-                                    <?php 
-                                    $cid =  $data["c_id"];
-                                    echo $cid; 
-                                    ?>
-                                </td>
-								
-                                <td data-title="Name">
-                                    <?php echo $data["c_name"]; ?>
-                                </td>
-								
-                                <td data-title="Remarks">
-                                    <?php echo $data["Sales"]; ?>
-                                </td>
-
-                            </tr>
-						   <?php
-							endforeach;
-						?>
-                    </tbody>
-                </table>
-        </div>
-    </div>
-
-</body>
+								<tbody>
+									<?php
+										foreach ($results as $data):
+											$toData = $data["c_id"];
+									?>
+										<tr>
+											<?php
+												$individual_c_id=$data["c_id"];
+											?>
+											<td data-title="c_name">
+												<?php echo $data["c_name"]; ?>
+											</td>
+											 <td data-title="prod_price">
+												<?php echo $data["prod_price"]; ?>
+											</td>
+										</tr>
+										<?php
+										endforeach;
+									?>
+								</tbody>
+							</table>									
+						</div>
+				</div>
+			</div>
+	</body>
 </html>

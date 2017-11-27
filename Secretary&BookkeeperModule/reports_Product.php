@@ -46,7 +46,7 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
-     <!-- Sidebar -->
+          <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -120,7 +120,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="issuance.php"><i class="fa fa-users" aria-hidden="true"></i> Create Issuance </a></li>
                     <li> <a href="porder.php"><i class="fa fa-users" aria-hidden="true"></i> Create Purchase Order </a></li>
                 </ul>
-                
+
                 <!-- Inventory Submenu -->
                 <div class="sub-menu_nct">
                     <span class="sub-menu">Inventory
@@ -145,61 +145,54 @@ if(!$_SESSION['username'])  {
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
+    
 
     <!-- Main Container -->
-    <div id="page-content-wrapper">
-        <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Reports Per Client</h1>
-            </table>
+			<div id="page-content-wrapper">
+				<div class="containers">
+					<table class="table table-striped table-bordered">
+						<h1 align="center">Summary of Products</h1>
+					</table>
+					
+					
+					<!-- Retrieve Account Data -->
+					<?php
+									$retrieve = ("SELECT productList_id,productList_name,prod_qty FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id");
+									$results = mysqli_query($db, $retrieve);
+								?>
+						<!-- Table Display for Accounts -->
+						<div id="mainContainer">
+							<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+								<thead>
+									<tr>
+										<th>Products</th>
+										<th>Quantity Sold</th>
+									</tr>
+								</thead>
 
-            <!-- Retrieve Account Data -->
-            <?php
-                            $retrieve = ("SELECT * FROM clients INNER JOIN issuance ON clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
-                            $results = mysqli_query($db, $retrieve);
-                        ?>
-
-                <!-- Table Display for Issuances -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-							<th>ID</th>
-                            <th>Grocery</th>
-                            <th>Sales</th>
-                            <th>Bad Order</th>
-                            <th>Others</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <?php
-                            foreach ($results as $data):
-                                $toData = $data["c_id"];
-                        ?>
-                            <tr>
-                                <td data-title="ID">
-                                    <?php 
-                                    $cid =  $data["c_id"];
-                                    echo $cid; 
-                                    ?>
-                                </td>
-								
-                                <td data-title="Name">
-                                    <?php echo $data["c_name"]; ?>
-                                </td>
-								
-                                <td data-title="Remarks">
-                                    <?php echo $data["Sales"]; ?>
-                                </td>
-
-                            </tr>
-						   <?php
-							endforeach;
-						?>
-                    </tbody>
-                </table>
-        </div>
-    </div>
-
-</body>
+								<tbody>
+									<?php
+										foreach ($results as $data):
+											$toData = $data["productList_id"];
+									?>
+										<tr>
+											<?php
+												$individual_prod_id=$data["productList_id"];
+											?>
+											<td data-title="productList_name">
+												<?php echo $data["productList_name"]; ?>
+											</td>
+											 <td data-title="productList_name">
+												<?php echo $data["prod_qty"]; ?>
+											</td>
+										</tr>
+										<?php
+										endforeach;
+									?>
+								</tbody>
+							</table>									
+						</div>
+				</div>
+			</div>
+	</body>
 </html>
