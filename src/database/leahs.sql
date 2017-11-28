@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2017 at 02:10 AM
+-- Generation Time: Nov 28, 2017 at 05:57 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -223,18 +223,18 @@ INSERT INTO `inventory` (`iS_inventoryid`, `iS_product_id`, `iS_restock_lvl`, `i
 (31, 247, 30, 54, 'Pangasinan'),
 (32, 248, 30, 100, 'Baguio'),
 (33, 248, 30, 54, 'Pangasinan'),
-(34, 249, 30, 30, 'Baguio'),
-(35, 249, 30, 60, 'Pangasinan'),
+(34, 249, 30, 50, 'Baguio'),
+(35, 249, 30, 40, 'Pangasinan'),
 (36, 250, 30, 20, 'Baguio'),
 (37, 250, 30, 75, 'Pangasinan'),
 (38, 251, 30, 64, 'Baguio'),
 (39, 251, 30, 73, 'Pangasinan'),
-(40, 252, 30, 0, 'Baguio'),
-(41, 252, 30, 97, 'Pangasinan'),
+(40, 252, 30, 27, 'Baguio'),
+(41, 252, 30, 70, 'Pangasinan'),
 (42, 253, 30, 20, 'Baguio'),
 (43, 253, 30, 86, 'Pangasinan'),
-(44, 254, 30, 3, 'Baguio'),
-(45, 254, 30, 88, 'Pangasinan'),
+(44, 254, 30, 43, 'Baguio'),
+(45, 254, 30, 48, 'Pangasinan'),
 (46, 255, 30, 30, 'Baguio'),
 (47, 255, 30, 37, 'Pangasinan'),
 (48, 256, 30, 85, 'Baguio'),
@@ -288,26 +288,24 @@ CREATE TABLE `issuance` (
 --
 
 INSERT INTO `issuance` (`issue_id`, `issue_date_time`, `issue_account`, `issue_type`, `remarks`, `other_clients`, `penthouse_clients`, `client_id`) VALUES
-(1, 'November 5, 2017, 9:14 pm', NULL, '1', 'mark', NULL, NULL, '18'),
-(2, 'November 5, 2017, 9:18 pm', NULL, '1', 'sample', NULL, NULL, '21'),
-(3, 'November 6, 2017, 9:25 pm', NULL, '1', '', NULL, NULL, '18'),
-(4, 'November 6, 2017, 9:26 pm', NULL, '1', 'sample', NULL, NULL, '20'),
-(5, 'November 6, 2017, 9:27 pm', NULL, '1', 'sample 5', NULL, NULL, '30'),
-(6, 'November 6, 2017, 9:46 pm', NULL, '2', 'sample pent', NULL, '30', NULL),
-(7, 'November 6, 2017, 9:52 pm', NULL, '2', 'pent admin', NULL, 'test', NULL),
-(8, 'November 6, 2017, 9:57 pm', NULL, '2', 'pent sample 3', NULL, '4', NULL),
-(9, 'November 14, 2017, 4:40 pm', NULL, '1', 'sample issuance in baguio', NULL, NULL, '18'),
-(10, 'November 14, 2017, 4:41 pm', NULL, '2', 'sample penth', NULL, '4', NULL),
-(11, 'November 14, 2017, 4:42 pm', NULL, '3', 'sample other issuance', 'cicm', NULL, NULL),
-(12, 'November 14, 2017, 4:45 pm', NULL, '4', 'stock transfer sample', NULL, NULL, '18'),
-(13, 'November 14, 2017, 4:49 pm', NULL, '1', 'sample  reg issue abag', NULL, NULL, '30'),
-(14, 'November 14, 2017, 4:50 pm', NULL, '1', 'issue baguuo', NULL, NULL, '20'),
-(15, 'November 14, 2017, 4:55 pm', NULL, '1', '', NULL, NULL, '18'),
-(16, 'November 14, 2017, 4:57 pm', NULL, '2', 'pent issue multiple', NULL, '4', NULL),
+(1, 'November 5, 2017, 9:14 pm', 'res', '1', 'mark', NULL, NULL, '18'),
+(2, 'November 5, 2017, 9:18 pm', 'res', '1', 'sample', NULL, NULL, '21'),
+(3, 'November 6, 2017, 9:25 pm', 'res', '1', '', NULL, NULL, '18'),
+(4, 'November 6, 2017, 9:26 pm', 'res', '1', 'sample', NULL, NULL, '20'),
+(5, 'November 6, 2017, 9:27 pm', 'res', '1', 'sample 5', NULL, NULL, '30'),
+(6, 'November 6, 2017, 9:46 pm', 'res', '2', 'sample pent', NULL, '30', NULL),
+(7, 'November 6, 2017, 9:52 pm', 'res', '2', 'pent admin', NULL, 'test', NULL),
+(8, 'November 6, 2017, 9:57 pm', 'res', '2', 'pent sample 3', NULL, '4', NULL),
+(9, 'November 14, 2017, 4:40 pm', 'res', '1', 'sample issuance in baguio', NULL, NULL, '18'),
+(10, 'November 14, 2017, 4:41 pm', 'res', '2', 'sample penth', NULL, '4', NULL),
+(11, 'November 14, 2017, 4:42 pm', 'res', '3', 'sample other issuance', 'cicm', NULL, NULL),
+(12, 'November 14, 2017, 4:45 pm', 'mark', '4', 'stock transfer sample', NULL, NULL, ''),
+(13, 'November 14, 2017, 4:49 pm', 'res', '1', 'sample  reg issue abag', NULL, NULL, '30'),
+(14, 'November 14, 2017, 4:50 pm', 'res', '1', 'issue baguuo', NULL, NULL, '20'),
+(15, 'November 14, 2017, 4:55 pm', 'res', '1', '', NULL, NULL, '18'),
+(16, 'November 14, 2017, 4:57 pm', 'res', '2', 'pent issue multiple', NULL, '4', NULL),
 (17, 'November 16, 2017, 10:21 pm', 'res', '1', '', NULL, NULL, '20'),
 (18, 'November 21, 2017, 3:28 am', 'mark', '1', 'sample issue to victoria', NULL, NULL, '31'),
-(19, 'November 21, 2017, 3:32 am', 'mark', '4', 'sample ST', NULL, NULL, '31'),
-(20, 'November 21, 2017, 3:33 am', 'mark', '4', '', NULL, NULL, '31'),
 (21, 'November 21, 2017, 3:42 am', 'mark', '3', 'sample others issuance', 'Panama', NULL, NULL),
 (22, 'November 21, 2017, 3:48 am', 'mark', '3', 'sample others issuance', 'Monroe', NULL, NULL),
 (23, 'November 21, 2017, 3:51 am', '', '1', 'sample ', NULL, NULL, '26'),
@@ -317,7 +315,12 @@ INSERT INTO `issuance` (`issue_id`, `issue_date_time`, `issue_account`, `issue_t
 (27, 'November 21, 2017, 4:18 am', 'mark', '3', 'sample others', 'Shimamo', NULL, NULL),
 (28, 'November 21, 2017, 4:23 am', 'mark', '3', 'sample others with logs', 'Monkey', NULL, NULL),
 (29, 'November 21, 2017, 4:25 am', 'mark', '2', 'sample issue penth with logs', NULL, '2', NULL),
-(30, 'November 21, 2017, 4:27 am', 'mark', '2', 'sample penth with logs', NULL, '2', NULL);
+(30, 'November 21, 2017, 4:27 am', 'mark', '2', 'sample penth with logs', NULL, '2', NULL),
+(31, 'November 28, 2017, 1:05 pm', 'mark', '4', 'sample ST from baguio to pang', NULL, NULL, NULL),
+(32, 'November 28, 2017, 1:24 pm', 'mark', '4', 'ST to baguio from Pang', NULL, NULL, NULL),
+(33, 'November 28, 2017, 1:48 pm', 'mark', '4', 'ST with logs sample', NULL, NULL, NULL),
+(34, 'November 28, 2017, 1:51 pm', 'mark', '4', 'sample ST with logs 2', NULL, NULL, NULL),
+(35, 'November 28, 2017, 1:56 pm', 'mark', '4', 'ST with logs sample 3', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -369,7 +372,12 @@ INSERT INTO `issuance_list` (`issue_id`, `prod_qty`, `prod_price`, `branch`, `pr
 (28, 20, 20, 'Baguio', 259, ''),
 (29, 20, 10, 'Baguio', 249, ''),
 (30, 10, 10, 'Baguio', 249, ''),
-(30, 2, 90, 'Baguio', 254, '');
+(30, 2, 90, 'Baguio', 254, ''),
+(31, 10, 10, 'Baguio', 257, '40 left in baguio..+10 pang'),
+(32, 10, 10, 'Pangasinan', 257, '0 left in Pang..50 in baguio'),
+(33, 20, 10, 'Pangasinan', 249, '40 left in pang..+20 bag'),
+(34, 40, 86, 'Pangasinan', 254, '43 in baguio 48 left in pang'),
+(35, 27, 50, 'Pangasinan', 252, '');
 
 -- --------------------------------------------------------
 
@@ -448,7 +456,16 @@ INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_i
 (54, 'mark', 'Added User', 'November 28, 2017, 10:07 am', NULL, 'has successfully added a new user'),
 (55, 'mark', 'Added User', 'November 28, 2017, 10:08 am', NULL, 'has successfully added a new user'),
 (56, 'mark', 'Added User', 'November 28, 2017, 10:09 am', NULL, 'has successfully added a new user'),
-(57, 'mark', 'Added User', 'November 28, 2017, 10:10 am', NULL, 'has successfully added a new user');
+(57, 'mark', 'Added User', 'November 28, 2017, 10:10 am', NULL, 'has successfully added a new user'),
+(58, 'mark', 'Login', 'November 28, 2017, 12:19 pm', NULL, 'has successfully login'),
+(59, 'res', 'Login', 'November 28, 2017, 1:26 pm', NULL, 'has successfully login'),
+(60, 'res', 'Login', 'November 28, 2017, 1:31 pm', NULL, 'has successfully login'),
+(61, 'res', 'Login', 'November 28, 2017, 1:32 pm', NULL, 'has successfully login'),
+(62, 'mark', 'Login', 'November 28, 2017, 1:33 pm', NULL, 'has successfully login'),
+(63, 'mark', 'Login', 'November 28, 2017, 1:33 pm', NULL, 'has successfully login'),
+(64, 'mark', 'Login', 'November 28, 2017, 1:42 pm', NULL, 'has successfully login'),
+(65, 'mark', 'Login', 'November 28, 2017, 1:55 pm', NULL, 'has successfully login'),
+(66, 'mark', 'Added Stock Transfer', 'November 28, 2017, 1:56 pm', NULL, 'has successfully transfered product(s)');
 
 -- --------------------------------------------------------
 
@@ -695,20 +712,6 @@ CREATE TABLE `stock_adjustments` (
   `sA_out` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `stock_transfer`
---
-
-CREATE TABLE `stock_transfer` (
-  `sT_id` int(10) NOT NULL,
-  `sT_price` int(10) NOT NULL,
-  `sT_qty` int(10) NOT NULL,
-  `sT_branch` text NOT NULL,
-  `sT_product_id` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Indexes for dumped tables
 --
@@ -829,13 +832,6 @@ ALTER TABLE `stock_adjustments`
   ADD KEY `FK_stock_adjustments_product_idx` (`sA_product_id`);
 
 --
--- Indexes for table `stock_transfer`
---
-ALTER TABLE `stock_transfer`
-  ADD PRIMARY KEY (`sT_id`),
-  ADD KEY `FK_stock_transfer_product_list_idx` (`sT_product_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -868,7 +864,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `issuance`
 --
 ALTER TABLE `issuance`
-  MODIFY `issue_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `issue_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `ledger`
 --
@@ -878,7 +874,7 @@ ALTER TABLE `ledger`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `product_list`
 --
@@ -899,11 +895,6 @@ ALTER TABLE `purchased_order`
 --
 ALTER TABLE `stock_adjustments`
   MODIFY `sA_id` int(15) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `stock_transfer`
---
-ALTER TABLE `stock_transfer`
-  MODIFY `sT_id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -969,12 +960,6 @@ ALTER TABLE `purchased_order_list`
 --
 ALTER TABLE `stock_adjustments`
   ADD CONSTRAINT `sA_product_id` FOREIGN KEY (`sA_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `stock_transfer`
---
-ALTER TABLE `stock_transfer`
-  ADD CONSTRAINT `sT_product_id` FOREIGN KEY (`sT_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

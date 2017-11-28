@@ -149,12 +149,12 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Stock Transfer Issuance Log</h1>
+                <h1 align="center">Stock Transfer Log</h1>
             </table>
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM leahs.issuance where issue_type = 4");
+                            $retrieve = ("SELECT * FROM issuance INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id where issue_type = 4");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -166,7 +166,6 @@ if(!$_SESSION['username'])  {
                             <th>Date/Time</th>
                             <th>Products Issued</th>
                             <th>Issuer</th>
-                            <th>Client</th>
                             <th>Branch</th>
                             <th>Remarks</th>
                         </tr>
@@ -198,9 +197,6 @@ if(!$_SESSION['username'])  {
                                         echo $passBranch; 
                                     ?>
                                 </td>
-                                <td data-title="Client">
-                                    <?php echo $data["first_name"]; ?>
-                                </td>
                                 <td data-title="Branch">
                                     <?php
                                         $passBranch = $data["branch"];  
@@ -220,12 +216,12 @@ if(!$_SESSION['username'])  {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Products Issued</h4>
+                                <h4 class="modal-title">Products Transfered from <?php  echo $data["branch"];  ?></h4>
                             </div>
                             <div class="modal-body">
                                     <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
                                     <?php
-                                        $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$IsID' AND branch = '$passBranch'";
+                                        $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$IsID' AND location = '$passBranch'";
                                         $run = mysqli_query($db, $queryProducts);
                                     ?>
                                     <label>Product</label>

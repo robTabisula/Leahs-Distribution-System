@@ -155,7 +155,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM logs INNER JOIN accounts ON logs.issue_acnt = accounts.username ORDER BY date_time desc");
+							$retrieve = ("SELECT * FROM logs INNER JOIN accounts ON logs.issue_acnt = accounts.username");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -163,8 +163,9 @@ if(!$_SESSION['username'])  {
                 <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                     <thead>
                         <tr>
+							<th>Log ID</th>
                             <th>Activity</th>
-							<th>date_time</th>
+							<th>Date&Time</th>
 							<th>Position</th>
                         </tr>
                     </thead>
@@ -175,6 +176,9 @@ if(!$_SESSION['username'])  {
 								$toData = $data["logs_id"];
 						?>
                             <tr>
+								<td data-title="logs_id">
+									<?php echo $data["logs_id"];?>
+                                </td>
 
                                 <td data-title="name">
 									<?php echo $data["first_name"]." ".$data["last_name"]." ".$data["remarks"];  ?>
