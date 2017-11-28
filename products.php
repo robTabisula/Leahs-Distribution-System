@@ -238,10 +238,7 @@ if(!$_SESSION['username'])  {
                                             $individual_product_id=$data["productList_id"];
                                         ?>
                                     <td data-title="Product Name">
-                                        <?php 
-                                            $passProdName = $data["productList_name"];
-                                            echo $passProdName; 
-                                        ?>
+										<?php echo $data["productList_name"]."(".$data["unit"]. ")"; ?>
                                     </td>
                                     <td data-title="Category">
                                         <?php
@@ -283,10 +280,10 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <input name="barcode" value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
+                                                                <input name="barcode" readOnly value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
                                                             </div>
                                                             <div class="col-xs-4">
-                                                                <input name="productList_name" value="<?php echo $row['productList_name']; ?>" type="text" class="form-control">
+                                                                <input name="productList_name" readOnly value="<?php echo $row["productList_name"]."(".$row["unit"]. ")"; ?>" type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="client">
@@ -297,12 +294,12 @@ if(!$_SESSION['username'])  {
                                                             $categoryResult = mysqli_query($db, $retrieveCat);
                                                             ?>
 															<div class="col-xs-4">
-                                                            <select name="ProductCategory" class="form-control">
+                                                            <select name="ProductCategory" class="form-control" >
                                                                 <?php                                
                                                                 while($datas=mysqli_fetch_array($categoryResult)){
                                                                   $toData = $datas["category_id"];
                                                                 ?>
-                                                                <option value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>
+                                                                <option readOnly value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>
                                                                <?php
                                                                 }
                                                                 ?>
@@ -397,6 +394,17 @@ if(!$_SESSION['username'])  {
 
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
+									
+									<h3>Unit</h3>
+                                        <select name="unit" class="form-control">
+                                        <option value="100g">100g</option>
+										<option value="200g">100g</option>
+                                        <option value="250g">250g</option>
+										<option value="500g">500g</option>
+										<option value="1kg">1kg</option>
+										<option value="1pck">1pck</option>
+										<option value="1pck">pcs</option>
+										</select>
 
                                     <h3>Product Category</h3>
                                     <?php

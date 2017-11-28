@@ -151,13 +151,13 @@ if(!$_SESSION['username'])  {
 			<div id="page-content-wrapper">
 				<div class="containers">
 					<table class="table table-striped table-bordered">
-						<h1 align="center">Summary of Products</h1>
+						<h1 align="center">Summary of Products Purchased</h1>
 					</table>
 					
 					
 					<!-- Retrieve Account Data -->
 					<?php
-									$retrieve = ("SELECT productList_id,productList_name,prod_qty FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id");
+									$retrieve = ("SELECT productList_id,productList_name,SUM(prod_qty) AS 'Total Quantity' FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id GROUP BY 1");
 									$results = mysqli_query($db, $retrieve);
 								?>
 						<!-- Table Display for Accounts -->
@@ -183,7 +183,7 @@ if(!$_SESSION['username'])  {
 												<?php echo $data["productList_name"]; ?>
 											</td>
 											 <td data-title="productList_name">
-												<?php echo $data["prod_qty"]; ?>
+												<?php echo $data["Total Quantity"]; ?>
 											</td>
 										</tr>
 										<?php

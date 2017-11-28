@@ -15,6 +15,7 @@
 
           	$productList_name = $_POST['productList_name'];
           	$ProductCategory = $_POST['ProductCategory'];
+			$unit =$_POST['unit'];
 			$barcode =$_POST['barcode'];
           	$status = $_POST['status'];
 			$altpriceB = $_POST['altpriceB'];
@@ -31,8 +32,8 @@
             $categoryResult = $row['category_id'];
 
 
-          	$query = "INSERT INTO product_list (productList_name, category_id) 
-                	   VALUE ('$productList_name','$categoryResult')";
+          	$query = "INSERT INTO product_list (productList_name,unit, category_id) 
+                	   VALUE ('$productList_name','$unit','$categoryResult')";
 
             if(mysqli_query($db, $query)){
       				$get_id="select productList_id from product_list WHERE productList_name='$productList_name'";

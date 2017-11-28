@@ -36,37 +36,10 @@ if(!$_SESSION['username'])  {
     <link href="src/css/custom.css" rel="stylesheet">
 
     <!-- Datatables-->
-    <script>
-       var table;
-        responsive: true;
+	    <script>
         $(document).ready(function() {
-            var table = $('#datatables').dataTable({
-                "dom": "l<'#myFilter'>frtip"
-            });
-
-            var myFilter = '<select id="mySelect">' +
-                '<option value="*">All</option>' +
-                '<option value="Baguio">Baguio</option>' +
-                '<option value="Pangasinan">Pangasinan</option>' +
-                '</select>';
-            $("#myFilter").html(myFilter);
-            table.fnDraw();
-
-            $.fn.dataTable.ext.search.push(
-                function(settings, data) {
-                    var statusData = data[4] || "";
-                    var filterVal = $("#mySelect").val();
-                    if (filterVal != "*") {
-                        if (statusData == filterVal)
-                            return true;
-                        else
-                            return false;
-                    } else
-                        return true;
-                });
-
-            $("#mainContainer").on("change", "#mySelect", function() {
-                table.fnDraw();
+            $('#datatables').DataTable({
+                responsive: true
             });
         });
     </script>
@@ -184,7 +157,7 @@ if(!$_SESSION['username'])  {
 					
 					<!-- Retrieve Account Data -->
 					<?php
-									$retrieve = ("SELECT * FROM clients INNER JOIN issuance ON clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id");
+									$retrieve = "SELECT c_id, c_name, SUM(prod_price) AS 'Total Price' FROM clients INNER JOIN issuance ON clients.c_id = issuance.client_id INNER JOIN issuance_list ON issuance.issue_id = issuance_list.issue_id GROUP BY 1";
 									$results = mysqli_query($db, $retrieve);
 								?>
 						<!-- Table Display for Accounts -->
@@ -193,7 +166,7 @@ if(!$_SESSION['username'])  {
 								<thead>
 									<tr>
 										<th>Clients</th>
-										<th>Sales</th>
+										<th>Total Sales</th>
 									</tr>
 								</thead>
 
@@ -210,7 +183,7 @@ if(!$_SESSION['username'])  {
 												<?php echo $data["c_name"]; ?>
 											</td>
 											 <td data-title="prod_price">
-												<?php echo $data["prod_price"]; ?>
+												<?php echo $data["Total Price"]; ?>
 											</td>
 										</tr>
 										<?php

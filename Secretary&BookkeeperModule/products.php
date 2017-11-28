@@ -235,10 +235,7 @@ if(!$_SESSION['username'])  {
                                             $individual_product_id=$data["productList_id"];
                                         ?>
                                     <td data-title="Product Name">
-                                        <?php 
-                                            $passProdName = $data["productList_name"];
-                                            echo $passProdName; 
-                                        ?>
+										<?php echo $data["productList_name"]."(".$data["unit"]. ")"; ?>
                                     </td>
                                     <td data-title="Category">
                                         <?php
