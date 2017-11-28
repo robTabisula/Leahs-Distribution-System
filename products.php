@@ -400,10 +400,11 @@ if(!$_SESSION['username'])  {
                                         <option value="100g">100g</option>
 										<option value="200g">100g</option>
                                         <option value="250g">250g</option>
+										<option value="250g">300g</option>
 										<option value="500g">500g</option>
 										<option value="1kg">1kg</option>
 										<option value="1pck">1pck</option>
-										<option value="1pck">pcs</option>
+										<option value="1pcs">pcs</option>
 										</select>
 
                                     <h3>Product Category</h3>
