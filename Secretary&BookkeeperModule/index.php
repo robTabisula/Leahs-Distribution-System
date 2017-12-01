@@ -81,16 +81,11 @@ if(!$_SESSION['username'])  {
                     </a>
                 </li>
 
-                <!-- Settings Submenu -->
-                <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
-
-
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
-                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
                 </ul>
 
@@ -114,7 +109,6 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
-                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
 
@@ -267,10 +261,6 @@ if(!$_SESSION['username'])  {
                                         <i class="glyphicon glyphicon-arrow-down"></i>
                                         <p>View Low Stocks</p>
                                     </a>
-                                    <a href="log_Activity.php" class="btn btn-primary col-sm-3">
-                                        <i class="glyphicon glyphicon-cog"></i>
-                                        <p>Activity Logs</p>
-                                    </a>
                                 </div>
                             </div>
                             <!--/panel content-->
@@ -352,8 +342,9 @@ if(!$_SESSION['username'])  {
                             <br>
                                 Today is
                                 <?php
-                                    $now = new DateTime();
-                                    echo $now->format('Y-m-d H:i:s');
+									date_default_timezone_set('Asia/Manila');
+                                    $date_time = date("F j, Y, g:i a");
+                                    echo $date_time;
                                 ?>
                             </div>
                         </div>

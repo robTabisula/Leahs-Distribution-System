@@ -29,6 +29,23 @@ if(!$_SESSION['username'])  {
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <link href="src/css/datatables.css" rel="stylesheet">
+		
+    <!-- Datatables CSS and JS Files -->
+        <script src="datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="datatables/media/js/dataTables.bootstrap.min.js"></script>
+        <script src="datatables/Buttons/js/dataTables.buttons.min.js"></script>
+        <script src="datatables/Buttons/js/buttons.bootstrap.min.js"></script>
+        <script src="datatables/media/js/buttons.html5.min.js"></script>
+        <script src="datatables/Buttons/js/buttons.print.min.js"></script>
+        <script src="datatables/Buttons/js/buttons.colVis.min.js"></script>
+        
+        <script src="datatables/FixedHeader/js/dataTables.fixedHeader.min.js"></script>
+        
+        <link href="datatables/media/css/dataTables.bootstrap.min.css"rel="stylesheet">
+        <link href="datatables/Buttons/css/buttons.bootstrap.min.css" rel="stylesheet">     
+        <link href="datatables/Buttons/css/buttons.dataTables.min.css"rel="stylesheet">
+        <link href="datatables/media/css/bootstrap.min.css"rel="stylesheet">
+        <link href="datatables/FixedHeader/css/fixedHeader.bootstrap.min.css"rel="stylesheet">
 
     <!-- sidebar links-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -36,12 +53,51 @@ if(!$_SESSION['username'])  {
     <link href="src/css/custom.css" rel="stylesheet">
 
     <!-- Datatables-->
-	    <script>
+<script>
         $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
-            });
-        });
+                var table = $('#datatables').DataTable( {
+                    dom: 'Bfrtip',
+                    lengthMenu: [
+                        [ 10, 20, 50, 100, -1 ],
+                        [ '10 rows', '20 rows', '50 rows', '100 rows', 'Show all' ]
+                    ],
+                    buttons: [
+                        {
+
+                            title:'Leahs', 
+                            message:'Product List', 
+                            customize: function ( win ) {
+                                $(win.document.body)
+                                    .css( 'font-size', '10pt' );
+
+                                $(win.document.body).find( 'table' )
+                                    .addClass( 'compact' )
+                                    .css( 'font-size', 'inherit' );
+                            },  
+                                    
+                                extend:'print',
+
+                                exportOptions: {
+                                columns: ':visible',
+                                    modifier: {
+                                            page: 'current'
+                                        }
+                                }
+                                    
+                        },
+                            {extend:'colvis', 
+                            text: 'Select Column'},
+                            'pageLength', 
+                            
+                    ],
+
+                        columnDefs: [{
+                            targets: -1,
+                            visible: true
+                            
+                        }]
+                } );
+            } );    
     </script>
 	
 </head>
@@ -74,17 +130,12 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
-
-                <!-- Settings Submenu -->
-                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
-
-
+				
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
-                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
                 </ul>
 
@@ -108,7 +159,6 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
-                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -151,7 +201,14 @@ if(!$_SESSION['username'])  {
 			<div id="page-content-wrapper">
 				<div class="containers">
 					<table class="table table-striped table-bordered">
-						<h1 align="center">Client's Summary of Sales</h1>
+						<h1 align="center">Client's Summary of Sales</h1>                                
+								<h1 align="center">as of:
+								<?php
+                                    date_default_timezone_set('Asia/Manila');
+                                    $date_time = date("F j, Y, g:i a");
+                                    echo $date_time;
+                                ?>
+								</h1>
 					</table>
 					
 					

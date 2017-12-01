@@ -81,10 +81,6 @@ if(!$_SESSION['username'])  {
                     </a>
                 </li>
 
-                <!-- Settings Submenu -->
-                <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
-
-
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
@@ -352,8 +348,9 @@ if(!$_SESSION['username'])  {
                             <br>
                                 Today is
                                 <?php
-                                    $now = new DateTime();
-                                    echo $now->format('Y-m-d H:i:s');
+                                    date_default_timezone_set('Asia/Manila');
+                                    $date_time = date("F j, Y, g:i a");
+                                    echo $date_time;
                                 ?>
                             </div>
                         </div>

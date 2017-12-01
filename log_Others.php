@@ -73,11 +73,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
-
-                <!-- Settings Submenu -->
-                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
-
-
+				
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>

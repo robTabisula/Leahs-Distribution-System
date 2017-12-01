@@ -125,11 +125,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
-
-                <!-- Settings Submenu -->
-                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
-
-
+				
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
@@ -289,21 +285,9 @@ if(!$_SESSION['username'])  {
                                                         <div class="client">
                                                         
                                                             <h5><b>Product Category</b></h5>
-                                                            <?php
-                                                            $retrieveCat = ("SELECT * FROM category_list");
-                                                            $categoryResult = mysqli_query($db, $retrieveCat);
-                                                            ?>
+
 															<div class="col-xs-4">
-                                                            <select name="ProductCategory" class="form-control" >
-                                                                <?php                                
-                                                                while($datas=mysqli_fetch_array($categoryResult)){
-                                                                  $toData = $datas["category_id"];
-                                                                ?>
-                                                                <option readOnly value = "<?php echo $toData?>"> <?php echo $datas["category_name"]; ?></option>
-                                                               <?php
-                                                                }
-                                                                ?>
-                                                            </select>
+                                                                <input name="category_name" readOnly value="<?php echo $row['category_name']; ?>" type="text" class="form-control">
 															</div><br><br>
                                                             
                                                             <div class="row">
@@ -339,11 +323,11 @@ if(!$_SESSION['username'])  {
                                                             </div>
 
                                                                 <div class="row">
-                                                                    <div class="col-xs-6"><label>Baguio Alternate Price</label>
+                                                                    <div class="col-xs-6"><label>Baguio Price</label>
                                                                         <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
                                                                     </div>
 
-                                                                    <div class="col-xs-6"><label>Pangasinan Alternate Price</label>
+                                                                    <div class="col-xs-6"><label>Pangasinan Price</label>
                                                                         <div class="row">
                                                                             <div class="col-xs-10">
                                                                                 <input name="pangasinanprice" value="<?php echo $rowp['altprice']; ?>" class="form-control">
@@ -398,9 +382,9 @@ if(!$_SESSION['username'])  {
 									<h3>Unit</h3>
                                         <select name="unit" class="form-control">
                                         <option value="100g">100g</option>
-										<option value="200g">100g</option>
+										<option value="200g">200g</option>
                                         <option value="250g">250g</option>
-										<option value="250g">300g</option>
+										<option value="300g">300g</option>
 										<option value="500g">500g</option>
 										<option value="1kg">1kg</option>
 										<option value="1pck">1pck</option>
@@ -427,10 +411,10 @@ if(!$_SESSION['username'])  {
                                                 ?>
                                             </select>
 
-                                        <h3>Alternate Price For Baguio</h3>
+                                        <h3>Price For Baguio</h3>
                                         <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" required>
 
-                                        <h3>Alternate Price For Pangasinan</h3>
+                                        <h3>Price For Pangasinan</h3>
                                         <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" required>
 
                                         <h3>Restock Level</h3>

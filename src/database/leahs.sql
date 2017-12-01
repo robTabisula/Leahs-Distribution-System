@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2017 at 05:57 AM
+-- Generation Time: Dec 01, 2017 at 12:14 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -382,20 +382,6 @@ INSERT INTO `issuance_list` (`issue_id`, `prod_qty`, `prod_price`, `branch`, `pr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ledger`
---
-
-CREATE TABLE `ledger` (
-  `ledger_id` int(10) NOT NULL,
-  `ledger_date` date NOT NULL,
-  `ledger_in` int(10) NOT NULL,
-  `ledger_out` int(10) NOT NULL,
-  `ledger_product_id` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `logs`
 --
 
@@ -465,7 +451,16 @@ INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_i
 (63, 'mark', 'Login', 'November 28, 2017, 1:33 pm', NULL, 'has successfully login'),
 (64, 'mark', 'Login', 'November 28, 2017, 1:42 pm', NULL, 'has successfully login'),
 (65, 'mark', 'Login', 'November 28, 2017, 1:55 pm', NULL, 'has successfully login'),
-(66, 'mark', 'Added Stock Transfer', 'November 28, 2017, 1:56 pm', NULL, 'has successfully transfered product(s)');
+(66, 'mark', 'Added Stock Transfer', 'November 28, 2017, 1:56 pm', NULL, 'has successfully transfered product(s)'),
+(67, 'mark', 'Login', 'December 1, 2017, 7:15 pm', NULL, 'has successfully login'),
+(68, 'mark', 'Login', 'December 1, 2017, 7:15 pm', NULL, 'has successfully login'),
+(69, 'res', 'Login', 'December 1, 2017, 7:15 pm', NULL, 'has successfully login'),
+(70, 'mark', 'Login', 'December 1, 2017, 7:35 pm', NULL, 'has successfully login'),
+(71, 'res', 'Login', 'December 1, 2017, 7:43 pm', NULL, 'has successfully login'),
+(72, 'mark', 'Login', 'December 1, 2017, 7:46 pm', NULL, 'has successfully login'),
+(73, 'res', 'Login', 'December 1, 2017, 8:00 pm', NULL, 'has successfully login'),
+(74, 'mark', 'Login', 'December 1, 2017, 8:02 pm', NULL, 'has successfully login'),
+(75, 'res', 'Login', 'December 1, 2017, 8:09 pm', NULL, 'has successfully login');
 
 -- --------------------------------------------------------
 
@@ -697,21 +692,6 @@ INSERT INTO `purchased_order_list` (`p_order_id`, `order_qty`, `branch`, `prdct_
 (6, 10, 'Baguio', 242, ''),
 (6, 20, 'Baguio', 241, '');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `stock_adjustments`
---
-
-CREATE TABLE `stock_adjustments` (
-  `sA_id` int(15) NOT NULL,
-  `sA_product_id` int(15) NOT NULL,
-  `sA_qty` int(10) NOT NULL,
-  `sA_remarks` varchar(10) NOT NULL,
-  `sA_in` int(15) NOT NULL,
-  `sA_out` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Indexes for dumped tables
 --
@@ -773,13 +753,6 @@ ALTER TABLE `issuance_list`
   ADD KEY `issue_id_idx` (`issue_id`);
 
 --
--- Indexes for table `ledger`
---
-ALTER TABLE `ledger`
-  ADD PRIMARY KEY (`ledger_id`),
-  ADD KEY `FK_ledger_product_list_idx` (`ledger_product_id`);
-
---
 -- Indexes for table `logs`
 --
 ALTER TABLE `logs`
@@ -825,13 +798,6 @@ ALTER TABLE `purchased_order_list`
   ADD KEY `product_id_idx` (`prdct_id`);
 
 --
--- Indexes for table `stock_adjustments`
---
-ALTER TABLE `stock_adjustments`
-  ADD PRIMARY KEY (`sA_id`),
-  ADD KEY `FK_stock_adjustments_product_idx` (`sA_product_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -866,15 +832,10 @@ ALTER TABLE `inventory`
 ALTER TABLE `issuance`
   MODIFY `issue_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
--- AUTO_INCREMENT for table `ledger`
---
-ALTER TABLE `ledger`
-  MODIFY `ledger_id` int(10) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT for table `product_list`
 --
@@ -890,11 +851,6 @@ ALTER TABLE `pull_out`
 --
 ALTER TABLE `purchased_order`
   MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `stock_adjustments`
---
-ALTER TABLE `stock_adjustments`
-  MODIFY `sA_id` int(15) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -925,12 +881,6 @@ ALTER TABLE `issuance_list`
   ADD CONSTRAINT `prod_id` FOREIGN KEY (`prod_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `ledger`
---
-ALTER TABLE `ledger`
-  ADD CONSTRAINT `ledger_product_id` FOREIGN KEY (`ledger_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
 -- Constraints for table `po_list`
 --
 ALTER TABLE `po_list`
@@ -954,12 +904,6 @@ ALTER TABLE `product_loc`
 ALTER TABLE `purchased_order_list`
   ADD CONSTRAINT `p_order_id` FOREIGN KEY (`p_order_id`) REFERENCES `purchased_order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `prdct_id` FOREIGN KEY (`prdct_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `stock_adjustments`
---
-ALTER TABLE `stock_adjustments`
-  ADD CONSTRAINT `sA_product_id` FOREIGN KEY (`sA_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
