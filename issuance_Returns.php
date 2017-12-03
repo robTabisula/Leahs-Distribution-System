@@ -38,49 +38,66 @@ if(!$_SESSION['username'])  {
     <!-- Datatables-->
     <script>
 
-        var nextDiv = document.getElementById("next");
-        var regex = /^(.+?)(\d+)$/i;
-        var cloneIndex = $(".clonedInput").length;
+        var qtyTotal = 0;
+        var priceTotal = 0;
 
-        function clone(){
-          $(this).parents(".clonedInput").clone()
-                .appendTo(nextDiv)
-                .attr("id", "clonedInput" +  cloneIndex)
-                .find("*")
-                .each(function() {
-                    var id = this.id || "";
-                    var match = id.match(regex) || [];
-                    if (match.length == 3) {
-                        this.id = match[1] + (cloneIndex);
-                    }
-                })
-                .on('click', 'input.addrow', clone)
-                .on('click', 'input.remove', remove);
-            cloneIndex++;
-        
+        function updateForm() {
+            var product = document.getElementById("product").value;
+
+            var qty = document.getElementById("quantity").value;
+            qtyTotal = qtyTotal + parseInt(qty);
+            document.getElementById("qtyTotals").innerHTML=qtyTotal;
+
+            var price = document.getElementById("price").value;    
+            priceTotal = priceTotal + parseInt(price);
+            document.getElementById("priceTotals").innerHTML=priceTotal;
+
+            var table=document.getElementById("results");
+            var row=table.insertRow(-1);
+            var cell1=row.insertCell(0);
+            var cell2=row.insertCell(1);
+            var cell3=row.insertCell(2);
+            var cell4=row.insertCell(3);
+            var cell5=row.insertCell(4);
+
+            addedProduct = document.createElement( 'input' );
+            addedProduct.setAttribute("name", "productList[]");
+            addedProduct.setAttribute("type", "text");
+            addedProduct.setAttribute("value", product);
+            addedProduct.setAttribute("readOnly","true");
+                      
+            addedQuantity = document.createElement( 'input' );
+            addedQuantity.setAttribute("name", "quantity[]");
+            addedQuantity.setAttribute("type", "text");
+            addedQuantity.setAttribute("value", qty);
+            addedQuantity.setAttribute("readOnly","true");
+
+            addedPrc = document.createElement( 'input' );
+            addedPrc.setAttribute("name", "adjusted_price[]");
+            addedPrc.setAttribute("type", "text");
+            addedPrc.setAttribute("value", price); 
+            addedPrc.setAttribute("readOnly","true");  
+
+            indvRemark = document.createElement( 'input' );
+            indvRemark.setAttribute("name", "premarks[]");
+            indvRemark.setAttribute("type", "textarea");   
+
+            deleteButton = document.createElement( 'input' );
+            deleteButton.setAttribute("name", "deleteRow");
+            deleteButton.setAttribute("type", "button");
+            deleteButton.setAttribute("value", "Discard"); 
+           
+             
+            cell1.appendChild(addedProduct);
+            cell2.appendChild(addedQuantity);       
+            cell3.appendChild(addedPrc);  
+            cell4.appendChild(indvRemark);   
+            cell5.appendChild(deleteButton); 
+
         }
-
-        function remove(){
-                if(cloneIndex!=1){
-                    $(this).parents(".clonedInput").remove();
-                    cloneIndex --;
-
-                }else{
-                    alert("Option not allowed");
-                }
-    
-        }
-
-        $("input.addrow").on("click", clone);
-        $("input.remove").on("click", remove);
-
     </script>
 
-    <style>
-    .clonedInput { padding: 10px; border-radius: 5px; background-color: #def; margin-bottom: 10px; }
-    .clonedInput div { margin: 5px; }
-    .clonedInput ~ .clonedInput .add-row{ display:none; }
-    </style>
+
 </head>
 
 <body>
@@ -223,11 +240,26 @@ if(!$_SESSION['username'])  {
                                         $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch'";
                                         $run = mysqli_query($db, $queryProducts);
                                     ?>
-                                <!--div to clone-->
-                                <div id="clonedInput1" class="clonedInput">
-                                   <div>
-                                       <br>
-                                                <select name="productList[]" id="productselect"  required>
+                              <!--********************************************************************************** -->
+                            
+                                <hr style = "border-top: 3px double #8c8b8b;">
+                                <br>
+                                <!--Div to view adjusted price and category-->
+                                <div id="AdjustedPriceDiv" style=" padding: 5px 0 0 5px; height: 150px; width: 150px; top:10%;  width: 300px; height: 200px; border: 3px #2e353d; box-sizing: border-box; background: none no-repeat scroll 0 0 #fff;">
+                                            <hr>
+                                            <h4>When Choosing a product, Information will be viewed here.</h4>
+                                            <hr>
+                                </div>  
+                                
+                                
+                                    <table class="table table-striped table-bordered">
+                                        <tr>
+                                            <td>
+                                                <label for="product">Product:</label>
+                                            </td>
+                                            <td>
+
+                                                <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
                                                     <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                             <?php
                                                                 foreach ($run as $datas):
@@ -241,16 +273,56 @@ if(!$_SESSION['username'])  {
                                                             <?php
                                                                 endforeach;
                                                             ?>
-                                                </select>                              
-                                                <input placeholder="Quantity" name="quantity[]" type="number" required>
-                                                <input placeholder="Remarks" name="premarks[]"/>      
-                                        <div class="actions">
-                                            <input type="button" class="addrow" value="Add Product"/>  
-                                            <input type="button" class="remove" value="Remove"/>
-                                        </div>
-                                    </div>
-                                </div> 
-                                <!--/div to clone-->            
+                                                </select> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="quantity">Quantity:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="price">Price:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                    <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                    <br>
+                                <br>
+
+                                <table id="results" width="360" class="table table-striped table-bordered">
+
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" width="120">Products</th>
+                                        <th scope="col" width="120">Quantity</th>
+                                        <th scope="col" width="120">Price</th>
+                                        <th scope="col" width="120">Remarks</th>
+                                        <th scope="col" width="120">Action</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                                
+                                <table id="resultTotals" width="360">
+                                <tr>
+                                    <td scope="col" width="120">Totals</td>
+                                    <td scope="col" width="120"><div id="qtyTotals"></div></td>
+                                    <td scope="col" width="120"><div id="priceTotals"></div></td>
+                                </tr>
+                                </table>
+                                <hr style = "border-top: 3px double #8c8b8b;">
+                                <br>
+                         
+                                <!--********************************************************************************************************-->
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
                             </fieldset>                 
                         </form>  
