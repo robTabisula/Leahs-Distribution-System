@@ -37,18 +37,13 @@ if(!$_SESSION['username'])  {
 
     <!-- Datatables-->
     <script>
-        $(document).ready(function() {
-            $('#datatables').DataTable({
-                responsive: true
-            });
-        });
 
-        function viewIssuance(choice){
-            $("#issuanceDiv").html('Loading').show();
-            var url="fragments/view_issuance.php";
-            $.post(url,{choice:choice},function(data){
-                $("#issuanceDiv").html(data).show();
-            });
+        function viewCategory(prod_id){
+            $("#AdjustedPriceDiv").html('Loading').show();
+            var url="fragments/issuance_fn.php";
+            $.post(url,{prod_id:prod_id},function(data){
+            $("#AdjustedPriceDiv").html(data).show();
+            ;});
         }
 
         var qtyTotal = 0;

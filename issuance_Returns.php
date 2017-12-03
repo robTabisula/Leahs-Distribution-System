@@ -38,6 +38,14 @@ if(!$_SESSION['username'])  {
     <!-- Datatables-->
     <script>
 
+        function viewCategory(prod_id){
+            $("#AdjustedPriceDiv").html('Loading').show();
+            var url="fragments/issuance_fn.php";
+            $.post(url,{prod_id:prod_id},function(data){
+            $("#AdjustedPriceDiv").html(data).show();
+            ;});
+        }
+
         var qtyTotal = 0;
         var priceTotal = 0;
 

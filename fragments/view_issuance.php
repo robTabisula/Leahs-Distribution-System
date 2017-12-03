@@ -316,11 +316,24 @@ if(!$_SESSION['username'])  {
                                     <option value="Baguio">Baguio</option>
                                     <option value="Pangasinan">Pangasinan</option>
                             </select>
+                            <h4>Client Name</h4>
+                            <?php
+                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin'");
+                                $adminRetrieve = mysqli_query($db, $retrieveAdmin);
+                            ?>
+                            
+                            <select name="Pcleint"required>
+                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                    <?php
+                                        foreach ($adminRetrieve as $userData):
+                                        $user_id = $userData["acc_id"];
+                                    ?> 
+                                        <option value="<?php echo $userData["username"]; ?>"><?php echo $userData["username"]; ?></option>
+                                   <?php
+                                        endforeach;
+                                    ?>
+                            </select>
 
-                            <div class = "Pclients">    
-                                <h4>Client Name</h4>
-                                <input type="text" name="Pcleint" />
-                            </div>
                            
                             
                             <div class="remarks">
