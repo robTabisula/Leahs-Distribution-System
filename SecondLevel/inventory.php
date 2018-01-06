@@ -188,7 +188,10 @@ if(!$_SESSION['username'])  {
 			?>
 
                 <div id="mainContainer">
-                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <?php
+                        
+                    ?>
+                   <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
 
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
                     <br>
@@ -442,3 +445,12 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
+<script>
+function myFunction() {
+    var person = prompt("Please enter security code", "");
+    if (person != null) {
+        document.getElementById("demo").innerHTML =
+        "Hello " + person + "! How are you today?";
+    }
+}
+</script>
