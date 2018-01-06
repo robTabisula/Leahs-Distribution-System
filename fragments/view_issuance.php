@@ -221,7 +221,7 @@
                                                     <label for="quantity">Quantity:</label>
                                                 </td>
                                                 <td>
-                                                    <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
+                                                    <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -229,7 +229,7 @@
                                                     <label for="price">Price:</label>
                                                 </td>
                                                 <td>
-                                                    <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
+                                                    <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -386,7 +386,7 @@
                                                 <label for="quantity">Quantity:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -394,7 +394,7 @@
                                                 <label for="price">Price:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -527,7 +527,7 @@
                                                 <label for="quantity">Quantity:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -535,7 +535,7 @@
                                                 <label for="price">Price:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -676,7 +676,7 @@
                                                 <label for="quantity">Quantity:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number"/>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -684,7 +684,7 @@
                                                 <label for="price">Price:</label>
                                             </td>
                                             <td>
-                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number"/>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
                                             </td>
                                         </tr>
                                         <tr>

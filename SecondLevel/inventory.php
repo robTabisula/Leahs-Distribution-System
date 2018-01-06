@@ -110,6 +110,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
                 </ul>
 
@@ -134,6 +135,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -243,11 +245,7 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
                                                 <form action="fragments/editInventory.php" method="POST">
-                                                    <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
-                                                    <label>Inventory ID</label>
-                                                    <input type="text" name="Inventory_ID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
-                                                    
-                                                    
+                                                    <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'> 
                                                     <label>Product Name</label>
                                                     <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
                                                     
@@ -255,7 +253,7 @@ if(!$_SESSION['username'])  {
                                                     <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
                                                     
                                                     <label>Restock level</label>
-                                                    <input type="number" name="restck_Lvl" />
+                                                    <input type="number" name="restck_Lvl" value="<?php echo $data["iS_restock_lvl"]; ?>" min="1">
                                                    
 		                                            
 		                                            <div class="modal-footer">
@@ -316,7 +314,7 @@ if(!$_SESSION['username'])  {
                                            </select>
 
                                             <label>Quantity</label>
-                                            <input type="number" name="Quantity" />
+                                            <input type="number" name="Quantity" min="1"/>
 
 
                                             <div class="modal-footer">
@@ -345,7 +343,6 @@ if(!$_SESSION['username'])  {
 				                                <th>Product Name</th>
 				                                <th>Product Quantity</th>
 				                                <th>Restock Level</th>
-				                                <th>Category Name</th>
 				                                <th>Location</th>
 				                                <th>Add Stock</th>
 				                            </tr>
@@ -372,9 +369,6 @@ if(!$_SESSION['username'])  {
 				                                    </td>
 				                                    <td data-title="Restock Quantity">
 				                                        <?php echo $lowStock["iS_restock_lvl"]; ?>
-				                                    </td>
-				                                    <td data-title="category">
-				                                        <?php echo $lowStock["category_name"]; ?>
 				                                    </td>
                                                     <td data-title="location">
 				                                        <?php echo $lowStock["iS_location"]; ?>
@@ -419,7 +413,7 @@ if(!$_SESSION['username'])  {
                                                             <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]; ?>" readonly><br>
 
                                                         <label>Quantity</label>
-                                                            <input type="number" name="LQuantity" />
+                                                            <input type="number" name="LQuantity" min="1"/>
 
 
                                                             <div class="modal-footer">

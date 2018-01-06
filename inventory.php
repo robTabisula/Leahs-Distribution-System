@@ -253,7 +253,7 @@ if(!$_SESSION['username'])  {
                                                     <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
                                                     
                                                     <label>Restock level</label>
-                                                    <input type="number" name="restck_Lvl" value="<?php echo $data["iS_restock_lvl"]; ?>">
+                                                    <input type="number" name="restck_Lvl" value="<?php echo $data["iS_restock_lvl"]; ?>" min="1">
                                                    
 		                                            
 		                                            <div class="modal-footer">
@@ -314,7 +314,7 @@ if(!$_SESSION['username'])  {
                                            </select>
 
                                             <label>Quantity</label>
-                                            <input type="number" name="Quantity" />
+                                            <input type="number" name="Quantity" min="1"/>
 
 
                                             <div class="modal-footer">
@@ -413,7 +413,7 @@ if(!$_SESSION['username'])  {
                                                             <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]; ?>" readonly><br>
 
                                                         <label>Quantity</label>
-                                                            <input type="number" name="LQuantity" />
+                                                            <input type="number" name="LQuantity" min="1"/>
 
 
                                                             <div class="modal-footer">

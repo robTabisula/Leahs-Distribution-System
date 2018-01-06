@@ -266,10 +266,10 @@ if(!$_SESSION['username'])  {
                                                                 <input name="username" value="<?php echo $row['username']; ?>" type="text" class="form-control">
                                                             </div>
 															<div class="col-xs-4">
-                                                                <input name="first_name" value="<?php echo $row['first_name']; ?>" type="text" class="form-control">
+                                                                <input name="first_name" value="<?php echo $row['first_name']; ?>" type="text" class="form-control" onkeypress="return isAlfa(event)">
                                                             </div>
 															<div class="col-xs-4">
-                                                                <input name="last_name" value="<?php echo $row['last_name']; ?>" type="text" class="form-control">
+                                                                <input name="last_name" value="<?php echo $row['last_name']; ?>" type="text" class="form-control" onkeypress="return isAlfa(event)">
                                                             </div>
 														</div>
 														<div class="row">
@@ -337,7 +337,7 @@ if(!$_SESSION['username'])  {
                                                                 <input name="email" value="<?php echo $row['email']; ?>" type="text" class="form-control">
                                                             </div>
 															<div class="col-xs-6">
-                                                                <input name="contact_no" value="<?php echo $row['contact_no']; ?>" type="text" class="form-control">
+                                                                <input name="contact_no" value="<?php echo $row['contact_no']; ?>" type="text" class="form-control" onkeypress="return isNumber(event)">
                                                             </div>
 														</div>
 														<div class="row">
@@ -419,13 +419,13 @@ if(!$_SESSION['username'])  {
                                 <form action="fragments/addUser.php" method="POST" onsubmit="return validateForm()">
 								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                     <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="username" autofocus required>
+                                    <input type="text" class="form-control" maxlength="100" name="username"  autofocus required>
 
                                     <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="first_name" required>
+                                    <input type="text" class="form-control" maxlength="100" name="first_name" onkeypress="return isAlfa(event)" required>
 
                                     <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="last_name" required>
+                                    <input type="text" class="form-control" maxlength="100" name="last_name" onkeypress="return isAlfa(event)" required>
 
                                     <h3>Password</h3>
                                     <input type="password" id="pass" class="form-control" name="user_pass" required>
@@ -487,7 +487,7 @@ if(!$_SESSION['username'])  {
     function isAlfa(evt) {
         evt = (evt) ? evt : window.event;
         var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
+        if (charCode > 32 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
             return false;
         }
         return true;
