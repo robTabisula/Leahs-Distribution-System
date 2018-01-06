@@ -330,7 +330,7 @@ if(!$_SESSION['username'])  {
              
                     <!-- Modal low Stocks-->
                     <div id="lowStocks" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog" style="overflow-y: scroll; max-height:90%;  margin-top: 50px; margin-bottom:50px;">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
