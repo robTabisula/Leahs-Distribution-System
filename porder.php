@@ -174,6 +174,7 @@ if(!$_SESSION['username'])  {
 								<th>Merchandiser</th>
 								<th>Date and Time</th>
 								<th>Branch</th>
+								<th>Purchased Product</th>
 							</tr>
 						</thead>
 			   
@@ -212,6 +213,15 @@ if(!$_SESSION['username'])  {
                                         echo $passBranch;
 										?>
 									</td>
+									<td data-title="Purchased Product">
+                                        <table class="table table-striped table-bordered">
+                                            <a href="purchased_order_fn.php?po_id=<?php echo $po_id; ?>&Branch=<?php echo $passBranch; ?>">
+                                                <button type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                                </button>
+                                            </a>
+                                        </table>
+                                </td>
 									
 								</tr>
 								

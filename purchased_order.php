@@ -167,7 +167,7 @@ if(!$_SESSION['username'])  {
 								<div class="col-xs-4">  
                                         <h4>Merchandiser</h4>
                                         <input type="text" size="15" name="merchandiser" />
-                                    </div>
+                                </div>
 								<br><br><br><br>
 								
 								<div class="form-group">                            

@@ -194,6 +194,7 @@ if(!$_SESSION['username'])  {
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Location</th>
+								<th>Merchandiser</th>
                                 <th>Edit</th>
 
                             </tr>
@@ -218,6 +219,11 @@ if(!$_SESSION['username'])  {
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
                                     </td>
+									
+									<td data-title="c_merchandiser">
+                                        <?php echo $data["c_merchandiser"]; ?>
+                                    </td>
+									
 									<td data-title="edit">
                                         <table class="table table-striped table-bordered">
                                             <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_c_id;?>"></button>
