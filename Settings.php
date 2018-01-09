@@ -43,11 +43,31 @@ if(!$_SESSION['username'])  {
             });
         });
 
+    function edit(){
+ 
+        document.getElementById('inputfn').removeAttribute('readonly');
+        document.getElementById('inputln').removeAttribute('readonly');
+        document.getElementById('inputem').removeAttribute('readonly');
+        document.getElementById('input').removeAttribute('readonly');
+        document.getElementById('key').removeAttribute('readonly');
+
+        var inputfn = document.getElementById("inputfn");
+        inputfn.style.backgroundColor = "white";
+        var inputln = document.getElementById("inputln");
+        inputln.style.backgroundColor = "white";
+        var inputem = document.getElementById("inputem");
+        inputem.style.backgroundColor = "white";
+        var input = document.getElementById("input");
+        input.style.backgroundColor = "white";
+        var key = document.getElementById("key");
+        key.style.backgroundColor = "white";
+        document.getElementById('inputun').focus();
+};
     </script>
 </head>
 
 <body>
-        <!-- Sidebar -->
+         <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
         <div class="brand">
@@ -74,6 +94,9 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+                <!-- Settings Submenu -->
+                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
+
 
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
@@ -142,138 +165,73 @@ if(!$_SESSION['username'])  {
         </div>
     </div>
     <!-- /#sidebar-wrapper -->
-    
     <!-- Main Container -->
     <div id="page-content-wrapper">
         <div class="containers">
-            <table class="table table-striped table-bordered">
-                <h1 align="center">Accounts</h1>
-            </table>
 
-            <!-- Retrieve Account Data -->
-            <?php
-							$retrieve = ("SELECT acc_id, username, first_name, last_name, email, contact_no, status FROM accounts ");
-							$results = mysqli_query($db, $retrieve);
-						?>
+            <form role="form" method="post" action="fragments/editProfile.php">
+   
+                <h3><center>Profile</center></h3>
+                <?php 
+                    include('fragments/config.php'); 
+                        $username=$_SESSION['username'];
 
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
-                </table>
+                        $userq="select * from accounts where username='$username'";
+                        $runq = mysqli_query($db, $userq);
+                        $thisuser=mysqli_fetch_array($runq);
+                        $first_name=$thisuser['first_name'];
+                        $last_name=$thisuser['last_name'];
+                        $email=$thisuser['email'];
+                        $contact_no=$thisuser['contact_no'];
+                        $status=$thisuser['status'];
+                        $branch=$thisuser['branch'];
+                        $secKey=$thisuser['security_key'];
+                        $ID = $thisuser['acc_id'];
 
-                <!-- Table Display for Accounts -->
-                <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Username</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbod y>
-                        <?php
-							foreach ($results as $data):
-								$toData = $data["acc_id"];
-						?>
-                            <tr>
-                                <td data-title="accountID">
-                                    <?php echo $data["acc_id"]; ?>
-                                </td>
-                                <td data-title="user_name">
-                                    <?php echo $data["username"]; ?>
-                                </td>
-                                <td data-title="fname">
-                                    <?php echo $data["first_name"]; ?>
-                                </td>
-                                <td data-title="lname">
-                                    <?php echo $data["last_name"]; ?>
-                                </td>
-                                <td data-title="mail">
-                                    <?php echo $data["email"]; ?>
-                                </td>
-                                <td data-title="cno">
-                                    <?php echo $data["contact_no"]; ?>
-                                </td>
-                                <td data-title="status">
-                                    <?php echo $data["status"]; ?>
-                                </td>
-                            </tr>
-                            <?php
-							endforeach;
-						?>
-                            </tbody>
-                </table>
-
-                <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Account</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form action="addAccounts.php" method="POST" onsubmit="return validateForm()">
-                                    <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="username" required>
-
-                                    <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="firstname" required>
-
-                                    <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="lastname" required>
-
-                                    <h3>Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password" required>
-
-                                    <h3>Confirm Password</h3>
-                                    <input type="password" class="form-control" maxlength="25" name="password_2" required>
-
-                                    <h3>Email</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="email" required>
-
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="contact_no" required>
-
-                                    <div class="modal-footer">
-                                        <input name="reg_user" type="submit" class="btn btn-default" value=" Submit " />
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                ?> 
+                <input type='hidden' name="UserID" value="<?php echo $ID; ?>" readonly/>
+                <div class="col-lg-4">
+                    <center><h4>Username</h4></center> 
+                    <input name="username" id="inputun" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $_SESSION['username'];?>" readonly/>
                 </div>
+                <div class="col-lg-4">
+                    <center><h4>First Name</h4></center>
+                    <input name="first_name" id="inputfn" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $first_name;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <center><h4>Last Name</h4></center>
+                    <input name="last_name" id="inputln" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $last_name;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr>
+                    <center><h4>Email Address</h4></center>
+                    <input name="email_add" id="inputem" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $email;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr>
+                    <center><h4>Contact Number</h4></center>
+                    <input name="contact_num" id="input" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $contact_no;?>" readonly/>
+                </div>
+                <div class="col-lg-4">
+                    <hr>
+                    <center><h4>Security Key</h4></center>
+                    <input name="secKey" id="key" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $secKey;?>" readonly/>
+                </div>
+				
+				<div class="col-xs-12">
+					<br>
+						<div class="modal-footer">
+							<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>					
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onClick="location.href=location.href"><i class="fa fa-times"></i> Discard</button>
+						</div>
+				</div>
+             </form>
+              <input name="branch" id="edit" type="button" style="background-color: #90EE90;" class="btn btn-success" onclick="edit();" class="fa fa-save" value="Edit"/>
+
+
         </div>
     </div>
 
 </body>
 
 </html>
-
-<script>
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-    }
-
-
-    function isAlfa(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 32 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
-            return false;
-        }
-        return true;
-    }
-
-</script>

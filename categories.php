@@ -244,10 +244,9 @@ if(!$_SESSION['username'])  {
                                                             </div>
                                                             <div class="col-xs-4">
 
-																<select name="category_status" class="form-control">
-																	<option>Enabled</option>
-																	<option>Disabled</option>
-																</select>
+																	<input type="radio" name="category_status" Value="Enabled">Enabled<br>
+																	<input type="radio" name="category_status" Value="Disabled">Disabled
+																
 
                                                             </div>
                                                         </div>
@@ -284,18 +283,18 @@ if(!$_SESSION['username'])  {
                                 </div>
                                 <div class="modal-body">
                                     <form action="fragments/addCategory.php" method="POST" >
-									<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
-                                        <h3>Category Name</h3>
-                                        <input type="text" class="form-control" maxlength="25" name="category_name" autofocus required>
-										<div class="col-xs-6"><h3>Status</h3></div>
-                                        <select name="category_status" class="form-control">
-                                              <option>Enabled</option>
-                                              <option>Disabled</option>
-                                        </select>
-                                        <div class="modal-footer">
-                                            <input name="add_category" type="submit" class="btn btn-default" value=" Submit " />
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
+										<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
+	                                        <h3>Category Name</h3>
+	                                        <input type="text" class="form-control" maxlength="25" name="category_name" autofocus required>
+											<h3>Status</h3>
+	                                        
+											<input type="radio" name="category_status" Value="Enabled">Enabled   
+											<input type="radio" name="category_status" Value="Disabled">Disabled
+
+	                                        <div class="modal-footer">
+	                                            <input name="add_category" type="submit" class="btn btn-default" value=" Submit " />
+	                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                                        </div>
                                     </form>
                                 </div>
                             </div>

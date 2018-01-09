@@ -287,38 +287,39 @@ if(!$_SESSION['username'])  {
                                                             <h5><b>Product Category</b></h5>
 
 															<div class="col-xs-4">
-                                                                <input name="category_name" readOnly value="<?php echo $row['category_name']; ?>" type="text" class="form-control">
+                                                                <input name="ProductCategory" readOnly value="<?php echo $row['category_name']; ?>" type="text" class="form-control">
 															</div><br><br>
                                                             
                                                             <div class="row">
-                                                             <div class="col-xs-6"><label>Baguio Status</label>
-                                                                         <select name="bstatus" class="form-control">
-                                                                        <option value="<?php echo $row['status'];?>"><?php 
-                                                                                $bstat=$row['status'];
-                                                                                echo $bstat;
-                                                                            ?></option>
+                                                             <div class="col-xs-6"><label>Baguio Status</label><br>
+                                                                     
+                                                                            <?php 
+                                                                                $bstat=$row['status'];  
+                                                                            ?>
                                                                             <?php if ($bstat=="Enabled"){
-                                                                                echo "<option value='Disabled'>Disabled</option>" ;
+                                                                                echo "<input type='radio' name='bstatus' value='Enabled' checked>Enabled<br>" ;
+                                                                                echo "<input type='radio' name='bstatus' value='Disabled'>Disabled" ;
                                                                             }else{
-                                                                                echo "<option value='Enabled'>Enabled</option>" ;
+                                                                                echo "<input type='radio' name='bstatus' value='Enabled'>Enabled<br>" ;
+                                                                                echo "<input type='radio' name='bstatus' value='Disabled' checked>Disabled" ;
                                                                               }
                                                                             ?>                                                                       
-                                                                        </select>
+                                                                        
                                                                     </div>
 															
-																	<div class="col-xs-6"><label>Pangasinan Status</label>
-                                                                         <select name="pstatus" class="form-control">
-																			<option value="<?php echo $rowp['status'];?>"><?php 
-																					$pstat=$rowp['status'];
-																					echo $pstat;
-																				?></option>
+																	<div class="col-xs-6"><label>Pangasinan Status</label><br>
+                                                                                <?php 
+																					$pstat=$rowp['status'];		
+																				?>
 																				<?php if ($pstat=="Enabled"){
-																					echo "<option value='Disabled'>Disabled</option>" ;
+                                                                                    echo "<input type='radio' name='pstatus' value='Enabled' checked>Enabled<br>";
+																					echo "<input type='radio' name='pstatus' value='Disabled'>Disabled";
 																				}else{
-																					echo "<option value='Enabled'>Enabled</option>" ;
+																					echo "<input type='radio' name='pstatus' value='Enabled'>Enabled<br>" ;
+                                                                                    echo "<input type='radio' name='pstatus' value='Disabled' checked>Disabled";
 																				  }
 																				?>                                                                       
-                                                                        </select>
+                                                                        
                                                                     </div>
                                                             </div>
 
@@ -423,11 +424,8 @@ if(!$_SESSION['username'])  {
 
 
                                         <h3>Status</h3>
-                                        <select name="status" class="form-control">
-                                        <option value="Disabled">Disabled</option>
-                                        <option value="Enabled">Enabled</option>
-										</select>
-
+                                        <input type="radio" name="status" value="Enabled"> Enabled
+                                        <input type="radio" name="status" value="Disabled" checked>Disabled
 
                                         <div class="modal-footer">
                                             <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />

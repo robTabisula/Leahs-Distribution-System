@@ -110,6 +110,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
                 </ul>
 
@@ -134,6 +135,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -186,7 +188,10 @@ if(!$_SESSION['username'])  {
 			?>
 
                 <div id="mainContainer">
-                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <?php
+                        
+                    ?>
+                   <button type="button" onclick="security()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
 
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
                     <br>
@@ -243,11 +248,7 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
                                                 <form action="fragments/editInventory.php" method="POST">
-                                                    <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
-                                                    <label>Inventory ID</label>
-                                                    <input type="text" name="Inventory_ID" value="<?php echo $data["iS_inventoryid"]; ?>" readonly>
-                                                    
-                                                    
+                                                    <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'> 
                                                     <label>Product Name</label>
                                                     <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
                                                     
@@ -255,7 +256,7 @@ if(!$_SESSION['username'])  {
                                                     <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
                                                     
                                                     <label>Restock level</label>
-                                                    <input type="number" name="restck_Lvl" />
+                                                    <input type="number" name="restck_Lvl" value="<?php echo $data["iS_restock_lvl"]; ?>" min="1">
                                                    
 		                                            
 		                                            <div class="modal-footer">
@@ -316,7 +317,7 @@ if(!$_SESSION['username'])  {
                                            </select>
 
                                             <label>Quantity</label>
-                                            <input type="number" name="Quantity" />
+                                            <input type="number" name="Quantity" min="1"/>
 
 
                                             <div class="modal-footer">
@@ -332,7 +333,7 @@ if(!$_SESSION['username'])  {
              
                     <!-- Modal low Stocks-->
                     <div id="lowStocks" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog" style="overflow-y: scroll; max-height:90%;  margin-top: 50px; margin-bottom:50px;">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -345,7 +346,6 @@ if(!$_SESSION['username'])  {
 				                                <th>Product Name</th>
 				                                <th>Product Quantity</th>
 				                                <th>Restock Level</th>
-				                                <th>Category Name</th>
 				                                <th>Location</th>
 				                                <th>Add Stock</th>
 				                            </tr>
@@ -373,9 +373,6 @@ if(!$_SESSION['username'])  {
 				                                    <td data-title="Restock Quantity">
 				                                        <?php echo $lowStock["iS_restock_lvl"]; ?>
 				                                    </td>
-				                                    <td data-title="category">
-				                                        <?php echo $lowStock["category_name"]; ?>
-				                                    </td>
                                                     <td data-title="location">
 				                                        <?php echo $lowStock["iS_location"]; ?>
 				                                    </td>
@@ -386,12 +383,12 @@ if(!$_SESSION['username'])  {
 				                                    </td>
 				                                </tr>
                                     
-                                    <?php 
-                                        $locationQuery = "SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_inventoryid = '$pass_ID'";
-                                        $Lrun = mysqli_query($db, $locationQuery);
-                                        $Lrow = mysqli_fetch_array($Lrun);
+                                            <?php 
+                                                $locationQuery = "SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_inventoryid = '$pass_ID'";
+                                                $Lrun = mysqli_query($db, $locationQuery);
+                                                $Lrow = mysqli_fetch_array($Lrun);
 
-                                    ?> 
+                                            ?> 
 
                                    
                                     <!-- Modal Add from low Stocks --> 
@@ -419,7 +416,7 @@ if(!$_SESSION['username'])  {
                                                             <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]; ?>" readonly><br>
 
                                                         <label>Quantity</label>
-                                                            <input type="number" name="LQuantity" />
+                                                            <input type="number" name="LQuantity" min="1"/>
 
 
                                                             <div class="modal-footer">
@@ -448,3 +445,16 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
+<?php 
+    $adminCodeQuery = ("SELECT security_key FROM accounts;");
+    $row = mysqli_query($db,$adminCodeQuery);
+    $adminCode = mysqli_fetch_array($row);
+?>
+<script>
+function security() {
+    var security = prompt("Please enter security code", "");
+    if (person != null) {
+        
+    }
+}
+</script>
