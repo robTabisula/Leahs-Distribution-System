@@ -191,7 +191,7 @@ if(!$_SESSION['username'])  {
                     <?php
                         
                     ?>
-                   <button type="button" onclick="myFunction()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+                   <button type="button" onclick="security()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
 
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
                     <br>
@@ -383,12 +383,12 @@ if(!$_SESSION['username'])  {
 				                                    </td>
 				                                </tr>
                                     
-                                    <?php 
-                                        $locationQuery = "SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_inventoryid = '$pass_ID'";
-                                        $Lrun = mysqli_query($db, $locationQuery);
-                                        $Lrow = mysqli_fetch_array($Lrun);
+                                            <?php 
+                                                $locationQuery = "SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_inventoryid = '$pass_ID'";
+                                                $Lrun = mysqli_query($db, $locationQuery);
+                                                $Lrow = mysqli_fetch_array($Lrun);
 
-                                    ?> 
+                                            ?> 
 
                                    
                                     <!-- Modal Add from low Stocks --> 
@@ -445,12 +445,16 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
+<?php 
+    $adminCodeQuery = ("SELECT security_key FROM accounts;");
+    $row = mysqli_query($db,$adminCodeQuery);
+    $adminCode = mysqli_fetch_array($row);
+?>
 <script>
-function myFunction() {
-    var person = prompt("Please enter security code", "");
+function security() {
+    var security = prompt("Please enter security code", "");
     if (person != null) {
-        document.getElementById("demo").innerHTML =
-        "Hello " + person + "! How are you today?";
+        
     }
 }
 </script>
