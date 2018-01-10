@@ -82,6 +82,7 @@ if(!$_SESSION['username'])  {
                 <ul class="sub-menu collapse atarget" id="accounts">
                     <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
+					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
 
                 <!-- Reports Submenu -->
@@ -164,10 +165,27 @@ if(!$_SESSION['username'])  {
 									  
 								</div>
 								
-								<div class="col-xs-4">  
-                                        <h4>Merchandiser</h4>
-                                        <input type="text" size="15" name="merchandiser" />
-                                </div>
+								<div class="col-xs-4">
+                                <h4>Merchandiser</h4>
+									<?php
+                                        $queryMer = ("SELECT m_id,m_name FROM merchandiser");
+                                        $result = mysqli_query($db, $queryMer);
+                                    ?>                      
+                                    <select name="merchandiser" required>
+                                    <option value = "" selected="true" disabled="disabled">Select Merchandiser..</option>
+                                        <?php
+                                            foreach ($result as $data):
+                                                $toData = $data["m_id"];
+                                               
+                                        ?>
+
+                                        <option value = "<?php echo $data["m_id"];?>"> <?php echo $data["m_name"]; ?></option>
+                                       <?php
+                                            endforeach;
+                                        ?>
+                                    </select>
+								</div>
+								
 								<br><br><br><br>
 								
 								<div class="form-group">                            

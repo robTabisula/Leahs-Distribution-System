@@ -86,6 +86,7 @@ if(!$_SESSION['username'])  {
                 <ul class="sub-menu collapse atarget" id="accounts">
                     <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
+					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
 
                 <!-- Reports Submenu -->
@@ -157,7 +158,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id");
+							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser = merchandiser.m_id");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -200,7 +201,7 @@ if(!$_SESSION['username'])  {
 									</td>
 									
 									<td data-title="Merchandiser">
-										<?php echo $data["merchandiser"]; ?>
+										<?php echo $data["m_name"]; ?>
 									</td>
 									
 									<td data-title="Date/Time">

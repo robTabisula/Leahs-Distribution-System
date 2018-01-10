@@ -62,7 +62,7 @@
 						   
 									if(mysqli_query($db, $query2)){
 										echo"<script>alert('Orders have been successfuly added ')</script>";
-										echo "<script>window.open('../index.php','_self')</script>"; 
+										echo "<script>window.open('../porder.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));
 									}

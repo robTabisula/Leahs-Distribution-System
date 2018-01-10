@@ -173,12 +173,12 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">User Accounts</h1>
+                <h1 align="center">Merchandiser Accounts</h1>
             </table>
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM accounts ");
+							$retrieve = ("SELECT * FROM merchandiser ");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -191,15 +191,10 @@ if(!$_SESSION['username'])  {
                 <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th>Username</th>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th>Address</th>
                             <th>Contact Number</th>
 							<th>Branch</th>
-                            <th>Status</th>
-							<th>Account type</th>
-                            <th>Edit</th>
-							
                         </tr>
                     </thead>
            
@@ -207,33 +202,23 @@ if(!$_SESSION['username'])  {
                     <tbody>
                         <?php
 							foreach ($results as $data):
-								$toData = $data["acc_id"];
+								$toData = $data["m_id"];
 						?>
                             <tr>
 								<?php
-									$individual_acc_id=$data["acc_id"];
+									$individual_acc_id=$data["m_id"];
                                 ?>
                                 <td data-title="user_name">
-                                    <?php echo $data["username"]; ?>
+                                    <?php echo $data["m_name"]; ?>
                                 </td>
-                                <td data-title="name">
-                                    <?php echo $data["first_name"]." ".$data["last_name"]; ?>
-                                </td>
-
                                 <td data-title="mail">
-                                    <?php echo $data["email"]; ?>
+                                    <?php echo $data["m_address"]; ?>
                                 </td>
                                 <td data-title="cno">
-                                    <?php echo $data["contact_no"]; ?>
+                                    <?php echo $data["m_contact_number"]; ?>
                                 </td>
 								 <td data-title="branch">
-                                    <?php echo $data["branch"]; ?>
-                                </td>
-                                <td data-title="status">
-                                    <?php echo $data["status"]; ?>
-                                </td>
-								 <td data-title="acctype">
-                                    <?php echo $data["acctype"]; ?>
+                                    <?php echo $data["m_branch"]; ?>
                                 </td>
 								<td data-title="edit">
                                         <table class="table table-striped table-bordered">
@@ -251,60 +236,29 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
 					                        <?php
-                                            $query = "select * from accounts where accounts.acc_id='$individual_acc_id'";
+                                            $query = "select * from merchandiser where merchandiser.m_id='$individual_acc_id'";
                                             $run = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($run);//
                                             ?>
-                                                   <form method="post" action="fragments/editAccounts.php">
-                                                        <input type="hidden" value="<?php echo $individual_acc_id;?>" name="account_id" />
+                                                   <form method="post" action="fragments/editMerchandiser.php">
+                                                        <input type="hidden" value="<?php echo $individual_acc_id;?>" name="merchandiser_id" />
                                                         <div class="row">
-                                                            <div class="col-xs-4"><label>Username</label></div>
-															<div class="col-xs-4"><label>First Name</label></div>
-															<div class="col-xs-4"><label>Last Name</label></div>
+                                                            <div class="col-xs-6"><label>Name</label></div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-xs-4">
-                                                                <input name="username" value="<?php echo $row['username']; ?>" type="text" class="form-control">
-                                                            </div>
-															<div class="col-xs-4">
-                                                                <input name="first_name" value="<?php echo $row['first_name']; ?>" type="text" class="form-control" onkeypress="return isAlfa(event)">
-                                                            </div>
-															<div class="col-xs-4">
-                                                                <input name="last_name" value="<?php echo $row['last_name']; ?>" type="text" class="form-control" onkeypress="return isAlfa(event)">
+                                                            <div class="col-xs-6">
+                                                                <input name="m_name" value="<?php echo $row['m_name']; ?>" type="text" class="form-control">
                                                             </div>
 														</div>
 														<div class="row">
-                                                            <div class="col-xs-6">
-															<div class="col-xs-6"><label>Status</label></div>
-																<select name="status" class="form-control">
-                                                                    <?php
-                                                                        $status = $row['status'];
-                                                                        if ($status == 'Enabled') {
-                                                                     ?>   
-                                                                            <option>Enabled</option>
-                                                                            <option>Disabled</option>
-                                                                    <?php
-                                                                            } else {
-                                                                    ?>
-                                                                            <option>Disabled</option>
-                                                                            <option>Enabled</option>
-                                                                    <?php
-                                                                            }
-                                                                    ?>
 
-                                                                    
-																	
-																</select>
-
-                                                            </div>
-                                                       
                                                             <div class="col-xs-6">
 															<div class="col-xs-6"><label>Branch</label></div>
-																<select name="branch" class="form-control">
+																<select name="m_branch" class="form-control">
 																	
                                                                     <?php
-                                                                        $branch = $row['branch'];
-                                                                        if ($branch == 'Baguio') {
+                                                                        $m_branch = $row['m_branch'];
+                                                                        if ($m_branch == 'Baguio') {
                                                                     ?>   
                                                                             <option>Baguio</option>
                                                                             <option>Pangasinan</option>
@@ -322,69 +276,22 @@ if(!$_SESSION['username'])  {
                                                             </div>
                                                         </div>
 														 <div class="row">
-                                                            <div class="col-xs-12"><label>Password</label></div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-xs-12">
-                                                                <input name="password" value="<?php echo $row['password']; ?>" type="password" class="form-control">
-                                                            </div>
-														</div>
-														<div class="row">
-                                                            <div class="col-xs-6"><label>Email</label></div>
-															<div class="col-xs-6"><label>Contact Number</label></div>
+                                                            <div class="col-xs-6"><label>Address</label></div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-6">
-                                                                <input name="email" value="<?php echo $row['email']; ?>" type="text" class="form-control">
-                                                            </div>
-															<div class="col-xs-6">
-                                                                <input name="contact_no" value="<?php echo $row['contact_no']; ?>" type="text" class="form-control" onkeypress="return isNumber(event)">
+                                                                <input name="m_address" value="<?php echo $row['m_address']; ?>" type="text" class="form-control">
                                                             </div>
 														</div>
 														<div class="row">
-														<div class="col-xs-6">
-															<div class="col-xs-6"><label>Account Type</label></div>
-																<select name="acctype" class="form-control">
-                                                                    <?php
-                                                                        $acctype = $row['acctype'];
-                                                                        if ($acctype == 'User') {
-                                                                    ?>   
-                                                                            <option>User</option>
-                                                                            <option>Admin</option>
-                                                                            <option>Bookkeeper</option>
-                                                                            <option>Secretary</option>
-                                                                            
-                                                                    <?php
-                                                                            } else if($acctype == 'Admin') {
-                                                                    ?>
-                                                                            <option>Admin</option>
-                                                                            <option>Bookkeeper</option>
-                                                                            <option>Secretary</option>
-                                                                            <option>User</option>
-                                                                            
-                                                                    <?php
-                                                                            } else if($acctype == 'Bookkeeper') {
-                                                                    ?>
-                                                                            <option>Bookkeeper</option>
-                                                                            <option>Admin</option>
-                                                                            <option>Secretary</option>
-                                                                            <option>User</option>
-                                                                    <?php
-                                                                            } else {
-                                                                    ?>
-                                                                            <option>Secretary</option>
-                                                                            <option>Admin</option>
-                                                                            <option>Bookkeeper</option>
-                                                                            <option>User</option>
-                                                                    <?php
-                                                                            }
-                                                                    ?>
-
-																	
-																</select>
-
-                                                            </div>
+															<div class="col-xs-6"><label>Contact Number</label></div>
                                                         </div>
+                                                        <div class="row">
+															<div class="col-xs-6">
+                                                                <input name="m_contact_number" value="<?php echo $row['m_contact_number']; ?>" type="text" class="form-control" onkeypress="return isNumber(event)">
+                                                            </div>
+														</div>
+														
 														<div class="row">
 															<div class="col-xs-12">
                                                                  <br>
@@ -417,50 +324,27 @@ if(!$_SESSION['username'])  {
                                 <h4 class="modal-title">Add Account</h4>
                             </div>
                             <div class="modal-body">
-                                <form action="fragments/addUser.php" method="POST" onsubmit="return validateForm()">
+                                <form action="fragments/addMerchandiser.php" method="POST" onsubmit="return validateForm()">
 								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
-                                    <h3>Username</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="username"  autofocus required>
+                                    <h3>Name</h3>
+                                    <input type="text" class="form-control" maxlength="100" name="m_name"  autofocus required>
 
-                                    <h3>First Name</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="first_name" onkeypress="return isAlfa(event)" required>
-
-                                    <h3>Last Name</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="last_name" onkeypress="return isAlfa(event)" required>
-
-                                    <h3>Password</h3>
-                                    <input type="password" id="pass" class="form-control" name="user_pass" required>
-
-                                    <h3>Confirm Password</h3>
-                                    <input type="password" id="confirm_pass" class="form-control" name="user_pass2" required>
-									 <span id='message'></span>
-
-                                    <h3>Email</h3>
-                                    <input type="email" class="form-control" name="email" required>
+                                    <h3>Address</h3>
+                                    <input type="text" class="form-control" maxlength="100" name="m_address" required>
 
                                     <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="contact_no" onkeypress="return isNumber(event)" required>
+                                    <input type="text" class="form-control" maxlength="25" name="m_contact_number" onkeypress="return isNumber(event)" required>
 									
 									<h3>Branch</h3>
                                     <div class="col-xs-4">
-										<select name="branch" class="form-control">
+										<select name="m_branch" class="form-control">
 											<option>Baguio</option>
 											<option>Pangasinan</option>
 										</select>
 									</div><br>
 									
-									<h3>Account Type</h3>
-                                    <div class="col-xs-4">
-										<select name="acctype" class="form-control">
-											<option>Admin</option>
-											<option>Manager</option>
-											<option>Secretary</option>
-											<option>Bookkeeper</option>
-										</select>
-									</div><br><br>
-
                                     <div class="modal-footer">
-                                        <input name="add_user" id="enter" disabled="true" type="submit" class="btn btn-default" value="Submit"/>
+                                        <input name="add_merchandiser" id="enter" type="submit" class="btn btn-default" value="Submit"/>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     </div>
                                 </form>

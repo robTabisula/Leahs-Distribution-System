@@ -82,6 +82,7 @@ if(!$_SESSION['username'])  {
                 <ul class="sub-menu collapse atarget" id="accounts">
                     <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
+					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
 
                 <!-- Reports Submenu -->

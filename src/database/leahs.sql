@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2017 at 12:14 PM
+-- Generation Time: Jan 10, 2018 at 08:48 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -460,7 +460,44 @@ INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_i
 (72, 'mark', 'Login', 'December 1, 2017, 7:46 pm', NULL, 'has successfully login'),
 (73, 'res', 'Login', 'December 1, 2017, 8:00 pm', NULL, 'has successfully login'),
 (74, 'mark', 'Login', 'December 1, 2017, 8:02 pm', NULL, 'has successfully login'),
-(75, 'res', 'Login', 'December 1, 2017, 8:09 pm', NULL, 'has successfully login');
+(75, 'res', 'Login', 'December 1, 2017, 8:09 pm', NULL, 'has successfully login'),
+(76, 'mark', 'Login', 'December 5, 2017, 10:14 am', NULL, 'has successfully login'),
+(77, 'res', 'Login', 'December 5, 2017, 10:23 am', NULL, 'has successfully login'),
+(78, 'mark', 'Login', 'December 14, 2017, 9:44 pm', NULL, 'has successfully login'),
+(79, 'mark', 'Login', 'January 9, 2018, 10:50 pm', NULL, 'has successfully login'),
+(80, 'mark', 'Login', 'January 10, 2018, 2:25 pm', NULL, 'has successfully login'),
+(81, 'mark', 'Added Merchandiser', 'January 10, 2018, 3:01 pm', NULL, 'has successfully added a new merchandiser'),
+(82, 'mark', 'Added Merchandiser', 'January 10, 2018, 3:18 pm', NULL, 'has successfully added a new merchandiser'),
+(83, 'res', 'Login', 'January 10, 2018, 3:47 pm', NULL, 'has successfully login'),
+(84, 'mark', 'Login', 'January 10, 2018, 3:48 pm', NULL, 'has successfully login'),
+(85, 'mark', 'Added Order', 'January 10, 2018, 4:38 pm', NULL, 'has successfully added a new order'),
+(86, 'mark', 'Added Order', 'January 10, 2018, 4:41 pm', NULL, 'has successfully added a new order'),
+(87, 'mark', 'Added Merchandiser', 'January 10, 2018, 4:46 pm', NULL, 'has successfully added a new merchandiser'),
+(88, 'mark', 'Added Order', 'January 10, 2018, 4:46 pm', NULL, 'has successfully added a new order'),
+(89, 'mark', 'Added Order', 'January 10, 2018, 4:46 pm', NULL, 'has successfully added a new order');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `merchandiser`
+--
+
+CREATE TABLE `merchandiser` (
+  `m_id` int(15) NOT NULL,
+  `m_name` varchar(25) NOT NULL,
+  `m_contact_number` int(15) NOT NULL,
+  `m_address` varchar(50) NOT NULL,
+  `m_branch` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `merchandiser`
+--
+
+INSERT INTO `merchandiser` (`m_id`, `m_name`, `m_contact_number`, `m_address`, `m_branch`) VALUES
+(1, 'Mark', 981218212, 'Bonifacio', 'Baguio'),
+(2, 'Res', 102912121, 'Manila', 'Pangasinan'),
+(3, 'Vic Sotto', 912121234, 'Kalinga', 'Pangasinan');
 
 -- --------------------------------------------------------
 
@@ -662,9 +699,7 @@ CREATE TABLE `purchased_order` (
 --
 
 INSERT INTO `purchased_order` (`order_id`, `order_date`, `client_id`, `merchandiser`) VALUES
-(4, 'November 19, 2017, 9:40 pm', 20, ''),
-(5, 'November 21, 2017, 1:25 am', 21, 'Marko Sielo'),
-(6, 'November 21, 2017, 3:06 am', 35, 'Vic Soto');
+(10, 'January 10, 2018, 4:46 pm', 19, '2');
 
 -- --------------------------------------------------------
 
@@ -685,12 +720,8 @@ CREATE TABLE `purchased_order_list` (
 --
 
 INSERT INTO `purchased_order_list` (`p_order_id`, `order_qty`, `branch`, `prdct_id`, `order_remarks`) VALUES
-(4, 12, 'Baguio', 243, ''),
-(4, 121, 'Baguio', 248, ''),
-(5, 100, 'Pangasinan', 242, 'sample po'),
-(5, 72, 'Pangasinan', 246, ''),
-(6, 10, 'Baguio', 242, ''),
-(6, 20, 'Baguio', 241, '');
+(10, 12, 'Pangasinan', 241, ''),
+(10, 90, 'Pangasinan', 246, '');
 
 --
 -- Indexes for dumped tables
@@ -758,6 +789,12 @@ ALTER TABLE `issuance_list`
 ALTER TABLE `logs`
   ADD PRIMARY KEY (`logs_id`),
   ADD KEY `acc_id_idx` (`issue_acnt`);
+
+--
+-- Indexes for table `merchandiser`
+--
+ALTER TABLE `merchandiser`
+  ADD PRIMARY KEY (`m_id`);
 
 --
 -- Indexes for table `po_list`
@@ -835,7 +872,12 @@ ALTER TABLE `issuance`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+--
+-- AUTO_INCREMENT for table `merchandiser`
+--
+ALTER TABLE `merchandiser`
+  MODIFY `m_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `product_list`
 --
@@ -850,7 +892,7 @@ ALTER TABLE `pull_out`
 -- AUTO_INCREMENT for table `purchased_order`
 --
 ALTER TABLE `purchased_order`
-  MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
