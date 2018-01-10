@@ -40,7 +40,7 @@ session_start();
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
                         </span>
-                        <input id="pwd "type="password" class="form-control" name="password" placeholder="Enter password">
+                        <input id="pwd " type="password" class="form-control" name="password" placeholder="Enter password">
                     </div>              
                 </div>
                 <div class="row ">                   
