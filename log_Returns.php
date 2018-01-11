@@ -225,7 +225,7 @@ if(!$_SESSION['username'])  {
                                 <h4 class="modal-title">Pull out Products</h4>
                             </div>
                             <div class="modal-body">
-                                    <h4>Pull out ID: <?php  echo $data["po_id"];  ?></h4>
+                                    <h4><b>Pull out ID: </b><?php  echo $data["po_id"];  ?></h4>
                                     <?php
                                         $queryProducts = "SELECT * FROM  po_list INNER JOIN product_list ON po_list.po_product_id = product_list.productList_id INNER JOIN product_loc ON po_list.po_product_id = product_loc.product_id WHERE po_id = '$IsID' AND  location = '$passBranch'";
                                         $run = mysqli_query($db, $queryProducts);
@@ -244,7 +244,7 @@ if(!$_SESSION['username'])  {
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
                                     ?>
-                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["unit"];  ?>" readonly>
 											<input type="text" value= "<?php  echo $log["po_price"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["po_qty"];  ?>" readonly>
                                             

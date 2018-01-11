@@ -161,7 +161,7 @@
                                                         <option value="Baguio">Baguio</option>
                                                         <option value="Pangasinan">Pangasinan</option>
                                                 </select>
-                                        </div>
+                                            </div>
 
                                             <div class="col-xs-4" id="TheClients" style="display: none; padding-left:0px;">
 
@@ -181,7 +181,7 @@
 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
                                 <!--********************************************************************************** -->
@@ -207,7 +207,7 @@
                                                                 $sproduct_id = $datas["productList_id"];
                                                             ?>  
                                                                 <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                                   <?php echo $datas["productList_name"]; ?>
+                                                                   <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
                                                                 </option>
 
                                                             <?php
@@ -262,11 +262,6 @@
                                     </table>
 
                                     <hr style = "border-top: 3px double #8c8b8b;">
-                                    <br>
-                                    <div>
-                                        <h4>Security Code</h4>
-                                        <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
-                                    </div>
                                     <br>
 
                                     <!--********************************************************************************** -->
@@ -349,7 +344,7 @@
                                 <br><br><br><br><br>
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 
@@ -377,7 +372,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]; ?>
+                                                               <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
                                                             </option>
 
                                                         <?php
@@ -431,11 +426,6 @@
 
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
-                                <br>
-                                <div>
-                                    <h4>Security Code</h4>
-                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
-                                </div>
                                 <br>
 
                                 <!--********************************************************************************** -->
@@ -494,7 +484,7 @@
 
                                     <div class="form-group">                            
                                                 <?php
-                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                                     $prodRetrieve = mysqli_query($db, $retrieveProd);
                                                 ?>
 
@@ -523,7 +513,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]; ?>
+                                                               <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
                                                             </option>
 
                                                         <?php
@@ -576,11 +566,6 @@
 
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
-                                <br>
-                                <div>
-                                    <h4>Security Code</h4>
-                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
-                                </div>
                                 <br>
 
                                 <!--********************************************************************************** -->
@@ -647,7 +632,7 @@
                                 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 
@@ -677,7 +662,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]; ?>
+                                                               <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
                                                             </option>
 
                                                         <?php
@@ -731,11 +716,6 @@
 
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
-                                <br>
-                                <div>
-                                    <h4>Security Code</h4>
-                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
-                                </div>
                                 <br>
 
                                 <!--********************************************************************************** -->

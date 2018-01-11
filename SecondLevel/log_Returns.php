@@ -73,6 +73,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -81,6 +82,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -105,6 +107,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -222,7 +225,7 @@ if(!$_SESSION['username'])  {
                                 <h4 class="modal-title">Pull out Products</h4>
                             </div>
                             <div class="modal-body">
-                                    <h4>Pull out ID: <?php  echo $data["po_id"];  ?></h4>
+                                    <h4><b>Pull out ID: </b><?php  echo $data["po_id"];  ?></h4>
                                     <?php
                                         $queryProducts = "SELECT * FROM  po_list INNER JOIN product_list ON po_list.po_product_id = product_list.productList_id INNER JOIN product_loc ON po_list.po_product_id = product_loc.product_id WHERE po_id = '$IsID' AND  location = '$passBranch'";
                                         $run = mysqli_query($db, $queryProducts);
@@ -241,7 +244,7 @@ if(!$_SESSION['username'])  {
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
                                     ?>
-                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["unit"];  ?>" readonly>
 											<input type="text" value= "<?php  echo $log["po_price"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["po_qty"];  ?>" readonly>
                                             
