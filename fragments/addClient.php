@@ -31,8 +31,8 @@
 					exit();
 					}
 
-					$query = "INSERT INTO clients (c_name, c_address, c_location) 
-						VALUE ('$c_name','$c_address' , '$c_location')";
+					$query = "INSERT INTO clients (c_name, c_address,c_contactperson,c_contactpersonnumber, c_location) 
+						VALUE ('$c_name','$c_address' ,'$contact_name','$contact_number', '$c_location')";
 					
 					if(mysqli_query($db, $query)){
 						$get_id="select c_id from clients WHERE c_address='$c_address'";
@@ -40,9 +40,7 @@
 						$row = mysqli_fetch_array($run);
 						$id=$row[0];
 
-						$query2 = "INSERT INTO client_contact (contact_clientid,contact_name,contact_number)
-						   VALUE ('$id','$contact_name','$contact_number')";
-						    mysqli_query($db,$query2);
+
 						   
 						   $query3 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
 						   VALUE ('$issueAcnt','Added Client','$date_time','has successfully added a new client')";

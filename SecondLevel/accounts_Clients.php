@@ -100,6 +100,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -108,6 +109,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -132,6 +134,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -190,8 +193,11 @@ if(!$_SESSION['username'])  {
                             <tr>
                                 <th>Name</th>
                                 <th>Address</th>
+                                <th>Contact Person</th>
+                                <th>Contact Number</th>
                                 <th>Location</th>
-                       
+                           
+
                             </tr>
                         </thead>
 
@@ -210,19 +216,124 @@ if(!$_SESSION['username'])  {
                                     <td data-title="c_address">
                                         <?php echo $data["c_address"]; ?>
                                     </td>
+                                    <td data-title="c_Person">
+                                        <?php echo $data["c_contactperson"]; ?>
+                                    </td>
+                                    <td data-title="c_Number">
+                                        <?php echo $data["c_contactpersonnumber"]; ?>
+                                    </td>
                           
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
                                     </td>
 
+
                                 </tr>
+								<!--Edit modal-->
+                                <div id="<?php echo $individual_c_id;?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Client</h4>
+                                            </div>
+                                            <div class="modal-body">
+					                        <?php
+                                            $query = "SELECT * FROM leahs.clients where c_id ='$individual_c_id'";
+                                            $run = mysqli_query($db, $query);
+                                            $row = mysqli_fetch_array($run);//
+                                            ?>
+                                                   <form method="post" action="fragments/editClient.php">
+                                                        <input type="hidden" value="<?php echo $individual_c_id;?>" name="client_id" />
+                                                        <div class="row">
+                                                            <div class="col-xs-4"><label>Client Name</label></div>
+															<div class="col-xs-6"><label>Address</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                
+                                                                
+                                                                <input name="c_name" value="<?php echo $row['c_name']; ?>" type="text" class="form-control">
+                                                            </div>
+															<div class="col-xs-4">
+                                                                <input name="c_address" value="<?php echo $row['c_address']; ?>" type="text" class="form-control">
+                                                            </div>
+														</div>
+														 <div class="row">
+                                                            <div class="col-xs-4"><label>Contact Number</label></div>
+															<div class="col-xs-6"><label>Contact Person</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="contact_number" value="<?php echo $row['c_contactpersonnumber']; ?>" type="text" class="form-control">
+                                                            </div>
+															<div class="col-xs-4">
+                                                                <input name="contact_name" value="<?php echo $row['c_contactperson']; ?>" type="text" class="form-control">
+                                                            </div>
+														</div>
+														<div class="row">
+                                                            <div class="col-xs-12">
+                                                                 <br>
+                                                                    <div class="modal-footer">
+																		<button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php
 							endforeach;
 						?>
                         </tbody>
                     </table>
 
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
 
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Client</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="fragments/addClient.php" method="POST" onsubmit="return validateForm()">
+										<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
+                                        <h3>Name</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="c_name" autofocus required>
+
+                                        <h3>Address</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="c_address" required>
+
+                                        <h3>Contact Number</h3>
+                                        <input type="text" class="form-control" maxlength="25" name="contact_numberAdd" onkeypress="return isNumber(event)" required>
+
+                                        <h3>Contact Person</h3>
+                                        <input type="text" class="form-control" maxlength="50" name="contact_name" onkeypress="return isAlfa(event)" required>
+
+										<h3>Branch</h3>
+										<div class="col-xs-4">
+											<select name="c_location" class="form-control" required>
+												<option>Baguio</option>
+												<option>Pangasinan</option>
+											</select>
+										</div><br><br>
+										
+                                        <div class="modal-footer">
+                                            <input name="add_client" type="submit" class="btn btn-default" value=" Submit " />
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </div>
     </div>
@@ -244,7 +355,7 @@ if(!$_SESSION['username'])  {
     function isAlfa(evt) {
         evt = (evt) ? evt : window.event;
         var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
+        if (charCode > 32 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122)) {
             return false;
         }
         return true;

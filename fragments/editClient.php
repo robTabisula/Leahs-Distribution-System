@@ -17,20 +17,16 @@
 				  $contact_name = $_POST['contact_name'];
 				  $client_id = $_POST['client_id'];
 				  
-				  $query = "UPDATE clients SET c_name = '$c_name', c_address = '$c_address' where clients.c_id= '$client_id'";
-				
-				  if(mysqli_query($db, $query)){
+				  $query = "UPDATE clients SET c_name = '$c_name', c_address = '$c_address', c_contactperson = '$contact_name', c_contactpersonnumber = '$contact_number' where c_id= '$client_id'";
 
-					$query2 = "UPDATE client_contact SET contact_name = '$contact_name', contact_number = '$contact_number' where client_contact.contact_clientid= '$client_id'";
-
-					  if(mysqli_query($db, $query2)){
+					  if(mysqli_query($db, $query)){
 						echo"<script>alert('Client have been successfully updated')</script>";
 						echo "<script>window.open('../accounts_Clients.php','_self')</script>";
 						} else{
 						  echo ("ERROR: Could not able to execute" . mysqli_error($db));
 						}
 				
-				  }
+				  
         
 			 }
         ?>
