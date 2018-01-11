@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 11, 2018 at 04:09 PM
+-- Generation Time: Jan 11, 2018 at 04:44 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -133,9 +133,9 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `c_address` varchar(20) NOT NULL,
   `c_location` varchar(50) DEFAULT NULL,
   `c_contactperson` varchar(45) DEFAULT NULL,
-  `c_contactpersonnumber` int(50) DEFAULT NULL,
+  `c_contactpersonnumber` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `clients`
@@ -150,7 +150,8 @@ INSERT INTO `clients` (`c_id`, `c_name`, `c_address`, `c_location`, `c_contactpe
 (45, '2', '2', 'Baguio', NULL, NULL),
 (46, '3', '3', 'Baguio', NULL, NULL),
 (47, '4', '4', 'Baguio', NULL, NULL),
-(48, '5', '5', 'Baguio', NULL, NULL);
+(48, '5', '5', 'Baguio', NULL, NULL),
+(50, 'SM', 'Baguio', 'Baguio', 'RAI', '12345');
 
 -- --------------------------------------------------------
 
