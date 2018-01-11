@@ -32,8 +32,8 @@
             $categoryResult = $row['category_id'];
 
 
-          	$query = "INSERT INTO product_list (productList_name,unit, category_id) 
-                	   VALUE ('$productList_name','$unit','$categoryResult')";
+          	$query = "INSERT INTO product_list (productList_name,unit, category_id,barcode) 
+                	   VALUE ('$productList_name','$unit','$categoryResult','$barcode')";
 
             if(mysqli_query($db, $query)){
       				$get_id="select productList_id from product_list WHERE productList_name='$productList_name'";
@@ -46,8 +46,8 @@
                        VALUE ('$id','$restock','Baguio'),('$id','$restock','Pangasinan')";
               mysqli_query($db,$query2);
 
-    					$query3 = "INSERT INTO product_loc (product_id, location, status, altprice, barcode) 
-                    	   VALUE ('$id','Baguio','$status','$altpriceB','$barcode'),('$id','Pangasinan','$status','$altpriceP','$barcode')";
+    					$query3 = "INSERT INTO product_loc (product_id, location, status, altprice) 
+                    	   VALUE ('$id','Baguio','$status','$altpriceB'),('$id','Pangasinan','$status','$altpriceP')";
 						   	mysqli_query($db, $query3);
 					
 						$query4 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 

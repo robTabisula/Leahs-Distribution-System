@@ -13,21 +13,25 @@
               if (isset($_POST["save"])) {
                   $productList_name = $_POST['productList_name'];
                   $ProductCategory = $_POST['ProductCategory'];
-                  $barcode =$_POST['barcode'];
                   $pprice=$_POST['pangasinanprice'];
                   $bprice=$_POST['baguioprice'];
                   $bstatus = $_POST['bstatus'];
                   $pstatus = $_POST['pstatus'];
                   $indiv_prod_id = $_POST['indiv_prod_id'];
 
-           $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$ProductCategory' where product_list.productList_id='$indiv_prod_id'";
+           $prouctCatQuery="SELECT category_id FROM category_list where category_name = '$ProductCategory'";
+            $queryId = mysqli_query($db, $prouctCatQuery);
+            $catID = mysqli_fetch_array($queryId);
+            $categoryID = $catID['category_id'];
+
+           $query = "UPDATE product_list SET productList_name = '$productList_name', category_id = '$categoryID' where product_list.productList_id='$indiv_prod_id'";
 
           if(mysqli_query($db, $query)){
             //baguio
-            $query2 = "UPDATE product_loc SET status = '$bstatus', altprice = '$bprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Baguio'";
+            $query2 = "UPDATE product_loc SET status = '$bstatus', altprice = '$bprice' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Baguio'";
 
              //pangasinan
-            $query3 = "UPDATE product_loc SET status = '$pstatus', altprice = '$pprice' , barcode = '$barcode' where product_loc.product_id='$indiv_prod_id' and product_loc.location='Pangasinan'";
+            $query3 = "UPDATE product_loc SET status = '$pstatus', altprice = '$pprice'  where product_loc.product_id='$indiv_prod_id' and product_loc.location='Pangasinan'";
         
           if(mysqli_query($db, $query2) and mysqli_query($db, $query3)){
             echo"<script>alert('Successfully edited products')</script>";
