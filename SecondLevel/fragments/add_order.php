@@ -30,7 +30,7 @@
 				$date_time = date("F j, Y, g:i a");
             
         //query for issuance table
-              $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser) 
+              $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser_id) 
                              VALUE ('$order_date','$clientlist','$merchandiser')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select order_id from purchased_order WHERE order_date='$order_date'";
@@ -53,8 +53,8 @@
 							$product_quantity=$product_inventory['iS_quantity'];
 					   
 							//query for issuance list
-									 $queryil = "INSERT INTO purchased_order_list (p_order_id, order_qty, branch, prdct_id, order_remarks) 
-											   VALUE ('$id','$qty','$branch','$product','$p_remarks')";
+									 $queryil = "INSERT INTO purchased_order_list (p_order_id, order_qty, branch, prdct_id, order_remarks,client_id,merchandiser_id) 
+											   VALUE ('$id','$qty','$branch','$product','$p_remarks','$clientlist','$merchandiser')";
 												mysqli_query($db, $queryil);
 					
 									$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
@@ -62,7 +62,7 @@
 						   
 									if(mysqli_query($db, $query2)){
 										echo"<script>alert('Orders have been successfuly added ')</script>";
-										echo "<script>window.open('../index.php','_self')</script>"; 
+										echo "<script>window.open('../porder.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));
 									}

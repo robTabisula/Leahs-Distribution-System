@@ -127,6 +127,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -246,8 +247,9 @@ if(!$_SESSION['username'])  {
                         <?php 
                             $getIsID = $_GET['IsID'];
                             $getBranch = $_GET['Branch'];
+							$getClient= $_GET['client_id'];
 
-                            $queryProducts = "SELECT * FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch'";
+                            $queryProducts = "SELECT * FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch' AND client_id='$getClient'";
                             $run = mysqli_query($db, $queryProducts);
 
                         ?>
@@ -267,7 +269,9 @@ if(!$_SESSION['username'])  {
                                 <label>Issuance ID</label>
                                 <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
                                 <label>Branch</label>
-                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>
+                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
+								<label>Client</label>
+                                <input type='text' size='10' name="client_id" readonly value='<?php  echo $_GET['client_id']; ?>'/>
                                 <h4>Product Description: </h4>
                                 <?php
                                             foreach ($runInfoQuery as $info):
@@ -275,7 +279,7 @@ if(!$_SESSION['username'])  {
                                         ?>
                                     
                                     <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
+                                    <input type='text' size='18' readonly value='<?php  echo $info["productList_name"]." ".$info["value"]."".$info["unit"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
                                     <input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' />&nbsp
                                     <label>Issued Price:</label>
@@ -309,7 +313,7 @@ if(!$_SESSION['username'])  {
                                                             ?>  
                                                                 
                                                                 <option value = "<?php  echo $datas["productList_name"];  ?>">
-                                                                   <?php  echo $datas["productList_name"];  ?>
+                                                                   <?php  echo $datas["productList_name"]." ".$datas["value"]."".$datas["unit"];  ?>
                                                                 </option>
                                                       
                                                             <?php

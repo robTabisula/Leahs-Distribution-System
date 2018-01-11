@@ -19,6 +19,7 @@
             $remarks = $_POST['remarks'];//remarks for issuance
             $BO_id = $_POST['BO_id'];//new issuance id +1  issueAcnt
             $issueAcnt = $_POST['issueAcnt'];//issuer
+			$client_id = $_POST['client_id'];
             date_default_timezone_set('Asia/Manila');
             $issue_date_time = date("F j, Y, g:i a");
             $branch = $_POST['branch'];//baguio or pangasinan
@@ -29,8 +30,8 @@
             
 
             //query for PO table
-            $queryit = "INSERT INTO bad_order (bo_id, bo_dateReleased, bo_issue_account, bo_remarks) 
-                           VALUE ('$BO_id','$issue_date_time','$issueAcnt','$remarks')";
+            $queryit = "INSERT INTO bad_order (bo_id, bo_dateReleased, bo_issue_account, bo_remarks,bo_client) 
+                           VALUE ('$BO_id','$issue_date_time','$issueAcnt','$remarks','$client_id')";
             if(mysqli_query($db, $queryit)){
                 $get_id="SELECT bo_id FROM bad_order WHERE bo_id = '$BO_id'";
                   $run=mysqli_query($db,$get_id);
@@ -65,8 +66,8 @@
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
-                         $queryil = "INSERT INTO bo_list (bo_id, bo_price, bo_qty, branch, bo_product_id, po_remarks) 
-                               VALUE ('$id','$adjprice','$qty','$branch','$productIDList','$p_remarks')";
+                         $queryil = "INSERT INTO bo_list (bo_id, bo_price, bo_qty, branch, bo_product_id, po_remarks,bo_client) 
+                               VALUE ('$id','$adjprice','$qty','$branch','$productIDList','$p_remarks','$client_id')";
                         if(mysqli_query($db, $queryil)){
                           echo"<script>alert('Products have been successfuly added as bad-order')</script>";
                           echo "<script>window.open('../log_BadOrders.php','_self')</script>"; 

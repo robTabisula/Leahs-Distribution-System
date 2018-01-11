@@ -87,6 +87,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -160,7 +161,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser = merchandiser.m_id");
+							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser_id = merchandiser.m_id");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -199,12 +200,14 @@ if(!$_SESSION['username'])  {
 									</td>
 									
 									<td data-title="c_id">
-										<?php echo $c_id=$data["c_name"]; ?>
+										<?php echo $data["c_name"];
+											$c_id=$data["c_id"];?>
 													
 									</td>
 									
 									<td data-title="m_id">
-										<?php echo $m_id=$data["m_name"]; ?>
+										<?php echo $data["m_name"];
+											$m_id=$data["m_id"];?>
 									</td>
 									
 									<td data-title="Date/Time">
@@ -219,7 +222,7 @@ if(!$_SESSION['username'])  {
 									</td>
 									<td data-title="Purchased Product">
                                         <table class="table table-striped table-bordered">
-                                            <a href="purchased_order_fn.php?po_id=<?php echo $po_id; ?>&Branch=<?php echo $passBranch; ?>">
+                                            <a href="purchased_order_fn.php?po_id=<?php echo $po_id; ?>&Branch=<?php echo $passBranch; ?>&c_id=<?php echo $c_id; ?>&m_id=<?php echo $m_id; ?>">
                                                 <button type="button" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                                                 </button>
@@ -258,7 +261,7 @@ if(!$_SESSION['username'])  {
 															foreach ($run as $log){
 															$toData = $log["productList_id"];        
 														?>
-															<br><input type="text" value= "<?php  echo $log["productList_name"]."".$log["unit"];?>" readonly>
+															<br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["value"]." ".$log["unit"];?>" readonly>
 																<input type="text" value= "<?php  echo $log["order_qty"];  ?>" readonly>
 
 														<?php

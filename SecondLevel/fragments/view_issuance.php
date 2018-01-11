@@ -181,7 +181,7 @@
 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
                                 <!--********************************************************************************** -->
@@ -207,7 +207,7 @@
                                                                 $sproduct_id = $datas["productList_id"];
                                                             ?>  
                                                                 <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                                   <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
+                                                                   <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
                                                                 </option>
 
                                                             <?php
@@ -237,7 +237,7 @@
                                                  <label for="Action">Action:</label>  
                                                </td>
                                                 <td>
-                                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                                    
                                                       <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                                 </td>
                                             </tr>
@@ -344,7 +344,7 @@
                                 <br><br><br><br><br>
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 
@@ -372,7 +372,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
                                                             </option>
 
                                                         <?php
@@ -402,7 +402,7 @@
                                                 <label for="Action">Action:</label>
                                             </td>
                                            <td> 
-                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                               
                                                 <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                             </td>
                                         </tr>
@@ -484,7 +484,7 @@
 
                                     <div class="form-group">                            
                                                 <?php
-                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                                     $prodRetrieve = mysqli_query($db, $retrieveProd);
                                                 ?>
 
@@ -513,7 +513,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
                                                             </option>
 
                                                         <?php
@@ -543,7 +543,7 @@
                                                 <label for="Action">Action:</label>
                                             </td>
                                            <td> 
-                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+
                                                 <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                             </td>
                                         </tr>
@@ -632,7 +632,7 @@
                                 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 
@@ -662,7 +662,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
                                                             </option>
 
                                                         <?php
@@ -692,7 +692,7 @@
                                                 <label for="Action">Action:</label>
                                             </td>
                                            <td> 
-                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+
                                                 <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                             </td>
                                         </tr>

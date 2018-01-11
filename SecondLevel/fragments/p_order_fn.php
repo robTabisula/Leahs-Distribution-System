@@ -18,6 +18,8 @@
               if (isset($_POST["add_p_order"])) {
             $remarks = $_POST['remarks'];//remarks for issuance
             $order_id = $_POST['order_id'];//new issuance id +1  issueAcnt
+			$client_id = $_POST['c_id'];
+			$merch_id = $_POST['m_id'];
             $issueAcnt = $_POST['issueAcnt'];//issuer
             date_default_timezone_set('Asia/Manila');
             $issue_date_time = date("F j, Y, g:i a");
@@ -26,13 +28,14 @@
             $price = $_POST['price'];//array for new price
             $quantity = $_POST['quantity'];//array for quantity ordered
             $p_remarks = $_POST['premarks'];//array for remarks
+			$date_time = date("F j, Y, g:i a");
             
 
             //query for PO table
-            $queryit = "INSERT INTO issuance (issue_id,issue_date_time, issue_account, issue_type,remarks) 
-                           VALUE ('$order_id','$issue_date_time','$issueAcnt','1','$remarks')";
+            $queryit = "INSERT INTO issuance (issue_id,issue_date_time, issue_account, issue_type,remarks,client_id,merch_id) 
+                           VALUE ('$order_id','$issue_date_time','$issueAcnt','1','$remarks','$client_id','$merch_id')";
             if(mysqli_query($db, $queryit)){
-                $get_id="SELECT issue_id FROM issuance WHERE issue_id = '$order_id'";
+                $get_id="SELECT issue_id FROM issuance order by 1 desc limit 1";
                   $run=mysqli_query($db,$get_id);
                   $row = mysqli_fetch_array($run);
 				$id=$row[0];
@@ -65,9 +68,14 @@
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
-                         $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
-                               VALUE ('$id','$quantity','$price','$branch','$productIDList','$p_remarks')";
-                        if(mysqli_query($db, $queryil)){
+                         $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
+                               VALUE ('$id','$quantity','$price','$branch','$productIDList','$p_remarks','$client_id')";
+							   mysqli_query($db, $queryil);
+							   
+							$query = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+						   VALUE ('$issueAcnt','Issued Order','$date_time','has successfully issued a new order')";
+                        
+						if(mysqli_query($db, $query)){
                           echo"<script>alert('Purchased Order have been successfully issued')</script>";
                           echo "<script>window.open('../porder.php','_self')</script>"; 
                         }else{

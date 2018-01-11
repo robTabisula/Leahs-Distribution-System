@@ -184,9 +184,6 @@ if(!$_SESSION['username'])  {
 							$results = mysqli_query($db, $retrieve);
 						?>
 
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
-                </table>
 
                 <!-- Table Display for Accounts -->
                 <div id="mainContainer">
@@ -311,44 +308,6 @@ if(!$_SESSION['username'])  {
                     </tbody>
                 </table>
 
-                <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add Account</h4>
-                            </div>
-                            <div class="modal-body">
-                                <form action="fragments/addMerchandiser.php" method="POST" onsubmit="return validateForm()">
-								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
-                                    <h3>Name</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="m_name"  autofocus required>
-
-                                    <h3>Address</h3>
-                                    <input type="text" class="form-control" maxlength="100" name="m_address" required>
-
-                                    <h3>Contact Number</h3>
-                                    <input type="text" class="form-control" maxlength="25" name="m_contact_number" onkeypress="return isNumber(event)" required>
-									
-									<h3>Branch</h3>
-                                    <div class="col-xs-4">
-										<select name="m_branch" class="form-control">
-											<option>Baguio</option>
-											<option>Pangasinan</option>
-										</select>
-									</div><br>
-									
-                                    <div class="modal-footer">
-                                        <input name="add_merchandiser" id="enter" type="submit" class="btn btn-default" value="Submit"/>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
         </div>
     </div>
     </div>
