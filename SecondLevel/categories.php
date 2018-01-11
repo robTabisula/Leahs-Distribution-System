@@ -100,6 +100,8 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				<!-- Settings Submenu -->
+                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">

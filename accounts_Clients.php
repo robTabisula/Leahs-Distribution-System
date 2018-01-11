@@ -100,6 +100,9 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
+				<!-- Settings Submenu -->
+                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
@@ -195,7 +198,6 @@ if(!$_SESSION['username'])  {
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Location</th>
-								<th>Merchandiser</th>
                                 <th>Edit</th>
 
                             </tr>
@@ -219,10 +221,6 @@ if(!$_SESSION['username'])  {
                           
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
-                                    </td>
-									
-									<td data-title="c_merchandiser">
-                                        <?php echo $data["c_merchandiser"]; ?>
                                     </td>
 									
 									<td data-title="edit">

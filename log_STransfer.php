@@ -73,6 +73,9 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
+				<!-- Settings Submenu -->
+                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
@@ -163,7 +166,7 @@ if(!$_SESSION['username'])  {
                             <th>Date/Time</th>
                             <th>Products Issued</th>
                             <th>Issuer</th>
-                            <th>Branch</th>
+                            <th>Branch(from)</th>
                             <th>Remarks</th>
                         </tr>
                     </thead>
@@ -216,7 +219,7 @@ if(!$_SESSION['username'])  {
                                 <h4 class="modal-title">Products Transfered from <?php  echo $data["branch"];  ?></h4>
                             </div>
                             <div class="modal-body">
-                                    <h4>Issuance ID: <?php  echo $data["issue_id"];  ?></h4>
+                                    <h4><b>Issuance ID: </b><?php  echo $data["issue_id"];  ?></h4>
                                     <?php
                                         $queryProducts = "SELECT * FROM  issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$IsID' AND location = '$passBranch'";
                                         $run = mysqli_query($db, $queryProducts);
@@ -236,7 +239,7 @@ if(!$_SESSION['username'])  {
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
                                     ?>
-                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["unit"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_qty"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>

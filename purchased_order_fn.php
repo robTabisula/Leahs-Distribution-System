@@ -127,6 +127,9 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
+				<!-- Settings Submenu -->
+                 <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
                 <!-- Accounts Submenu -->
                 <li data-toggle="collapse" data-target="#accounts" class="collapsed">
@@ -271,7 +274,7 @@ if(!$_SESSION['username'])  {
                                         ?>
                                     
                                     <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
+                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]."".$info["unit"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
                                     <input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>' />&nbsp
                                     <label>Order Remarks:</label>
