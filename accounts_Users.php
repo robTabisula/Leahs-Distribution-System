@@ -325,11 +325,11 @@ if(!$_SESSION['username'])  {
                                                             </div>
                                                         </div>
 														 <div class="row">
-                                                            <div class="col-xs-12"><label>Password</label></div>
+                                                            <div class="col-xs-12"><label>New Password</label></div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-12">
-                                                                <input name="password" value="<?php echo $row['password']; ?>" type="password" class="form-control">
+                                                                <input name="password" type="password" minlength="8" class="form-control">
                                                             </div>
 														</div>
 														<div class="row">

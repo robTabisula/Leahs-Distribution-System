@@ -21,8 +21,23 @@
 				  $branch = $_POST['branch'];
 				  $acctype = $_POST['acctype'];
 				  $account_id = $_POST['account_id'];
-				  
-				  $query = "UPDATE accounts SET username = '$username', first_name = '$first_name', last_name = '$last_name', password = '$password',
+
+				  if($password == ""){
+
+
+				  	$query = "UPDATE accounts SET username = '$username', first_name = '$first_name', last_name = '$last_name', email = '$email', contact_no = '$contact_no', status = '$status' , branch = '$branch' , acctype = '$acctype' 
+							where accounts.acc_id= '$account_id'";
+					if(mysqli_query($db, $query)){
+						echo"<script>alert('Accounts have been successfully updated')</script>";
+						echo "<script>window.open('../accounts_Users.php','_self')</script>";
+					} else{
+						  echo ("ERROR: Could not able to execute" . mysqli_error($db));
+						}
+
+				  }else{
+
+			  		$passwords =hash("sha512", $password);
+				  	$query = "UPDATE accounts SET username = '$username', first_name = '$first_name', last_name = '$last_name', password = '$passwords',
 							email = '$email', contact_no = '$contact_no', status = '$status' , branch = '$branch' , acctype = '$acctype' 
 							where accounts.acc_id= '$account_id'";
 					if(mysqli_query($db, $query)){
@@ -31,6 +46,9 @@
 					} else{
 						  echo ("ERROR: Could not able to execute" . mysqli_error($db));
 						}
+
+				  }
+
         
 			 }
         ?>
