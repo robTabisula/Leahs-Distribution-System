@@ -274,7 +274,7 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <input name="contact_number" value="<?php echo $row['c_contactpersonnumber']; ?>" type="text" class="form-control">
+                                                                <input name="contact_number" value="<?php echo $row['c_contactpersonnumber']; ?>" onkeypress="return isNumber(event)" type="text" class="form-control">
                                                             </div>
 															<div class="col-xs-4">
                                                                 <input name="contact_name" value="<?php echo $row['c_contactperson']; ?>" type="text" class="form-control">

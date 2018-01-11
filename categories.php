@@ -308,7 +308,7 @@ if(!$_SESSION['username'])  {
 											<h3>Status</h3>
 	                                        
 											<input type="radio" name="category_status" Value="Enabled">Enabled   
-											<input type="radio" name="category_status" Value="Disabled">Disabled
+											<input type="radio" name="category_status" Value="Disabled" checked>Disabled
 
 	                                        <div class="modal-footer">
 	                                            <input name="add_category" type="submit" class="btn btn-default" value=" Submit " />

@@ -329,13 +329,13 @@ if(!$_SESSION['username'])  {
 
                                                                 <div class="row">
                                                                     <div class="col-xs-6"><label>Baguio Price</label>
-                                                                        <input name="baguioprice" value="<?php echo $row['altprice']; ?>" class="form-control">
+                                                                        <input name="baguioprice" value="<?php echo $row['altprice']; ?>.00" class="form-control" onchange="setTwoNumberDecimal">
                                                                     </div>
 
                                                                     <div class="col-xs-6"><label>Pangasinan Price</label>
                                                                         <div class="row">
                                                                             <div class="col-xs-10">
-                                                                                <input name="pangasinanprice" value="<?php echo $rowp['altprice']; ?>" class="form-control">
+                                                                                <input name="pangasinanprice" value="<?php echo $rowp['altprice']; ?>.00" class="form-control" onchange="setTwoNumberDecimal">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -446,3 +446,8 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
+<script>
+function setTwoNumberDecimal(event) {
+    this.value = parseFloat(this.value).toFixed(2);
+}
+</script>
