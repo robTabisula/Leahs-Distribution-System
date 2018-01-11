@@ -216,13 +216,13 @@ if(!$_SESSION['username'])  {
                         <input type='hidden' name="branch" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                         
                         <div class="col-xs-4">
-                            <h4>Purchased ID</h4>
+                            <h4>Issue ID</h4>
                                   <?php
-                                            $retrieveId = ("SELECT order_id from purchased_order order by 1 desc limit 1;");
+                                            $retrieveId = ("SELECT issue_id from issuance order by 1 desc limit 1;");
                                             $idRetrieve = mysqli_query($db, $retrieveId);
                                             $idRow = mysqli_fetch_array($idRetrieve);
 
-                                            $latestid = $idRow['order_id'];
+                                            $latestid = $idRow['issue_id'];
                                             $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
                             <h4><input type="text" size='2' name="order_id" value='<?php echo $newID;?>' readonly></input></h4>
@@ -243,8 +243,10 @@ if(!$_SESSION['username'])  {
                         <?php 
                             $getIsID = $_GET['po_id'];
                             $getBranch = $_GET['Branch'];
+							$getClient = $_GET['c_id'];
+							$getMerch = $_GET['m_id'];
 							
-                            $queryProducts = "SELECT * FROM purchased_order_list INNER JOIN product_list ON purchased_order_list.prdct_id = product_list.productList_id INNER JOIN product_loc ON purchased_order_list.prdct_id = product_loc.product_id WHERE p_order_id = '$getIsID' AND location = '$getBranch'";
+                            $queryProducts = "SELECT * FROM purchased_order_list INNER JOIN clients on purchased_order_list.client_id = clients.c_id INNER JOIN product_list ON purchased_order_list.prdct_id = product_list.productList_id INNER JOIN product_loc ON purchased_order_list.prdct_id = product_loc.product_id WHERE p_order_id = '$getIsID' AND location = '$getBranch' AND client_id = '$getClient' AND merchandiser_id = '$getMerch'";
                             $run = mysqli_query($db, $queryProducts);
 							
                         ?>
@@ -266,7 +268,15 @@ if(!$_SESSION['username'])  {
                                 <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['po_id']; ?>'/>&nbsp&nbsp&nbsp
 								
                                 <label>Branch</label>
-                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/><br>
+                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
+								
+								<label>Client</label>
+                                <input type='text' size='10' name="c_id" readonly value='<?php  echo $_GET['c_id']; ?>'/>&nbsp&nbsp&nbsp
+								
+								<label>Merchandiser</label>
+                                <input type='text' size='10' name="m_id" readonly value='<?php  echo $_GET['m_id']; ?>'/>&nbsp&nbsp&nbsp
+								
+								<br>
                                 <h4>Product Description: </h4>
                                 <?php
                                             foreach ($runInfoQuery as $info):
@@ -305,7 +315,7 @@ if(!$_SESSION['username'])  {
                                                             ?>  
                                                                 
                                                                 <option value = "<?php  echo $datas["productList_name"];  ?>">
-                                                                   <?php  echo $datas["productList_name"]."".$datas["unit"];  ?>
+                                                                   <?php  echo $datas["productList_name"]." ".$datas["unit"];  ?>
                                                                 </option>
                                                       
                                                             <?php

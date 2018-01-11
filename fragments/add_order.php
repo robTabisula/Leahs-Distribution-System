@@ -30,8 +30,8 @@
 				$date_time = date("F j, Y, g:i a");
             
         //query for issuance table
-              $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser) 
-                             VALUE ('$order_date','$clientlist','$merchandiser')";
+              $queryit = "INSERT INTO purchased_order (order_date) 
+                             VALUE ('$order_date')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select order_id from purchased_order WHERE order_date='$order_date'";
       				$run=mysqli_query($db,$get_id);
@@ -53,8 +53,8 @@
 							$product_quantity=$product_inventory['iS_quantity'];
 					   
 							//query for issuance list
-									 $queryil = "INSERT INTO purchased_order_list (p_order_id, order_qty, branch, prdct_id, order_remarks) 
-											   VALUE ('$id','$qty','$branch','$product','$p_remarks')";
+									 $queryil = "INSERT INTO purchased_order_list (p_order_id, order_qty, branch, prdct_id, order_remarks,client_id,merchandiser_id) 
+											   VALUE ('$id','$qty','$branch','$product','$p_remarks','$clientlist','$merchandiser')";
 												mysqli_query($db, $queryil);
 					
 									$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 

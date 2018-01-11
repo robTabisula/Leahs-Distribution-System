@@ -161,7 +161,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser = merchandiser.m_id");
+							$retrieve = ("SELECT * FROM purchased_order_list INNER JOIN clients ON purchased_order_list.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order_list.merchandiser_id = merchandiser.m_id INNER JOIN purchased_order ON purchased_order_list.p_order_id = purchased_order.order_id");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -200,12 +200,14 @@ if(!$_SESSION['username'])  {
 									</td>
 									
 									<td data-title="c_id">
-										<?php echo $c_id=$data["c_name"]; ?>
+										<?php echo $data["c_name"];
+											$c_id=$data["c_id"];?>
 													
 									</td>
 									
 									<td data-title="m_id">
-										<?php echo $m_id=$data["m_name"]; ?>
+										<?php echo $data["m_name"];
+											$m_id=$data["m_id"];?>
 									</td>
 									
 									<td data-title="Date/Time">
@@ -220,7 +222,7 @@ if(!$_SESSION['username'])  {
 									</td>
 									<td data-title="Purchased Product">
                                         <table class="table table-striped table-bordered">
-                                            <a href="purchased_order_fn.php?po_id=<?php echo $po_id; ?>&Branch=<?php echo $passBranch; ?>">
+                                            <a href="purchased_order_fn.php?po_id=<?php echo $po_id; ?>&Branch=<?php echo $passBranch; ?>&c_id=<?php echo $c_id; ?>&m_id=<?php echo $m_id; ?>">
                                                 <button type="button" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                                                 </button>
