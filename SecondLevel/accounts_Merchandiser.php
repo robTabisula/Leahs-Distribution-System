@@ -222,11 +222,6 @@ if(!$_SESSION['username'])  {
 								 <td data-title="branch">
                                     <?php echo $data["m_branch"]; ?>
                                 </td>
-								<td data-title="edit">
-                                        <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_acc_id;?>"></button>
-                                        </table>
-                                </td>
                             </tr>
 							<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Edit modal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
                                 <div id="<?php echo $individual_acc_id;?>" class="modal fade" role="dialog">
