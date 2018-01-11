@@ -190,7 +190,6 @@ if(!$_SESSION['username'])  {
                                 <th>Name</th>
                                 <th>Address</th>
                                 <th>Location</th>
-								<th>Merchandiser</th>
                        
                             </tr>
                         </thead>
@@ -213,9 +212,6 @@ if(!$_SESSION['username'])  {
                           
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
-                                    </td>
-									<td data-title="c_merchandiser">
-                                        <?php echo $data["c_merchandiser"]; ?>
                                     </td>
 
                                 </tr>

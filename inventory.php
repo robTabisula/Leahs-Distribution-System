@@ -219,7 +219,7 @@ if(!$_SESSION['username'])  {
 										$inventory_id = $data["iS_inventoryid"];
                                     ?>
                                     <td data-title="productList name">
-                                        <?php echo $data["productList_name"]; ?>
+                                        <?php echo $data["productList_name"]." ".$data["unit"]; ?>
                                     </td>
                                     <td data-title="product quantity">
                                         <?php echo $data["iS_quantity"]; ?>
@@ -251,7 +251,7 @@ if(!$_SESSION['username'])  {
                                                 <form action="fragments/editInventory.php" method="POST">
                                                     <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'> 
                                                     <label>Product Name</label>
-                                                    <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
+                                                    <input type="text" name="PrName" value="<?php echo $data["productList_name"]." ".$data["unit"]; ?>" readonly>
                                                     
                                                     <label>Location</label>
                                                     <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
@@ -310,7 +310,7 @@ if(!$_SESSION['username'])  {
                                                     $toData = $data["category_id"];
                                             ?>
 
-                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]; ?></option>
+                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]." ".$data["unit"]; ?></option>
                                               
                                            <?php
                                                 endforeach;
@@ -366,7 +366,7 @@ if(!$_SESSION['username'])  {
 
                                                         ?>
 				                                    <td data-title="productList name">
-				                                        <?php echo $lowStock["productList_name"]; ?>
+				                                        <?php echo $lowStock["productList_name"]." ".$lowStock["unit"]; ?>
 				                                    </td>
 				                                    <td data-title="product quantity">
 				                                        <?php echo $lowStock["iS_quantity"]; ?>
