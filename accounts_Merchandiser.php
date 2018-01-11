@@ -198,6 +198,7 @@ if(!$_SESSION['username'])  {
                             <th>Address</th>
                             <th>Contact Number</th>
 							<th>Branch</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
            
