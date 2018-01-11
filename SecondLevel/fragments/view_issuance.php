@@ -161,7 +161,7 @@
                                                         <option value="Baguio">Baguio</option>
                                                         <option value="Pangasinan">Pangasinan</option>
                                                 </select>
-                                            </div>
+                                        </div>
 
                                             <div class="col-xs-4" id="TheClients" style="display: none; padding-left:0px;">
 
@@ -262,6 +262,11 @@
                                     </table>
 
                                     <hr style = "border-top: 3px double #8c8b8b;">
+                                    <br>
+                                    <div>
+                                        <h4>Security Code</h4>
+                                        <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
+                                    </div>
                                     <br>
 
                                     <!--********************************************************************************** -->
@@ -427,6 +432,11 @@
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
                                 <br>
+                                <div>
+                                    <h4>Security Code</h4>
+                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
+                                </div>
+                                <br>
 
                                 <!--********************************************************************************** -->
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
@@ -566,6 +576,11 @@
 
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
+                                <br>
+                                <div>
+                                    <h4>Security Code</h4>
+                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
+                                </div>
                                 <br>
 
                                 <!--********************************************************************************** -->
@@ -716,6 +731,11 @@
 
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
+                                <br>
+                                <div>
+                                    <h4>Security Code</h4>
+                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
+                                </div>
                                 <br>
 
                                 <!--********************************************************************************** -->

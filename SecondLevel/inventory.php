@@ -191,7 +191,7 @@ if(!$_SESSION['username'])  {
                     <?php
                         
                     ?>
-                   <button type="button" onclick="security()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+                   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Stock</button>&nbsp&nbsp&nbsp&nbsp&nbsp
 
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#lowStocks">Low Stocks</button> 
                     <br>
@@ -205,7 +205,6 @@ if(!$_SESSION['username'])  {
                                 <th>Restock Level</th>
                                 <th>Catgory Name</th>
                                 <th>Location</th>
-                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -230,10 +229,6 @@ if(!$_SESSION['username'])  {
                                         <?php echo $data["category_name"]; ?>
                                     </td><td data-title="location">
                                         <?php echo $data["iS_location"]; ?>
-                                    </td><td>
-                                        <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $inventory_id; ?>"></button>
-                                        </table>
                                     </td>
 
                                  </tr>
@@ -445,16 +440,4 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
-<?php 
-    $adminCodeQuery = ("SELECT security_key FROM accounts;");
-    $row = mysqli_query($db,$adminCodeQuery);
-    $adminCode = mysqli_fetch_array($row);
-?>
-<script>
-function security() {
-    var security = prompt("Please enter security code", "");
-    if (person != null) {
-        
-    }
-}
-</script>
+

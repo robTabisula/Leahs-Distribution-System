@@ -1,0 +1,39 @@
+body{
+    width: 100%;
+    height: 100%;
+}
+
+
+#AdjustedPriceDiv{
+    float: left;
+    width: 45%;
+}
+
+#form_{
+    float:right;
+    width: 45%;
+}
+
+#remarks_field{
+    float: right;
+    width: 50%
+}
+
+#issue_num{
+    width: 30%;
+    float: left;
+}
+
+#remarks_field textarea{
+    width:100%;
+    height: 80px;
+    resize: none;
+}
+
+#TheClients{
+    margin-left: 10%;    
+}
+
+#branch{
+    margin-left: 10%;
+}
