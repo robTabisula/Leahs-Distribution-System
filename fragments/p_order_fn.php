@@ -28,6 +28,7 @@
             $price = $_POST['price'];//array for new price
             $quantity = $_POST['quantity'];//array for quantity ordered
             $p_remarks = $_POST['premarks'];//array for remarks
+			$date_time = date("F j, Y, g:i a");
             
 
             //query for PO table
@@ -69,7 +70,12 @@
                     //query for issuance list
                          $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
                                VALUE ('$id','$quantity','$price','$branch','$productIDList','$p_remarks','$client_id')";
-                        if(mysqli_query($db, $queryil)){
+							   mysqli_query($db, $queryil);
+							   
+							$query = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+						   VALUE ('$issueAcnt','Issued Order','$date_time','has successfully issued a new order')";
+                        
+						if(mysqli_query($db, $query)){
                           echo"<script>alert('Purchased Order have been successfully issued')</script>";
                           echo "<script>window.open('../porder.php','_self')</script>"; 
                         }else{
