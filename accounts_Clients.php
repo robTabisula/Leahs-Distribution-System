@@ -197,6 +197,8 @@ if(!$_SESSION['username'])  {
                             <tr>
                                 <th>Name</th>
                                 <th>Address</th>
+                                <th>Contact Person</th>
+                                <th>Contact Number</th>
                                 <th>Location</th>
                                 <th>Edit</th>
 
@@ -217,6 +219,12 @@ if(!$_SESSION['username'])  {
                                     </td>
                                     <td data-title="c_address">
                                         <?php echo $data["c_address"]; ?>
+                                    </td>
+                                    <td data-title="c_Person">
+                                        <?php echo $data["c_contactperson"]; ?>
+                                    </td>
+                                    <td data-title="c_Number">
+                                        <?php echo $data["c_contactpersonnumber"]; ?>
                                     </td>
                           
                                     <td data-title="c_location">
@@ -240,7 +248,7 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
 					                        <?php
-                                            $query = "select * from clients inner join client_contact ON clients.c_id = client_contact.contact_clientid where clients.c_id='$individual_c_id'";
+                                            $query = "SELECT * FROM leahs.clients where c_id ='$individual_c_id'";
                                             $run = mysqli_query($db, $query);
                                             $row = mysqli_fetch_array($run);//
                                             ?>
@@ -266,10 +274,10 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <input name="contact_number" value="<?php echo $row['contact_number']; ?>" type="text" class="form-control">
+                                                                <input name="contact_number" value="<?php echo $row['c_contactpersonnumber']; ?>" type="text" class="form-control">
                                                             </div>
 															<div class="col-xs-4">
-                                                                <input name="contact_name" value="<?php echo $row['contact_name']; ?>" type="text" class="form-control">
+                                                                <input name="contact_name" value="<?php echo $row['c_contactperson']; ?>" type="text" class="form-control">
                                                             </div>
 														</div>
 														<div class="row">
@@ -316,7 +324,7 @@ if(!$_SESSION['username'])  {
                                         <input type="text" class="form-control" maxlength="25" name="contact_numberAdd" onkeypress="return isNumber(event)" required>
 
                                         <h3>Contact Person</h3>
-                                        <input type="text" class="form-control" maxlength="50" name="contact_name" required>
+                                        <input type="text" class="form-control" maxlength="50" name="contact_name" onkeypress="return isAlfa(event)" required>
 
 										<h3>Branch</h3>
 										<div class="col-xs-4">
