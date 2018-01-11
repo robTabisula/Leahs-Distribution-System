@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 10, 2018 at 08:48 AM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 11, 2018 at 07:02 AM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,8 +28,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts`
 --
 
-CREATE TABLE `accounts` (
-  `acc_id` int(12) NOT NULL,
+DROP TABLE IF EXISTS `accounts`;
+CREATE TABLE IF NOT EXISTS `accounts` (
+  `acc_id` int(12) NOT NULL AUTO_INCREMENT,
   `username` varchar(15) NOT NULL,
   `first_name` varchar(20) NOT NULL,
   `last_name` varchar(20) NOT NULL,
@@ -37,8 +40,9 @@ CREATE TABLE `accounts` (
   `status` varchar(10) NOT NULL DEFAULT 'Disabled',
   `branch` varchar(50) DEFAULT NULL,
   `acctype` varchar(45) DEFAULT NULL,
-  `security_key` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `security_key` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`acc_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts`
@@ -58,13 +62,15 @@ INSERT INTO `accounts` (`acc_id`, `username`, `first_name`, `last_name`, `passwo
 -- Table structure for table `bad_order`
 --
 
-CREATE TABLE `bad_order` (
-  `bo_id` int(15) NOT NULL,
+DROP TABLE IF EXISTS `bad_order`;
+CREATE TABLE IF NOT EXISTS `bad_order` (
+  `bo_id` int(15) NOT NULL AUTO_INCREMENT,
   `bo_dateReleased` varchar(50) NOT NULL,
   `bo_issue_account` varchar(200) NOT NULL,
   `bo_client` int(20) DEFAULT NULL,
-  `bo_remarks` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `bo_remarks` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`bo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `bad_order`
@@ -83,13 +89,15 @@ INSERT INTO `bad_order` (`bo_id`, `bo_dateReleased`, `bo_issue_account`, `bo_cli
 -- Table structure for table `bo_list`
 --
 
-CREATE TABLE `bo_list` (
+DROP TABLE IF EXISTS `bo_list`;
+CREATE TABLE IF NOT EXISTS `bo_list` (
   `bo_id` int(15) NOT NULL,
   `bo_price` int(15) NOT NULL,
   `bo_qty` int(15) NOT NULL,
   `branch` varchar(45) NOT NULL,
   `bo_product_id` int(11) NOT NULL,
-  `po_remarks` varchar(200) DEFAULT NULL
+  `po_remarks` varchar(200) DEFAULT NULL,
+  KEY `bo_id_idx` (`bo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -109,11 +117,13 @@ INSERT INTO `bo_list` (`bo_id`, `bo_price`, `bo_qty`, `branch`, `bo_product_id`,
 -- Table structure for table `category_list`
 --
 
-CREATE TABLE `category_list` (
-  `category_id` int(15) NOT NULL,
+DROP TABLE IF EXISTS `category_list`;
+CREATE TABLE IF NOT EXISTS `category_list` (
+  `category_id` int(15) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(100) NOT NULL,
-  `category_status` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `category_status` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category_list`
@@ -134,12 +144,14 @@ INSERT INTO `category_list` (`category_id`, `category_name`, `category_status`) 
 -- Table structure for table `clients`
 --
 
-CREATE TABLE `clients` (
-  `c_id` int(15) NOT NULL,
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE IF NOT EXISTS `clients` (
+  `c_id` int(15) NOT NULL AUTO_INCREMENT,
   `c_name` varchar(20) NOT NULL,
   `c_address` varchar(20) NOT NULL,
-  `c_location` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `c_location` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `clients`
@@ -164,10 +176,12 @@ INSERT INTO `clients` (`c_id`, `c_name`, `c_address`, `c_location`) VALUES
 -- Table structure for table `client_contact`
 --
 
-CREATE TABLE `client_contact` (
+DROP TABLE IF EXISTS `client_contact`;
+CREATE TABLE IF NOT EXISTS `client_contact` (
   `contact_clientid` int(11) NOT NULL,
   `contact_name` varchar(45) DEFAULT NULL,
-  `contact_number` int(50) DEFAULT NULL
+  `contact_number` int(50) DEFAULT NULL,
+  KEY `contact_clientid_idx` (`contact_clientid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -194,13 +208,16 @@ INSERT INTO `client_contact` (`contact_clientid`, `contact_name`, `contact_numbe
 -- Table structure for table `inventory`
 --
 
-CREATE TABLE `inventory` (
-  `iS_inventoryid` int(15) NOT NULL,
+DROP TABLE IF EXISTS `inventory`;
+CREATE TABLE IF NOT EXISTS `inventory` (
+  `iS_inventoryid` int(15) NOT NULL AUTO_INCREMENT,
   `iS_product_id` int(15) NOT NULL,
   `iS_restock_lvl` int(10) NOT NULL,
   `iS_quantity` int(10) NOT NULL DEFAULT '0',
-  `iS_location` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `iS_location` varchar(45) NOT NULL,
+  PRIMARY KEY (`iS_inventoryid`),
+  KEY `product_id_idx` (`iS_product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
@@ -272,16 +289,18 @@ INSERT INTO `inventory` (`iS_inventoryid`, `iS_product_id`, `iS_restock_lvl`, `i
 -- Table structure for table `issuance`
 --
 
-CREATE TABLE `issuance` (
-  `issue_id` int(15) NOT NULL,
+DROP TABLE IF EXISTS `issuance`;
+CREATE TABLE IF NOT EXISTS `issuance` (
+  `issue_id` int(15) NOT NULL AUTO_INCREMENT,
   `issue_date_time` varchar(50) NOT NULL,
   `issue_account` varchar(50) DEFAULT NULL,
   `issue_type` varchar(45) NOT NULL,
   `remarks` varchar(45) DEFAULT NULL,
   `other_clients` varchar(45) DEFAULT NULL,
   `penthouse_clients` varchar(45) DEFAULT NULL,
-  `client_id` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `client_id` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`issue_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `issuance`
@@ -328,13 +347,16 @@ INSERT INTO `issuance` (`issue_id`, `issue_date_time`, `issue_account`, `issue_t
 -- Table structure for table `issuance_list`
 --
 
-CREATE TABLE `issuance_list` (
+DROP TABLE IF EXISTS `issuance_list`;
+CREATE TABLE IF NOT EXISTS `issuance_list` (
   `issue_id` int(15) NOT NULL,
   `prod_qty` int(15) NOT NULL,
   `prod_price` int(15) NOT NULL,
   `branch` varchar(20) NOT NULL,
   `prod_id` int(15) NOT NULL,
-  `prod_remarks` varchar(200) DEFAULT NULL
+  `prod_remarks` varchar(200) DEFAULT NULL,
+  KEY `FK_issuancelist_productlist_idx` (`prod_id`),
+  KEY `issue_id_idx` (`issue_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -385,14 +407,17 @@ INSERT INTO `issuance_list` (`issue_id`, `prod_qty`, `prod_price`, `branch`, `pr
 -- Table structure for table `logs`
 --
 
-CREATE TABLE `logs` (
-  `logs_id` int(15) NOT NULL,
+DROP TABLE IF EXISTS `logs`;
+CREATE TABLE IF NOT EXISTS `logs` (
+  `logs_id` int(15) NOT NULL AUTO_INCREMENT,
   `issue_acnt` varchar(20) NOT NULL,
   `act_type` varchar(30) NOT NULL,
   `date_time` varchar(30) NOT NULL,
   `related_id` int(15) DEFAULT NULL,
-  `remarks` varchar(65) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `remarks` varchar(65) NOT NULL,
+  PRIMARY KEY (`logs_id`),
+  KEY `acc_id_idx` (`issue_acnt`)
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `logs`
@@ -482,13 +507,15 @@ INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_i
 -- Table structure for table `merchandiser`
 --
 
-CREATE TABLE `merchandiser` (
-  `m_id` int(15) NOT NULL,
+DROP TABLE IF EXISTS `merchandiser`;
+CREATE TABLE IF NOT EXISTS `merchandiser` (
+  `m_id` int(15) NOT NULL AUTO_INCREMENT,
   `m_name` varchar(25) NOT NULL,
   `m_contact_number` int(15) NOT NULL,
   `m_address` varchar(50) NOT NULL,
-  `m_branch` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `m_branch` varchar(10) NOT NULL,
+  PRIMARY KEY (`m_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `merchandiser`
@@ -505,13 +532,15 @@ INSERT INTO `merchandiser` (`m_id`, `m_name`, `m_contact_number`, `m_address`, `
 -- Table structure for table `po_list`
 --
 
-CREATE TABLE `po_list` (
+DROP TABLE IF EXISTS `po_list`;
+CREATE TABLE IF NOT EXISTS `po_list` (
   `po_id` int(15) NOT NULL,
   `po_price` int(15) NOT NULL,
   `po_qty` int(15) NOT NULL,
   `branch` varchar(45) NOT NULL,
   `po_product_id` int(15) NOT NULL,
-  `po_remarks` varchar(200) DEFAULT NULL
+  `po_remarks` varchar(200) DEFAULT NULL,
+  KEY `po_id_idx` (`po_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -535,47 +564,51 @@ INSERT INTO `po_list` (`po_id`, `po_price`, `po_qty`, `branch`, `po_product_id`,
 -- Table structure for table `product_list`
 --
 
-CREATE TABLE `product_list` (
-  `productList_id` int(15) NOT NULL,
+DROP TABLE IF EXISTS `product_list`;
+CREATE TABLE IF NOT EXISTS `product_list` (
+  `productList_id` int(15) NOT NULL AUTO_INCREMENT,
   `productList_name` varchar(50) DEFAULT NULL,
   `unit` varchar(20) DEFAULT NULL,
-  `category_id` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `category_id` int(15) NOT NULL,
+  `barcode` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`productList_id`),
+  KEY `FK_product_list_category_idx` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=270 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_list`
 --
 
-INSERT INTO `product_list` (`productList_id`, `productList_name`, `unit`, `category_id`) VALUES
-(241, 'Beef', '1kg', 13),
-(242, 'Chicken', '500g', 13),
-(243, 'De Recado', '1pcs', 13),
-(244, 'Hamonado', '100g', 13),
-(245, 'Vigan Longganisa', '1pck', 13),
-(246, 'Puto Seco', '1pck', 14),
-(247, 'Long Rice', '500g', 14),
-(248, 'Meringue', '1pck', 14),
-(249, 'Pop Rice Square', '250g', 14),
-(250, 'Pop Rice Roun', '100g', 14),
-(251, 'Peanut Butter (small)', '100g', 15),
-(252, 'Strawberry  Jelly', '300g', 15),
-(253, 'Strawberry Buo', '200g', 15),
-(254, 'Honey', '500g', 15),
-(255, 'Peanut Butter (Tall)', '500g', 15),
-(256, 'Paminta', '1pck', 16),
-(257, 'Laurel', '1pck', 16),
-(258, 'Garlic Fried', '200g', 16),
-(259, 'Curry Powder', '100g', 16),
-(260, 'Star Anis', '1pck', 16),
-(261, 'Colored Sprinkle', '1pck', 17),
-(262, 'Choco Lentils', '1pck', 17),
-(263, 'Caster Sugar', '1kg', 17),
-(264, 'Icing Sugar', '250g', 17),
-(265, 'Baking Soy', '1pck', 13),
-(266, 'Kapusan', '1pcs', 13),
-(267, 'Meringue', '500g', 19),
-(268, 'Cracklings', '200g', 19),
-(269, 'Soy', '100g', 13);
+INSERT INTO `product_list` (`productList_id`, `productList_name`, `unit`, `category_id`, `barcode`) VALUES
+(241, 'Beef', '1kg', 13, NULL),
+(242, 'Chicken', '500g', 13, NULL),
+(243, 'De Recado', '1pcs', 13, NULL),
+(244, 'Hamonado', '100g', 13, NULL),
+(245, 'Vigan Longganisa', '1pck', 13, NULL),
+(246, 'Puto Seco', '1pck', 14, NULL),
+(247, 'Long Rice', '500g', 14, NULL),
+(248, 'Meringue', '1pck', 14, NULL),
+(249, 'Pop Rice Square', '250g', 14, NULL),
+(250, 'Pop Rice Roun', '100g', 14, NULL),
+(251, 'Peanut Butter (small)', '100g', 15, NULL),
+(252, 'Strawberry  Jelly', '300g', 15, NULL),
+(253, 'Strawberry Buo', '200g', 15, NULL),
+(254, 'Honey', '500g', 15, NULL),
+(255, 'Peanut Butter (Tall)', '500g', 15, NULL),
+(256, 'Paminta', '1pck', 16, NULL),
+(257, 'Laurel', '1pck', 16, NULL),
+(258, 'Garlic Fried', '200g', 16, NULL),
+(259, 'Curry Powder', '100g', 16, NULL),
+(260, 'Star Anis', '1pck', 16, NULL),
+(261, 'Colored Sprinkle', '1pck', 17, NULL),
+(262, 'Choco Lentils', '1pck', 17, NULL),
+(263, 'Caster Sugar', '1kg', 17, NULL),
+(264, 'Icing Sugar', '250g', 17, NULL),
+(265, 'Baking Soy', '1pck', 13, NULL),
+(266, 'Kapusan', '1pcs', 13, NULL),
+(267, 'Meringue', '500g', 19, NULL),
+(268, 'Cracklings', '200g', 19, NULL),
+(269, 'Soy', '100g', 13, NULL);
 
 -- --------------------------------------------------------
 
@@ -583,77 +616,78 @@ INSERT INTO `product_list` (`productList_id`, `productList_name`, `unit`, `categ
 -- Table structure for table `product_loc`
 --
 
-CREATE TABLE `product_loc` (
+DROP TABLE IF EXISTS `product_loc`;
+CREATE TABLE IF NOT EXISTS `product_loc` (
   `product_id` int(15) NOT NULL,
   `location` varchar(50) NOT NULL,
   `status` varchar(45) NOT NULL,
   `altprice` varchar(45) DEFAULT NULL,
-  `barcode` varchar(45) DEFAULT NULL
+  KEY `prod_id_idx` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_loc`
 --
 
-INSERT INTO `product_loc` (`product_id`, `location`, `status`, `altprice`, `barcode`) VALUES
-(241, 'Baguio', 'Enabled', '38', '2125'),
-(241, 'Pangasinan', 'Enabled', '40', '2125'),
-(242, 'Baguio', 'Enabled', '38', ''),
-(242, 'Pangasinan', 'Enabled', '40', ''),
-(243, 'Baguio', 'Enabled', '38', ''),
-(243, 'Pangasinan', 'Enabled', '40', ''),
-(244, 'Baguio', 'Enabled', '40', ''),
-(244, 'Pangasinan', 'Enabled', '42', ''),
-(245, 'Baguio', 'Enabled', '40', ''),
-(245, 'Pangasinan', 'Enabled', '42', ''),
-(246, 'Baguio', 'Enabled', '4.5', ''),
-(246, 'Pangasinan', 'Enabled', '5', ''),
-(247, 'Baguio', 'Enabled', '9', ''),
-(247, 'Pangasinan', 'Enabled', '10', ''),
-(248, 'Baguio', 'Enabled', '9', ''),
-(248, 'Pangasinan', 'Enabled', '10', ''),
-(249, 'Baguio', 'Enabled', '9', ''),
-(249, 'Pangasinan', 'Enabled', '9', ''),
-(250, 'Baguio', 'Enabled', '9', ''),
-(250, 'Pangasinan', 'Enabled', '10', ''),
-(251, 'Baguio', 'Enabled', '47', ''),
-(251, 'Pangasinan', 'Enabled', '50', ''),
-(252, 'Baguio', 'Enabled', '48', ''),
-(252, 'Pangasinan', 'Enabled', '50', ''),
-(253, 'Baguio', 'Enabled', '87', ''),
-(253, 'Pangasinan', 'Enabled', '90', ''),
-(254, 'Baguio', 'Enabled', '82', ''),
-(254, 'Pangasinan', 'Enabled', '85', ''),
-(255, 'Baguio', 'Enabled', '81', ''),
-(255, 'Pangasinan', 'Enabled', '84', ''),
-(256, 'Baguio', 'Disabled', '18', ''),
-(256, 'Pangasinan', 'Disabled', '19', ''),
-(257, 'Baguio', 'Enabled', '9.5', ''),
-(257, 'Pangasinan', 'Enabled', '10', ''),
-(258, 'Baguio', 'Enabled', '22', ''),
-(258, 'Pangasinan', 'Enabled', '23', ''),
-(259, 'Baguio', 'Enabled', '18.5', ''),
-(259, 'Pangasinan', 'Enabled', '19', ''),
-(260, 'Baguio', 'Enabled', '27.5', ''),
-(260, 'Pangasinan', 'Enabled', '28', ''),
-(261, 'Baguio', 'Enabled', '43', ''),
-(261, 'Pangasinan', 'Enabled', '44', ''),
-(262, 'Baguio', 'Enabled', '30', ''),
-(262, 'Pangasinan', 'Enabled', '31', ''),
-(263, 'Baguio', 'Enabled', '57', ''),
-(263, 'Pangasinan', 'Enabled', '58', ''),
-(264, 'Baguio', 'Enabled', '57', ''),
-(264, 'Pangasinan', 'Enabled', '58', ''),
-(265, 'Baguio', 'Enabled', '17', '1111111'),
-(265, 'Pangasinan', 'Disabled', '21', '1111111'),
-(266, 'Baguio', 'Enabled', '10', ''),
-(266, 'Pangasinan', 'Enabled', '12', ''),
-(248, 'Baguio', 'Enabled', '10', '1912122'),
-(248, 'Pangasinan', 'Enabled', '20', '1912122'),
-(268, 'Baguio', 'Enabled', '10', '1010101'),
-(268, 'Pangasinan', 'Enabled', '10', '1010101'),
-(269, 'Baguio', 'Enabled', '10', '9012012'),
-(269, 'Pangasinan', 'Enabled', '14', '9012012');
+INSERT INTO `product_loc` (`product_id`, `location`, `status`, `altprice`) VALUES
+(241, 'Baguio', 'Enabled', '38'),
+(241, 'Pangasinan', 'Enabled', '40'),
+(242, 'Baguio', 'Enabled', '38'),
+(242, 'Pangasinan', 'Enabled', '40'),
+(243, 'Baguio', 'Enabled', '38'),
+(243, 'Pangasinan', 'Enabled', '40'),
+(244, 'Baguio', 'Enabled', '40'),
+(244, 'Pangasinan', 'Enabled', '42'),
+(245, 'Baguio', 'Enabled', '40'),
+(245, 'Pangasinan', 'Enabled', '42'),
+(246, 'Baguio', 'Enabled', '4.5'),
+(246, 'Pangasinan', 'Enabled', '5'),
+(247, 'Baguio', 'Enabled', '9'),
+(247, 'Pangasinan', 'Enabled', '10'),
+(248, 'Baguio', 'Enabled', '9'),
+(248, 'Pangasinan', 'Enabled', '10'),
+(249, 'Baguio', 'Enabled', '9'),
+(249, 'Pangasinan', 'Enabled', '9'),
+(250, 'Baguio', 'Enabled', '9'),
+(250, 'Pangasinan', 'Enabled', '10'),
+(251, 'Baguio', 'Enabled', '47'),
+(251, 'Pangasinan', 'Enabled', '50'),
+(252, 'Baguio', 'Enabled', '48'),
+(252, 'Pangasinan', 'Enabled', '50'),
+(253, 'Baguio', 'Enabled', '87'),
+(253, 'Pangasinan', 'Enabled', '90'),
+(254, 'Baguio', 'Enabled', '82'),
+(254, 'Pangasinan', 'Enabled', '85'),
+(255, 'Baguio', 'Enabled', '81'),
+(255, 'Pangasinan', 'Enabled', '84'),
+(256, 'Baguio', 'Disabled', '18'),
+(256, 'Pangasinan', 'Disabled', '19'),
+(257, 'Baguio', 'Enabled', '9.5'),
+(257, 'Pangasinan', 'Enabled', '10'),
+(258, 'Baguio', 'Enabled', '22'),
+(258, 'Pangasinan', 'Enabled', '23'),
+(259, 'Baguio', 'Enabled', '18.5'),
+(259, 'Pangasinan', 'Enabled', '19'),
+(260, 'Baguio', 'Enabled', '27.5'),
+(260, 'Pangasinan', 'Enabled', '28'),
+(261, 'Baguio', 'Enabled', '43'),
+(261, 'Pangasinan', 'Enabled', '44'),
+(262, 'Baguio', 'Enabled', '30'),
+(262, 'Pangasinan', 'Enabled', '31'),
+(263, 'Baguio', 'Enabled', '57'),
+(263, 'Pangasinan', 'Enabled', '58'),
+(264, 'Baguio', 'Enabled', '57'),
+(264, 'Pangasinan', 'Enabled', '58'),
+(265, 'Baguio', 'Enabled', '17'),
+(265, 'Pangasinan', 'Disabled', '21'),
+(266, 'Baguio', 'Enabled', '10'),
+(266, 'Pangasinan', 'Enabled', '12'),
+(248, 'Baguio', 'Enabled', '10'),
+(248, 'Pangasinan', 'Enabled', '20'),
+(268, 'Baguio', 'Enabled', '10'),
+(268, 'Pangasinan', 'Enabled', '10'),
+(269, 'Baguio', 'Enabled', '10'),
+(269, 'Pangasinan', 'Enabled', '14');
 
 -- --------------------------------------------------------
 
@@ -661,13 +695,15 @@ INSERT INTO `product_loc` (`product_id`, `location`, `status`, `altprice`, `barc
 -- Table structure for table `pull_out`
 --
 
-CREATE TABLE `pull_out` (
-  `po_id` int(10) NOT NULL,
+DROP TABLE IF EXISTS `pull_out`;
+CREATE TABLE IF NOT EXISTS `pull_out` (
+  `po_id` int(10) NOT NULL AUTO_INCREMENT,
   `po_date` varchar(50) NOT NULL,
   `po_issue_account` varchar(200) NOT NULL,
   `po_client` int(20) DEFAULT NULL,
-  `po_remarks` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `po_remarks` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`po_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pull_out`
@@ -687,12 +723,14 @@ INSERT INTO `pull_out` (`po_id`, `po_date`, `po_issue_account`, `po_client`, `po
 -- Table structure for table `purchased_order`
 --
 
-CREATE TABLE `purchased_order` (
-  `order_id` int(50) NOT NULL,
+DROP TABLE IF EXISTS `purchased_order`;
+CREATE TABLE IF NOT EXISTS `purchased_order` (
+  `order_id` int(50) NOT NULL AUTO_INCREMENT,
   `order_date` varchar(50) NOT NULL,
   `client_id` int(20) NOT NULL,
-  `merchandiser` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `merchandiser` varchar(20) NOT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `purchased_order`
@@ -707,12 +745,15 @@ INSERT INTO `purchased_order` (`order_id`, `order_date`, `client_id`, `merchandi
 -- Table structure for table `purchased_order_list`
 --
 
-CREATE TABLE `purchased_order_list` (
+DROP TABLE IF EXISTS `purchased_order_list`;
+CREATE TABLE IF NOT EXISTS `purchased_order_list` (
   `p_order_id` int(50) NOT NULL,
   `order_qty` int(10) NOT NULL,
   `branch` varchar(10) NOT NULL,
   `prdct_id` int(15) NOT NULL,
-  `order_remarks` varchar(100) NOT NULL
+  `order_remarks` varchar(100) NOT NULL,
+  KEY `order_id_idx` (`p_order_id`),
+  KEY `product_id_idx` (`prdct_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -723,176 +764,6 @@ INSERT INTO `purchased_order_list` (`p_order_id`, `order_qty`, `branch`, `prdct_
 (10, 12, 'Pangasinan', 241, ''),
 (10, 90, 'Pangasinan', 246, '');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `accounts`
---
-ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`acc_id`);
-
---
--- Indexes for table `bad_order`
---
-ALTER TABLE `bad_order`
-  ADD PRIMARY KEY (`bo_id`);
-
---
--- Indexes for table `bo_list`
---
-ALTER TABLE `bo_list`
-  ADD KEY `bo_id_idx` (`bo_id`);
-
---
--- Indexes for table `category_list`
---
-ALTER TABLE `category_list`
-  ADD PRIMARY KEY (`category_id`);
-
---
--- Indexes for table `clients`
---
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`c_id`);
-
---
--- Indexes for table `client_contact`
---
-ALTER TABLE `client_contact`
-  ADD KEY `contact_clientid_idx` (`contact_clientid`);
-
---
--- Indexes for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`iS_inventoryid`),
-  ADD KEY `product_id_idx` (`iS_product_id`);
-
---
--- Indexes for table `issuance`
---
-ALTER TABLE `issuance`
-  ADD PRIMARY KEY (`issue_id`);
-
---
--- Indexes for table `issuance_list`
---
-ALTER TABLE `issuance_list`
-  ADD KEY `FK_issuancelist_productlist_idx` (`prod_id`),
-  ADD KEY `issue_id_idx` (`issue_id`);
-
---
--- Indexes for table `logs`
---
-ALTER TABLE `logs`
-  ADD PRIMARY KEY (`logs_id`),
-  ADD KEY `acc_id_idx` (`issue_acnt`);
-
---
--- Indexes for table `merchandiser`
---
-ALTER TABLE `merchandiser`
-  ADD PRIMARY KEY (`m_id`);
-
---
--- Indexes for table `po_list`
---
-ALTER TABLE `po_list`
-  ADD KEY `po_id_idx` (`po_id`);
-
---
--- Indexes for table `product_list`
---
-ALTER TABLE `product_list`
-  ADD PRIMARY KEY (`productList_id`),
-  ADD KEY `FK_product_list_category_idx` (`category_id`);
-
---
--- Indexes for table `product_loc`
---
-ALTER TABLE `product_loc`
-  ADD KEY `prod_id_idx` (`product_id`);
-
---
--- Indexes for table `pull_out`
---
-ALTER TABLE `pull_out`
-  ADD PRIMARY KEY (`po_id`);
-
---
--- Indexes for table `purchased_order`
---
-ALTER TABLE `purchased_order`
-  ADD PRIMARY KEY (`order_id`);
-
---
--- Indexes for table `purchased_order_list`
---
-ALTER TABLE `purchased_order_list`
-  ADD KEY `order_id_idx` (`p_order_id`),
-  ADD KEY `product_id_idx` (`prdct_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `accounts`
---
-ALTER TABLE `accounts`
-  MODIFY `acc_id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `bad_order`
---
-ALTER TABLE `bad_order`
-  MODIFY `bo_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `category_list`
---
-ALTER TABLE `category_list`
-  MODIFY `category_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
---
--- AUTO_INCREMENT for table `clients`
---
-ALTER TABLE `clients`
-  MODIFY `c_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
---
--- AUTO_INCREMENT for table `inventory`
---
-ALTER TABLE `inventory`
-  MODIFY `iS_inventoryid` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
---
--- AUTO_INCREMENT for table `issuance`
---
-ALTER TABLE `issuance`
-  MODIFY `issue_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
---
--- AUTO_INCREMENT for table `logs`
---
-ALTER TABLE `logs`
-  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
---
--- AUTO_INCREMENT for table `merchandiser`
---
-ALTER TABLE `merchandiser`
-  MODIFY `m_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `product_list`
---
-ALTER TABLE `product_list`
-  MODIFY `productList_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
---
--- AUTO_INCREMENT for table `pull_out`
---
-ALTER TABLE `pull_out`
-  MODIFY `po_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `purchased_order`
---
-ALTER TABLE `purchased_order`
-  MODIFY `order_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
@@ -946,6 +817,7 @@ ALTER TABLE `product_loc`
 ALTER TABLE `purchased_order_list`
   ADD CONSTRAINT `p_order_id` FOREIGN KEY (`p_order_id`) REFERENCES `purchased_order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `prdct_id` FOREIGN KEY (`prdct_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
