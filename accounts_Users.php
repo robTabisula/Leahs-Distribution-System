@@ -429,10 +429,10 @@ if(!$_SESSION['username'])  {
                                     <input type="text" class="form-control" maxlength="100" name="last_name" onkeypress="return isAlfa(event)" required>
 
                                     <h3>Password</h3>
-                                    <input type="password" id="pass" class="form-control" name="user_pass" required>
+                                    <input type="password" id="pass" class="form-control" name="user_pass" minlength="8" required>
 
                                     <h3>Confirm Password</h3>
-                                    <input type="password" id="confirm_pass" class="form-control" name="user_pass2" required>
+                                    <input type="password" id="confirm_pass" class="form-control" name="user_pass2" minlength="8" required>
 									 <span id='message'></span>
 
                                     <h3>Email</h3>
