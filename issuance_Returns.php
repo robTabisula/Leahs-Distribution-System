@@ -275,7 +275,7 @@ if(!$_SESSION['username'])  {
                                         ?>
                                     
                                     <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
+                                    <input type='text' size='18' readonly value='<?php  echo $info["productList_name"]."".$info["unit"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
                                     <input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' />&nbsp
                                     <label>Issued Price:</label>
@@ -309,7 +309,7 @@ if(!$_SESSION['username'])  {
                                                             ?>  
                                                                 
                                                                 <option value = "<?php  echo $datas["productList_name"];  ?>">
-                                                                   <?php  echo $datas["productList_name"];  ?>
+                                                                   <?php  echo $datas["productList_name"]."".$datas["unit"];  ?>
                                                                 </option>
                                                       
                                                             <?php

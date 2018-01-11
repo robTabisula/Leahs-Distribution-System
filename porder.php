@@ -196,12 +196,13 @@ if(!$_SESSION['username'])  {
                                         </table>
 									</td>
 									
-									<td data-title="Client">
-										<?php echo $data["c_name"]; ?>
+									<td data-title="c_id">
+										<?php echo $c_id=$data["c_name"]; ?>
+													
 									</td>
 									
-									<td data-title="Merchandiser">
-										<?php echo $data["m_name"]; ?>
+									<td data-title="m_id">
+										<?php echo $m_id=$data["m_name"]; ?>
 									</td>
 									
 									<td data-title="Date/Time">
@@ -236,7 +237,9 @@ if(!$_SESSION['username'])  {
 													<h4 class="modal-title">Purchase Ordered</h4>
 												</div>
 												<div class="modal-body">
-														<h4>Purchased Order ID: <?php  echo $data["order_id"];  ?></h4>
+														<h4><b>Purchased Order ID: </b><?php  echo $data["order_id"];  ?></h4>
+														<h4><b>Client: </b><?php  echo $data["c_name"];  ?></h4>
+														<h4><b>Merchandiser:</b> <?php  echo $data["m_name"];  ?></h4>
 														<?php
 															$queryProducts = "SELECT * FROM  purchased_order_list INNER JOIN product_list ON purchased_order_list.prdct_id = product_list.productList_id INNER JOIN product_loc ON purchased_order_list.prdct_id = product_loc.product_id WHERE p_order_id = '$po_id' AND location = '$passBranch'";
 															$run = mysqli_query($db, $queryProducts);
@@ -253,7 +256,7 @@ if(!$_SESSION['username'])  {
 															foreach ($run as $log){
 															$toData = $log["productList_id"];        
 														?>
-															<br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+															<br><input type="text" value= "<?php  echo $log["productList_name"]."".$log["unit"];?>" readonly>
 																<input type="text" value= "<?php  echo $log["order_qty"];  ?>" readonly>
 
 														<?php

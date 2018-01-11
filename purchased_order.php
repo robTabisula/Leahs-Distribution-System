@@ -190,7 +190,7 @@ if(!$_SESSION['username'])  {
 								
 								<div class="form-group">                            
                                     <?php
-                                        $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                        $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                         $prodRetrieve = mysqli_query($db, $retrieveProd);
                                     ?>
                                 </div> 
@@ -208,7 +208,7 @@ if(!$_SESSION['username'])  {
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $sproduct_id;?>">
-                                                               <?php echo $datas["productList_name"]; ?>
+                                                               <?php echo $datas["productList_name"]."".$datas["unit"]; ?>
                                                             </option>
                                                   
                                                         <?php
