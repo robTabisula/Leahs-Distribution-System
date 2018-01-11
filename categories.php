@@ -248,9 +248,24 @@ if(!$_SESSION['username'])  {
                                                             </div>
                                                             <div class="col-xs-4">
 
-																	<input type="radio" name="category_status" Value="Enabled">Enabled<br>
+                                                                <?php
+
+                                                                    $catStatus = ("SELECT category_status FROM category_list WHERE category_id = '$individual_category_id'");
+                                                                    $catResults = mysqli_query($db, $catStatus);
+                                                                    $categoryStatus = mysqli_fetch_array($catResults);
+                                                                    $currentStatus=$categoryStatus['category_status'];
+                                                                    if ($currentStatus == "Enabled"){
+                                                                ?>
+																	<input type="radio" name="category_status" Value="Enabled" checked>Enabled<br>
 																	<input type="radio" name="category_status" Value="Disabled">Disabled
-																
+																<?php
+                                                                    }else{
+                                                                ?>
+                                                                    <input type="radio" name="category_status" Value="Enabled" >Enabled<br>
+                                                                    <input type="radio" name="category_status" Value="Disabled" checked>Disabled
+                                                                <?php
+                                                                    }
+                                                                ?>
 
                                                             </div>
                                                         </div>
