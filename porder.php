@@ -161,7 +161,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM purchased_order_list INNER JOIN clients ON purchased_order_list.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order_list.merchandiser_id = merchandiser.m_id INNER JOIN purchased_order ON purchased_order_list.p_order_id = purchased_order.order_id");
+							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser_id = merchandiser.m_id");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -261,7 +261,7 @@ if(!$_SESSION['username'])  {
 															foreach ($run as $log){
 															$toData = $log["productList_id"];        
 														?>
-															<br><input type="text" value= "<?php  echo $log["productList_name"]."".$log["unit"];?>" readonly>
+															<br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["value"]." ".$log["unit"];?>" readonly>
 																<input type="text" value= "<?php  echo $log["order_qty"];  ?>" readonly>
 
 														<?php

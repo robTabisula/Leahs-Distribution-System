@@ -156,7 +156,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM bad_order inner join bo_list on bad_order.bo_id = bo_list.bo_id");
+                            $retrieve = ("SELECT * FROM bad_order inner join clients on bad_order.bo_client = clients.c_id");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -168,6 +168,7 @@ if(!$_SESSION['username'])  {
 							<th>Bad Order Product(s)</th>
                             <th>Date/Time</th>
                             <th>Issuer</th>
+							<th>Client</th>
 							<th>Branch</th>
                             <th>Remarks</th>
 
@@ -201,10 +202,14 @@ if(!$_SESSION['username'])  {
                                     <?php echo $data["bo_issue_account"];
                                     ?>
                                 </td>
+								<td  data-title="Client">
+                                    <?php echo $data["c_name"];
+                                    ?>
+                                </td>
 								
 								<td data-title="Branch">
                                     <?php
-                                        $passBranch = $data["branch"];  
+                                        $passBranch = $data["c_location"];  
                                         echo $passBranch; 
                                     ?>
                                 </td>
@@ -234,10 +239,10 @@ if(!$_SESSION['username'])  {
                                     <label>Product</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <label>Quantity</label>
+                                    <label>Adjusted Price</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                    <label>Adjusted Price</label>
+                                    <label>Quantity</label>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                     
@@ -245,7 +250,7 @@ if(!$_SESSION['username'])  {
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
                                     ?>
-                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["unit"];  ?>" readonly>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["value"]." ".$log["unit"];  ?>" readonly>
 											<input type="text" value= "<?php  echo $log["bo_price"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["bo_qty"];  ?>" readonly>
                                             

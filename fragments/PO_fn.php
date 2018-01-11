@@ -19,6 +19,7 @@
             $remarks = $_POST['remarks'];//remarks for issuance
             $PO_id = $_POST['PO_id'];//new issuance id +1  issueAcnt
             $issueAcnt = $_POST['issueAcnt'];//issuer
+			$client_id = $_POST['client_id'];
             date_default_timezone_set('Asia/Manila');
             $issue_date_time = date("F j, Y, g:i a");
             $branch = $_POST['branch'];//baguio or pangasinan
@@ -29,8 +30,8 @@
             
 
             //query for PO table
-            $queryit = "INSERT INTO pull_out (po_id, po_remarks, po_date, po_issue_account) 
-                           VALUE ('$PO_id','$remarks','$issue_date_time','$issueAcnt')";
+            $queryit = "INSERT INTO pull_out (po_id, po_remarks, po_date, po_issue_account,po_client) 
+                           VALUE ('$PO_id','$remarks','$issue_date_time','$issueAcnt','$client_id')";
             if(mysqli_query($db, $queryit)){
                 $get_id="SELECT po_id FROM pull_out WHERE po_id = '$PO_id'";
                   $run=mysqli_query($db,$get_id);
@@ -65,8 +66,8 @@
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
-                         $queryil = "INSERT INTO po_list (po_id, po_price, po_qty, branch, po_product_id, po_remarks) 
-                               VALUE ('$id','$adjprice','$qty','$branch','$productIDList','$p_remarks')";
+                         $queryil = "INSERT INTO po_list (po_id, po_price, po_qty, branch, po_product_id, po_remarks,po_client) 
+                               VALUE ('$id','$adjprice','$qty','$branch','$productIDList','$p_remarks','$client_id')";
                         if(mysqli_query($db, $queryil)){
                           echo"<script>alert('Products have been successfully added to pull-out')</script>";
                           echo "<script>window.open('../log_Returns.php','_self')</script>"; 

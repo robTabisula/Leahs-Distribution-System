@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 11, 2018 at 04:44 PM
+-- Generation Time: Jan 11, 2018 at 05:04 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -354,7 +354,7 @@ DROP TABLE IF EXISTS `merchandiser`;
 CREATE TABLE IF NOT EXISTS `merchandiser` (
   `m_id` int(15) NOT NULL AUTO_INCREMENT,
   `m_name` varchar(25) NOT NULL,
-  `m_contact_number` int(15) NOT NULL,
+  `m_contact_number` varchar(15) NOT NULL,
   `m_address` varchar(50) NOT NULL,
   `m_branch` varchar(10) NOT NULL,
   PRIMARY KEY (`m_id`)
@@ -365,10 +365,10 @@ CREATE TABLE IF NOT EXISTS `merchandiser` (
 --
 
 INSERT INTO `merchandiser` (`m_id`, `m_name`, `m_contact_number`, `m_address`, `m_branch`) VALUES
-(6, 'mike', 123456789, 'somewhere', 'Baguio'),
-(7, 'michael', 1234567890, '12345678901234567890', 'Baguio'),
-(8, 'Michael', 926082764, 'CentralBalili', 'Baguio'),
-(9, 'Michael Angelo Raiii', 1234567890, 'Balili', 'Baguio');
+(6, 'mike', '123456789', 'somewhere', 'Baguio'),
+(7, 'michael', '1234567890', '12345678901234567890', 'Baguio'),
+(8, 'Michael', '926082764', 'CentralBalili', 'Baguio'),
+(9, 'Michael Angelo Raiii', '1234567890', 'Balili', 'Baguio');
 
 -- --------------------------------------------------------
 

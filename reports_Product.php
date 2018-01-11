@@ -218,7 +218,7 @@ if(!$_SESSION['username'])  {
 					
 					<!-- Retrieve Account Data -->
 					<?php
-									$retrieve = ("SELECT productList_id,productList_name,SUM(prod_qty) AS 'Total Quantity' ,unit FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id GROUP BY 1");
+									$retrieve = ("SELECT productList_id,productList_name,SUM(prod_qty) AS 'Total Quantity' ,unit,value FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id GROUP BY 1");
 									$results = mysqli_query($db, $retrieve);
 								?>
 						<!-- Table Display for Accounts -->
@@ -241,7 +241,7 @@ if(!$_SESSION['username'])  {
 												$individual_prod_id=$data["productList_id"];
 											?>
 											<td data-title="productList_name">
-												<?php echo $data["productList_name"]. " " .$data["unit"]; ?>
+												<?php echo $data["productList_name"]." ".$data["value"]." ".$data["unit"];  ?>
 											</td>
 											 <td data-title="productList_name">
 												<?php echo $data["Total Quantity"]; ?>

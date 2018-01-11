@@ -154,7 +154,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM issuance INNER JOIN clients ON issuance.client_id = clients.c_id");
+                            $retrieve = ("SELECT * FROM issuance inner join clients on issuance.client_id = clients.c_id");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -201,7 +201,8 @@ if(!$_SESSION['username'])  {
                                     ?>
                                 </td>
                                 <td data-title="Client">
-                                    <?php echo $data["c_name"]; ?>
+                                    <?php echo $data["c_name"]; 
+										$client_id=$data["client_id"];?>
                                 </td>
                                 <td data-title="Branch">
                                     <?php
@@ -214,7 +215,7 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td data-title="Pull Out">
                                         <table class="table table-striped table-bordered">
-                                            <a href="issuance_Returns.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>">
+                                            <a href="issuance_Returns.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>">
                                                 <button type="button" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
                                                 </button>
@@ -223,7 +224,7 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td data-title="Bad Orders">
                                         <table class="table table-striped table-bordered">
-                                            <a href="issuance_BadOrder.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>">
+                                            <a href="issuance_BadOrder.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>">
                                                 <button type="button" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                 </button>
@@ -265,7 +266,7 @@ if(!$_SESSION['username'])  {
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
                                     ?>
-                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["unit"];  ?>" readonly>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["value"]." ".$log["unit"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_qty"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>
