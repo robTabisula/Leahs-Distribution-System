@@ -237,7 +237,7 @@
                                                  <label for="Action">Action:</label>  
                                                </td>
                                                 <td>
-                                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                                    
                                                       <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                                 </td>
                                             </tr>
@@ -402,7 +402,7 @@
                                                 <label for="Action">Action:</label>
                                             </td>
                                            <td> 
-                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                               
                                                 <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                             </td>
                                         </tr>
@@ -543,7 +543,7 @@
                                                 <label for="Action">Action:</label>
                                             </td>
                                            <td> 
-                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+
                                                 <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                             </td>
                                         </tr>
@@ -692,7 +692,7 @@
                                                 <label for="Action">Action:</label>
                                             </td>
                                            <td> 
-                                                <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+
                                                 <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                             </td>
                                         </tr>
