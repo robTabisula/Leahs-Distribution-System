@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2018 at 07:49 AM
+-- Generation Time: Jan 11, 2018 at 08:20 AM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -484,7 +484,16 @@ INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_i
 (92, 'mark', 'Added Order', 'January 11, 2018, 10:24 am', NULL, 'has successfully added a new order'),
 (93, 'robijn', 'Login', 'January 11, 2018, 3:00 pm', NULL, 'has successfully login'),
 (94, 'res', 'Login', 'January 11, 2018, 3:04 pm', NULL, 'has successfully login'),
-(95, 'mark', 'Login', 'January 11, 2018, 3:13 pm', NULL, 'has successfully login');
+(95, 'mark', 'Login', 'January 11, 2018, 3:13 pm', NULL, 'has successfully login'),
+(96, 'res', 'Login', 'January 11, 2018, 3:52 pm', NULL, 'has successfully login'),
+(97, 'mark', 'Login', 'January 11, 2018, 3:52 pm', NULL, 'has successfully login'),
+(98, 'res', 'Login', 'January 11, 2018, 4:04 pm', NULL, 'has successfully login'),
+(99, 'mark', 'Login', 'January 11, 2018, 4:09 pm', NULL, 'has successfully login'),
+(100, 'mark', 'Added Merchandiser', 'January 11, 2018, 4:09 pm', NULL, 'has successfully added a new merchandiser'),
+(101, 'res', 'Login', 'January 11, 2018, 4:10 pm', NULL, 'has successfully login'),
+(102, 'mark', 'Login', 'January 11, 2018, 4:17 pm', NULL, 'has successfully login'),
+(103, 'res', 'Login', 'January 11, 2018, 4:17 pm', NULL, 'has successfully login'),
+(104, 'res', 'Added Merchandiser', 'January 11, 2018, 4:19 pm', NULL, 'has successfully added a new merchandiser');
 
 -- --------------------------------------------------------
 
@@ -507,7 +516,9 @@ CREATE TABLE `merchandiser` (
 INSERT INTO `merchandiser` (`m_id`, `m_name`, `m_contact_number`, `m_address`, `m_branch`) VALUES
 (1, 'Mark', 981218212, 'Bonifacio', 'Baguio'),
 (2, 'Res', 102912121, 'Manila', 'Pangasinan'),
-(3, 'Vic Sotto', 912121234, 'Kalinga', 'Pangasinan');
+(3, 'Vic Sotto', 912121234, 'Kalinga', 'Pangasinan'),
+(4, 'Ross', 91212, 'Malacanang', 'Baguio'),
+(5, 'Mark', 912120910, 'Bakakeng', 'Baguio');
 
 -- --------------------------------------------------------
 
@@ -882,12 +893,12 @@ ALTER TABLE `issuance`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `logs_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT for table `merchandiser`
 --
 ALTER TABLE `merchandiser`
-  MODIFY `m_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `m_id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `product_list`
 --

@@ -78,6 +78,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -87,6 +88,7 @@ if(!$_SESSION['username'])  {
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
+					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
 
                 <!-- Reports Submenu -->
@@ -109,6 +111,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -157,7 +160,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id");
+							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser = merchandiser.m_id");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -174,6 +177,7 @@ if(!$_SESSION['username'])  {
 								<th>Merchandiser</th>
 								<th>Date and Time</th>
 								<th>Branch</th>
+								<th>Purchased Product</th>
 							</tr>
 						</thead>
 			   
@@ -194,12 +198,13 @@ if(!$_SESSION['username'])  {
                                         </table>
 									</td>
 									
-									<td data-title="Client">
-										<?php echo $data["c_name"]; ?>
+									<td data-title="c_id">
+										<?php echo $c_id=$data["c_name"]; ?>
+													
 									</td>
 									
-									<td data-title="Merchandiser">
-										<?php echo $data["merchandiser"]; ?>
+									<td data-title="m_id">
+										<?php echo $m_id=$data["m_name"]; ?>
 									</td>
 									
 									<td data-title="Date/Time">
@@ -212,6 +217,15 @@ if(!$_SESSION['username'])  {
                                         echo $passBranch;
 										?>
 									</td>
+									<td data-title="Purchased Product">
+                                        <table class="table table-striped table-bordered">
+                                            <a href="purchased_order_fn.php?po_id=<?php echo $po_id; ?>&Branch=<?php echo $passBranch; ?>">
+                                                <button type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                                </button>
+                                            </a>
+                                        </table>
+                                </td>
 									
 								</tr>
 								
@@ -225,7 +239,9 @@ if(!$_SESSION['username'])  {
 													<h4 class="modal-title">Purchase Ordered</h4>
 												</div>
 												<div class="modal-body">
-														<h4>Purchased Order ID: <?php  echo $data["order_id"];  ?></h4>
+														<h4><b>Purchased Order ID: </b><?php  echo $data["order_id"];  ?></h4>
+														<h4><b>Client: </b><?php  echo $data["c_name"];  ?></h4>
+														<h4><b>Merchandiser:</b> <?php  echo $data["m_name"];  ?></h4>
 														<?php
 															$queryProducts = "SELECT * FROM  purchased_order_list INNER JOIN product_list ON purchased_order_list.prdct_id = product_list.productList_id INNER JOIN product_loc ON purchased_order_list.prdct_id = product_loc.product_id WHERE p_order_id = '$po_id' AND location = '$passBranch'";
 															$run = mysqli_query($db, $queryProducts);
@@ -242,7 +258,7 @@ if(!$_SESSION['username'])  {
 															foreach ($run as $log){
 															$toData = $log["productList_id"];        
 														?>
-															<br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
+															<br><input type="text" value= "<?php  echo $log["productList_name"]."".$log["unit"];?>" readonly>
 																<input type="text" value= "<?php  echo $log["order_qty"];  ?>" readonly>
 
 														<?php
