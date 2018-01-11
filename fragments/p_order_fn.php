@@ -23,16 +23,16 @@
             $issue_date_time = date("F j, Y, g:i a");
             $branch = $_POST['branch'];//baguio or pangasinan
             $productList = $_POST['productList'];//array for product id
-            $po_price = $_POST['adjusted_price'];//array for new price
+            $price = $_POST['price'];//array for new price
             $quantity = $_POST['quantity'];//array for quantity ordered
             $p_remarks = $_POST['premarks'];//array for remarks
             
 
             //query for PO table
-            $queryit = "INSERT INTO pull_out (po_id, po_remarks, po_date, po_issue_account) 
-                           VALUE ('$PO_id','$remarks','$issue_date_time','$issueAcnt')";
+            $queryit = "INSERT INTO issuance (issue_date_time, issueAcnt, issue_type,remarks,client_id) 
+                           VALUE ('$issue_date_time','$issueAcnt','1','$remarks')";
             if(mysqli_query($db, $queryit)){
-                $get_id="SELECT po_id FROM pull_out WHERE po_id = '$PO_id'";
+                $get_id="SELECT issue_id FROM issuance WHERE issue_id = '$order_id'";
                   $run=mysqli_query($db,$get_id);
                   $row = mysqli_fetch_array($run);
               $id=$row[0];
@@ -40,12 +40,12 @@
                 //query for issuance list table
                $mi = new MultipleIterator();
                $mi->attachIterator(new ArrayIterator($productList));
-               $mi->attachIterator(new ArrayIterator($po_price));
+               $mi->attachIterator(new ArrayIterator($price));
                $mi->attachIterator(new ArrayIterator($quantity));
                $mi->attachIterator(new ArrayIterator($p_remarks));
 
                foreach ( $mi as $value ){
-                    list($product, $adjprice, $qty, $p_remarks) = $value;
+                    list($product, $price, $quantity, $p_remarks) = $value;
 
                     $idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
                     $queryId = mysqli_query($db, $idQuery);
@@ -60,12 +60,12 @@
                     $product_quantity=$product_inventory['iS_quantity'];
 
                     //reduce quantity in inventory
-                    $newQ=$product_quantity+$qty;
+                    $newQ=$product_quantity+$quantity;
                     $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inpo_id, po_price, po_qty, branch, po_product_id, po_remarksventory.iS_location = '$branch'";
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
-                         $queryil = "INSERT INTO po_list (po_id, po_price, po_qty, branch, po_product_id, po_remarks) 
+                         $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, po_product_id, po_remarks) 
                                VALUE ('$id','$adjprice','$qty','$branch','$productIDList','$p_remarks')";
                         if(mysqli_query($db, $queryil)){
                           echo"<script>alert('Products have been successfully added to pull-out')</script>";
