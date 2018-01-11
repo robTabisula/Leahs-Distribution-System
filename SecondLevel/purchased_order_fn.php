@@ -15,7 +15,7 @@ if(!$_SESSION['username'])  {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Return Issuance</title>
+    <title>Purchased Products</title>
 
     <!-- Database Connection -->
     <?php include('fragments/config.php') ?>
@@ -64,7 +64,7 @@ if(!$_SESSION['username'])  {
             addedQuantity.setAttribute("readOnly", "true");
 
             addedPrc = document.createElement('input');
-            addedPrc.setAttribute("name", "adjusted_price[]");
+            addedPrc.setAttribute("name", "price[]");
             addedPrc.setAttribute("type", "text");
             addedPrc.setAttribute("value", price);
             addedPrc.setAttribute("readOnly", "true");
@@ -127,6 +127,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -135,6 +136,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -159,6 +161,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
 
@@ -202,10 +205,10 @@ if(!$_SESSION['username'])  {
     <div id="page-content-wrapper">
         <div class="containers">
             <table class="table table-striped table-bordered">
-                <h1 align="center">Return Issuance</h1>
+                <h1 align="center">Issue Purchased Orders</h1>
             </table>
 
-            <form role="form" method="post" action="fragments/PO_fn.php">
+            <form role="form" method="post" action="fragments/p_order_fn.php">
                 <fieldset>
                     <div align="center">
 
@@ -213,27 +216,21 @@ if(!$_SESSION['username'])  {
                         <input type='hidden' name="branch" readonly value='<?php  echo $_GET['Branch']; ?>'/>
                         
                         <div class="col-xs-4">
-                            <h4>Pull Out ID</h4>
+                            <h4>Purchased ID</h4>
                                   <?php
-                                            $retrieveId = ("SELECT po_id from pull_out order by 1 desc limit 1;");
+                                            $retrieveId = ("SELECT order_id from purchased_order order by 1 desc limit 1;");
                                             $idRetrieve = mysqli_query($db, $retrieveId);
                                             $idRow = mysqli_fetch_array($idRetrieve);
 
-                                            $latestid = $idRow['po_id'];
+                                            $latestid = $idRow['order_id'];
                                             $newID = $latestid + 1; //will increment 1 from the latest issuance ID
                                     ?>
-                            <h4><input type="text" size='2' name="PO_id" value='<?php echo $newID;?>' readonly></input></h4>
+                            <h4><input type="text" size='2' name="order_id" value='<?php echo $newID;?>' readonly></input></h4>
                         </div>
                         
                         <div class="col-xs-4">
                                 <h4>Remarks</h4>
-                                <textarea rows="1" cols="30" name="remarks"></textarea>
-                        </div>
-
-                        <div class="col-xs-4">
-                                <h4>Date and Time</h4>
-                                <?php $date = date("Y-m-d H:i:s");  ?>
-                                <input type="label" name="date" value="<?php echo $date;?>" readonly/>
+                                <textarea rows="1" cols="40" name="remarks"></textarea>
                         </div>
                         
                             <br>
@@ -244,12 +241,12 @@ if(!$_SESSION['username'])  {
                     <div id="next">
 
                         <?php 
-                            $getIsID = $_GET['IsID'];
+                            $getIsID = $_GET['po_id'];
                             $getBranch = $_GET['Branch'];
-
-                            $queryProducts = "SELECT * FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN product_loc ON issuance_list.prod_id = product_loc.product_id WHERE issue_id = '$getIsID' AND  location = '$getBranch'";
+							
+                            $queryProducts = "SELECT * FROM purchased_order_list INNER JOIN product_list ON purchased_order_list.prdct_id = product_list.productList_id INNER JOIN product_loc ON purchased_order_list.prdct_id = product_loc.product_id WHERE p_order_id = '$getIsID' AND location = '$getBranch'";
                             $run = mysqli_query($db, $queryProducts);
-
+							
                         ?>
                         <!--********************************************************************************** -->
 
@@ -258,32 +255,31 @@ if(!$_SESSION['username'])  {
                         <!--Div to view adjusted price and category-->
                         <div id="AdjustedPriceDiv">
                             <?php
-                                            $getIsID = $_GET['IsID'];
+                                            $getIsID = $_GET['po_id'];
 
-                                            $infoQuery = "SELECT * FROM leahs.issuance_list inner join product_list on productList_id=prod_id where issue_id = '$getIsID'";
+                                            $infoQuery = "SELECT * FROM leahs.purchased_order_list inner join product_list on productList_id=prdct_id where p_order_id = '$getIsID'";
                                             $runInfoQuery = mysqli_query($db, $infoQuery);
+											
 
                                         ?>
-                                <label>Issuance ID</label>
-                                <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
+                                <label>Order ID</label>
+                                <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['po_id']; ?>'/>&nbsp&nbsp&nbsp
+								
                                 <label>Branch</label>
-                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>
+                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/><br>
                                 <h4>Product Description: </h4>
                                 <?php
                                             foreach ($runInfoQuery as $info):
-                                            $product_id = $info["issue_id"];
+                                            $product_id = $info["p_order_id"];
                                         ?>
                                     
                                     <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
+                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]."".$info["unit"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
-                                    <input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' />&nbsp
-                                    <label>Issued Price:</label>
-                                    <input type='text' size='2' readonly value='<?php  echo $info["prod_price"]; ?>' />&nbsp
-                                    <label>Product Remarks:</label>
-                                    <input type='text' size='20' readonly value='<?php  echo $info["prod_remarks"]; ?>' />&nbsp
-
-
+                                    <input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>' />&nbsp
+                                    <label>Order Remarks:</label>
+                                    <input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' />&nbsp
+									<br>
 
                                     <?php
                                             endforeach;
@@ -301,7 +297,7 @@ if(!$_SESSION['username'])  {
                                     <label for="product">Product:</label>
                                 </td>
                                 <td>
-                                    <select id="product" name="product" id="productselect">
+                                    <select id="product" name="productList" id="productselect">
                                                     <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                             <?php
                                                                 foreach ($run as $datas):
@@ -309,7 +305,7 @@ if(!$_SESSION['username'])  {
                                                             ?>  
                                                                 
                                                                 <option value = "<?php  echo $datas["productList_name"];  ?>">
-                                                                   <?php  echo $datas["productList_name"];  ?>
+                                                                   <?php  echo $datas["productList_name"]."".$datas["unit"];  ?>
                                                                 </option>
                                                       
                                                             <?php
@@ -359,7 +355,7 @@ if(!$_SESSION['username'])  {
                         <br>
 
                         <!--********************************************************************************************************-->
-                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_PO" />
+                        <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_p_order" />
                         </div>
                 </fieldset>
             </form>

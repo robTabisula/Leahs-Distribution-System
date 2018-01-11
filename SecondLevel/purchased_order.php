@@ -74,6 +74,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -82,7 +83,9 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
+					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
 
                 <!-- Reports Submenu -->
@@ -105,6 +108,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -164,15 +168,32 @@ if(!$_SESSION['username'])  {
 									  
 								</div>
 								
-								<div class="col-xs-4">  
-                                        <h4>Merchandiser</h4>
-                                        <input type="text" size="15" name="merchandiser" />
-                                    </div>
+								<div class="col-xs-4">
+                                <h4>Merchandiser</h4>
+									<?php
+                                        $queryMer = ("SELECT m_id,m_name FROM merchandiser");
+                                        $result = mysqli_query($db, $queryMer);
+                                    ?>                      
+                                    <select name="merchandiser" required>
+                                    <option value = "" selected="true" disabled="disabled">Select Merchandiser..</option>
+                                        <?php
+                                            foreach ($result as $data):
+                                                $toData = $data["m_id"];
+                                               
+                                        ?>
+
+                                        <option value = "<?php echo $data["m_id"];?>"> <?php echo $data["m_name"]; ?></option>
+                                       <?php
+                                            endforeach;
+                                        ?>
+                                    </select>
+								</div>
+								
 								<br><br><br><br>
 								
 								<div class="form-group">                            
                                     <?php
-                                        $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                        $retrieveProd = ("SELECT distinct productList_id, productList_name,unit, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                         $prodRetrieve = mysqli_query($db, $retrieveProd);
                                     ?>
                                 </div> 
@@ -190,7 +211,7 @@ if(!$_SESSION['username'])  {
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $sproduct_id;?>">
-                                                               <?php echo $datas["productList_name"]; ?>
+                                                               <?php echo $datas["productList_name"]."".$datas["unit"]; ?>
                                                             </option>
                                                   
                                                         <?php
