@@ -36,8 +36,8 @@
 				$issueAcnt = $_POST['issueAcnt'];
             
         //query for issuance table
-              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks, client_id, issue_account) 
-                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$clientlist','$issueAcnt')";
+              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks, issue_account) 
+                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$issueAcnt')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
       				$run=mysqli_query($db,$get_id);
@@ -69,8 +69,8 @@
 							$update=mysqli_query($db,$insertnew);
 					   
 							//query for issuance list
-									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
-											   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks')";
+									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
+											   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks','$clientlist')";
 											   	mysqli_query($db, $queryil);
 					
 									$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
@@ -78,7 +78,7 @@
 
 									if(mysqli_query($db, $query2)){
 										echo"<script>alert('Products have been successfuly issued to a client')</script>";
-										echo "<script>window.open('../issuance.php','_self')</script>"; 
+										echo "<script>window.open('../log_issuance.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));
 									}						

@@ -284,7 +284,7 @@ if(!$_SESSION['username'])  {
                                         ?>
                                     
                                     <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]."".$info["unit"]; ?>' />&nbsp
+                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]." ".$info["value"]." ".$info["unit"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
                                     <input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>' />&nbsp
                                     <label>Order Remarks:</label>
@@ -315,7 +315,7 @@ if(!$_SESSION['username'])  {
                                                             ?>  
                                                                 
                                                                 <option value = "<?php  echo $datas["productList_name"];  ?>">
-                                                                   <?php  echo $datas["productList_name"]." ".$datas["unit"];  ?>
+                                                                   <?php  echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"];   ?>
                                                                 </option>
                                                       
                                                             <?php

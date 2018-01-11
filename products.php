@@ -238,7 +238,7 @@ if(!$_SESSION['username'])  {
                                             $individual_product_id=$data["productList_id"];
                                         ?>
                                     <td data-title="Product Name">
-										<?php echo $data["productList_name"]."(".$data["unit"]. ")"; ?>
+										<?php echo $data["productList_name"]." ".$data["value"]." ".$data["unit"]; ?>
                                     </td>
                                     <td data-title="Category">
                                         <?php
@@ -384,22 +384,25 @@ if(!$_SESSION['username'])  {
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
 									
+									<h3>Value</h3>
+                                    <input type="number" class="form-control" maxlength="25" name="value" required>
+									
 									<h3>Unit</h3>
                                         <select name="unit" class="form-control">
-                                        <option value="100g">100g</option>
-										<option value="200g">200g</option>
-                                        <option value="250g">250g</option>
-										<option value="300g">300g</option>
-										<option value="500g">500g</option>
-										<option value="1kg">1kg</option>
-										<option value="1pck">1pck</option>
-										<option value="1pcs">pcs</option>
+                                        <option value="gm(s)">gm(s)</option>
+										<option value="kg">kg</option>
+                                        <option value="bale">bale</option>
+										<option value="pack">pack</option>
+										<option value="piece">piece</option>
+										<option value="box">box</option>
+										<option value="ml">ml</option>
+										<option value="L">L</option>
 										</select>
 
                                     <h3>Product Category</h3>
                                     <?php
                                         $retrieveCat = ("SELECT category_id, category_name, 
-                                         category_status FROM category_list");
+                                         category_status FROM category_list where category_status = 'Enabled'");
                                         $categoryResult = mysqli_query($db, $retrieveCat);
                                     ?>
 										
