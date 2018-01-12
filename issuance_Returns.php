@@ -269,9 +269,9 @@ if(!$_SESSION['username'])  {
 
                                         ?>
                                 <label>Issuance ID</label>
-                                <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
+                                <input type='text' size='2' name="issuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
                                 <label>Branch</label>
-                                <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
+                                <input type='text' size='10' name="branch_alt" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
 								<label>Client</label>
                                 <input type='text' size='10' name="client_id" readonly value='<?php  echo $_GET['client_id']; ?>'/>
                                 <h4>Product Description: </h4>

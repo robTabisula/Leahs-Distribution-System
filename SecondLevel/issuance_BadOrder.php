@@ -136,6 +136,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -160,6 +161,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
 
@@ -263,7 +265,7 @@ if(!$_SESSION['username'])  {
                                             $runInfoQuery = mysqli_query($db, $infoQuery);
                                         ?>
                                 <label>Issuance ID</label>
-                                <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
+                                <input type='text' size='2' name="issuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
                                 <label>Branch</label>
                                 <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
 								<label>Client</label>

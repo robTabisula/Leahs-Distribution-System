@@ -265,7 +265,7 @@ if(!$_SESSION['username'])  {
 
                                         ?>
                                 <label>Order ID</label>
-                                <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['po_id']; ?>'/>&nbsp&nbsp&nbsp
+                                <input type='text' size='2' name="orderID" readonly value='<?php  echo $_GET['po_id']; ?>'/>&nbsp&nbsp&nbsp
 								
                                 <label>Branch</label>
                                 <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp

@@ -16,6 +16,7 @@
           
         <?php
               if (isset($_POST["add_p_order"])) {
+			$orderID = $_POST['orderID'];
             $remarks = $_POST['remarks'];//remarks for issuance
             $order_id = $_POST['order_id'];//new issuance id +1  issueAcnt
 			$client_id = $_POST['c_id'];
@@ -55,7 +56,12 @@
                     $productID = mysqli_fetch_array($queryId);
                     $productIDList = $productID['productList_id'];
 
-
+				   //read current quantity in issuance_list
+                    $getqtyissued="SELECT order_qty FROM purchased_order_list where p_order_id = '$orderID'";
+                    $getqty=mysqli_query($db, $getqtyissued);
+                    $get=mysqli_fetch_array($getqty);
+                    $qtyissued=$get['order_qty'];
+					
                     //read inventory per product chosen
                     $pinq="SELECT * FROM inventory where inventory.iS_product_id = '$productIDList' and inventory.iS_location='$branch'";
                     $pinqactivate=mysqli_query($db, $pinq);
@@ -72,6 +78,11 @@
                                VALUE ('$id','$quantity','$price','$branch','$productIDList','$p_remarks','$client_id')";
 							   mysqli_query($db, $queryil);
 							   
+					//reduce quantity in purchased_order_list						   
+						$newqty = $qtyissued-$quantity;
+						$updateqty="UPDATE purchased_order_list set order_qty='$newqty' where prdct_id = '$productIDList' AND p_order_id = '$orderID'";
+						$updt=mysqli_query($db,$updateqty);
+						
 							$query = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
 						   VALUE ('$issueAcnt','Issued Order','$date_time','has successfully issued a new order')";
                         

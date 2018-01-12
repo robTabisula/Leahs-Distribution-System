@@ -265,7 +265,7 @@ if(!$_SESSION['username'])  {
                                             $runInfoQuery = mysqli_query($db, $infoQuery);
                                         ?>
                                 <label>Issuance ID</label>
-                                <input type='text' size='2' name="IsuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
+                                <input type='text' size='2' name="issuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
                                 <label>Branch</label>
                                 <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
 								<label>Client</label>

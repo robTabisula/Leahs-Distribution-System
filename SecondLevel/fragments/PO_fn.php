@@ -16,6 +16,7 @@
           
         <?php
               if (isset($_POST["add_PO"])) {
+			$issuanceID = $_POST['issuanceID'];
             $remarks = $_POST['remarks'];//remarks for issuance
             $PO_id = $_POST['PO_id'];//new issuance id +1  issueAcnt
             $issueAcnt = $_POST['issueAcnt'];//issuer
@@ -52,7 +53,12 @@
                     $queryId = mysqli_query($db, $idQuery);
                     $productID = mysqli_fetch_array($queryId);
                     $productIDList = $productID['productList_id'];
-
+                   
+				   //read current quantity in issuance_list
+                    $getqtyissued="SELECT prod_qty FROM issuance_list where issue_id = '$issuanceID'";
+                    $getqty=mysqli_query($db, $getqtyissued);
+                    $get=mysqli_fetch_array($getqty);
+                    $qtyissued=$get['prod_qty'];
 
                     //read inventory per product chosen
                     $pinq="SELECT * FROM inventory where inventory.iS_product_id = '$productIDList' and inventory.iS_location='$branch'";
@@ -61,13 +67,19 @@
                     $product_quantity=$product_inventory['iS_quantity'];
 
                     //reduce quantity in inventory
-                    $newQ=$product_quantity+$qty;
+                    $newQ=$product_quantity-$qty;
                     $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inpo_id, po_price, po_qty, branch, po_product_id, po_remarksventory.iS_location = '$branch'";
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
                          $queryil = "INSERT INTO po_list (po_id, po_price, po_qty, branch, po_product_id, po_remarks,po_client) 
                                VALUE ('$id','$adjprice','$qty','$branch','$productIDList','$p_remarks','$client_id')";
+							
+					//reduce quantity in issuance						   
+						$newqty = $qtyissued - $qty;
+						$updateqty="UPDATE issuance_list set prod_qty='$newqty' where prod_id = '$productIDList' AND issue_id = '$issuanceID'";
+						$updt=mysqli_query($db,$updateqty);
+					
                         if(mysqli_query($db, $queryil)){
                           echo"<script>alert('Products have been successfully added to pull-out')</script>";
                           echo "<script>window.open('../log_Returns.php','_self')</script>"; 
