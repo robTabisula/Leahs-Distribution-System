@@ -30,7 +30,6 @@
             $quantity = $_POST['quantity'];//array for quantity ordered
             $p_remarks = $_POST['premarks'];//array for remarks
 			$date_time = date("F j, Y, g:i a");
-            
 
             //query for PO table
             $queryit = "INSERT INTO issuance (issue_id,issue_date_time, issue_account, issue_type,remarks,client_id,merch_id) 
@@ -72,7 +71,7 @@
                     $newQ=$product_quantity-$quantity;
                     $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inventory.iS_location = '$branch'";
                     $update=mysqli_query($db,$insertnew);
-                   
+
                     //query for issuance list
                          $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
                                VALUE ('$id','$quantity','$price','$branch','$productIDList','$p_remarks','$client_id')";
