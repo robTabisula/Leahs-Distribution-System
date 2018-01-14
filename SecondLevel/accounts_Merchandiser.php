@@ -108,6 +108,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -184,6 +185,9 @@ if(!$_SESSION['username'])  {
 							$results = mysqli_query($db, $retrieve);
 						?>
 
+                <table class="table table-striped table-bordered">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
+                </table>
 
                 <!-- Table Display for Accounts -->
                 <div id="mainContainer">
@@ -194,6 +198,7 @@ if(!$_SESSION['username'])  {
                             <th>Address</th>
                             <th>Contact Number</th>
 							<th>Branch</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
            
@@ -218,6 +223,11 @@ if(!$_SESSION['username'])  {
                                 </td>
 								 <td data-title="branch">
                                     <?php echo $data["m_branch"]; ?>
+                                </td>
+								<td data-title="edit">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_acc_id;?>"></button>
+                                        </table>
                                 </td>
                             </tr>
 							<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Edit modal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
@@ -308,6 +318,44 @@ if(!$_SESSION['username'])  {
                     </tbody>
                 </table>
 
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add Account</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="fragments/addMerchandiser.php" method="POST" onsubmit="return validateForm()">
+								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
+                                    <h3>Name</h3>
+                                    <input type="text" class="form-control" maxlength="100" name="m_name"  autofocus required>
+
+                                    <h3>Address</h3>
+                                    <input type="text" class="form-control" maxlength="100" name="m_address" required>
+
+                                    <h3>Contact Number</h3>
+                                    <input type="text" class="form-control" maxlength="25" name="m_contact_number" onkeypress="return isNumber(event)" required>
+									
+									<h3>Branch</h3>
+                                    <div class="col-xs-4">
+										<select name="m_branch" class="form-control">
+											<option>Baguio</option>
+											<option>Pangasinan</option>
+										</select>
+									</div><br>
+									
+                                    <div class="modal-footer">
+                                        <input name="add_merchandiser" id="enter" type="submit" class="btn btn-default" value="Submit"/>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     </div>

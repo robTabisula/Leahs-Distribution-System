@@ -207,6 +207,10 @@ if(!$_SESSION['username'])  {
                 $results = mysqli_query($db, $retrieve); 
             ?>
 
+                <table class="table table-striped table-bordered">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
+                </table>
+
                 <div id="mainContainer">
                     <!-- Table Display for Accounts -->
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -215,6 +219,7 @@ if(!$_SESSION['username'])  {
                                 <th>Barcode</th>
                                 <th>Product Name</th>
                                 <th>Category</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
 
@@ -241,9 +246,118 @@ if(!$_SESSION['username'])  {
                                             echo $passCategory; 
                                         ?>
                                     </td>
-
+                                    <td data-title="edit">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>
+                                        </table>
+                                    </td>
                                 </tr>
+                                <!--Edit modal-->
+                                <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Product</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                            <?php
+                                            $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list
+                                                     on product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Baguio'";
+                                            $run = mysqli_query($db, $query);
+                                            $row = mysqli_fetch_array($run);//baguio
 
+                                            $query = "select * from product_list inner join product_loc on product_list.productList_id= product_loc.product_id inner join category_list on 
+                                                    product_list.category_id=category_list.category_id where product_list.productList_id='$individual_product_id' and product_loc.location='Pangasinan'";
+                                            $runp = mysqli_query($db, $query);
+                                            $rowp = mysqli_fetch_array($runp);//pangasinan
+                                            ?>
+                                                   <form role="form" id="personal_info" class="login_form" method="post" action="fragments/editProducts.php">
+                                                        <input type="hidden" value="<?php echo $individual_product_id;?>" name="indiv_prod_id" />
+                                                        <div class="row">
+                                                            <div class="col-xs-4"><label>Barcode</label></div>
+                                                            <div class="col-xs-4"><label>Product</label></div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <input name="barcode" readOnly value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
+                                                            </div>
+                                                            <div class="col-xs-4">
+                                                                <input name="productList_name" readOnly value="<?php echo $row["productList_name"]."(".$row["unit"]. ")"; ?>" type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="client">
+                                                        
+                                                            <h5><b>Product Category</b></h5>
+
+															<div class="col-xs-4">
+                                                                <input name="ProductCategory" readOnly value="<?php echo $row['category_name']; ?>" type="text" class="form-control">
+															</div><br><br>
+                                                            
+                                                            <div class="row">
+                                                             <div class="col-xs-6"><label>Baguio Status</label><br>
+                                                                     
+                                                                            <?php 
+                                                                                $bstat=$row['status'];  
+                                                                            ?>
+                                                                            <?php if ($bstat=="Enabled"){
+                                                                                echo "<input type='radio' name='bstatus' value='Enabled' checked>Enabled<br>" ;
+                                                                                echo "<input type='radio' name='bstatus' value='Disabled'>Disabled" ;
+                                                                            }else{
+                                                                                echo "<input type='radio' name='bstatus' value='Enabled'>Enabled<br>" ;
+                                                                                echo "<input type='radio' name='bstatus' value='Disabled' checked>Disabled" ;
+                                                                              }
+                                                                            ?>                                                                       
+                                                                        
+                                                                    </div>
+															
+																	<div class="col-xs-6"><label>Pangasinan Status</label><br>
+                                                                                <?php 
+																					$pstat=$rowp['status'];		
+																				?>
+																				<?php if ($pstat=="Enabled"){
+                                                                                    echo "<input type='radio' name='pstatus' value='Enabled' checked>Enabled<br>";
+																					echo "<input type='radio' name='pstatus' value='Disabled'>Disabled";
+																				}else{
+																					echo "<input type='radio' name='pstatus' value='Enabled'>Enabled<br>" ;
+                                                                                    echo "<input type='radio' name='pstatus' value='Disabled' checked>Disabled";
+																				  }
+																				?>                                                                       
+                                                                        
+                                                                    </div>
+                                                            </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-xs-6"><label>Baguio Price</label>
+                                                                        <input name="baguioprice" type="number" value="<?php echo $row['altprice']; ?>.00" class="form-control" step="0.25">
+                                                                    </div>
+
+                                                                    <div class="col-xs-6"><label>Pangasinan Price</label>
+                                                                        <div class="row">
+                                                                            <div class="col-xs-10">
+                                                                                <input name="pangasinanprice" type="number" value="<?php echo $rowp['altprice']; ?>.00" class="form-control" step="0.25">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="row">
+                                                                    <div class="col-xs-12">
+                                                                        <br>
+                                                                        <div class="modal-footer">
+                                                                            <button name="save" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <?php     
                             endforeach;
                             ?>
@@ -251,6 +365,84 @@ if(!$_SESSION['username'])  {
                     </table>
                 </div>
 
+
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Add Product</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="fragments/addProduct.php" method="POST">
+								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
+                                    <h3>Barcode</h3>
+                                    <input type="text" class="form-control" maxlength="25" name="barcode">
+
+                                    <h3>Product Name</h3>
+                                    <input type="text" class="form-control" maxlength="25" name="productList_name" required>
+									
+									<h3>Value</h3>
+                                    <input type="number" class="form-control" maxlength="25" name="value" required>
+									
+									<h3>Unit</h3>
+                                        <select name="unit" class="form-control">
+                                        <option value="gm(s)">gm(s)</option>
+										<option value="kg">kg</option>
+                                        <option value="bale">bale</option>
+										<option value="pack">pack</option>
+										<option value="piece">piece</option>
+										<option value="box">box</option>
+										<option value="ml">ml</option>
+										<option value="L">L</option>
+										</select>
+
+                                    <h3>Product Category</h3>
+                                    <?php
+                                        $retrieveCat = ("SELECT category_id, category_name, 
+                                         category_status FROM category_list where category_status = 'Enabled'");
+                                        $categoryResult = mysqli_query($db, $retrieveCat);
+                                    ?>
+										
+                                        <select name="ProductCategory" class="form-control">
+                                                <?php
+                                                    foreach ($categoryResult as $data):
+                                                        $toData = $data["category_id"];
+                                                ?>
+
+                                                <option value = "<?= $data['category_name'] ?>"> <?php echo $data["category_name"]; ?></option>
+                                              
+                                               <?php
+                                                    endforeach;
+                                                ?>
+                                            </select>
+
+                                        <h3>Price For Baguio</h3>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" required>
+
+                                        <h3>Price For Pangasinan</h3>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" required>
+
+                                        <h3>Restock Level</h3>
+                                        <p>*Default values for all branches!!</p>
+                                        <input type="number" class="form-control" maxlength="25" name="restock" required>
+
+
+                                        <h3>Status</h3>
+                                        <input type="radio" name="status" value="Enabled"> Enabled
+                                        <input type="radio" name="status" value="Disabled" checked>Disabled
+
+                                        <div class="modal-footer">
+                                            <input name="add_prod" type="submit" class="btn btn-default" value=" Submit " />
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 

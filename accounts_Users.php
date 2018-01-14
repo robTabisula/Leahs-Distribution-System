@@ -350,9 +350,9 @@ if(!$_SESSION['username'])  {
 																<select name="acctype" class="form-control">
                                                                     <?php
                                                                         $acctype = $row['acctype'];
-                                                                        if ($acctype == 'User') {
+                                                                        if ($acctype == 'Manager') {
                                                                     ?>   
-                                                                            <option>User</option>
+                                                                            <option>Manager</option>
                                                                             <option>Admin</option>
                                                                             <option>Bookkeeper</option>
                                                                             <option>Secretary</option>
@@ -362,23 +362,25 @@ if(!$_SESSION['username'])  {
                                                                     ?>
                                                                             <option>Admin</option>
                                                                             <option>Bookkeeper</option>
+                                                                            <option>Manager</option>
                                                                             <option>Secretary</option>
-                                                                            <option>User</option>
+                                                                            
                                                                             
                                                                     <?php
                                                                             } else if($acctype == 'Bookkeeper') {
                                                                     ?>
                                                                             <option>Bookkeeper</option>
                                                                             <option>Admin</option>
+                                                                            <option>Manager</option>
                                                                             <option>Secretary</option>
-                                                                            <option>User</option>
+                                                                            
                                                                     <?php
                                                                             } else {
                                                                     ?>
                                                                             <option>Secretary</option>
                                                                             <option>Admin</option>
                                                                             <option>Bookkeeper</option>
-                                                                            <option>User</option>
+                                                                            <option>Manager</option>
                                                                     <?php
                                                                             }
                                                                     ?>
