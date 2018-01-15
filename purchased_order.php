@@ -210,8 +210,8 @@ if(!$_SESSION['username'])  {
                                                             foreach ($prodRetrieve as $datas):
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
-                                                            <option value = "<?php echo $sproduct_id;?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]."".$datas["unit"]; ?>
+                                                            <option value = "<?php echo $datas["productList_name"];?>">
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
                                                   
                                                         <?php
@@ -230,7 +230,7 @@ if(!$_SESSION['username'])  {
                                         </tr>
                                     </table>
                                     
-                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                
                                     <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                     <br>
                                 <br>

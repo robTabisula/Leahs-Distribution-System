@@ -241,7 +241,7 @@ if(!$_SESSION['username'])  {
                                             $individual_product_id=$data["productList_id"];
                                         ?>
                                     <td data-title="Product Name">
-										<?php echo $data["productList_name"]." ".$data["value"]." ".$data["unit"]; ?>
+										<?php echo $data["productList_name"]; ?>
                                     </td>
                                     <td data-title="Category">
                                         <?php
@@ -290,7 +290,7 @@ if(!$_SESSION['username'])  {
 
                                                             </div>
                                                             <div class="col-xs-4">
-                                                                <input name="productList_name" readOnly value="<?php echo $row["productList_name"]."(".$row["unit"]. ")"; ?>" type="text" class="form-control">
+                                                                <input name="productList_name" readOnly value="<?php echo $row["productList_name"]; ?>" type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="client">
@@ -391,20 +391,6 @@ if(!$_SESSION['username'])  {
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
 									
-									<h3>Value</h3>
-                                    <input type="number" class="form-control" maxlength="25" name="value" required>
-									
-									<h3>Unit</h3>
-                                        <select name="unit" class="form-control">
-                                        <option value="gm(s)">gm(s)</option>
-										<option value="kg">kg</option>
-                                        <option value="bale">bale</option>
-										<option value="pack">pack</option>
-										<option value="piece">piece</option>
-										<option value="box">box</option>
-										<option value="ml">ml</option>
-										<option value="L">L</option>
-										</select>
 
                                     <h3>Product Category</h3>
                                     <?php
@@ -427,14 +413,14 @@ if(!$_SESSION['username'])  {
                                             </select>
 
                                         <h3>Price For Baguio</h3>
-                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" required>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" min="1" required>
 
                                         <h3>Price For Pangasinan</h3>
-                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" required>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" min="1" required>
 
                                         <h3>Restock Level</h3>
                                         <p>*Default values for all branches!!</p>
-                                        <input type="number" class="form-control" maxlength="25" name="restock" required>
+                                        <input type="number" class="form-control" maxlength="25" name="restock" min="1" required>
 
 
                                         <h3>Status</h3>

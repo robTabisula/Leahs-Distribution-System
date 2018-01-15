@@ -277,7 +277,7 @@ if(!$_SESSION['username'])  {
                                         ?>
                                     
                                     <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]." ".$info["value"]."".$info["unit"]; ?>' />&nbsp
+                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
                                     <label>Issued Quantity: </label>
                                     <input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' />&nbsp
                                     <label>Issued Price:</label>
@@ -311,7 +311,7 @@ if(!$_SESSION['username'])  {
                                                             ?>  
                                                                 
                                                                 <option value = "<?php  echo $datas["productList_name"];  ?>">
-                                                                   <?php  echo $datas["productList_name"]." ".$datas["value"]."".$datas["unit"]; ?>
+                                                                   <?php  echo $datas["productList_name"]; ?>
                                                                 </option>
                                                       
                                                             <?php
@@ -338,7 +338,7 @@ if(!$_SESSION['username'])  {
                             </tr>
                         </table>
 
-                        <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn" value="Reset" />
+                    
                         <input type="button" class="btn btn-info btn-lg" onClick="updateForm();" / value="Add" />
                         <br>
                         <br>

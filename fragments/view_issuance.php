@@ -207,7 +207,7 @@
                                                                 $sproduct_id = $datas["productList_id"];
                                                             ?>  
                                                                 <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                                   <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                                   <?php echo $datas["productList_name"]; ?>
                                                                 </option>
 
                                                             <?php
@@ -372,7 +372,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
 
                                                         <?php
@@ -513,7 +513,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
 
                                                         <?php
@@ -662,7 +662,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
 
                                                         <?php

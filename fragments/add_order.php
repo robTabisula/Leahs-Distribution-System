@@ -47,14 +47,22 @@
 					   foreach ( $mi as $value ){
 							list($product, $qty, $p_remarks) = $value;
 							//read inventory per product chosen
-							$pinq="SELECT * FROM inventory where inventory.iS_product_id = '$product' and inventory.iS_location='$branch'";
+							$idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
+							$queryId = mysqli_query($db, $idQuery);
+							$productID = mysqli_fetch_array($queryId);
+							$productIDLists = $productID['productList_id'];
+
+
+
+
+							$pinq="SELECT * FROM inventory where inventory.iS_product_id = '$productIDLists' and inventory.iS_location='$branch'";
 							$pinqactivate=mysqli_query($db, $pinq);
 							$product_inventory=mysqli_fetch_array($pinqactivate);
 							$product_quantity=$product_inventory['iS_quantity'];
 					   
 							//query for issuance list
 									 $queryil = "INSERT INTO purchased_order_list (p_order_id, order_qty, branch, prdct_id, order_remarks,client_id,merchandiser_id) 
-											   VALUE ('$id','$qty','$branch','$product','$p_remarks','$clientlist','$merchandiser')";
+											   VALUE ('$id','$qty','$branch','$productIDLists','$p_remarks','$clientlist','$merchandiser')";
 												mysqli_query($db, $queryil);
 					
 									$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 

@@ -12,7 +12,7 @@
             include('config.php');
               if (isset($_POST["edit_inv"])) {
                   
-                  $ID = $_POST['Inventory_ID'];
+                  $ID = $_POST['invID'];
          		  $restock = $_POST['restck_Lvl'];
 	  			  
 				  $query = "UPDATE inventory SET iS_restock_lvl = '$restock' where iS_inventoryid = '$ID'";

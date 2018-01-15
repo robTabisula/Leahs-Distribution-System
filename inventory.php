@@ -219,7 +219,7 @@ if(!$_SESSION['username'])  {
 										$inventory_id = $data["iS_inventoryid"];
                                     ?>
                                     <td data-title="productList name">
-                                        <?php echo $data["productList_name"]." ".$data["value"]."".$data["unit"]; ?>
+                                        <?php echo $data["productList_name"]; ?>
                                     </td>
                                     <td data-title="product quantity">
                                         <?php echo $data["iS_quantity"]; ?>
@@ -249,9 +249,10 @@ if(!$_SESSION['username'])  {
                                             </div>
                                             <div class="modal-body">
                                                 <form action="fragments/editInventory.php" method="POST">
+                                                    <input type='hidden' name="invID" readonly value='<?php echo $inventory_id; ?>'> 
                                                     <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'> 
                                                     <label>Product Name</label>
-                                                    <input type="text" name="PrName" value="<?php echo $data["productList_name"]." ".$data["value"]."".$data["unit"]; ?>" readonly>
+                                                    <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
                                                     
                                                     <label>Location</label>
                                                     <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
@@ -310,7 +311,7 @@ if(!$_SESSION['username'])  {
                                                     $toData = $data["category_id"];
                                             ?>
 
-                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]." ".$data["value"]."".$data["unit"]; ?></option>
+                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]; ?></option>
                                               
                                            <?php
                                                 endforeach;
@@ -366,7 +367,7 @@ if(!$_SESSION['username'])  {
 
                                                         ?>
 				                                    <td data-title="productList name">
-				                                        <?php echo $lowStock["productList_name"]." ".$data["value"]."".$lowStock["unit"]; ?>
+				                                        <?php echo $lowStock["productList_name"]; ?>
 				                                    </td>
 				                                    <td data-title="product quantity">
 				                                        <?php echo $lowStock["iS_quantity"]; ?>
