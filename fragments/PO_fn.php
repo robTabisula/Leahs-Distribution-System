@@ -83,7 +83,7 @@
 					
                         if(mysqli_query($db, $queryil)){
                           echo"<script>alert('Products have been successfully added to pull-out')</script>";
-                          //echo "<script>window.open('../log_Returns.php','_self')</script>"; 
+                          echo "<script>window.open('../log_Returns.php','_self')</script>"; 
                         }else{
                           echo ("ERROR: Could not able to execute" . mysqli_error($db));
                         }
@@ -96,9 +96,6 @@
           }
       ?>
 
-           <h1><?php echo $newQuan ; ?></h1>
-            <h1><?php echo $productIDList; ?></h1>
-                        <h1><?php echo $branch; ?></h1>
 
   </body>
 </html>
