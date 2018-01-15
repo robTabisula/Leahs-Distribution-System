@@ -67,8 +67,9 @@
                     $product_quantity=$product_inventory['iS_quantity'];
 
                     //reduce quantity in inventory
-                    $newQ=$product_quantity-$qty;
-                    $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inpo_id, po_price, po_qty, branch, po_product_id, po_remarksventory.iS_location = '$branch'";
+                    $newQuan=$product_quantity+$qty;
+                    $insertnew="UPDATE inventory set iS_quantity='$newQuan' where inventory.iS_product_id = '$productIDList' and inventory.iS_location = '$branch'";
+
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
@@ -95,10 +96,6 @@
           }
       ?>
 
-           <h1><?php echo $PO_id ; ?></h1>
-            <h1><?php echo $remarks; ?></h1>
-            <h1><?php echo $issueAcnt; ?></h1>
-            <h1><?php echo $branch; ?></h1>
 
   </body>
 </html>

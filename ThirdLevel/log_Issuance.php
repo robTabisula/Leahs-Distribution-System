@@ -82,6 +82,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -106,6 +107,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -264,7 +266,7 @@ if(!$_SESSION['username'])  {
                                         foreach ($run as $log){
                                         $toData = $log["productList_id"];        
                                     ?>
-                                        <br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["value"]." ".$log["unit"];  ?>" readonly>
+                                        <br><input type="text" value= "<?php  echo $log["productList_name"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_qty"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["prod_price"];  ?>" readonly>
                                             <input type="text" value= "<?php  echo $log["altprice"];  ?>" readonly>

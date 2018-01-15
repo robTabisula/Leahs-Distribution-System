@@ -41,64 +41,63 @@
 
         if(mysqli_num_rows($results)>0){
             
-                        //query for issuance table
-                              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks,other_clients, issue_account) 
-                                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$Ocleint','$issueAcnt')";
-                              if(mysqli_query($db, $queryit)){
-                				    $get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
-                      				$run=mysqli_query($db,$get_id);
-                  				    $row = mysqli_fetch_array($run);
-                					$id=$row[0];
-                			
-                			  //query for issuance list table
-                			  
-                               $mi = new MultipleIterator();
-                               $mi->attachIterator(new ArrayIterator($productList));
-                               $mi->attachIterator(new ArrayIterator($adjustedprice));
-                               $mi->attachIterator(new ArrayIterator($quantity));
-                               $mi->attachIterator(new ArrayIterator($p_remarks));
+        //query for issuance table
+              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks,other_clients, issue_account) 
+                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$Ocleint','$issueAcnt')";
+              if(mysqli_query($db, $queryit)){
+				    $get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
+      				$run=mysqli_query($db,$get_id);
+  				    $row = mysqli_fetch_array($run);
+					$id=$row[0];
+			
+			  //query for issuance list table
+			  
+               $mi = new MultipleIterator();
+               $mi->attachIterator(new ArrayIterator($productList));
+               $mi->attachIterator(new ArrayIterator($adjustedprice));
+               $mi->attachIterator(new ArrayIterator($quantity));
+               $mi->attachIterator(new ArrayIterator($p_remarks));
 
-                				   foreach ( $mi as $value ){
-                					list($product, $adjprice, $qty, $p_remarks) = $value;
+				   foreach ( $mi as $value ){
+					list($product, $adjprice, $qty, $p_remarks) = $value;
 
-                            $idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
-                            $queryId = mysqli_query($db, $idQuery);
-                            $productID = mysqli_fetch_array($queryId);
-                            $productIDList = $productID['productList_id'];
+            $idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
+            $queryId = mysqli_query($db, $idQuery);
+            $productID = mysqli_fetch_array($queryId);
+            $productIDList = $productID['productList_id'];
 
-                					//read inventory per product chosen
-                					$pinq="SELECT * FROM inventory where inventory.iS_product_id = '$productIDList' and inventory.iS_location='$branch'";
-                					$pinqactivate=mysqli_query($db, $pinq);
-                					$product_inventory=mysqli_fetch_array($pinqactivate);
-                					$product_quantity=$product_inventory['iS_quantity'];
-                					//reduce quantity in inventory
-                					$newQ=$product_quantity-$qty;
-                					$insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inventory.iS_location = '$branch'";
-                					$update=mysqli_query($db,$insertnew);
-                				   
-                							//query for issuance list
-                							$queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
-                									   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks')";
-                										mysqli_query($db, $queryil);
+					//read inventory per product chosen
+					$pinq="SELECT * FROM inventory where inventory.iS_product_id = '$productIDList' and inventory.iS_location='$branch'";
+					$pinqactivate=mysqli_query($db, $pinq);
+					$product_inventory=mysqli_fetch_array($pinqactivate);
+					$product_quantity=$product_inventory['iS_quantity'];
+					//reduce quantity in inventory
+					$newQ=$product_quantity-$qty;
+					$insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inventory.iS_location = '$branch'";
+					$update=mysqli_query($db,$insertnew);
+				   
+							//query for issuance list
+							$queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
+									   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks','$clientlist')";
+										mysqli_query($db, $queryil);
 
-                								$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
-                									VALUE ('$issueAcnt','Others Issuance','$date_time','has successfully issued products to others')";
+								$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+									VALUE ('$issueAcnt','Others Issuance','$date_time','has successfully issued products to others')";
 
-                							if(mysqli_query($db, $query2)){
-                								echo"<script>alert('Products have been successfuly issued to others')</script>";
-                								echo "<script>window.open('../issuance.php','_self')</script>"; 
-                							}else{
-                								echo ("ERROR: Could not able to execute" . mysqli_error($db));
-                								}
-                				   }
-                			  }else{
-                				    echo ("ERROR: Could not able to execute" . mysqli_error($db));
-                                    }
-        }else {
-            echo"<script>alert('Invalid Security Code..!')</script>";
-            echo "<script>window.open('../issuance.php','_self')</script>";
-        }
-
+							if(mysqli_query($db, $query2)){
+								echo"<script>alert('Products have been successfuly issued to others')</script>";
+								echo "<script>window.open('../issuance.php','_self')</script>"; 
+							}else{
+								echo ("ERROR: Could not able to execute" . mysqli_error($db));
+								}
+				   }
+			  }else{
+				    echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                    }
+      }else {
+          echo"<script>alert('Invalid Security Code..!')</script>";
+          echo "<script>window.open('../issuance.php','_self')</script>";
+      }
 
 			}else{
         	//this is to view the adjusted price

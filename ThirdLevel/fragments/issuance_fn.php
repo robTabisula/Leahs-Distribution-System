@@ -39,8 +39,7 @@
 				$securityCodeQuery = "SELECT security_key FROM accounts Where security_key = '$secPass'";
 				$results = mysqli_query($db, $securityCodeQuery);
 
-
-                if(mysqli_num_rows($results)>0){
+				if(mysqli_num_rows($results)>0){
 
 			            
 			        //query for issuance table
@@ -77,8 +76,8 @@
 										$update=mysqli_query($db,$insertnew);
 								   
 										//query for issuance list
-												 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
-														   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks')";
+												 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
+														   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks','$clientlist')";
 														   	mysqli_query($db, $queryil);
 								
 												$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
@@ -95,11 +94,11 @@
 						  }else{
 							    echo ("ERROR: Could not able to execute" . mysqli_error($db));
 			                    }
-                }
-                else {
+                }else {
                     echo"<script>alert('Invalid Security Code..!')</script>";
                     echo "<script>window.open('../issuance.php','_self')</script>";
                 }
+               
 			}else{
 				//this is to view the adjusted price
 					$selectedproductID = $_POST['prod_id'];
@@ -134,7 +133,6 @@
 					}
 				}
 		?>
-       			<h1> <echo $secPassword; ?></h1>
 		
      </body>  			
 </html>

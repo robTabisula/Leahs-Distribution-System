@@ -66,10 +66,7 @@
                     $product_inventory=mysqli_fetch_array($pinqactivate);
                     $product_quantity=$product_inventory['iS_quantity'];
 
-                    //reduce quantity in inventory
-                    $newQ=$product_quantity-$qty;
-                    $insertnew="UPDATE inventory set iS_quantity='$newQ' where inventory.iS_product_id = '$productIDList' and inpo_id, po_price, po_qty, branch, po_product_id, po_remarksventory.iS_location = '$branch'";
-                    $update=mysqli_query($db,$insertnew);
+                  
                    
                     //query for issuance list
                          $queryil = "INSERT INTO bo_list (bo_id, bo_price, bo_qty, branch, bo_product_id, po_remarks,bo_client) 

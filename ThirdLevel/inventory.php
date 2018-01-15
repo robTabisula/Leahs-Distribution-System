@@ -77,6 +77,17 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
+     <?php
+            $name = $_SESSION['username'];
+                
+        
+            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
+            $branchRetrieve = mysqli_query($db, $rbranch);
+            $branchRow = mysqli_fetch_array($branchRetrieve);
+
+            $userbranch = $branchRow['branch'];
+             //will increment 1 from the latest issuance ID
+    ?>
      <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
@@ -113,6 +124,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -203,8 +215,9 @@ if(!$_SESSION['username'])  {
                                 <th>Product Name</th>
                                 <th>Product Quantity</th>
                                 <th>Restock Level</th>
-                                <th>Catgory Name</th>
+                                <th>Category Name</th>
                                 <th>Location</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -217,7 +230,7 @@ if(!$_SESSION['username'])  {
 										$inventory_id = $data["iS_inventoryid"];
                                     ?>
                                     <td data-title="productList name">
-                                        <?php echo $data["productList_name"]." ".$data["unit"]; ?>
+                                        <?php echo $data["productList_name"]; ?>
                                     </td>
                                     <td data-title="product quantity">
                                         <?php echo $data["iS_quantity"]; ?>
@@ -229,8 +242,41 @@ if(!$_SESSION['username'])  {
                                         <?php echo $data["category_name"]; ?>
                                     </td><td data-title="location">
                                         <?php echo $data["iS_location"]; ?>
-
+                                    </td>
                                  </tr>
+                                 <!-- Modal Edit Stocks--> 
+                                <div id="<?php echo $inventory_id; ?>" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Edit Stocks</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="fragments/editInventory.php" method="POST">
+                                                    <input type='hidden' name="invID" readonly value='<?php echo $inventory_id; ?>'> 
+                                                    <input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'> 
+                                                    <label>Product Name</label>
+                                                    <input type="text" name="PrName" value="<?php echo $data["productList_name"]; ?>" readonly>
+                                                    
+                                                    <label>Location</label>
+                                                    <input type="text" name="Lctn" value="<?php echo $data["iS_location"]; ?>" readonly>
+                                                    
+                                                    <label>Restock level</label>
+                                                    <input type="number" name="restck_Lvl" value="<?php echo $data["iS_restock_lvl"]; ?>" min="1">
+                                                   
+		                                            
+		                                            <div class="modal-footer">
+		                                                <input name="edit_inv" type="submit" class="btn btn-default" value=" Submit " />
+		                                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                                            </div>
+	                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>                               
+                                </div> 
+								
 								
                             <?php
 								endforeach;
@@ -254,8 +300,7 @@ if(!$_SESSION['username'])  {
                                         <label>Location</label>
                                             
                                             <select name="Loc">
-                                                <option value="Baguio">Baguio</option>
-                                                <option value="Pangasinan">Pangasinan</option>
+                                                <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
                                             </select>
 
 
@@ -271,7 +316,7 @@ if(!$_SESSION['username'])  {
                                                     $toData = $data["category_id"];
                                             ?>
 
-                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]." ".$data["unit"]; ?></option>
+                                                <option value = "<?= $data['productList_id'] ?>"> <?php echo $data["productList_name"]; ?></option>
                                               
                                            <?php
                                                 endforeach;
@@ -313,8 +358,9 @@ if(!$_SESSION['username'])  {
 				                            </tr>
 				                        </thead>
 				                        <tbody>
+
 				                        <?php 
-					                        $LowStocks = ("SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_quantity <= iS_restock_lvl");
+					                        $LowStocks = ("SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_quantity <= iS_restock_lvl And iS_location = '$userbranch'") ;
 												   $resultsLowStocks = mysqli_query($db, $LowStocks); 
 										?>
 				                        <?php
@@ -327,7 +373,7 @@ if(!$_SESSION['username'])  {
 
                                                         ?>
 				                                    <td data-title="productList name">
-				                                        <?php echo $lowStock["productList_name"]." ".$lowStock["unit"]; ?>
+				                                        <?php echo $lowStock["productList_name"]; ?>
 				                                    </td>
 				                                    <td data-title="product quantity">
 				                                        <?php echo $lowStock["iS_quantity"]; ?>
@@ -362,7 +408,8 @@ if(!$_SESSION['username'])  {
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Product: <?php echo $Lrow["productList_name"]; ?> Location: <?php echo $Lrow["iS_location"]; ?></h4>
+                                                    <h4 class="modal-title">Product: <?php echo $Lrow["productList_name"]; ?> </h4>
+                                                    <h4 class="modal-title">Location: <?php echo $Lrow["iS_location"]; ?></h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form action="fragments/addLowStocks.php" method="POST">
