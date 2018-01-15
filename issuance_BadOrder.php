@@ -271,25 +271,31 @@ if(!$_SESSION['username'])  {
 								<label>Client</label>
                                 <input type='text' size='10' name="client_id" readonly value='<?php  echo $_GET['client_id']; ?>'/>
                                     <h4>Product Description: </h4>
-                                        <?php
-                                            foreach ($runInfoQuery as $info):
-                                            $product_id = $info["issue_id"];
-                                        ?>
-                                    
-                                    <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
-                                    <label>Issued Quantity: </label>
-                                    <input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' />&nbsp
-                                    <label>Issued Price:</label>
-                                    <input type='text' size='2' readonly value='<?php  echo $info["prod_price"]; ?>' />&nbsp
-                                    <label>Product Remarks:</label>
-                                    <input type='text' size='20' readonly value='<?php  echo $info["prod_remarks"]; ?>' />&nbsp
+       
+                                    <table>
+                                        <tr>
+                                            <th>Product Name: </th>
+                                            <th>Issued Quantity</th>
+                                            <th>Issued Price</th>
+                                            <th>Product Remarks</th>
+                                        </tr>
 
+                                             <?php
+                                                foreach ($runInfoQuery as $info):
+                                                $product_id = $info["issue_id"];
+                                            ?>
+                                        <tr>
+                                            <td><input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' /></td>
+                                            <td><input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' /></td>
+                                            <td><input type='text' size='2' readonly value='<?php  echo $info["prod_price"]; ?>' /></td>
+                                            <td><input type='text' size='20' readonly value='<?php  echo $info["prod_remarks"]; ?>' /></td>
+                                        </tr>
 
 
                                     <?php
                                             endforeach;
                                         ?>
+                                    </table>
 
                         </div>
                         <br>
