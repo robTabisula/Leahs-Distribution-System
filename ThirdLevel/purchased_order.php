@@ -260,6 +260,11 @@ if(!$_SESSION['username'])  {
                                 
                                 <hr style = "border-top: 3px double #8c8b8b;">
                                 <br>
+                                     <div>
+                                        <h4>Security Code</h4>
+                                        <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
+                                    </div>
+                                    <br>
                          
                                 <!--********************************************************************************** -->
 

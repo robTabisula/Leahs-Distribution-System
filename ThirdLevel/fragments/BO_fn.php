@@ -28,6 +28,12 @@
             $po_price = $_POST['adjusted_price'];//array for new price
             $quantity = $_POST['quantity'];//array for quantity ordered
             $p_remarks = $_POST['premarks'];//array for remarks
+            $secPass = $_POST['secPass'];
+            $securityCodeQuery = "SELECT security_key FROM accounts Where security_key = '$secPass'";
+            $results = mysqli_query($db, $securityCodeQuery);
+
+            if(mysqli_num_rows($results)>0){
+
             
 
             //query for PO table
@@ -88,6 +94,10 @@
             }else{
                 echo ("ERROR: Could not able to execute" . mysqli_error($db));
                         }
+          }else {
+              echo"<script>alert('Invalid Security Code..!')</script>";
+              echo "<script>window.open('../issuance.php','_self')</script>";
+          }
 
           }
       ?>
