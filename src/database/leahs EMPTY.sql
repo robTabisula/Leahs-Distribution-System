@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 22, 2017 at 12:56 AM
+-- Generation Time: Jan 15, 2018 at 09:32 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -38,19 +38,23 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `email` varchar(50) NOT NULL,
   `contact_no` varchar(20) NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'Disabled',
-  `branch` varchar(50) NOT NULL,
-  `acctype` varchar(45) NOT NULL,
+  `branch` varchar(50) DEFAULT NULL,
+  `acctype` varchar(45) DEFAULT NULL,
   `security_key` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`acc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`acc_id`, `username`, `first_name`, `last_name`, `password`, `email`, `contact_no`, `status`, `branch`, `acctype`, `security_key`) VALUES
-(1, 'ress', 'ress', 'ress', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'resss@res.com', '09173968693', 'Enabled', 'Baguio', 'Bookkeeper', 'FFFF2'),
-(6, 'robijn', 'robijn', 'Tabisula', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'joss_robijn@yahoo.com.ph', '09173968691', 'Enabled', 'Baguio', 'Admin', NULL);
+(2, 'mark', 'Mark', 'Abad', '3b4f122b181aeef98042c4219b554f4d76934f125c0c183494e9fa909f5f249e0ccfbd626da5851e904d5b8f66e29dbe819d2ba4fd2439f53462caaed4eeee90', 'markk@gmail.coa', '123123213', 'Enabled', 'Baguio', 'Admin', '10291'),
+(10, 'lvl1', 'admin', 'admin', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 'admin@leahs.com', '09260876469', 'Enabled', 'Baguio', 'Admin', NULL),
+(11, 'lvl2B', 'Manager', 'Baguio', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 'manager@leahs.com', '096087464', 'Enabled', 'Baguio', 'Manager', NULL),
+(12, 'lvl2P', 'Manager', 'Pangasinan', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 'managerPangasinan@leahs.com', '09260827948', 'Enabled', 'Pangasinan', 'Manager', NULL),
+(13, 'lvl3B', 'SecretaryBookkeeper', 'Baguio', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 'managersecretaryBaguio@leahs.com', '09260827182', 'Enabled', 'Baguio', 'Secretary', NULL),
+(14, 'lvl3P', 'SecretaryBookkeeper', 'Pangasinan', 'fa585d89c851dd338a70dcf535aa2a92fee7836dd6aff1226583e88e0996293f16bc009c652826e0fc5c706695a03cddce372f139eff4d13959da6f1f5d3eabe', 'secretarybookkeeperPangasinan@leahs.com', '09268026475', 'Enabled', 'Pangasinan', 'Secretary', NULL);
 
 -- --------------------------------------------------------
 
@@ -63,9 +67,10 @@ CREATE TABLE IF NOT EXISTS `bad_order` (
   `bo_id` int(15) NOT NULL AUTO_INCREMENT,
   `bo_dateReleased` varchar(50) NOT NULL,
   `bo_issue_account` varchar(200) NOT NULL,
+  `bo_client` int(20) DEFAULT NULL,
   `bo_remarks` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`bo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -81,6 +86,7 @@ CREATE TABLE IF NOT EXISTS `bo_list` (
   `branch` varchar(45) NOT NULL,
   `bo_product_id` int(11) NOT NULL,
   `po_remarks` varchar(200) DEFAULT NULL,
+  `bo_client` int(15) NOT NULL,
   KEY `bo_id_idx` (`bo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -96,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `category_list` (
   `category_name` varchar(100) NOT NULL,
   `category_status` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -110,22 +116,10 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `c_name` varchar(20) NOT NULL,
   `c_address` varchar(20) NOT NULL,
   `c_location` varchar(50) DEFAULT NULL,
+  `c_contactperson` varchar(50) DEFAULT NULL,
+  `c_contactpersonnumber` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `client_contact`
---
-
-DROP TABLE IF EXISTS `client_contact`;
-CREATE TABLE IF NOT EXISTS `client_contact` (
-  `contact_clientid` int(11) NOT NULL,
-  `contact_name` varchar(45) DEFAULT NULL,
-  `contact_number` int(50) DEFAULT NULL,
-  KEY `contact_clientid_idx` (`contact_clientid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -142,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `iS_location` varchar(45) NOT NULL,
   PRIMARY KEY (`iS_inventoryid`),
   KEY `product_id_idx` (`iS_product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -159,9 +153,10 @@ CREATE TABLE IF NOT EXISTS `issuance` (
   `remarks` varchar(45) DEFAULT NULL,
   `other_clients` varchar(45) DEFAULT NULL,
   `penthouse_clients` varchar(45) DEFAULT NULL,
-  `client_id` varchar(45) DEFAULT NULL,
+  `client_id` int(15) DEFAULT NULL,
+  `merch_id` int(15) DEFAULT NULL,
   PRIMARY KEY (`issue_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -177,25 +172,9 @@ CREATE TABLE IF NOT EXISTS `issuance_list` (
   `branch` varchar(20) NOT NULL,
   `prod_id` int(15) NOT NULL,
   `prod_remarks` varchar(200) DEFAULT NULL,
+  `client_id` int(15) DEFAULT NULL,
   KEY `FK_issuancelist_productlist_idx` (`prod_id`),
   KEY `issue_id_idx` (`issue_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ledger`
---
-
-DROP TABLE IF EXISTS `ledger`;
-CREATE TABLE IF NOT EXISTS `ledger` (
-  `ledger_id` int(10) NOT NULL AUTO_INCREMENT,
-  `ledger_date` date NOT NULL,
-  `ledger_in` int(10) NOT NULL,
-  `ledger_out` int(10) NOT NULL,
-  `ledger_product_id` int(15) NOT NULL,
-  PRIMARY KEY (`ledger_id`),
-  KEY `FK_ledger_product_list_idx` (`ledger_product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -207,14 +186,42 @@ CREATE TABLE IF NOT EXISTS `ledger` (
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `logs_id` int(15) NOT NULL AUTO_INCREMENT,
-  `issue_acnt` varchar(40) NOT NULL,
-  `act_type` varchar(15) NOT NULL,
-  `date_time` varchar(50) NOT NULL,
+  `issue_acnt` varchar(20) NOT NULL,
+  `act_type` varchar(30) NOT NULL,
+  `date_time` varchar(30) NOT NULL,
   `related_id` int(15) DEFAULT NULL,
   `remarks` varchar(65) NOT NULL,
   PRIMARY KEY (`logs_id`),
-  KEY `issue_acnt` (`issue_acnt`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+  KEY `acc_id_idx` (`issue_acnt`)
+) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`logs_id`, `issue_acnt`, `act_type`, `date_time`, `related_id`, `remarks`) VALUES
+(222, 'mark', 'Login', 'January 16, 2018, 5:15 am', NULL, 'has successfully login'),
+(223, 'mark', 'Added User', 'January 16, 2018, 5:16 am', NULL, 'has successfully added a new user'),
+(224, 'mark', 'Added User', 'January 16, 2018, 5:17 am', NULL, 'has successfully added a new user'),
+(225, 'mark', 'Added User', 'January 16, 2018, 5:18 am', NULL, 'has successfully added a new user'),
+(226, 'mark', 'Added User', 'January 16, 2018, 5:20 am', NULL, 'has successfully added a new user'),
+(227, 'mark', 'Added User', 'January 16, 2018, 5:31 am', NULL, 'has successfully added a new user');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `merchandiser`
+--
+
+DROP TABLE IF EXISTS `merchandiser`;
+CREATE TABLE IF NOT EXISTS `merchandiser` (
+  `m_id` int(15) NOT NULL AUTO_INCREMENT,
+  `m_name` varchar(25) NOT NULL,
+  `m_contact_number` int(25) NOT NULL,
+  `m_address` varchar(50) NOT NULL,
+  `m_branch` varchar(10) NOT NULL,
+  PRIMARY KEY (`m_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -230,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `po_list` (
   `branch` varchar(45) NOT NULL,
   `po_product_id` int(15) NOT NULL,
   `po_remarks` varchar(200) DEFAULT NULL,
+  `po_client` int(15) NOT NULL,
   KEY `po_id_idx` (`po_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -244,9 +252,10 @@ CREATE TABLE IF NOT EXISTS `product_list` (
   `productList_id` int(15) NOT NULL AUTO_INCREMENT,
   `productList_name` varchar(50) DEFAULT NULL,
   `category_id` int(15) NOT NULL,
+  `barcode` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`productList_id`),
   KEY `FK_product_list_category_idx` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=271 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -260,7 +269,6 @@ CREATE TABLE IF NOT EXISTS `product_loc` (
   `location` varchar(50) NOT NULL,
   `status` varchar(45) NOT NULL,
   `altprice` varchar(45) DEFAULT NULL,
-  `barcode` varchar(45) DEFAULT NULL,
   KEY `prod_id_idx` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -275,9 +283,10 @@ CREATE TABLE IF NOT EXISTS `pull_out` (
   `po_id` int(10) NOT NULL AUTO_INCREMENT,
   `po_date` varchar(50) NOT NULL,
   `po_issue_account` varchar(200) NOT NULL,
+  `po_client` int(20) DEFAULT NULL,
   `po_remarks` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`po_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -289,9 +298,10 @@ DROP TABLE IF EXISTS `purchased_order`;
 CREATE TABLE IF NOT EXISTS `purchased_order` (
   `order_id` int(50) NOT NULL AUTO_INCREMENT,
   `order_date` varchar(50) NOT NULL,
-  `client_id` int(20) NOT NULL,
+  `client_id` int(15) NOT NULL,
+  `merchandiser_id` int(15) NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -306,43 +316,10 @@ CREATE TABLE IF NOT EXISTS `purchased_order_list` (
   `branch` varchar(10) NOT NULL,
   `prdct_id` int(15) NOT NULL,
   `order_remarks` varchar(100) NOT NULL,
+  `client_id` int(15) NOT NULL,
+  `merchandiser_id` int(15) NOT NULL,
   KEY `order_id_idx` (`p_order_id`),
   KEY `product_id_idx` (`prdct_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stock_adjustments`
---
-
-DROP TABLE IF EXISTS `stock_adjustments`;
-CREATE TABLE IF NOT EXISTS `stock_adjustments` (
-  `sA_id` int(15) NOT NULL AUTO_INCREMENT,
-  `sA_product_id` int(15) NOT NULL,
-  `sA_qty` int(10) NOT NULL,
-  `sA_remarks` varchar(10) NOT NULL,
-  `sA_in` int(15) NOT NULL,
-  `sA_out` int(15) NOT NULL,
-  PRIMARY KEY (`sA_id`),
-  KEY `FK_stock_adjustments_product_idx` (`sA_product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stock_transfer`
---
-
-DROP TABLE IF EXISTS `stock_transfer`;
-CREATE TABLE IF NOT EXISTS `stock_transfer` (
-  `sT_id` int(10) NOT NULL AUTO_INCREMENT,
-  `sT_price` int(10) NOT NULL,
-  `sT_qty` int(10) NOT NULL,
-  `sT_branch` text NOT NULL,
-  `sT_product_id` int(15) NOT NULL,
-  PRIMARY KEY (`sT_id`),
-  KEY `FK_stock_transfer_product_list_idx` (`sT_product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -353,38 +330,26 @@ CREATE TABLE IF NOT EXISTS `stock_transfer` (
 -- Constraints for table `bo_list`
 --
 ALTER TABLE `bo_list`
-  ADD CONSTRAINT `bo_id` FOREIGN KEY (`bo_id`) REFERENCES `bad_order` (`bo_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `client_contact`
---
-ALTER TABLE `client_contact`
-  ADD CONSTRAINT `contact_clientid` FOREIGN KEY (`contact_clientid`) REFERENCES `clients` (`c_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `bo_id` FOREIGN KEY (`bo_id`) REFERENCES `bad_order` (`bo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `inventory`
 --
 ALTER TABLE `inventory`
-  ADD CONSTRAINT `iS_product_id` FOREIGN KEY (`iS_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `iS_product_id` FOREIGN KEY (`iS_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `issuance_list`
 --
 ALTER TABLE `issuance_list`
-  ADD CONSTRAINT `issue_id` FOREIGN KEY (`issue_id`) REFERENCES `issuance` (`issue_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `prod_id` FOREIGN KEY (`prod_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
---
--- Constraints for table `ledger`
---
-ALTER TABLE `ledger`
-  ADD CONSTRAINT `ledger_product_id` FOREIGN KEY (`ledger_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `issue_id` FOREIGN KEY (`issue_id`) REFERENCES `issuance` (`issue_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `prod_id` FOREIGN KEY (`prod_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `po_list`
 --
 ALTER TABLE `po_list`
-  ADD CONSTRAINT `po_id` FOREIGN KEY (`po_id`) REFERENCES `pull_out` (`po_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `po_id` FOREIGN KEY (`po_id`) REFERENCES `pull_out` (`po_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_list`
@@ -404,18 +369,6 @@ ALTER TABLE `product_loc`
 ALTER TABLE `purchased_order_list`
   ADD CONSTRAINT `p_order_id` FOREIGN KEY (`p_order_id`) REFERENCES `purchased_order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `prdct_id` FOREIGN KEY (`prdct_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `stock_adjustments`
---
-ALTER TABLE `stock_adjustments`
-  ADD CONSTRAINT `sA_product_id` FOREIGN KEY (`sA_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `stock_transfer`
---
-ALTER TABLE `stock_transfer`
-  ADD CONSTRAINT `sT_product_id` FOREIGN KEY (`sT_product_id`) REFERENCES `product_list` (`productList_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
