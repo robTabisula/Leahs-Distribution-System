@@ -1,23 +1,49 @@
-#AdjustedPriceDiv{
+#AdjustedPriceDiv {
     padding-left: 1%;
     padding-right: 1%;
     padding-top: 1%;
     padding-bottom: 1%;
     margin-bottom: 2%;
     width: 55%;
-    float:left;
+    float: left;
     position: relative;
-    border: 5px solid #E6E6E6; 
+    border: 5px solid #E6E6E6;
 }
 
-#DescDiv{
+#DescDiv {
     padding-right: 2%;
     width: 40%;
-    float:right;
+    float: right;
     position: relative;
 }
-#detailsview{
+
+#detailsview {
     height: 130px;
-    padding-bottom:5%;
+    padding-bottom: 5%;
     position: relative;
 }
+
+#prodtable {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#prodtable th,
+td {
+    border: 1px solid #E6E6E6;
+}
+
+#prodtable input {
+    outline: none;
+    border: 0;
+    padding-left: 4%;
+}
+
+tbody {
+    height: 100px;
+    overflow-y: auto;
+    /* Trigger vertical scroll    */
+    overflow-x: hidden;
+    /* Hide the horizontal scroll */
+}
+

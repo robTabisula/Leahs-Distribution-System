@@ -290,12 +290,15 @@ if(!$_SESSION['username'])  {
                                  <hr>
                                
                                 <h4>Product Description: </h4>
-                                <table style="width:100%">
+                                <table id="prodtable" style="width:100%">
+                                   <thead>
                                     <tr>
                                         <th>Product Name: </th>
                                         <th>Issuing Quantity: </th>
                                         <th>Order Remarks:</th>
-                                    </tr>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
 
                                 <?php
                                     foreach ($runInfoQuery as $info):
@@ -303,18 +306,18 @@ if(!$_SESSION['username'])  {
                                 ?>
                                     
                                 <tr>
-                                    <td><input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' /></td>
+                                    <td><input id="prodname" type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' /></td>
                                     
-                                    <td><input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>'  /></td>
+                                    <td><input id="prodqty" type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>'  /></td>
                                    
-                                    <td><input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' /></td>
+                                    <td><input id="prodrmrk" type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' /></td>
                                 </tr>
                                     
 
                                     <?php
                                             endforeach;
                                         ?> 
-                                        <br>
+                                    </tbody>
                                 </table>
                         </div>
                             <div id="DescDiv">
