@@ -283,7 +283,7 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <center><input name="barcode" readOnly value="<?php echo $row['barcode'];
+                                                                <center><input name="barcode" value="<?php echo $row['barcode'];
 																	if ($data["barcode"]==""){
 																	echo "- - - - - - -";
 																}?>" type="text" class="form-control"></center>

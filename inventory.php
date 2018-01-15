@@ -415,7 +415,7 @@ if(!$_SESSION['username'])  {
 
 
                                                         <label>Product</label>
-                                                            <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]." ".$Lrow["value"]."".$Lrow["unit"]; ?>" readonly><br>
+                                                            <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]; ?>" readonly><br>
 
                                                         <label>Quantity</label>
                                                             <input type="number" name="LQuantity" min="1"/>
