@@ -46,6 +46,7 @@
 
 					   foreach ( $mi as $value ){
 							list($product, $qty, $p_remarks) = $value;
+							
 							//read inventory per product chosen
 							$idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
 							$queryId = mysqli_query($db, $idQuery);
