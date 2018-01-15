@@ -1,0 +1,23 @@
+#AdjustedPriceDiv{
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+    width: 55%;
+    float:left;
+    position: relative;
+    border: 5px solid #E6E6E6; 
+}
+
+#DescDiv{
+    padding-right: 2%;
+    width: 40%;
+    float:right;
+    position: relative;
+}
+#detailsview{
+    height: 130px;
+    padding-bottom:5%;
+    position: relative;
+}

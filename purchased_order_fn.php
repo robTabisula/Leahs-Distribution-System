@@ -21,6 +21,7 @@ if(!$_SESSION['username'])  {
     <?php include('fragments/config.php') ?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/Issue_PO.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
@@ -262,7 +263,8 @@ if(!$_SESSION['username'])  {
                         <hr style="border-top: 3px double #8c8b8b;">
                         <br>
                         <!--Div to view adjusted price and category-->
-                        <div id="AdjustedPriceDiv">
+                        <div id = "detailsview">
+                            <div id="AdjustedPriceDiv">
                             <?php
                                             $getIsID = $_GET['po_id'];
 
@@ -284,6 +286,9 @@ if(!$_SESSION['username'])  {
                                 <input type='text' size='10' name="m_id" readonly value='<?php  echo $_GET['m_id']; ?>'/>&nbsp&nbsp&nbsp
 								
 								<br>
+                                   
+                                 <hr>
+                               
                                 <h4>Product Description: </h4>
                                 <?php
                                             foreach ($runInfoQuery as $info):
@@ -300,19 +305,19 @@ if(!$_SESSION['username'])  {
 
                                     <?php
                                             endforeach;
-                                        ?>
-
-                                <div id="DescDiv">
-                                            <hr>
-                                            <h4>When Choosing a product, Information will be viewed here.</h4>
-                                            <hr>
-                                </div>  
+                                        ?> 
+                        </div>
+                            <div id="DescDiv">
+                                    <hr>
+                                    <h4>When Choosing a product, Information will be viewed here.</h4>
+                                    <hr>
+                        </div> 
                         </div>
                         <br>
                         <br>
                         <br>
 
-                        <table class="table table-striped table-bordered">
+                        <table id="form_table" class="table table-striped table-bordered">
                             <tr>
 
                                 <td>
