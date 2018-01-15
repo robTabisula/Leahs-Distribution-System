@@ -309,11 +309,12 @@ if(!$_SESSION['username'])  {
                                    
                                     <td><input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' /></td>
                                 </tr>
-                                    <br>
+                                    
 
                                     <?php
                                             endforeach;
                                         ?> 
+                                        <br>
                                 </table>
                         </div>
                             <div id="DescDiv">
