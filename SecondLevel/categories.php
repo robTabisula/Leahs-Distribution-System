@@ -186,10 +186,7 @@ if(!$_SESSION['username'])  {
 							$results = mysqli_query($db, $retrieve);
 						?>
 
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Category</button>
-                </table>
-
+     
                 <!-- Table Display for Accounts -->
                 <div id="mainContainer">
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -197,7 +194,7 @@ if(!$_SESSION['username'])  {
                             <tr>
                                 <th>Category Name</th>
                                 <th>Category Status</th>
-                                <th>Edit</th>
+                                
                             </tr>
                         </thead>
 
@@ -219,11 +216,7 @@ if(!$_SESSION['username'])  {
                                     <td data-title="category_status">
                                         <?php echo $data["category_status"]; ?>
                                     </td>
-									<td data-title="edit">
-                                        <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_category_id;?>"></button>
-                                        </table>
-                                    </td>
+					
                                 </tr>
 								
 								<!--Edit modal-->

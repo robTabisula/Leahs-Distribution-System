@@ -128,6 +128,18 @@
 
     <body>
         <?php
+            $name = $_SESSION['username'];
+                
+        
+            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
+            $branchRetrieve = mysqli_query($db, $rbranch);
+            $branchRow = mysqli_fetch_array($branchRetrieve);
+
+            $userbranch = $branchRow['branch'];
+             //will increment 1 from the latest issuance ID
+        ?>
+
+        <?php
             //variable for issuance categories
             //1 for regular, 2 for penthouse, 3 for others
                 $choice=$_POST['choice'];
@@ -156,10 +168,10 @@
                         
                                         <div id="branch" class="col-xs-4">
                                             <h4>Branch </h4>
+                                   
                                                 <select name="branch" onchange="Lclients(this.value);" required>
                                                         <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                                        <option value="Baguio">Baguio</option>
-                                                        <option value="Pangasinan">Pangasinan</option>
+                                                        <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
                                                 </select>
                                             </div>
 
@@ -181,7 +193,7 @@
 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
                                 <!--********************************************************************************** -->
@@ -207,7 +219,7 @@
                                                                 $sproduct_id = $datas["productList_id"];
                                                             ?>  
                                                                 <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                                   <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                                   <?php echo $datas["productList_name"]; ?>
                                                                 </option>
 
                                                             <?php
@@ -308,11 +320,10 @@
 
                                         <div id="branch" class="col-xs-4">
                                            <h4>Branch</h4>
-                                            <select name="branch" required>
-                                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                                    <option value="Baguio">Baguio</option>
-                                                    <option value="Pangasinan">Pangasinan</option>
-                                            </select>
+                                               <select name="branch" required>
+                                                        <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                                        <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
+                                                </select>
                                         </div>
 
                                         <div id="TheClients" class="col-xs-4">
@@ -344,7 +355,7 @@
                                 <br><br><br><br><br>
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 
@@ -372,7 +383,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
 
                                                         <?php
@@ -471,9 +482,10 @@
                                         <label>Transfer From:</label>
                                         <select name="branch" required>
                                                 <option value="" selected="true" disabled="disabled">Transfer From:</option>
-                                                <option value="Baguio">Baguio</option>
-                                                <option value="Pangasinan">Pangasinan</option>
+                                                <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
+                                               
                                         </select>
+                                               
                                     </div>
 
                                     <div class="col-xs-4">
@@ -484,7 +496,7 @@
 
                                     <div class="form-group">                            
                                                 <?php
-                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                                     $prodRetrieve = mysqli_query($db, $retrieveProd);
                                                 ?>
 
@@ -513,7 +525,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
 
                                                         <?php
@@ -612,8 +624,8 @@
                                             <h4>Branch</h4>
                                             <select name="branch" required>
                                                     <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                                    <option value="Baguio">Baguio</option>
-                                                    <option value="Pangasinan">Pangasinan</option>
+                                                    <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
+                                                    
                                             </select>
                                         </div>
 
@@ -632,7 +644,7 @@
                                 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 
@@ -662,7 +674,7 @@
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
                                                             <option value = "<?php echo $datas["productList_name"]; ?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]." ".$datas["unit"]; ?>
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
 
                                                         <?php

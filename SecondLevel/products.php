@@ -207,10 +207,6 @@ if(!$_SESSION['username'])  {
                 $results = mysqli_query($db, $retrieve); 
             ?>
 
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Product</button>
-                </table>
-
                 <div id="mainContainer">
                     <!-- Table Display for Accounts -->
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -219,7 +215,7 @@ if(!$_SESSION['username'])  {
                                 <th>Barcode</th>
                                 <th>Product Name</th>
                                 <th>Category</th>
-                                <th>Edit</th>
+                                
                             </tr>
                         </thead>
 
@@ -231,14 +227,17 @@ if(!$_SESSION['username'])  {
                                 $toData = $data["productList_id"];
                             ?>
                                 <tr>
-                                    <td data-title="Barcode">
-                                        <?php echo $data["barcode"] ?>
+                                    <td data-title="Barcode"><center>
+                                        <?php echo $data["barcode"];?>
+										<?php if ($data["barcode"]==""){
+										echo "- - - - - - -";
+										}?></center>
                                     </td>
                                         <?php 
                                             $individual_product_id=$data["productList_id"];
                                         ?>
                                     <td data-title="Product Name">
-										<?php echo $data["productList_name"]." ".$data["value"]." ".$data["unit"]; ?>
+										<?php echo $data["productList_name"]; ?>
                                     </td>
                                     <td data-title="Category">
                                         <?php
@@ -246,11 +245,7 @@ if(!$_SESSION['username'])  {
                                             echo $passCategory; 
                                         ?>
                                     </td>
-                                    <td data-title="edit">
-                                        <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_product_id;?>"></button>
-                                        </table>
-                                    </td>
+              
                                 </tr>
                                 <!--Edit modal-->
                                 <div id="<?php echo $individual_product_id;?>" class="modal fade" role="dialog">
@@ -280,10 +275,14 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <input name="barcode" readOnly value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
+                                                                <center><input name="barcode" value="<?php echo $row['barcode'];
+																	if ($data["barcode"]==""){
+																	echo "- - - - - - -";
+																}?>" type="text" class="form-control"></center>
+
                                                             </div>
                                                             <div class="col-xs-4">
-                                                                <input name="productList_name" readOnly value="<?php echo $row["productList_name"]."(".$row["unit"]. ")"; ?>" type="text" class="form-control">
+                                                                <input name="productList_name" readOnly value="<?php echo $row["productList_name"]; ?>" type="text" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="client">
@@ -325,7 +324,7 @@ if(!$_SESSION['username'])  {
 																				?>                                                                       
                                                                         
                                                                     </div>
-                                                            </div>
+                                                            </div><br>
 
                                                                 <div class="row">
                                                                     <div class="col-xs-6"><label>Baguio Price</label>
@@ -380,24 +379,10 @@ if(!$_SESSION['username'])  {
 								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                     <h3>Barcode</h3>
                                     <input type="text" class="form-control" maxlength="25" name="barcode">
-
+									
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
 									
-									<h3>Value</h3>
-                                    <input type="number" class="form-control" maxlength="25" name="value" required>
-									
-									<h3>Unit</h3>
-                                        <select name="unit" class="form-control">
-                                        <option value="gm(s)">gm(s)</option>
-										<option value="kg">kg</option>
-                                        <option value="bale">bale</option>
-										<option value="pack">pack</option>
-										<option value="piece">piece</option>
-										<option value="box">box</option>
-										<option value="ml">ml</option>
-										<option value="L">L</option>
-										</select>
 
                                     <h3>Product Category</h3>
                                     <?php
@@ -420,14 +405,14 @@ if(!$_SESSION['username'])  {
                                             </select>
 
                                         <h3>Price For Baguio</h3>
-                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" required>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" min="1" required>
 
                                         <h3>Price For Pangasinan</h3>
-                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" required>
+                                        <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" min="1" required>
 
                                         <h3>Restock Level</h3>
                                         <p>*Default values for all branches!!</p>
-                                        <input type="number" class="form-control" maxlength="25" name="restock" required>
+                                        <input type="number" class="form-control" maxlength="25" name="restock" min="1" required>
 
 
                                         <h3>Status</h3>

@@ -43,12 +43,9 @@ session_start();
                         <input id="pwd " type="password" class="form-control" name="password" placeholder="Enter password">
                     </div>              
                 </div>
-                <div class="row ">                   
-                    <div class="col-lg-8 col-md-8  col-sm-8 col-xs-7 forgotpassword "> 
-                        <a href="#"  > Forgot Username / Password?</a>                        
-                    </div>
+                <div class="row">                   
                     <div class="col-lg-4 col-md-4 col-sm-4  col-xs-5 ">                        
-                        <button type="submit" class="btn btn-default" name="login">Submit</button>
+                        <center><button type="submit" class="btn btn-default" name="login">Submit</button></center>
                     </div>
                 </div>
             </form>
@@ -77,7 +74,7 @@ session_start();
 
                 
 
-                if(($accnt_type == "Admin") || ($accnt_type == "Manager" )){       
+                if(($accnt_type == "Admin") ){       
 
                     if(mysqli_num_rows($results)>0){
                             
@@ -97,7 +94,7 @@ session_start();
 
                   
 
-                }else{
+                }else if (($accnt_type == "Manager" )){
 
                     if(mysqli_num_rows($results)>0){
                             
@@ -106,6 +103,26 @@ session_start();
                                
                             if(mysqli_query($db,$query2)){
                                 header("location: SecondLevel/index.php");
+                                   echo $accnt_type;
+                                $_SESSION['username']=$username;
+                            }else{
+                            echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                        }
+                    }
+                    else {
+                        echo"<script>alert('Invalid User Credentials..!')</script>";
+                    }
+
+
+                }else{
+
+                        if(mysqli_num_rows($results)>0){
+                            
+                        $query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+                               VALUE ('$username','Login','$date_time','has successfully login')";
+                               
+                            if(mysqli_query($db,$query2)){
+                                header("location: ThirdLevel/index.php");
                                    echo $accnt_type;
                                 $_SESSION['username']=$username;
                             }else{

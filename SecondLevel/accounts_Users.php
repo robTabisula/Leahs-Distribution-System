@@ -185,9 +185,7 @@ if(!$_SESSION['username'])  {
 							$results = mysqli_query($db, $retrieve);
 						?>
 
-                <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
-                </table>
+               
 
                 <!-- Table Display for Accounts -->
                 <div id="mainContainer">
@@ -201,7 +199,7 @@ if(!$_SESSION['username'])  {
 							<th>Branch</th>
                             <th>Status</th>
 							<th>Account type</th>
-                            <th>Edit</th>
+                           
 							
                         </tr>
                     </thead>
@@ -238,11 +236,7 @@ if(!$_SESSION['username'])  {
 								 <td data-title="acctype">
                                     <?php echo $data["acctype"]; ?>
                                 </td>
-								<td data-title="edit">
-                                        <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_acc_id;?>"></button>
-                                        </table>
-                                </td>
+					
                             </tr>
 							<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Edit modal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
                                 <div id="<?php echo $individual_acc_id;?>" class="modal fade" role="dialog">
@@ -350,9 +344,9 @@ if(!$_SESSION['username'])  {
 																<select name="acctype" class="form-control">
                                                                     <?php
                                                                         $acctype = $row['acctype'];
-                                                                        if ($acctype == 'User') {
+                                                                        if ($acctype == 'Manager') {
                                                                     ?>   
-                                                                            <option>User</option>
+                                                                            <option>Manager</option>
                                                                             <option>Admin</option>
                                                                             <option>Bookkeeper</option>
                                                                             <option>Secretary</option>
@@ -362,23 +356,25 @@ if(!$_SESSION['username'])  {
                                                                     ?>
                                                                             <option>Admin</option>
                                                                             <option>Bookkeeper</option>
+                                                                            <option>Manager</option>
                                                                             <option>Secretary</option>
-                                                                            <option>User</option>
+                                                                            
                                                                             
                                                                     <?php
                                                                             } else if($acctype == 'Bookkeeper') {
                                                                     ?>
                                                                             <option>Bookkeeper</option>
                                                                             <option>Admin</option>
+                                                                            <option>Manager</option>
                                                                             <option>Secretary</option>
-                                                                            <option>User</option>
+                                                                            
                                                                     <?php
                                                                             } else {
                                                                     ?>
                                                                             <option>Secretary</option>
                                                                             <option>Admin</option>
                                                                             <option>Bookkeeper</option>
-                                                                            <option>User</option>
+                                                                            <option>Manager</option>
                                                                     <?php
                                                                             }
                                                                     ?>

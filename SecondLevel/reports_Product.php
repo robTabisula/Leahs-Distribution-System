@@ -241,7 +241,7 @@ if(!$_SESSION['username'])  {
 												$individual_prod_id=$data["productList_id"];
 											?>
 											<td data-title="productList_name">
-												<?php echo $data["productList_name"]." ".$data["value"]." ".$data["unit"];  ?>
+												<?php echo $data["productList_name"];  ?>
 											</td>
 											 <td data-title="productList_name">
 												<?php echo $data["Total Quantity"]; ?>

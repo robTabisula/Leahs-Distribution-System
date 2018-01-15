@@ -261,7 +261,7 @@ if(!$_SESSION['username'])  {
 															foreach ($run as $log){
 															$toData = $log["productList_id"];        
 														?>
-															<br><input type="text" value= "<?php  echo $log["productList_name"]." ".$log["value"]." ".$log["unit"];?>" readonly>
+															<br><input type="text" value= "<?php  echo $log["productList_name"];?>" readonly>
 																<input type="text" value= "<?php  echo $log["order_qty"];  ?>" readonly>
 
 														<?php

@@ -47,6 +47,17 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
+     <?php
+            $name = $_SESSION['username'];
+                
+        
+            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
+            $branchRetrieve = mysqli_query($db, $rbranch);
+            $branchRow = mysqli_fetch_array($branchRetrieve);
+
+            $userbranch = $branchRow['branch'];
+             //will increment 1 from the latest issuance ID
+    ?>
         <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
@@ -159,8 +170,8 @@ if(!$_SESSION['username'])  {
 								<h4>Branch </h4>
 									<select name="branch" onchange="Lclients(this.value);" required>
 											<option value="" selected="true" disabled="disabled">Select an Area</option>
-											<option value="Baguio">Baguio</option>
-											<option value="Pangasinan">Pangasinan</option>
+											<option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
+											
 									</select>
 								</div>
 								
@@ -193,7 +204,7 @@ if(!$_SESSION['username'])  {
 								
 								<div class="form-group">                            
                                     <?php
-                                        $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                        $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                         $prodRetrieve = mysqli_query($db, $retrieveProd);
                                     ?>
                                 </div> 
@@ -210,8 +221,8 @@ if(!$_SESSION['username'])  {
                                                             foreach ($prodRetrieve as $datas):
                                                             $sproduct_id = $datas["productList_id"];
                                                         ?>  
-                                                            <option value = "<?php echo $sproduct_id;?>">
-                                                               <?php echo $datas["productList_name"]." ".$datas["value"]."".$datas["unit"]; ?>
+                                                            <option value = "<?php echo $datas["productList_name"];?>">
+                                                               <?php echo $datas["productList_name"]; ?>
                                                             </option>
                                                   
                                                         <?php
@@ -230,7 +241,7 @@ if(!$_SESSION['username'])  {
                                         </tr>
                                     </table>
                                     
-                                    <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn"   value="Reset" />
+                                
                                     <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
                                     <br>
                                 <br>
