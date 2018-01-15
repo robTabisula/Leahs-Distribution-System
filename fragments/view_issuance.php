@@ -181,7 +181,7 @@
 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
                                 <!--********************************************************************************** -->
@@ -344,7 +344,7 @@
                                 <br><br><br><br><br>
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 
@@ -484,7 +484,7 @@
 
                                     <div class="form-group">                            
                                                 <?php
-                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                                    $retrieveProd = ("SELECT distinct productList_id, productList_name,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                                     $prodRetrieve = mysqli_query($db, $retrieveProd);
                                                 ?>
 
@@ -632,7 +632,7 @@
                                 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,unit,value, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name,category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
 

@@ -402,7 +402,8 @@ if(!$_SESSION['username'])  {
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    <h4 class="modal-title">Product: <?php echo $Lrow["productList_name"]; ?> Location: <?php echo $Lrow["iS_location"]; ?></h4>
+                                                    <h4 class="modal-title">Product: <?php echo $Lrow["productList_name"]; ?> </h4>
+                                                    <h4 class="modal-title">Location: <?php echo $Lrow["iS_location"]; ?></h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form action="fragments/addLowStocks.php" method="POST">
