@@ -22,7 +22,7 @@
 			$altpriceB = $_POST['altpriceB'];
             $altpriceP = $_POST['altpriceP'];
             $restock =  $_POST['restock'];
-			
+
 				date_default_timezone_set('Asia/Manila');
 				$date_time = date("F j, Y, g:i a");
 				$issueAcnt = $_POST['issueAcnt'];
@@ -32,20 +32,18 @@
             $row = mysqli_fetch_array($category);
             $categoryResult = $row['category_id'];
 
-
           	$query = "INSERT INTO product_list (productList_name,value,unit, category_id,barcode) 
                 	   VALUE ('$productList_name','$value','$unit','$categoryResult','$barcode')";
 
             if(mysqli_query($db, $query)){
       				$get_id="select productList_id from product_list WHERE productList_name='$productList_name'";
       				$run=mysqli_query($db,$get_id);
-
   				    $row = mysqli_fetch_array($run);
     					$id=$row[0];
 
               $query2 = "INSERT INTO inventory (iS_product_id,iS_restock_lvl,iS_location) 
                        VALUE ('$id','$restock','Baguio'),('$id','$restock','Pangasinan')";
-              mysqli_query($db,$query2);
+						mysqli_query($db,$query2);
 
     					$query3 = "INSERT INTO product_loc (product_id, location, status, altprice) 
                     	   VALUE ('$id','Baguio','$status','$altpriceB'),('$id','Pangasinan','$status','$altpriceP')";
@@ -53,7 +51,6 @@
 					
 						$query4 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
 						   VALUE ('$issueAcnt','Added Product','$date_time','has successfully added a new product')";
-						   
 
     					if(mysqli_query($db, $query4)){
     						echo"<script>alert('New products have been successfully added ')</script>";

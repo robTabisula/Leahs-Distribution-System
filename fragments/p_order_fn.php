@@ -56,7 +56,7 @@
                     $productIDList = $productID['productList_id'];
 
 				   //read current quantity in issuance_list
-                    $getqtyissued="SELECT order_qty FROM purchased_order_list where p_order_id = '$orderID'";
+                    $getqtyissued="SELECT * FROM purchased_order_list where p_order_id = '$orderID'";
                     $getqty=mysqli_query($db, $getqtyissued);
                     $get=mysqli_fetch_array($getqty);
                     $qtyissued=$get['order_qty'];
@@ -79,7 +79,7 @@
 							   
 					//reduce quantity in purchased_order_list						   
 						$newqty = $qtyissued-$quantity;
-						$updateqty="UPDATE purchased_order_list set order_qty='$newqty' where prdct_id = '$productIDList' AND p_order_id = '$orderID'";
+						$updateqty="UPDATE purchased_order_list set order_qty='$newqty' where prdct_id = '$productIDList' AND and branch = '$branch'";
 						$updt=mysqli_query($db,$updateqty);
 						
 							$query = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 

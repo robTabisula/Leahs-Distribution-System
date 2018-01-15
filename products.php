@@ -231,8 +231,11 @@ if(!$_SESSION['username'])  {
                                 $toData = $data["productList_id"];
                             ?>
                                 <tr>
-                                    <td data-title="Barcode">
-                                        <?php echo $data["barcode"] ?>
+                                    <td data-title="Barcode"><center>
+                                        <?php echo $data["barcode"];?>
+										<?php if ($data["barcode"]==""){
+										echo "- - - - - - -";
+										}?></center>
                                     </td>
                                         <?php 
                                             $individual_product_id=$data["productList_id"];
@@ -280,7 +283,11 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <input name="barcode" readOnly value="<?php echo $row['barcode']; ?>" type="text" class="form-control">
+                                                                <center><input name="barcode" readOnly value="<?php echo $row['barcode'];
+																	if ($data["barcode"]==""){
+																	echo "- - - - - - -";
+																}?>" type="text" class="form-control"></center>
+
                                                             </div>
                                                             <div class="col-xs-4">
                                                                 <input name="productList_name" readOnly value="<?php echo $row["productList_name"]."(".$row["unit"]. ")"; ?>" type="text" class="form-control">
@@ -325,7 +332,7 @@ if(!$_SESSION['username'])  {
 																				?>                                                                       
                                                                         
                                                                     </div>
-                                                            </div>
+                                                            </div><br>
 
                                                                 <div class="row">
                                                                     <div class="col-xs-6"><label>Baguio Price</label>
@@ -380,7 +387,7 @@ if(!$_SESSION['username'])  {
 								<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
                                     <h3>Barcode</h3>
                                     <input type="text" class="form-control" maxlength="25" name="barcode">
-
+									
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
 									
