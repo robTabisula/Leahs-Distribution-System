@@ -124,7 +124,6 @@
 					}
 				}
 		?>
-       			<h1> <echo $secPassword; ?></h1>
 		
      </body>  			
 </html>
