@@ -290,22 +290,31 @@ if(!$_SESSION['username'])  {
                                  <hr>
                                
                                 <h4>Product Description: </h4>
+                                <table style="width:100%">
+                                    <tr>
+                                        <th>Product Name: </th>
+                                        <th>Issuing Quantity: </th>
+                                        <th>Order Remarks:</th>
+                                    </tr>
+
                                 <?php
-                                            foreach ($runInfoQuery as $info):
-                                            $product_id = $info["p_order_id"];
-                                        ?>
+                                    foreach ($runInfoQuery as $info):
+                                    $product_id = $info["p_order_id"];
+                                ?>
                                     
-                                    <label>Product Name: </label>
-                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
-                                    <label>Issuing Quantity: </label>
-                                    <input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>'  />&nbsp
-                                    <label>Order Remarks:</label>
-                                    <input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' />&nbsp
+                                <tr>
+                                    <td><input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' /></td>
+                                    
+                                    <td><input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>'  /></td>
+                                   
+                                    <td><input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' /></td>
+                                </tr>
                                     <br>
 
                                     <?php
                                             endforeach;
                                         ?> 
+                                </table>
                         </div>
                             <div id="DescDiv">
                                     <hr>
