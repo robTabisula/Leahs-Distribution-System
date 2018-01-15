@@ -68,8 +68,8 @@
 
                     //reduce quantity in inventory
                     $newQuan=$product_quantity+$qty;
+                    $insertnew="UPDATE inventory set iS_quantity='$newQuan' where inventory.iS_product_id = '$productIDList' and inventory.iS_location = '$branch'";
 
-                    $insertnew="UPDATE inventory set iS_quantity='$newQuan' where inventory.iS_product_id = '$productIDList' and inpo_id, po_price, po_qty, branch, po_product_id, po_remarksventory.iS_location = '$branch'";
                     $update=mysqli_query($db,$insertnew);
                    
                     //query for issuance list
