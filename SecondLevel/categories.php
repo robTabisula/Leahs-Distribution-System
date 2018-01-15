@@ -100,6 +100,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -108,6 +109,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -132,6 +134,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
                 
@@ -183,6 +186,9 @@ if(!$_SESSION['username'])  {
 							$results = mysqli_query($db, $retrieve);
 						?>
 
+                <table class="table table-striped table-bordered">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Category</button>
+                </table>
 
                 <!-- Table Display for Accounts -->
                 <div id="mainContainer">
@@ -191,6 +197,7 @@ if(!$_SESSION['username'])  {
                             <tr>
                                 <th>Category Name</th>
                                 <th>Category Status</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
 
@@ -212,7 +219,11 @@ if(!$_SESSION['username'])  {
                                     <td data-title="category_status">
                                         <?php echo $data["category_status"]; ?>
                                     </td>
-						
+									<td data-title="edit">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_category_id;?>"></button>
+                                        </table>
+                                    </td>
                                 </tr>
 								
 								<!--Edit modal-->
@@ -237,10 +248,24 @@ if(!$_SESSION['username'])  {
                                                             </div>
                                                             <div class="col-xs-4">
 
-																<select name="category_status" class="form-control">
-																	<option>Enabled</option>
-																	<option>Disabled</option>
-																</select>
+                                                                <?php
+
+                                                                    $catStatus = ("SELECT category_status FROM category_list WHERE category_id = '$individual_category_id'");
+                                                                    $catResults = mysqli_query($db, $catStatus);
+                                                                    $categoryStatus = mysqli_fetch_array($catResults);
+                                                                    $currentStatus=$categoryStatus['category_status'];
+                                                                    if ($currentStatus == "Enabled"){
+                                                                ?>
+																	<input type="radio" name="category_status" Value="Enabled" checked>Enabled<br>
+																	<input type="radio" name="category_status" Value="Disabled">Disabled
+																<?php
+                                                                    }else{
+                                                                ?>
+                                                                    <input type="radio" name="category_status" Value="Enabled" >Enabled<br>
+                                                                    <input type="radio" name="category_status" Value="Disabled" checked>Disabled
+                                                                <?php
+                                                                    }
+                                                                ?>
 
                                                             </div>
                                                         </div>
@@ -266,6 +291,34 @@ if(!$_SESSION['username'])  {
                         </tbody>
                     </table>
 
+                    <!-- Modal -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add Category</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="fragments/addCategory.php" method="POST" >
+										<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
+	                                        <h3>Category Name</h3>
+	                                        <input type="text" class="form-control" maxlength="25" name="category_name" autofocus required>
+											<h3>Status</h3>
+	                                        
+											<input type="radio" name="category_status" Value="Enabled">Enabled   
+											<input type="radio" name="category_status" Value="Disabled" checked>Disabled
+
+	                                        <div class="modal-footer">
+	                                            <input name="add_category" type="submit" class="btn btn-default" value=" Submit " />
+	                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </div>
     </div>

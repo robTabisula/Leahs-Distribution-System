@@ -21,17 +21,17 @@ if(!$_SESSION['username'])  {
     <?php include('fragments/config.php') ?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../src/css/index.css">
+    <link rel="stylesheet" href="src/css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
-    <script type="text/javascript" src="../src/js/canvasjs-1.9.10/canvasjs-1.9.10-stable/canvasjs.min.js"></script>
-    <script type="text/javascript" src="../src/js/App.js"></script>
+    <script type="text/javascript" src="src/js/canvasjs-1.9.10/canvasjs-1.9.10-stable/canvasjs.min.js"></script>
+    <script type="text/javascript" src="src/js/App.js"></script>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <link href="../src/css/datatables.css" rel="stylesheet">
+    <link href="src/css/datatables.css" rel="stylesheet">
 
     <!-- sidebar links-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -39,7 +39,7 @@ if(!$_SESSION['username'])  {
     <link href="src/css/custom.css" rel="stylesheet">
 
     <!-- index links -->
-    <link href="../src/css/index.css" rel="stylesheet">
+    <link href="src/css/index.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <!-- Datatables-->
@@ -80,6 +80,7 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
+				
 				<!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
@@ -88,6 +89,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -112,6 +114,7 @@ if(!$_SESSION['username'])  {
                     <li> <a href="log_STransfer.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Stock Transfer Logs </a></li>
                     <li> <a href="log_BadOrders.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Bad Order Logs </a></li>
                     <li> <a href="log_Returns.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Returns Logs </a></li>
+                    <li> <a href="log_Activity.php"><i class="fa fa-list-alt" aria-hidden="true"></i> Activity Logs </a></li>
 
                 </ul>
 
@@ -264,6 +267,10 @@ if(!$_SESSION['username'])  {
                                         <i class="glyphicon glyphicon-arrow-down"></i>
                                         <p>View Low Stocks</p>
                                     </a>
+                                    <a href="log_Activity.php" class="btn btn-primary col-sm-3">
+                                        <i class="glyphicon glyphicon-cog"></i>
+                                        <p>Activity Logs</p>
+                                    </a>
                                 </div>
                             </div>
                             <!--/panel content-->
@@ -345,7 +352,7 @@ if(!$_SESSION['username'])  {
                             <br>
                                 Today is
                                 <?php
-									date_default_timezone_set('Asia/Manila');
+                                    date_default_timezone_set('Asia/Manila');
                                     $date_time = date("F j, Y, g:i a");
                                     echo $date_time;
                                 ?>

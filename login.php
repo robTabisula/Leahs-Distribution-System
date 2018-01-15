@@ -74,7 +74,7 @@ session_start();
 
                 
 
-                if(($accnt_type == "Admin") || ($accnt_type == "Manager" )){       
+                if(($accnt_type == "Admin") ){       
 
                     if(mysqli_num_rows($results)>0){
                             
@@ -94,7 +94,7 @@ session_start();
 
                   
 
-                }else{
+                }else if (($accnt_type == "Manager" )){
 
                     if(mysqli_num_rows($results)>0){
                             
@@ -103,6 +103,26 @@ session_start();
                                
                             if(mysqli_query($db,$query2)){
                                 header("location: SecondLevel/index.php");
+                                   echo $accnt_type;
+                                $_SESSION['username']=$username;
+                            }else{
+                            echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                        }
+                    }
+                    else {
+                        echo"<script>alert('Invalid User Credentials..!')</script>";
+                    }
+
+
+                }else{
+
+                        if(mysqli_num_rows($results)>0){
+                            
+                        $query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
+                               VALUE ('$username','Login','$date_time','has successfully login')";
+                               
+                            if(mysqli_query($db,$query2)){
+                                header("location: ThirdLevel/index.php");
                                    echo $accnt_type;
                                 $_SESSION['username']=$username;
                             }else{

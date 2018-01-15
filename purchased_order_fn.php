@@ -94,6 +94,13 @@ if(!$_SESSION['username'])  {
             row.parentNode.removeChild(row);
         }
 
+        function viewCategory(prod_id){
+                  $("#DescDiv").html('Loading').show();
+                  var url="fragments/p_order_fn.php";
+                  $.post(url,{prod_id:prod_id},function(data){
+                  $("#DescDiv").html(data).show();
+            ;});
+        }
     </script>
 
 
@@ -285,8 +292,8 @@ if(!$_SESSION['username'])  {
                                     
                                     <label>Product Name: </label>
                                     <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]." ".$info["value"]." ".$info["unit"]; ?>' />&nbsp
-                                    <label>Issued Quantity: </label>
-                                    <input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>' />&nbsp
+                                    <label>Issuing Quantity: </label>
+                                    <input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>'  />&nbsp
                                     <label>Order Remarks:</label>
                                     <input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' />&nbsp
 									<br>
@@ -295,6 +302,11 @@ if(!$_SESSION['username'])  {
                                             endforeach;
                                         ?>
 
+                                <div id="DescDiv">
+                                            <hr>
+                                            <h4>When Choosing a product, Information will be viewed here.</h4>
+                                            <hr>
+                                </div>  
                         </div>
                         <br>
                         <br>
@@ -307,7 +319,7 @@ if(!$_SESSION['username'])  {
                                     <label for="product">Product:</label>
                                 </td>
                                 <td>
-                                    <select id="product" name="productList" id="productselect">
+                                    <select id="product" name="productList" id="productselect"  onchange ="javascript:viewCategory(this.value);">
                                                     <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                             <?php
                                                                 foreach ($run as $datas):
@@ -321,7 +333,7 @@ if(!$_SESSION['username'])  {
                                                             <?php
                                                                 endforeach;
                                                             ?>
-                                                </select>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -329,7 +341,7 @@ if(!$_SESSION['username'])  {
                                     <label for="quantity">Quantity:</label>
                                 </td>
                                 <td>
-                                    <input placeholder="Quantity" id="quantity" name="quantity" width="196px" type="number" />
+                                    <input placeholder="Quantity" id="quantity" name="quantity" width="196px" type="number" min="1"/>
                                 </td>
                             </tr>
                             <tr>
@@ -337,12 +349,11 @@ if(!$_SESSION['username'])  {
                                     <label for="price">Price:</label>
                                 </td>
                                 <td>
-                                    <input placeholder="Adjusted Price" id="price" name="price" size="28" type="number" />
+                                    <input placeholder="Adjusted Price" id="price" name="price" size="28" type="number" min="1"/>
                                 </td>
                             </tr>
                         </table>
 
-                        <input type="reset" name="reset" class="btn btn-info btn-lg" id="resetbtn" class="resetbtn" value="Reset" />
                         <input type="button" class="btn btn-info btn-lg" onClick="updateForm();" / value="Add" />
                         <br>
                         <br>

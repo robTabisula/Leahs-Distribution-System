@@ -109,6 +109,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -185,6 +186,10 @@ if(!$_SESSION['username'])  {
 							$results = mysqli_query($db, $retrieve);
 						?>
 
+                <table class="table table-striped table-bordered">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Client</button>
+                </table>
+
                 <!-- Table Display for Accounts -->
                 <div id="mainContainer">
                     <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
@@ -195,7 +200,7 @@ if(!$_SESSION['username'])  {
                                 <th>Contact Person</th>
                                 <th>Contact Number</th>
                                 <th>Location</th>
-                           
+                                <th>Edit</th>
 
                             </tr>
                         </thead>
@@ -225,7 +230,12 @@ if(!$_SESSION['username'])  {
                                     <td data-title="c_location">
                                         <?php echo $data["c_location"]; ?>
                                     </td>
-
+									
+									<td data-title="edit">
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" onclick="refresh()" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $individual_c_id;?>"></button>
+                                        </table>
+                                    </td>
 
                                 </tr>
 								<!--Edit modal-->
@@ -264,7 +274,7 @@ if(!$_SESSION['username'])  {
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-xs-4">
-                                                                <input name="contact_number" value="<?php echo $row['c_contactpersonnumber']; ?>" type="text" class="form-control">
+                                                                <input name="contact_number" value="<?php echo $row['c_contactpersonnumber']; ?>" onkeypress="return isNumber(event)" type="text" class="form-control">
                                                             </div>
 															<div class="col-xs-4">
                                                                 <input name="contact_name" value="<?php echo $row['c_contactperson']; ?>" type="text" class="form-control">
