@@ -21,6 +21,7 @@ if(!$_SESSION['username'])  {
     <?php include('fragments/config.php') ?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/Issue_PO.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
@@ -134,8 +135,8 @@ if(!$_SESSION['username'])  {
                         <i class="fa fa-dashboard fa-lg"></i> Dashboard
                     </a>
                 </li>
-				
-				<!-- Settings Submenu -->
+                
+                <!-- Settings Submenu -->
                  <li><a href="settings.php"><i class="fa fa-cog"></i> Me</a></li>
 
                 <!-- Accounts Submenu -->
@@ -145,7 +146,7 @@ if(!$_SESSION['username'])  {
                 <ul class="sub-menu collapse atarget" id="accounts">
                     <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
-					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
+                    <li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
 
                 <!-- Reports Submenu -->
@@ -250,77 +251,73 @@ if(!$_SESSION['username'])  {
                         <?php 
                             $getIsID = $_GET['po_id'];
                             $getBranch = $_GET['Branch'];
-							$getClient = $_GET['c_id'];
-							$getMerch = $_GET['m_id'];
-							
+                            $getClient = $_GET['c_id'];
+                            $getMerch = $_GET['m_id'];
+                            
                             $queryProducts = "SELECT * FROM purchased_order_list INNER JOIN clients on purchased_order_list.client_id = clients.c_id INNER JOIN product_list ON purchased_order_list.prdct_id = product_list.productList_id INNER JOIN product_loc ON purchased_order_list.prdct_id = product_loc.product_id WHERE p_order_id = '$getIsID' AND location = '$getBranch' AND client_id = '$getClient' AND merchandiser_id = '$getMerch'";
                             $run = mysqli_query($db, $queryProducts);
-							
+                            
                         ?>
                         <!--********************************************************************************** -->
 
                         <hr style="border-top: 3px double #8c8b8b;">
                         <br>
                         <!--Div to view adjusted price and category-->
-                        <div id="AdjustedPriceDiv">
+                        <div id = "detailsview">
+                            <div id="AdjustedPriceDiv">
                             <?php
                                             $getIsID = $_GET['po_id'];
 
                                             $infoQuery = "SELECT * FROM leahs.purchased_order_list inner join product_list on productList_id=prdct_id where p_order_id = '$getIsID'";
                                             $runInfoQuery = mysqli_query($db, $infoQuery);
-											
+                                            
 
                                         ?>
-                            
                                 <label>Order ID</label>
                                 <input type='text' size='2' name="orderID" readonly value='<?php  echo $_GET['po_id']; ?>'/>&nbsp&nbsp&nbsp
-								
+                                
                                 <label>Branch</label>
                                 <input type='text' size='10' name="IsuanceID" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
-								
-								<label>Client</label>
+                                
+                                <label>Client</label>
                                 <input type='text' size='10' name="c_id" readonly value='<?php  echo $_GET['c_id']; ?>'/>&nbsp&nbsp&nbsp
-								
-								<label>Merchandiser</label>
+                                
+                                <label>Merchandiser</label>
                                 <input type='text' size='10' name="m_id" readonly value='<?php  echo $_GET['m_id']; ?>'/>&nbsp&nbsp&nbsp
-								
-								<br>
-                                <h4>Product Description: </h4> 
-                            <table style="width:100%"> 
-                                <tr>     
-                                    <th>Product Name: </th>
-                                    
-                                    <th>Issuing Quantity: </th>
-                                    
-                                    <th>Order Remarks:</th>
-                                    
-									<br>
-                                </tr>
+                                
+                                <br>
+                                   
+                                 <hr>
+                               
+                                <h4>Product Description: </h4>
                                 <?php
                                             foreach ($runInfoQuery as $info):
                                             $product_id = $info["p_order_id"];
                                         ?>
-                                <tr>
-                                    <td><input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp</td>
-                                    <td><input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>'  />&nbsp</td>
-                                    <td><input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' />&nbsp</td>
-                                </tr>
+                                    
+                                    <label>Product Name: </label>
+                                    <input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' />&nbsp
+                                    <label>Issuing Quantity: </label>
+                                    <input type='text' size='2' readonly value='<?php  echo $info["order_qty"]; ?>'  />&nbsp
+                                    <label>Order Remarks:</label>
+                                    <input type='text' size='20' readonly value='<?php  echo $info["order_remarks"]; ?>' />&nbsp
+                                    <br>
+
                                     <?php
                                             endforeach;
-                                        ?>
-                            </table>
-
-                                <div id="DescDiv">
-                                            <hr>
-                                            <h4>When Choosing a product, Information will be viewed here.</h4>
-                                            <hr>
-                                </div>  
+                                        ?> 
+                        </div>
+                            <div id="DescDiv">
+                                    <hr>
+                                    <h4>When Choosing a product, Information will be viewed here.</h4>
+                                    <hr>
+                        </div> 
                         </div>
                         <br>
                         <br>
                         <br>
 
-                        <table class="table table-striped table-bordered">
+                        <table id="form_table" class="table table-striped table-bordered">
                             <tr>
 
                                 <td>
