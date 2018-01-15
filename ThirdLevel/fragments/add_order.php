@@ -28,6 +28,11 @@
 				$p_remarks = $_POST['premarks'];//array for remarks
 				$issueAcnt = $_POST['issueAcnt'];
 				$date_time = date("F j, Y, g:i a");
+				$secPass = $_POST['secPass'];
+				$securityCodeQuery = "SELECT security_key FROM accounts Where security_key = '$secPass'";
+				$results = mysqli_query($db, $securityCodeQuery);
+
+				if(mysqli_num_rows($results)>0){
             
         //query for issuance table
               $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser_id) 
@@ -80,6 +85,10 @@
 			  }else{
 				    echo ("ERROR: Could not able to execute" . mysqli_error($db));
                     }
+            }else {
+                echo"<script>alert('Invalid Security Code..!')</script>";
+                echo "<script>window.open('../issuance.php','_self')</script>";
+            }
 
 			}
 			?>

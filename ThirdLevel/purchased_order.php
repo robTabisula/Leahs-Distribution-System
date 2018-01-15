@@ -265,6 +265,7 @@ if(!$_SESSION['username'])  {
                                         <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
                                     </div>
                                     <br>
+                                    
                          
                                 <!--********************************************************************************** -->
 
