@@ -49,7 +49,6 @@ if(!$_SESSION['username'])  {
         document.getElementById('inputln').removeAttribute('readonly');
         document.getElementById('inputem').removeAttribute('readonly');
         document.getElementById('input').removeAttribute('readonly');
-        document.getElementById('key').removeAttribute('readonly');
 
         var inputfn = document.getElementById("inputfn");
         inputfn.style.backgroundColor = "white";
@@ -59,8 +58,6 @@ if(!$_SESSION['username'])  {
         inputem.style.backgroundColor = "white";
         var input = document.getElementById("input");
         input.style.backgroundColor = "white";
-        var key = document.getElementById("key");
-        key.style.backgroundColor = "white";
         document.getElementById('inputun').focus();
 };
     </script>
@@ -103,7 +100,6 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
-                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -213,11 +209,7 @@ if(!$_SESSION['username'])  {
                     <center><h4>Contact Number</h4></center>
                     <input name="contact_num" id="input" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $contact_no;?>" readonly/>
                 </div>
-                <div class="col-lg-4">
-                    <hr>
-                    <center><h4>Security Key</h4></center>
-                    <input name="secKey" id="key" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $secKey;?>" minlength="5" maxlength="5" readonly/>
-                </div>
+
 				
 				<div class="col-xs-12">
 					<br>

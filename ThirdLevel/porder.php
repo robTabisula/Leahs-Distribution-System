@@ -51,6 +51,17 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
+ <?php
+            $name = $_SESSION['username'];
+                
+        
+            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
+            $branchRetrieve = mysqli_query($db, $rbranch);
+            $branchRow = mysqli_fetch_array($branchRetrieve);
+
+            $userbranch = $branchRow['branch'];
+             //will increment 1 from the latest issuance ID
+    ?>
          <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
@@ -161,7 +172,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser_id = merchandiser.m_id");
+							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser_id = merchandiser.m_id WHERE c_location = '$userbranch'");
 							$results = mysqli_query($db, $retrieve);
 						?>
 

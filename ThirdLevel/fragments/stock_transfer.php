@@ -90,8 +90,8 @@
 							$updateSecond=mysqli_query($db,$add);
 					   
 							//query for issuance list
-									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
-											   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks','$clientlist')";
+									 $queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
+											   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks')";
 											   mysqli_query($db, $queryil);
 
 									$query = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
@@ -148,7 +148,7 @@
 										   
 									if(mysqli_query($db, $query)){
 										echo"<script>alert('Product(s) have been successfully transfered')</script>";
-										echo "<script>window.open('../issuance.php','_self')</script>"; 
+										//echo "<script>window.open('../issuance.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));
 									}
@@ -161,7 +161,7 @@
                     }
       }else {
           echo"<script>alert('Invalid Security Code..!')</script>";
-          echo "<script>window.open('../issuance.php','_self')</script>";
+          //echo "<script>window.open('../issuance.php','_self')</script>";
       }
 
 			}else{
