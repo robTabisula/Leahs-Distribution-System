@@ -148,7 +148,7 @@
 										   
 									if(mysqli_query($db, $query)){
 										echo"<script>alert('Product(s) have been successfully transfered')</script>";
-										//echo "<script>window.open('../issuance.php','_self')</script>"; 
+										echo "<script>window.open('../issuance.php','_self')</script>"; 
 									}else{
 										echo ("ERROR: Could not able to execute" . mysqli_error($db));
 									}
@@ -161,7 +161,7 @@
                     }
       }else {
           echo"<script>alert('Invalid Security Code..!')</script>";
-          //echo "<script>window.open('../issuance.php','_self')</script>";
+          echo "<script>window.open('../issuance.php','_self')</script>";
       }
 
 			}else{
