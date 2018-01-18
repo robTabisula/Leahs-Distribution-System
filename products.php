@@ -390,7 +390,6 @@ if(!$_SESSION['username'])  {
 									
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
-									
 
                                     <h3>Product Category</h3>
                                     <?php

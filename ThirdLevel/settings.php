@@ -182,7 +182,6 @@ if(!$_SESSION['username'])  {
                         $contact_no=$thisuser['contact_no'];
                         $status=$thisuser['status'];
                         $branch=$thisuser['branch'];
-                        $secKey=$thisuser['security_key'];
                         $ID = $thisuser['acc_id'];
 
                 ?> 
@@ -218,10 +217,8 @@ if(!$_SESSION['username'])  {
                             <button type="button" class="btn btn-default" data-dismiss="modal" onClick="location.href=location.href"><i class="fa fa-times"></i> Discard</button>
 						</div>
 				</div>
-             </form>
-              <input name="branch" id="edit" type="button" style="background-color: #90EE90;" class="btn btn-success" onclick="edit();" class="fa fa-save" value="Edit"/>
-
-
+             </form><br><br><br><br><br><br><br><br>
+              <input name="branch" id="edit" type="button" style="background-color: #32CD32;" class="btn btn-success" onclick="edit();" class="fa fa-save" value="Edit"/>
         </div>
     </div>
 

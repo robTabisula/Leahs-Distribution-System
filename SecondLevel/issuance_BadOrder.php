@@ -100,7 +100,6 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
-    
     <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
@@ -288,7 +287,7 @@ if(!$_SESSION['username'])  {
                                         <tr>
                                             <td><input type='text' size='15' readonly value='<?php  echo $info["productList_name"]; ?>' /></td>
                                             <td><input type='text' size='2' readonly value='<?php  echo $info["prod_qty"]; ?>' /></td>
-                                            <td><input type='text' size='2' readonly value='<?php  echo $info["prod_price"]; ?>' /></td>
+                                            <td><input id="price" name="price" type='text' size='2' readonly value='<?php  echo $info["prod_price"]; ?>' /></td>
                                             <td><input type='text' size='20' readonly value='<?php  echo $info["prod_remarks"]; ?>' /></td>
                                         </tr>
 
@@ -335,14 +334,7 @@ if(!$_SESSION['username'])  {
                                     <input placeholder="Quantity" id="quantity" name="quantity" width="196px" type="number" />
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <label for="price">Price:</label>
-                                </td>
-                                <td>
-                                    <input placeholder="Adjusted Price" id="price" name="price" size="28" type="number" />
-                                </td>
-                            </tr>
+							
                         </table>
 
                     

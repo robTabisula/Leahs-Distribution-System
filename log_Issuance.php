@@ -154,7 +154,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT * FROM issuance inner join clients on issuance.client_id = clients.c_id");
+                            $retrieve = ("SELECT issue_id,issue_date_time,issue_account,c_name,client_id,c_location,remarks FROM issuance inner join clients on issuance.client_id = clients.c_id");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -191,7 +191,7 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td data-title="Products Issued">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
+                                            <button type="button" class="glyphicon glyphicon-th-list" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
                                         </table>
                                 </td>
                                 <td  data-title="Issuer">
@@ -226,7 +226,7 @@ if(!$_SESSION['username'])  {
                                         <table class="table table-striped table-bordered">
                                             <a href="issuance_BadOrder.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>">
                                                 <button type="button" class="btn btn-default">
-                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                 </button>
                                             </a>
                                         </table>

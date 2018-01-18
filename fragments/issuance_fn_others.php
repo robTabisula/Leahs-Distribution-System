@@ -19,9 +19,6 @@
 				$choice = $_POST['choice'];//type of issuance, use if statements for this for other types
 				$issue_id = $_POST['issue_id'];//new issuance id +1
 				
-				session_start();
-				$clientlist=$_SESSION['CCC'];//list of clients (id)
-				
 				$Ocleint = $_POST['Ocleint'];//client name
 				$remarks = $_POST['remarks'];//remarks for issuance
         $issueAcnt = $_POST['issueAct'];//issuer
@@ -37,8 +34,8 @@
 				$issueAcnt = $_POST['issueAcnt'];
             
         //query for issuance table
-              $queryit = "INSERT INTO issuance (issue_id, issue_date_time, issue_type, remarks,other_clients, issue_account) 
-                             VALUE ('$issue_id','$issue_date_time','$choice','$remarks','$Ocleint','$issueAcnt')";
+              $queryit = "INSERT INTO issuance (issue_id, issue_date_time,issue_account, issue_type, remarks,other_clients) 
+                             VALUE ('$issue_id','$issue_date_time','$issueAcnt','$choice','$remarks','$Ocleint')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select issue_id from issuance WHERE issue_id='$issue_id'";
       				$run=mysqli_query($db,$get_id);
@@ -72,8 +69,8 @@
 					$update=mysqli_query($db,$insertnew);
 				   
 							//query for issuance list
-							$queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks,client_id) 
-									   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks','$clientlist')";
+							$queryil = "INSERT INTO issuance_list (issue_id, prod_qty, prod_price, branch, prod_id, prod_remarks) 
+									   VALUE ('$id','$qty','$adjprice','$branch','$productIDList','$p_remarks')";
 										mysqli_query($db, $queryil);
 
 								$query2 = "INSERT INTO logs (issue_acnt,act_type,date_time,remarks) 
@@ -81,7 +78,7 @@
 
 							if(mysqli_query($db, $query2)){
 								echo"<script>alert('Products have been successfuly issued to others')</script>";
-								echo "<script>window.open('../issuance.php','_self')</script>"; 
+								echo "<script>window.open('../log_Others.php','_self')</script>"; 
 							}else{
 								echo ("ERROR: Could not able to execute" . mysqli_error($db));
 								}

@@ -218,7 +218,7 @@ if(!$_SESSION['username'])  {
                     <center><h4>Security Key</h4></center>
                     <input name="secKey" id="key" style="background-color: #DCDCDC;" class="input-lg" type="textfield" value="<?php echo $secKey;?>" minlength="5" maxlength="5" readonly/>
                 </div>
-				
+
 				<div class="col-xs-12">
 					<br>
 						<div class="modal-footer">

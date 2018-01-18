@@ -51,17 +51,6 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
- <?php
-            $name = $_SESSION['username'];
-                
-        
-            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
-            $branchRetrieve = mysqli_query($db, $rbranch);
-            $branchRow = mysqli_fetch_array($branchRetrieve);
-
-            $userbranch = $branchRow['branch'];
-             //will increment 1 from the latest issuance ID
-    ?>
          <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
@@ -172,7 +161,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser_id = merchandiser.m_id WHERE c_location = '$userbranch'");
+							$retrieve = ("SELECT * FROM purchased_order INNER JOIN clients ON purchased_order.client_id = clients.c_id INNER JOIN merchandiser ON purchased_order.merchandiser_id = merchandiser.m_id");
 							$results = mysqli_query($db, $retrieve);
 						?>
 
@@ -206,7 +195,7 @@ if(!$_SESSION['username'])  {
 
 									<td data-title="Products Ordered">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $po_id ?>"></button>
+                                            <button type="button" class="glyphicon glyphicon-th-list" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $po_id ?>"></button>
                                         </table>
 									</td>
 									
@@ -223,6 +212,10 @@ if(!$_SESSION['username'])  {
 									
 									<td data-title="Date/Time">
 										<?php echo $data["order_date"]; ?>
+									</td>
+									
+									<td data-title="Status">
+										<?php echo $data["status"]; ?>
 									</td>
 									
 									<td data-title="Branch">

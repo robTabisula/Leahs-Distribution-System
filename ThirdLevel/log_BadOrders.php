@@ -190,7 +190,7 @@ if(!$_SESSION['username'])  {
 
                                 <td data-title="Bad Order Products">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
+                                            <button type="button" class="glyphicon glyphicon-th-list" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
                                         </table>
                                 </td>
 								

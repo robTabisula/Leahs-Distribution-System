@@ -20,14 +20,13 @@
 
           	$first_name = $_POST['first_name'];
           	$last_name = $_POST['last_name'];
-          	$secKey = $_POST['secKey']; 
           	$email = $_POST['email_add'];
           	$contact_no = $_POST['contact_num'];
 			  
 			 
 			 //$password = hash("sha512",$_POST['user_pass']);
 
-            	$query = "UPDATE accounts SET first_name = '$first_name', last_name = '$last_name', security_key = '$secKey',
+            	$query = "UPDATE accounts SET first_name = '$first_name', last_name = '$last_name',
 							email = '$email', contact_no = '$contact_no' where acc_id = '$ID'";
 
 			   

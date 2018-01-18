@@ -247,7 +247,7 @@ if(!$_SESSION['username'])  {
 												<?php echo $data["c_name"]; ?>
 											</td>
 											 <td data-title="prod_price">
-												<?php echo $data["Total Price"]; ?>
+												<?php echo $data["Total Price"].".00 Php"; ?>
 											</td>
 										</tr>
 										<?php

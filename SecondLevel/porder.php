@@ -195,7 +195,7 @@ if(!$_SESSION['username'])  {
 
 									<td data-title="Products Ordered">
                                         <table class="table table-striped table-bordered">
-                                            <button type="button" class="glyphicon glyphicon-apple" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $po_id ?>"></button>
+                                            <button type="button" class="glyphicon glyphicon-th-list" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $po_id ?>"></button>
                                         </table>
 									</td>
 									
@@ -212,6 +212,10 @@ if(!$_SESSION['username'])  {
 									
 									<td data-title="Date/Time">
 										<?php echo $data["order_date"]; ?>
+									</td>
+									
+									<td data-title="Status">
+										<?php echo $data["status"]; ?>
 									</td>
 									
 									<td data-title="Branch">

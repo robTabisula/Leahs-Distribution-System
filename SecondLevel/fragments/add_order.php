@@ -30,8 +30,8 @@
 				$date_time = date("F j, Y, g:i a");
             
         //query for issuance table
-              $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser_id) 
-                             VALUE ('$order_date','$clientlist','$merchandiser')";
+              $queryit = "INSERT INTO purchased_order (order_date,client_id,merchandiser_id,status) 
+                             VALUE ('$order_date','$clientlist','$merchandiser','Pending')";
               if(mysqli_query($db, $queryit)){
 				    $get_id="select order_id from purchased_order WHERE order_date='$order_date'";
       				$run=mysqli_query($db,$get_id);
