@@ -390,7 +390,24 @@ if(!$_SESSION['username'])  {
 									
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
-
+									
+									<div class="col-xs-4">
+										<h3>Value</h3>
+											<input type="number" class="form-control" step="1" maxlength="10" name="value" min="1" required>
+									</div>
+									
+									<h3>Unit</h3>
+                                    <div class="col-xs-4">
+										<select name="unit" class="form-control">
+											<option>gm</option>
+											<option>kg</option>
+											<option>pcs</option>
+											<option>pck</option>
+											<option>box</option>
+											<option>bale</option>
+											
+										</select>
+									</div><br><br>
                                     <h3>Product Category</h3>
                                     <?php
                                         $retrieveCat = ("SELECT category_id, category_name, 
@@ -410,12 +427,15 @@ if(!$_SESSION['username'])  {
                                                     endforeach;
                                                 ?>
                                             </select>
-
+										<div class="col-xs-6">
                                         <h3>Price For Baguio</h3>
                                         <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceB" min="1" required>
-
+										</div>
+										
+										<div class="col-xs-6">
                                         <h3>Price For Pangasinan</h3>
                                         <input type="number" step="0.01" class="form-control" maxlength="25" name="altpriceP" min="1" required>
+										</div><br><br><br><br><br>
 
                                         <h3>Restock Level</h3>
                                         <p>*Default values for all branches!!</p>
@@ -441,3 +461,14 @@ if(!$_SESSION['username'])  {
 </body>
 
 </html>
+<script>
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+</script>

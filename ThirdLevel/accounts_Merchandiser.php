@@ -185,7 +185,7 @@ if(!$_SESSION['username'])  {
 						?>
 
                 <table class="table table-striped table-bordered">
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Account</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Merchandiser</button>
                 </table>
 
                 <!-- Table Display for Accounts -->

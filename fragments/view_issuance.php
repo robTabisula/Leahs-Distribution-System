@@ -181,7 +181,7 @@
 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id inner join inventory i on p.productList_id=i.iS_product_id where status!='Disabled' and iS_quantity IS NOT NULL ");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
                                 <!--********************************************************************************** -->
@@ -200,7 +200,7 @@
                                                     <label for="product">Product:</label>
                                                 </td>
                                                 <td>
-                                                    <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
+                                                    <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);" required>
                                                                 <option value = "" selected="true" disabled="disabled">Choose Product..</option>
                                                             <?php
                                                                 foreach ($prodRetrieve as $datas):
@@ -221,7 +221,7 @@
                                                     <label for="quantity">Quantity:</label>
                                                 </td>
                                                 <td>
-                                                    <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
+                                                    <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" required min="1"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -229,7 +229,7 @@
                                                     <label for="price">Price:</label>
                                                 </td>
                                                 <td>
-                                                    <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
+                                                    <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" required min="1"/>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -286,6 +286,17 @@
     }else if ($choice=='2'){
     //penthouse issuance
     ?>
+	        <?php
+            $name = $_SESSION['username'];
+                
+        
+            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
+            $branchRetrieve = mysqli_query($db, $rbranch);
+            $branchRow = mysqli_fetch_array($branchRetrieve);
+
+            $userbranch = $branchRow['branch'];
+             //will increment 1 from the latest issuance ID
+        ?>
         <div class="panel-body">                        
                         <form role="form" method="post" action="fragments/issuance_fn_penthouse.php">
 						<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>

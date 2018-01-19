@@ -319,7 +319,7 @@ if(!$_SESSION['username'])  {
                                            </select>
 
                                             <label>Quantity</label>
-                                            <input type="number" name="Quantity" min="1"/>
+                                            <input type="number" name="Quantity" min="1" max="100"/>
 
 
                                             <div class="modal-footer">
@@ -419,7 +419,7 @@ if(!$_SESSION['username'])  {
                                                             <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]; ?>" readonly><br>
 
                                                         <label>Quantity</label>
-                                                            <input type="number" name="LQuantity" min="1"/>
+                                                            <input type="number" name="LQuantity" min="1" max="100"/>
 
 
                                                             <div class="modal-footer">

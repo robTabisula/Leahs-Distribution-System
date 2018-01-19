@@ -77,17 +77,6 @@ if(!$_SESSION['username'])  {
 </head>
 
 <body>
-     <?php
-            $name = $_SESSION['username'];
-                
-        
-            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
-            $branchRetrieve = mysqli_query($db, $rbranch);
-            $branchRow = mysqli_fetch_array($branchRetrieve);
-
-            $userbranch = $branchRow['branch'];
-             //will increment 1 from the latest issuance ID
-    ?>
      <!-- Sidebar -->
     <!-- class="collapsed active" -->
     <div class="nav-side-menu">
@@ -124,6 +113,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -216,7 +206,7 @@ if(!$_SESSION['username'])  {
                                 <th>Restock Level</th>
                                 <th>Category Name</th>
                                 <th>Location</th>
-                                
+                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -241,7 +231,12 @@ if(!$_SESSION['username'])  {
                                         <?php echo $data["category_name"]; ?>
                                     </td><td data-title="location">
                                         <?php echo $data["iS_location"]; ?>
+                                    </td><td>
+                                        <table class="table table-striped table-bordered">
+                                            <button type="button" class="glyphicon glyphicon-cog" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $inventory_id; ?>"></button>
+                                        </table>
                                     </td>
+
                                  </tr>
                                  <!-- Modal Edit Stocks--> 
                                 <div id="<?php echo $inventory_id; ?>" class="modal fade" role="dialog">
@@ -299,7 +294,8 @@ if(!$_SESSION['username'])  {
                                         <label>Location</label>
                                             
                                             <select name="Loc">
-                                                <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
+                                                <option value="Baguio">Baguio</option>
+                                                <option value="Pangasinan">Pangasinan</option>
                                             </select>
 
 
@@ -323,7 +319,7 @@ if(!$_SESSION['username'])  {
                                            </select>
 
                                             <label>Quantity</label>
-                                            <input type="number" name="Quantity" min="1"/>
+                                            <input type="number" name="Quantity" min="1" max="100"/>
 
 
                                             <div class="modal-footer">
@@ -357,9 +353,8 @@ if(!$_SESSION['username'])  {
 				                            </tr>
 				                        </thead>
 				                        <tbody>
-
 				                        <?php 
-					                        $LowStocks = ("SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_quantity <= iS_restock_lvl And iS_location = '$userbranch'") ;
+					                        $LowStocks = ("SELECT * FROM inventory INNER JOIN product_list ON inventory.iS_product_id = product_list.productList_id INNER JOIN category_list AS C ON C.category_id = product_list.category_id WHERE iS_quantity <= iS_restock_lvl");
 												   $resultsLowStocks = mysqli_query($db, $LowStocks); 
 										?>
 				                        <?php
@@ -424,7 +419,7 @@ if(!$_SESSION['username'])  {
                                                             <input type="text" name="LProducts" value="<?php echo $Lrow["productList_name"]; ?>" readonly><br>
 
                                                         <label>Quantity</label>
-                                                            <input type="number" name="LQuantity" min="1"/>
+                                                            <input type="number" name="LQuantity" min="1" max="100"/>
 
 
                                                             <div class="modal-footer">

@@ -298,6 +298,17 @@
     }else if ($choice=='2'){
     //penthouse issuance
     ?>
+	        <?php
+            $name = $_SESSION['username'];
+                
+        
+            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
+            $branchRetrieve = mysqli_query($db, $rbranch);
+            $branchRow = mysqli_fetch_array($branchRetrieve);
+
+            $userbranch = $branchRow['branch'];
+             //will increment 1 from the latest issuance ID
+        ?>
         <div class="panel-body">                        
                         <form role="form" method="post" action="fragments/issuance_fn_penthouse.php">
 						<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
@@ -329,7 +340,7 @@
                                         <div id="TheClients" class="col-xs-4">
                                             <h4>Client Name</h4>
                                             <?php
-                                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin'");
+                                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin' and branch = '$userbranch' ");
                                                 $adminRetrieve = mysqli_query($db, $retrieveAdmin);
                                             ?>
 

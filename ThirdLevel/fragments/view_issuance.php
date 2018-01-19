@@ -334,7 +334,7 @@
                                         <div id="TheClients" class="col-xs-4">
                                             <h4>Client Name</h4>
                                             <?php
-                                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin'");
+                                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin' and branch = '$userbranch' ");
                                                 $adminRetrieve = mysqli_query($db, $retrieveAdmin);
                                             ?>
 
