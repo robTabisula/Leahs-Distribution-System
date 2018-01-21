@@ -66,14 +66,14 @@
                                 <div id="Pricer">
                                 
                                 <tr>
-                                        <td>
-                                            <label for="price">Price:</label>
-                                        </td>
-                                        <td>
-                                            <input placeholder="Adjusted Price" id="price" name="price"  size="28" step="0.25" value="0.00" type="number" required min="1"/>
-                                        </td>
-                                    </tr>
-                                
+                                    <td>
+                                        <label for="price">Price:</label>
+                                    </td>
+                                    <td>
+                                        <input placeholder="Adjusted Price" id="price" name="price"  size="28" step="0.25" value="0.00" type="number" required min="1"/>
+                                    </td>
+                                </tr>
+                            
                                 </div>
                                 <tr>
                                    <td>
