@@ -199,8 +199,12 @@ if(!$_SESSION['username'])  {
                                 <td  data-title="Discount">
                                     <?php
                                         $passDiscount = $data["discount"];  
-                                        echo $passDiscount; 
-                                        echo "%"
+                                        if($passDiscount === null){
+                                            echo " ";
+                                        }else{
+                                            echo $passDiscount; 
+                                            echo "%";
+                                        }
                                     ?>
 
                                 </td>
