@@ -250,7 +250,6 @@ if(!$_SESSION['username'])  {
                                         <table class="table table-striped table-bordered">
                                             <a href="Discount.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>&prevDis=<?php echo $passDiscount; ?>" >
                                                 <button type="button" class="btn btn-default">
-                                                
                                                 <span class="fa fa-percent" aria-hidden="true"></span>
                                                 </button>
                                             </a>
