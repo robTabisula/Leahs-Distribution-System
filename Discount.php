@@ -152,10 +152,11 @@ if(!$_SESSION['username'])  {
                     <div align="center">
                      <label>Issuance ID</label>
                      <input type="input" name="IsID" value="<?php  echo $getIsID = $_GET['IsID'];?>" readonly>
+                     
+                     <input type="Hidden" name="prevDis" value="<?php  echo $prevDis = $_GET['prevDis'];?>" readonly>
                     
                      <input type="Hidden" name="Branch" value="<?php  echo $getBranch = $_GET['Branch'];?>" readonly>
 
-                     <input type="Hidden" name="clientId" value="<?php  echo $getClient= $_GET['client_id'];?>" readonly>
 
                      <table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                          <thead>

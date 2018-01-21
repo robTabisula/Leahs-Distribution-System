@@ -198,8 +198,8 @@ if(!$_SESSION['username'])  {
                                 </td>
                                 <td  data-title="Discount">
                                     <?php
-                                        $passBranch = $data["discount"];  
-                                        echo $passBranch; 
+                                        $passDiscount = $data["discount"];  
+                                        echo $passDiscount; 
                                         echo "%"
                                     ?>
 
@@ -244,8 +244,9 @@ if(!$_SESSION['username'])  {
 
                                 <td data-title="Add Discounts">
                                         <table class="table table-striped table-bordered">
-                                            <a href="Discount.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>">
+                                            <a href="Discount.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>&prevDis=<?php echo $passDiscount; ?>" >
                                                 <button type="button" class="btn btn-default">
+                                                
                                                 <span class="fa fa-percent" aria-hidden="true"></span>
                                                 </button>
                                             </a>
