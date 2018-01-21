@@ -203,7 +203,7 @@ if(!$_SESSION['username'])  {
                     <div style="margin:auto; ">
                         <div class="col-xs-4" >
                             <label for="Discount">Discount Percentage:</label>
-                            <input placeholder="Discount Percentage" class="form-control" id="price" name="discount"  size="28" step="0.25" value="0.00" type="number" required min="1"/>
+                            <input placeholder="Discount Percentage" class="form-control" id="price" name="discount"  size="28" step="0.25" type="number" required min="0"/>
                             <br>
                         </div>
                     </div>
