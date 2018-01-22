@@ -154,7 +154,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT issue_id,issue_date_time,issue_account,c_name,client_id,c_location,remarks FROM issuance inner join clients on issuance.client_id = clients.c_id ORDER BY issue_date_time DESC");
+                            $retrieve = ("SELECT issue_id,issue_date_time,issue_account,c_name,client_id,c_location,remarks,discount FROM issuance inner join clients on issuance.client_id = clients.c_id ORDER BY issue_date_time DESC");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
@@ -165,12 +165,14 @@ if(!$_SESSION['username'])  {
                             <th>Issuance ID</th>
                             <th>Date/Time</th>
                             <th>Products Issued</th>
+                            <th>Discount</th>
                             <th>Issuer</th>
                             <th>Client</th>
                             <th>Branch</th>
                             <th>Remarks</th>
                             <th>Pull Out</th>
                             <th>Bad Orders</th>
+                            <th>Add Discount</th>
                         </tr>
                     </thead>
 
@@ -193,6 +195,18 @@ if(!$_SESSION['username'])  {
                                         <table class="table table-striped table-bordered">
                                             <button type="button" class="glyphicon glyphicon-th-list" data-toggle="modal" aria-hidden="true" data-target="#<?php echo $IsID ?>"></button>
                                         </table>
+                                </td>
+                                <td  data-title="Discount">
+                                    <?php
+                                        $passDiscount = $data["discount"];  
+                                        if($passDiscount === null){
+                                            echo " ";
+                                        }else{
+                                            echo $passDiscount; 
+                                            echo "%";
+                                        }
+                                    ?>
+
                                 </td>
                                 <td  data-title="Issuer">
                                     <?php
@@ -227,6 +241,16 @@ if(!$_SESSION['username'])  {
                                             <a href="issuance_BadOrder.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>">
                                                 <button type="button" class="btn btn-default">
                                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </button>
+                                            </a>
+                                        </table>
+                                </td>
+
+                                <td data-title="Add Discounts">
+                                        <table class="table table-striped table-bordered">
+                                            <a href="Discount.php?IsID=<?php echo $IsID; ?>&Branch=<?php echo $passBranch; ?>&client_id=<?php echo $client_id; ?>&prevDis=<?php echo $passDiscount; ?>" >
+                                                <button type="button" class="btn btn-default">
+                                                <span class="fa fa-percent" aria-hidden="true"></span>
                                                 </button>
                                             </a>
                                         </table>

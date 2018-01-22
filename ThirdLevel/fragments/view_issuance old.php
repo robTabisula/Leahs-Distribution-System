@@ -122,22 +122,6 @@
                 divC.style.display = 'block';
             }
 
-            function Prds(location) {
-               $("#Prods").html('Loading').show();
-                  var url="fragments/productChoices.php";
-                  $.post(url,{location:location},function(data){
-                  $("#Prods").html(data).show();
-            ;});
-
-            var divC=document.getElementById('Prods');
-            divP.style.display = 'block';
-
-            }
-
-            
-
-
-
 
         </script>
     </head>
@@ -154,6 +138,7 @@
             $userbranch = $branchRow['branch'];
              //will increment 1 from the latest issuance ID
         ?>
+
         <?php
             //variable for issuance categories
             //1 for regular, 2 for penthouse, 3 for others
@@ -183,7 +168,8 @@
                         
                                         <div id="branch" class="col-xs-4">
                                             <h4>Branch </h4>
-                                               <select name="branch" onchange="Lclients(this.value);Prds(this.value);" required>
+                                   
+                                                <select name="branch" onchange="Lclients(this.value);" required>
                                                         <option value="" selected="true" disabled="disabled">Select an Area</option>
                                                         <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
                                                 </select>
@@ -207,7 +193,7 @@
 
                                 <div class="form-group">                            
                                         <?php
-                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id inner join inventory i on p.productList_id=i.iS_product_id where status!='Disabled' and iS_quantity IS NOT NULL ");
+                                            $retrieveProd = ("SELECT distinct productList_id, productList_name, category_id FROM product_list p inner join product_loc l on p.productList_id=l.product_id where status!='Disabled'");
                                             $prodRetrieve = mysqli_query($db, $retrieveProd);
                                         ?>
                                 <!--********************************************************************************** -->
@@ -220,14 +206,55 @@
                                                 <h4>When Choosing a product, Information will be viewed here.</h4>
                                                 <hr>
                                     </div>  
-                                    
-                                            
-                                    <div id="Prods">
+                                    <table id="form_" class="table table-striped table-bordered">
+                                            <tr>
+                                                <td>
+                                                    <label for="product">Product:</label>
+                                                </td>
+                                                <td>
+                                                    <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
+                                                                <option value = "" selected="true" disabled="disabled">Choose Product..</option>
+                                                            <?php
+                                                                foreach ($prodRetrieve as $datas):
+                                                                $sproduct_id = $datas["productList_id"];
+                                                            ?>  
+                                                                <option value = "<?php echo $datas["productList_name"]; ?>">
+                                                                   <?php echo $datas["productList_name"]; ?>
+                                                                </option>
 
-                                    </div>
-                                            
-
-                                </div> 
+                                                            <?php
+                                                                endforeach;
+                                                            ?>
+                                                  </select>      
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="quantity">Quantity:</label>
+                                                </td>
+                                                <td>
+                                                    <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <label for="price">Price:</label>
+                                                </td>
+                                                <td>
+                                                    <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                               <td>
+                                                 <label for="Action">Action:</label>  
+                                               </td>
+                                                <td>
+                                                    
+                                                      <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div> 
 
 
                                         
@@ -248,7 +275,7 @@
 
                                     <hr style = "border-top: 3px double #8c8b8b;">
                                     <br>
-                                    <div>
+                                     <div>
                                         <h4>Security Code</h4>
                                         <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
                                     </div>
@@ -276,17 +303,6 @@
     }else if ($choice=='2'){
     //penthouse issuance
     ?>
-	        <?php
-            $name = $_SESSION['username'];
-                
-        
-            $rbranch = ("SELECT branch FROM accounts WHERE username = '$name'  ;");
-            $branchRetrieve = mysqli_query($db, $rbranch);
-            $branchRow = mysqli_fetch_array($branchRetrieve);
-
-            $userbranch = $branchRow['branch'];
-             //will increment 1 from the latest issuance ID
-        ?>
         <div class="panel-body">                        
                         <form role="form" method="post" action="fragments/issuance_fn_penthouse.php">
 						<input type='hidden' name="issueAcnt" readonly value='<?php  echo $_SESSION['username']; ?>'>
@@ -307,18 +323,18 @@
                                             <h4><input type="label" size="2" name="issue_id" value="<?php echo $newID;?>" readonly></input></h4>
                                         </div>
 
-                                        <div id="branch" >
+                                        <div id="branch" class="col-xs-4">
                                            <h4>Branch</h4>
-                                               <select name="branch" onchange="Prds(this.value);" required>
+                                               <select name="branch" required>
                                                         <option value="" selected="true" disabled="disabled">Select an Area</option>
                                                         <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
-                                               </select>
+                                                </select>
                                         </div>
 
                                         <div id="TheClients" class="col-xs-4">
                                             <h4>Client Name</h4>
                                             <?php
-                                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin'");
+                                                $retrieveAdmin = ("SELECT * FROM leahs.accounts where acctype = 'admin' and branch = '$userbranch' ");
                                                 $adminRetrieve = mysqli_query($db, $retrieveAdmin);
                                             ?>
 
@@ -359,9 +375,54 @@
                                             <hr>
                                 </div> 
 
-                                    <div id="Prods">
+                                <table id="form_" class="table table-striped table-bordered">
+                                        <tr>
+                                            <td>
+                                                <label for="product">Product:</label>
+                                            </td>
+                                            <td>
+                                                <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
+                                                            <option value = "" selected="true" disabled="disabled">Choose Product..</option>
+                                                        <?php
+                                                            foreach ($prodRetrieve as $datas):
+                                                            $sproduct_id = $datas["productList_id"];
+                                                        ?>  
+                                                            <option value = "<?php echo $datas["productList_name"]; ?>">
+                                                               <?php echo $datas["productList_name"]; ?>
+                                                            </option>
 
-                                    </div>
+                                                        <?php
+                                                            endforeach;
+                                                        ?>
+                                              </select>      
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="quantity">Quantity:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="price">Price:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="Action">Action:</label>
+                                            </td>
+                                           <td> 
+                                               
+                                                <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                            </td>
+                                        </tr>
+                                    </table>  
                                 </div>
 
                                 <br>
@@ -382,11 +443,11 @@
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
                                 <br>
-                                    <div>
-                                        <h4>Security Code</h4>
-                                        <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
-                                    </div>
-                                    <br>
+                                <div>
+                                    <h4>Security Code</h4>
+                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
+                                </div>
+                                <br>
 
                                 <!--********************************************************************************** -->
                                     <input class="btn btn-lg btn-success btn-block" type="submit" value="Save" name="add_issuance"/>
@@ -429,10 +490,12 @@
 
                                     <div class="col-xs-4">
                                         <label>Transfer From:</label>
-                                               <select name="branch" onchange="Prds(this.value);" required>
-                                                        <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                                        <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
-                                               </select>
+                                        <select name="branch" required>
+                                                <option value="" selected="true" disabled="disabled">Transfer From:</option>
+                                                <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
+                                               
+                                        </select>
+                                               
                                     </div>
 
                                     <div class="col-xs-4">
@@ -459,9 +522,54 @@
                                                 <hr>
                                     </div> 
 
-                                        <div id="Prods">
+                                    <table id="form_" class="table table-striped table-bordered">
+                                        <tr>
+                                            <td>
+                                                <label for="product">Product:</label>
+                                            </td>
+                                            <td>
+                                                <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
+                                                            <option value = "" selected="true" disabled="disabled">Choose Product..</option>
+                                                        <?php
+                                                            foreach ($prodRetrieve as $datas):
+                                                            $sproduct_id = $datas["productList_id"];
+                                                        ?>  
+                                                            <option value = "<?php echo $datas["productList_name"]; ?>">
+                                                               <?php echo $datas["productList_name"]; ?>
+                                                            </option>
 
-                                        </div>
+                                                        <?php
+                                                            endforeach;
+                                                        ?>
+                                              </select>      
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="quantity">Quantity:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="price">Price:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="Action">Action:</label>
+                                            </td>
+                                           <td> 
+
+                                                <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                            </td>
+                                        </tr>
+                                    </table>
                                     </div>
                                 <br>
 
@@ -480,10 +588,10 @@
 
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
-                                <br>                                     
+                                <br>                                    
                                 <div>
-                                    <h4>Security Code</h4>
-                                    <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
+                                        <h4>Security Code</h4>
+                                        <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
                                 </div>
                                 <br>
 
@@ -529,10 +637,11 @@
 
                                         <div id="branch" class="col-xs-4">
                                             <h4>Branch</h4>
-                                               <select name="branch" onchange="Prds(this.value);" required>
-                                                        <option value="" selected="true" disabled="disabled">Select an Area</option>
-                                                        <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
-                                               </select>
+                                            <select name="branch" required>
+                                                    <option value="" selected="true" disabled="disabled">Select an Area</option>
+                                                    <option value='<?php  echo $userbranch; ?>'><?php  echo $userbranch; ?></option>
+                                                    
+                                            </select>
                                         </div>
 
                                         <div id="TheClients" class="col-xs-4">  
@@ -567,9 +676,54 @@
                                             <hr>
                                     </div>  
 
-                                        <div  id="Prods">
+                                <table id="form_" class="table table-striped table-bordered">
+                                        <tr>
+                                            <td>
+                                                <label for="product">Product:</label>
+                                            </td>
+                                            <td>
+                                                <select id="product" name="product" id="productselect" onchange ="javascript:viewCategory(this.value);">
+                                                            <option value = "" selected="true" disabled="disabled">Choose Product..</option>
+                                                        <?php
+                                                            foreach ($prodRetrieve as $datas):
+                                                            $sproduct_id = $datas["productList_id"];
+                                                        ?>  
+                                                            <option value = "<?php echo $datas["productList_name"]; ?>">
+                                                               <?php echo $datas["productList_name"]; ?>
+                                                            </option>
 
-                                        </div>  
+                                                        <?php
+                                                            endforeach;
+                                                        ?>
+                                              </select>      
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="quantity">Quantity:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Quantity" id="quantity" name="quantity"  width="196px" type="number" min="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="price">Price:</label>
+                                            </td>
+                                            <td>
+                                                <input placeholder="Adjusted Price" id="price" name="price"  size="28" type="number" min="1"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="Action">Action:</label>
+                                            </td>
+                                           <td> 
+
+                                                <input type="button" class="btn btn-info btn-lg"  onClick="updateForm();"/ value = "Add" />
+                                            </td>
+                                        </tr>
+                                    </table> 
                                     </div> 
 
                                 <br>
@@ -589,8 +743,8 @@
 
 
                                 <hr style = "border-top: 3px double #8c8b8b;">
-                                <br>
-                                 <div>
+                                <br>                                     
+                                <div>
                                     <h4>Security Code</h4>
                                     <input type="password" name="secPass" placeholder="Enter Security Code" maxlength="5" required>
                                 </div>
