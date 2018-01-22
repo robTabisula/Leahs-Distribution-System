@@ -140,6 +140,7 @@ if(!$_SESSION['username'])  {
                     <i class="fa fa-id-card" aria-hidden="true"></i>Accounts <span class="arrow"></span>
                 </li>
                 <ul class="sub-menu collapse atarget" id="accounts">
+                    <li> <a href="accounts_Users.php"><i class="fa fa-users" aria-hidden="true"></i> User Accounts </a></li>
                     <li> <a href="accounts_Clients.php"><i class="fa fa-users" aria-hidden="true"></i> Client Accounts </a></li>
 					<li> <a href="accounts_Merchandiser.php"><i class="fa fa-users" aria-hidden="true"></i> Merchandiser Accounts </a></li>
                 </ul>
@@ -207,7 +208,7 @@ if(!$_SESSION['username'])  {
 			<div id="page-content-wrapper">
 				<div class="containers">
 					<table class="table table-striped table-bordered">
-						<h1 align="center">Client's Summary of Sales</h1>                                
+						<h1 align="center">Client's Summary of Total Sales</h1>                                
 								<h1 align="center">as of:
 								<?php
                                     date_default_timezone_set('Asia/Manila');
@@ -255,6 +256,58 @@ if(!$_SESSION['username'])  {
 								</tbody>
 							</table>									
 						</div>
+						
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#breakdown">Breakdown</button>
+							<!-- Modal Breakdown-->
+							<div id="breakdown" class="modal fade" role="dialog">
+								<div class="modal-dialog" style="overflow-y: scroll; max-height:90%;  margin-top: 50px; margin-bottom:50px;">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Breakdown</h4>
+										</div>
+										<div class="modal-body">
+											<table id="datatables1" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+												<thead>
+													<tr>
+														<th>Client</th>
+														<th>Product Name</th>
+														<th>Total Sales</th>
+													</tr>
+												</thead>
+												<tbody>
+													<?php 
+														$breakdown = ("SELECT c_name,productList_name, SUM(prod_qty*prod_price) as 'Total Sales' FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN clients ON issuance_list.client_id = clients.c_id GROUP BY 1,2 order by 3 DESC");
+														   $resultsLowStocks = mysqli_query($db, $breakdown); 
+													?>
+													<?php
+														foreach ($resultsLowStocks as $breakdown):
+															$toData = $breakdown["c_name"];
+													?>
+														<tr>
+															<?php 
+																$ID = $breakdown["c_name"];
+															?>
+															<td data-title="Client">
+																<?php echo $breakdown["c_name"]; ?>
+															</td>
+															<td data-title="product name">
+																<?php echo $breakdown["productList_name"]; ?>
+															</td>
+															<td data-title="Quantity">
+																<?php echo $breakdown["Total Sales"].".00 Php"; ?>
+															</td>
+														</tr>
+												 
+													<?php
+														endforeach;
+													?>
+												</tbody>
+											</table> 
+										</div>
+									</div>
+								</div>
+							</div>
 				</div>
 			</div>
 	</body>

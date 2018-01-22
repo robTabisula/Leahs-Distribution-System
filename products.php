@@ -391,23 +391,6 @@ if(!$_SESSION['username'])  {
                                     <h3>Product Name</h3>
                                     <input type="text" class="form-control" maxlength="25" name="productList_name" required>
 									
-									<div class="col-xs-4">
-										<h3>Value</h3>
-											<input type="number" class="form-control" step="1" maxlength="10" name="value" min="1" required>
-									</div>
-									
-									<h3>Unit</h3>
-                                    <div class="col-xs-4">
-										<select name="unit" class="form-control">
-											<option>gm</option>
-											<option>kg</option>
-											<option>pcs</option>
-											<option>pck</option>
-											<option>box</option>
-											<option>bale</option>
-											
-										</select>
-									</div><br><br>
                                     <h3>Product Category</h3>
                                     <?php
                                         $retrieveCat = ("SELECT category_id, category_name, 
