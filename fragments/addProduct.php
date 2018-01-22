@@ -13,7 +13,7 @@
       	include('config.php');   
         	if (isset($_POST["add_prod"])) {
 
-          	$productList_name = $_POST['productList_name']. " " . $_POST['value']. " " . $_POST['unit'];
+          	$productList_name = $_POST['productList_name'];
           	$ProductCategory = $_POST['ProductCategory'];
 			$barcode =$_POST['barcode'];
           	$status = $_POST['status'];

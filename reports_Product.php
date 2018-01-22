@@ -205,7 +205,7 @@ if(!$_SESSION['username'])  {
 			<div id="page-content-wrapper">
 				<div class="containers">
 					<table class="table table-striped table-bordered">
-						<h1 align="center">Summary of Products Purchased</h1>                                
+						<h1 align="center">Summary of Products Released</h1>                                
 								<h1 align="center">as of:
 								<?php
                                     date_default_timezone_set('Asia/Manila');
@@ -218,7 +218,7 @@ if(!$_SESSION['username'])  {
 					
 					<!-- Retrieve Account Data -->
 					<?php
-									$retrieve = ("SELECT productList_id,productList_name,SUM(prod_qty) AS 'Total Quantity' FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id where prod_qty > 0 GROUP BY 1");
+									$retrieve = ("SELECT productList_id,productList_name,SUM(prod_qty) AS 'Total Quantity' FROM product_list INNER JOIN issuance_list ON product_list.productList_id = issuance_list.prod_id where prod_qty > 0 GROUP BY 1 ORDER BY 3 DESC");
 									$results = mysqli_query($db, $retrieve);
 								?>
 						<!-- Table Display for Accounts -->
@@ -265,28 +265,24 @@ if(!$_SESSION['username'])  {
 											<table id="datatables1" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
 												<thead>
 													<tr>
-														<th>ID</th>
 														<th>Client</th>
 														<th>Product Name</th>
-														<th>Quantity Purchased</th>
+														<th>Total Quantity</th>
 													</tr>
 												</thead>
 												<tbody>
 													<?php 
-														$breakdown = ("SELECT issue_id,c_name,productList_name,prod_qty FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN clients ON issuance_list.client_id = clients.c_id where prod_qty > 0 ORDER BY 4 DESC");
+														$breakdown = ("SELECT c_name,productList_name,SUM(prod_qty) as 'Quantity'  FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN clients ON issuance_list.client_id = clients.c_id where prod_qty > 0 GROUP BY 1,2 ORDER BY 3 DESC");
 														   $resultsLowStocks = mysqli_query($db, $breakdown); 
 													?>
 													<?php
 														foreach ($resultsLowStocks as $breakdown):
-															$toData = $breakdown["issue_id"];
+															$toData = $breakdown["c_name"];
 													?>
 														<tr>
 															<?php 
-																$ID = $breakdown["issue_id"];
+																$ID = $breakdown["c_name"];
 															?>
-															<td data-title="ID">
-																<?php echo $breakdown["issue_id"]; ?>
-															</td>
 															<td data-title="Client">
 																<?php echo $breakdown["c_name"]; ?>
 															</td>
@@ -294,7 +290,7 @@ if(!$_SESSION['username'])  {
 																<?php echo $breakdown["productList_name"]; ?>
 															</td>
 															<td data-title="Quantity">
-																<?php echo $breakdown["prod_qty"]; ?>
+																<?php echo $breakdown["Quantity"]; ?>
 															</td>
 														</tr>
 												 
