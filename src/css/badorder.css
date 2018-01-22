@@ -1,0 +1,25 @@
+#AdjustedPriceDiv {
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-bottom: 2%;
+    width: 100%;
+    float: left;
+    position: relative;
+}
+
+#leftdiv{
+    width: 40%;
+    float: left;
+    padding: 2%;
+    border: 5px solid #E6E6E6;
+    margin: 0%;
+}
+
+#rightdiv{
+    padding: 2%;
+    width: 55%;
+    float:right; 
+    border: 5px solid #E6E6E6;
+}

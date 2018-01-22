@@ -21,6 +21,7 @@ if(!$_SESSION['username'])  {
     <?php include('fragments/config.php') ?>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/css/badorder.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.js"></script>
@@ -261,6 +262,7 @@ if(!$_SESSION['username'])  {
                         <br>
                         <!--Div to view adjusted price and category-->
                         <div id="AdjustedPriceDiv">
+                           <div id="leftdiv">
                             <?php
                                             $getIsID = $_GET['IsID'];
 
@@ -270,10 +272,15 @@ if(!$_SESSION['username'])  {
                                         ?>
                                 <label>Issuance ID</label>
                                 <input type='text' size='2' name="issuanceID" readonly value='<?php  echo $_GET['IsID']; ?>'/>&nbsp&nbsp&nbsp
+                                <br>
                                 <label>Branch</label>
                                 <input type='text' size='10' name="branch_alt" readonly value='<?php  echo $_GET['Branch']; ?>'/>&nbsp&nbsp&nbsp
+                                <br>
 								<label>Client</label>
                                 <input type='text' size='10' name="client_id" readonly value='<?php  echo $_GET['client_id']; ?>'/>
+                                
+                            </div>
+                           <div id="rightdiv">
                                 <h4>Product Description: </h4>
                                 <table>
                                         <tr>
@@ -299,6 +306,7 @@ if(!$_SESSION['username'])  {
                                             endforeach;
                                         ?>
                                     </table>
+                            </div>
 
                         </div>
                         <br>
