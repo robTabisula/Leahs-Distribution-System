@@ -27,55 +27,63 @@
 
                 $discount = $_POST['discount'];
                 $decimalDiscount = $discount/100;
+                $secPass = $_POST['secPass'];
+                $securityCodeQuery = "SELECT security_key FROM accounts Where security_key = '$secPass'";
+                $results = mysqli_query($db, $securityCodeQuery);
 
-                if($prevDis === ""){
+                if(mysqli_num_rows($results)>0){
 
-                  $query = "UPDATE issuance SET discount = '$discount' where issue_id = '$IsID'";
-                  if(mysqli_query($db, $query)){
+                  if($prevDis === ""){
 
-                       $mi = new MultipleIterator();
-                       $mi->attachIterator(new ArrayIterator($prodName));
-                       $mi->attachIterator(new ArrayIterator($price));
-                       $mi->attachIterator(new ArrayIterator($quantity));
+                    $query = "UPDATE issuance SET discount = '$discount' where issue_id = '$IsID'";
+                    if(mysqli_query($db, $query)){
 
-
-                       foreach ( $mi as $value ){
-                          list($product, $adjprice, $qty) = $value;
-
-                          $idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
-                          $queryId = mysqli_query($db, $idQuery);
-                          $productID = mysqli_fetch_array($queryId);
-                          $productIDList = $productID['productList_id'];
-
-                          $discounter = $adjprice * $decimalDiscount;
-                          $discountedPrice = $adjprice - $discounter;
+                         $mi = new MultipleIterator();
+                         $mi->attachIterator(new ArrayIterator($prodName));
+                         $mi->attachIterator(new ArrayIterator($price));
+                         $mi->attachIterator(new ArrayIterator($quantity));
 
 
-                          $update = "UPDATE issuance_list SET  prod_price = $discountedPrice
-                          where issue_id = '$IsID' AND prod_id = $productIDList";
-                         
+                         foreach ( $mi as $value ){
+                            list($product, $adjprice, $qty) = $value;
 
-                          if(mysqli_query($db, $update)){
-                                echo"<script>alert('Discount successful')</script>";
-                                echo "<script>window.open('../log_Issuance.php','_self')</script>"; 
-                              }else{
-                                echo ("ERROR: Could not able to execute" . mysqli_error($db));
-                              }     
+                            $idQuery = "SELECT productList_id FROM product_list where productList_name = '$product'";
+                            $queryId = mysqli_query($db, $idQuery);
+                            $productID = mysqli_fetch_array($queryId);
+                            $productIDList = $productID['productList_id'];
 
-                       } 
+                            $discounter = $adjprice * $decimalDiscount;
+                            $discountedPrice = $adjprice - $discounter;
 
 
+                            $update = "UPDATE issuance_list SET  prod_price = $discountedPrice
+                            where issue_id = '$IsID' AND prod_id = $productIDList";
+                           
 
+                            if(mysqli_query($db, $update)){
+                                  echo"<script>alert('Discount successful')</script>";
+                                  echo "<script>window.open('../log_Issuance.php','_self')</script>"; 
+                                }else{
+                                  echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                                }     
+
+                         } 
+
+
+
+                    }else{
+                          echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                    }
+
+            
+                    
                   }else{
-                        echo ("ERROR: Could not able to execute" . mysqli_error($db));
+                    echo"<script>alert('Discount Already Exist')</script>";
+                    echo "<script>window.open('../log_Issuance.php','_self')</script>"; 
+
                   }
-
-          
-                  
-                }else{
-                  echo"<script>alert('Discount Already Exist')</script>";
-                  echo "<script>window.open('../log_Issuance.php','_self')</script>"; 
-
+            }else{
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
                 }
 
           }

@@ -207,6 +207,13 @@ if(!$_SESSION['username'])  {
                             <br>
                         </div>
                     </div>
+                        <div style="margin:auto; ">
+                            <div class="col-xs-4" >
+                                <label>Security Code:</label>
+                                <input type="password" name="secPass" class="form-control" placeholder="Enter Security Code" maxlength="5" required>
+                            </div>
+                        </div>
+                        <br>
 
                         <!--********************************************************************************************************-->
                         <input class="btn btn-lg btn-success btn-block" type="submit" value="Add Package Discount" name="add_Discount" />
