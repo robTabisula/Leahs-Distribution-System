@@ -51,12 +51,13 @@
                             $queryId = mysqli_query($db, $idQuery);
                             $productID = mysqli_fetch_array($queryId);
                             $productIDList = $productID['productList_id'];
+                            $totprice = $adjprice * $qty;
 
-                            $discounter = $adjprice * $decimalDiscount;
-                            $discountedPrice = $adjprice - $discounter;
+                            $discounter = $totprice * $decimalDiscount;
+                            $discountedPrice = $totprice - $discounter;
 
 
-                            $update = "UPDATE issuance_list SET  prod_price = $discountedPrice
+                            $update = "UPDATE issuance_list SET  discounted_price = $discountedPrice
                             where issue_id = '$IsID' AND prod_id = $productIDList";
                            
 

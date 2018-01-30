@@ -163,7 +163,9 @@ if(!$_SESSION['username'])  {
                             <tr>
                                 <th>Issued Product</th>
                                 <th>Quantity</th>
-                                <th>Issued Price</th>
+                                <th>Product Issued Price</th>
+                                <th>Total Price</th>
+                                <th>Discounted Price</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -179,7 +181,10 @@ if(!$_SESSION['username'])  {
                             ?>
                              <?php
                                 foreach ($run as $log):
-                                $toData = $log["productList_id"];        
+                                $toData = $log["productList_id"];   
+
+                                $ip = $log["prod_price"];
+                                $qnty = $log["prod_qty"];      
                             ?>
                             <td data-title="Issued Product">
                                 <input type="text" name="prodName[]" value= "<?php  echo $log["productList_name"];  ?>" readonly style="border:none">
@@ -187,8 +192,14 @@ if(!$_SESSION['username'])  {
                             <td data-title="Quantity">
                                 <input type="text" name="quantity[]" value= "<?php  echo $log["prod_qty"];  ?>" readonly style="border:none">
                             </td>
-                            <td data-title="Issued Price">
+                            <td data-title=" Product Issued Price">
                                 <input type="text" name="price[]" value= "<?php  echo $log["prod_price"];  ?>" readonly style="border:none">
+                            </td>
+                            <td data-title="Original Price">
+                                <input type="text" name="original" value= "<?php  echo $ip * $qnty;  ?>" readonly style="border:none">
+                            </td>
+                            <td data-title="Discounted Price">
+                                <input type="text" name="discounted" value= "<?php  echo $log["discounted_price"];  ?>" readonly style="border:none">
                             </td>
                             
                          
