@@ -266,8 +266,13 @@ if(!$_SESSION['username'])  {
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
 											<h4 class="modal-title">Breakdown</h4>
 										</div>
-										<div class="modal-body">
-											<table id="datatables1" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+												   <?php 
+														$breakdown = ("SELECT c_name,productList_name, SUM(prod_qty*prod_price) as 'Total Sales' FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN clients ON issuance_list.client_id = clients.c_id GROUP BY 1,2 order by 3 DESC");
+														   $resultsLowStocks = mysqli_query($db, $breakdown); 
+													?>
+													
+										<div class="mainContainer">
+											<table id="datatables" class="table table-hover table-bordered dataTable" cellspacing="0" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
 												<thead>
 													<tr>
 														<th>Client</th>
@@ -276,10 +281,6 @@ if(!$_SESSION['username'])  {
 													</tr>
 												</thead>
 												<tbody>
-													<?php 
-														$breakdown = ("SELECT c_name,productList_name, SUM(prod_qty*prod_price) as 'Total Sales' FROM issuance_list INNER JOIN product_list ON issuance_list.prod_id = product_list.productList_id INNER JOIN clients ON issuance_list.client_id = clients.c_id GROUP BY 1,2 order by 3 DESC");
-														   $resultsLowStocks = mysqli_query($db, $breakdown); 
-													?>
 													<?php
 														foreach ($resultsLowStocks as $breakdown):
 															$toData = $breakdown["c_name"];
