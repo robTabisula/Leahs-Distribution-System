@@ -210,7 +210,7 @@ if(!$_SESSION['username'])  {
 
             <!-- Retrieve Account Data -->
             <?php
-                            $retrieve = ("SELECT issue_id,issue_date_time,issue_account,c_name,client_id,c_location,remarks,discount FROM issuance inner join clients on issuance.client_id = clients.c_id ORDER BY issue_date_time DESC");
+                            $retrieve = ("SELECT issue_id,issue_date_time,issue_account,c_name,client_id,c_location,remarks,discount FROM issuance inner join clients on issuance.client_id = clients.c_id ORDER BY issue_id DESC");
                             $results = mysqli_query($db, $retrieve);
                         ?>
 
