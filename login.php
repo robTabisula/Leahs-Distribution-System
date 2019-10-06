@@ -24,7 +24,7 @@ session_start();
                         <img src="src/img/LeahsText.png" alt="Logo" class="logo"> 
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  ">
-                        <span class="singtext" >Sign in </span>   
+                        <span class="singtext" >Login</span>   
                     </div>
                                  
                 </div>
@@ -45,7 +45,7 @@ session_start();
                 </div>
                 <div class="row">                   
                     <div class="col-lg-4 col-md-4 col-sm-4  col-xs-5 ">                        
-                        <center><button type="submit" class="btn btn-default" name="login">Submit</button></center>
+                        <center><button type="submit" class="btn btn-default" name="login">Go!</button></center>
                     </div>
                 </div>
             </form>
